@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">Map Markers</string>
+    <string name="title_activity_maps">Sorina Map</string>
+    <string name="id_label">The ID is</string>
+    <string name="id_value">[id]</string>
+    <string name="content_label">The Content is</string>
+    <string name="content_value">[content]</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="your_current_location">موقعیت فعلی شما</string>
+    <string name="gender_male">آقا</string>
+    <string name="gender_female">خانم</string>
+
+    <string name="info_name">نام</string>
+    <string name="info_family">نام خانوادگی</string>
+    <string name="text_location_permission">کاربر گرامی،
+    \n
+    برای نمایش نزدیک ترین آرایشگاه‌ها به شما و نیز بعضی از قابلیت های دیگر، برنامه نیاز دارد به مکان فعلی شما دسترسی داشته باشد، این اجازه به برنامه می دهید؟</string>
+    <string name="title_location_permission">دسترسی به مکان</string>
+    <string name="ok">بله</string>
+    <string name="send_activation_code">ارسال کد فعالسازی</string>
+    <string name="sample_number">شماره تلفن</string>
+    <string name="sample_number_text">+98 --- --- ----</string>
+
+
+    <string name="m_icon_call">&#xE0B0;</string>
+    <string name="m_icon_signal_wifi_off">&#xE1DA;</string>
+    <string name="m_icon_next_step">&#xE5C8;</string>
+    <string name="m_icon_done">&#xE876;</string>
+    <string name="m_icon_sms">&#xE0D8;</string>
+
+
+    <string name="social_icon_instagram">x</string>
+    <string name="social_icon_twitter">a</string>
+    <string name="social_icon_linkedin">j</string>
+
+    <string name="didnt_get_the_code">کد را دریافت نکردید؟</string>
+    <string name="send_activation_code_again">ارسال مجدد</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="error_invalid_phone">شماره موبایل به درستی وارد نشده است.</string>
+
+
+
+    <string name="error_empty_phone">شماره موبایل را وارد نمایید.</string>
+    <string name="error_no_internet_connection">عدم اتصال به شبکه\nلطفا از طریق Data یا Wifi \nبه اینترنت وصل شوید.</string>
+
+
+    <string name="about_us">درباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
+    \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی</string>
+
+</resources>

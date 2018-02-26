@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#fe4b5e</color>
+    <color name="colorPrimaryDark">#ba3d4b</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="markerTitle">#212121</color>
+    <color name="markerSnippet">#424242</color>
+    <color name="markerCircle">#26c6da</color>
+    <color name="white">#FFFFFF</color>
+    <color name="textColor">#5E5E5E</color>
+
+    <color name="ic_instagram">#F44834</color>
+    <color name="ic_twitter">#00c0f6</color>
+    <color name="ic_linkedin">#007AB9</color>
+
+</resources>
