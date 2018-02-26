@@ -24,8 +24,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 public class SorinaApplication extends Application {
 
-    public static final String TAG = "SORINA_IDEA_ARAYESHGAH";
-    public static Context context;
+
     public static AppCompatActivity currentActivity;
     public static LayoutInflater inflater;
     public static Handler handler;
@@ -33,41 +32,7 @@ public class SorinaApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        context = getApplicationContext();
         inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         handler = new Handler();
     }
-
-    public static boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
-
-    public static BitmapDescriptor getBitmapDescriptor(int id) {
-
-        // TODO amasa
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            VectorDrawable vectorDrawable = (VectorDrawable) context.getDrawable(id);
-
-            int h = vectorDrawable.getIntrinsicHeight();
-            int w = vectorDrawable.getIntrinsicWidth();
-
-            vectorDrawable.setBounds(0, 0, w, h);
-            Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-
-            Canvas canvas = new Canvas(bm);
-            vectorDrawable.draw(canvas);
-
-            return BitmapDescriptorFactory.fromBitmap(bm);
-
-        } else {
-
-            return BitmapDescriptorFactory.fromResource(id);
-        }
-    }
-
-
 }

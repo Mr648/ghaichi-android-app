@@ -6,6 +6,7 @@
     <string name="content_label">The Content is</string>
     <string name="content_value">[content]</string>
     <string name="action_refresh">Refresh</string>
+    <string name="label_aboutus">درباره ما</string>
     <string name="your_current_location">موقعیت فعلی شما</string>
     <string name="gender_male">آقا</string>
     <string name="gender_female">خانم</string>
@@ -65,5 +66,7 @@
     \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
     \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی
     \nدرباره ما میخوای بدونی یا ندونی که میدونی که ندونی که ندونی که میدونی که دونستی</string>
+
+
 
 </resources>

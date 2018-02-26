@@ -110,7 +110,6 @@ public class PersonalInfoFragment extends Fragment {
             public void onClick(View view) {
                 String url = "sorina://start";
 //                mListener.onFragmentInteraction(Uri.parse(url));
-                Toast.makeText(SorinaApplication.context, "Btn Send Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 

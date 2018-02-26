@@ -1,6 +1,7 @@
-package com.sorinaidea.arayeshgah;
+package com.sorinaidea.arayeshgah.ui;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -33,11 +34,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
+import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.CustomInfoWindowAdapter;
 import com.sorinaidea.arayeshgah.model.ClusterMarker;
 import com.sorinaidea.arayeshgah.model.MapMarker;
 import com.sorinaidea.arayeshgah.util.CustomClusterRenderer;
-import com.sorinaidea.arayeshgah.util.SorinaApplication;
+import com.sorinaidea.arayeshgah.util.Util;
 import com.sorinaidea.arayeshgah.webservice.MapBuilderWebService;
 
 import java.util.List;
@@ -146,7 +148,7 @@ public class MapsActivity
 
         Retrofit retrofit =
                 new Retrofit.Builder()
-                        .baseUrl("http://sorinaidea.ir")
+                        .baseUrl(Util.CONSTANTS.BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -162,6 +164,7 @@ public class MapsActivity
             @Override
             public void onResponse(Call<List<MapMarker>> call, Response<List<MapMarker>> response) {
                 int counter = 0;
+                Context context = getApplicationContext();
                 for (MapMarker marker :
                         response.body()) {
                     counter++;
@@ -169,7 +172,7 @@ public class MapsActivity
                     cmarker.setPosition(new LatLng(marker.getLatitude(), marker.getLongitude()));
                     cmarker.setTitle(marker.getTitle());
                     cmarker.setSnippet(marker.getSnippet());
-                    cmarker.setIcon(SorinaApplication.getBitmapDescriptor(R.drawable.ic_hairdresser));
+                    cmarker.setIcon(Util.getBitmapDescriptor(R.drawable.ic_hairdresser, context));
                     clusterManager.addItem(cmarker);
                     if (counter % 10 == 0)
                         clusterManager.cluster();
@@ -319,7 +322,7 @@ public class MapsActivity
                                         mLastKnownLocation.getLongitude());
 
                                 mMap.addMarker(new MarkerOptions()
-                                        .icon(SorinaApplication.getBitmapDescriptor(R.drawable.ic_pin))
+                                        .icon(Util.getBitmapDescriptor(R.drawable.ic_pin , getApplicationContext()))
                                         .title(getString(R.string.your_current_location))
                                         .flat(true)
                                         .anchor(0.5f, 1f)
@@ -328,8 +331,6 @@ public class MapsActivity
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastKnownPosition, DEFAULT_ZOOM));
                             }
                         } else {
-                            Log.d(SorinaApplication.TAG, "Current location is null. Using defaults.");
-                            Log.e(SorinaApplication.TAG, "Exception: %s", task.getException());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         }

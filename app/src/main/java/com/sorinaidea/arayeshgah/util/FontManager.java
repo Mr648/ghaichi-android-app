@@ -16,8 +16,11 @@ import android.widget.TextView;
 public class FontManager {
 
     public static final String ROOT = "fonts/";
+
     public static final String MATERIAL_ICONS = ROOT + "materialIcons-regular.ttf";
     public static final String SOCIAL_ICONS = ROOT + "socicon.ttf";
+    public static final String IRANSANS_TEXTS = ROOT + "irsans.ttf";
+
 
     public static Typeface getTypeface(Context context, String font) {
         return Typeface.createFromAsset(context.getAssets(), font);

@@ -105,14 +105,12 @@ public class ActivationFragment extends Fragment {
             public void onClick(View view) {
                 String url = "sorina://start";
 //                mListener.onFragmentInteraction(Uri.parse(url));
-                Toast.makeText(SorinaApplication.context, "Btn Send Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
         txtSendAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SorinaApplication.context, "txt send again clicked", Toast.LENGTH_SHORT).show();
             }
         });
 

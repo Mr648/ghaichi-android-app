@@ -1,4 +1,4 @@
-package com.sorinaidea.arayeshgah;
+package com.sorinaidea.arayeshgah.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

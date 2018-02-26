@@ -17,7 +17,7 @@ import com.sorinaidea.arayeshgah.model.ClusterMarker;
  * Created by mr-code on 2/10/2018.
  */
 
-public class        CustomClusterRenderer extends DefaultClusterRenderer<ClusterMarker> {
+public class CustomClusterRenderer extends DefaultClusterRenderer<ClusterMarker> {
     private final Context mContext;
     private final IconGenerator mClusterIconGenerator;
     private final IconGenerator mMarkerIconGenerator;
@@ -62,7 +62,7 @@ public class        CustomClusterRenderer extends DefaultClusterRenderer<Cluster
     protected void onBeforeClusterItemRendered(ClusterMarker item,
                                                MarkerOptions markerOptions) {
 
-        BitmapDescriptor icon = SorinaApplication.getBitmapDescriptor(R.drawable.ic_placeholder);
+        BitmapDescriptor icon = Util.getBitmapDescriptor(R.drawable.ic_placeholder, mContext);
         markerOptions.icon(icon);
     }
 

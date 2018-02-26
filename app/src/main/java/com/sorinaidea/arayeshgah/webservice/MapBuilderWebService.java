@@ -12,6 +12,6 @@ import retrofit2.http.GET;
  */
 
 public interface MapBuilderWebService {
-    @GET("/")
+    @GET("/?get=markers")
     Call<List<MapMarker>> listMarkers();
 }
