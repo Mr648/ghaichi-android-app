@@ -43,10 +43,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8dp"
-            android:background="@drawable/rectangle_top"
             android:gravity="center"
-            android:paddingLeft="@dimen/edit_text_padding"
-            android:paddingRight="@dimen/edit_text_padding">
+            android:paddingLeft="@dimen/padding_8dp"
+            android:paddingRight="@dimen/padding_8dp">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/edtName"
@@ -68,10 +67,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8dp"
-            android:background="@drawable/rectangle_bottom"
             android:gravity="center"
-            android:paddingLeft="@dimen/edit_text_padding"
-            android:paddingRight="@dimen/edit_text_padding">
+            android:paddingLeft="@dimen/padding_8dp"
+            android:paddingRight="@dimen/padding_8dp">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/edtFamily"
@@ -94,36 +92,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal">
+        android:padding="@dimen/padding_8dp"
+        android:orientation="vertical">
 
-        <RadioGroup
-            android:layout_width="156dp"
-            android:layout_height="match_parent"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="right"
-            android:orientation="horizontal">
+            android:padding="@dimen/padding_4dp"
+            android:text="@string/gender"
+            android:textSize="@dimen/text_18sp" />
 
-            <RadioButton
-                android:id="@+id/rbtnFemale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_8dp"
-                android:layout_marginRight="@dimen/margin_8dp"
-                android:layout_weight="1"
-                android:layoutDirection="rtl"
-                android:text="@string/gender_female"
-                android:textSize="18sp" />
-
-            <RadioButton
-                android:id="@+id/rbtnMale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_8dp"
-                android:layout_marginStart="@dimen/margin_8dp"
-                android:layout_weight="1"
-                android:layoutDirection="rtl"
-                android:text="@string/gender_male"
-                android:textSize="18sp" />
-        </RadioGroup>
+        <Spinner
+            android:id="@+id/spnGender"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spinner_min_height"
+            android:layout_weight="1"
+            android:background="@drawable/round_rect_bg_gray"
+            android:spinnerMode="dropdown"
+            android:entries="@array/genders" />
     </LinearLayout>
 
     <LinearLayout

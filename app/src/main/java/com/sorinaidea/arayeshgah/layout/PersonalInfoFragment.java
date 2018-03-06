@@ -13,15 +13,21 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sorinaidea.arayeshgah.R;
+import com.sorinaidea.arayeshgah.datahelper.Gender;
 import com.sorinaidea.arayeshgah.util.FontManager;
 import com.sorinaidea.arayeshgah.util.SorinaApplication;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,20 +89,18 @@ public class PersonalInfoFragment extends Fragment {
     }
 
     private Button btnNextStep;
-    private RadioButton rbtnMale;
-    private RadioButton rbtnFemale;
+    private Spinner spnGender;
     private TextInputEditText edtName;
     private TextInputEditText edtFamily;
     private TextInputLayout inputLayoutName;
     private TextInputLayout inputLayoutFamily;
 
+    private Gender selectedGender;
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
 
         btnNextStep = (Button) view.findViewById(R.id.btnNextStep);
-
-        rbtnMale = (RadioButton) view.findViewById(R.id.rbtnMale);
-        rbtnFemale = (RadioButton) view.findViewById(R.id.rbtnFemale);
+        spnGender = (Spinner) view.findViewById(R.id.spnGender);
 
 
         edtName = (TextInputEditText) view.findViewById(R.id.edtName);
@@ -113,6 +117,30 @@ public class PersonalInfoFragment extends Fragment {
             }
         });
 
+//        final ArrayList<String> spnGenderItems = new ArrayList();
+//
+//        spnGenderItems.add("آقا");
+//        spnGenderItems.add("خانم");
+//
+//        ArrayAdapter<String> spnGenderAdapter =
+//                new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, spnGenderItems);
+//
+//        spnGenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        spnGender.setAdapter(spnGenderAdapter);
+
+        spnGender.setSelection(0);
+
+        spnGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()  {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedGender = Gender.values()[position];
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedGender = Gender.values()[0];
+            }
+        });
 
         Typeface iconFont = FontManager.getTypeface(getActivity().getApplicationContext(), FontManager.MATERIAL_ICONS);
         FontManager.markAsIconContainer(btnNextStep, iconFont);
@@ -178,12 +206,12 @@ public class PersonalInfoFragment extends Fragment {
         public void afterTextChanged(Editable editable) {
             switch (view.getId()) {
                 case R.id.edtFamily:
-                    if (edtFamily.getText().length()>3){
+                    if (edtFamily.getText().length() > 3) {
                         validateName();
                     }
                     break;
                 case R.id.edtName:
-                    if (edtName.getText().length()>3){
+                    if (edtName.getText().length() > 3) {
                         validateFamily();
                     }
                     break;
