@@ -61,12 +61,12 @@ public class AboutUsActivity extends SorinaActivity {
         Typeface fontIransans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         // setting fonts for icons
-        FontManager.markAsIconContainer(txtInstagram, fontSocialIcons);
-        FontManager.markAsIconContainer(txtTwitter, fontSocialIcons);
-        FontManager.markAsIconContainer(txtLinkedIn, fontSocialIcons);
+        FontManager.setFont(txtInstagram, fontSocialIcons);
+        FontManager.setFont(txtTwitter, fontSocialIcons);
+        FontManager.setFont(txtLinkedIn, fontSocialIcons);
 
         // setting fonts for about us text
-        FontManager.markAsIconContainer(txtAboutUs, fontIransans);
+        FontManager.setFont(txtAboutUs, fontIransans);
 
 
         // build retrofit

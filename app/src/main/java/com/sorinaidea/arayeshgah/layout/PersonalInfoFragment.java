@@ -143,7 +143,7 @@ public class PersonalInfoFragment extends Fragment {
         });
 
         Typeface iconFont = FontManager.getTypeface(getActivity().getApplicationContext(), FontManager.MATERIAL_ICONS);
-        FontManager.markAsIconContainer(btnNextStep, iconFont);
+        FontManager.setFont(btnNextStep, iconFont);
 
         edtName.addTextChangedListener(new MyTextWatcher(edtName));
         edtFamily.addTextChangedListener(new MyTextWatcher(edtFamily));

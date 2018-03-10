@@ -26,11 +26,20 @@ public class FontManager {
         return Typeface.createFromAsset(context.getAssets(), font);
     }
 
-    public static void markAsIconContainer(final View view, final Typeface typeface) {
+    public static void setFont(final View view, final Typeface typeface) {
         if (view instanceof TextView) {
             ((TextView)view).setTypeface(typeface);
         } else if (view instanceof Button) {
             ((Button)view).setTypeface(typeface);
+        }
+    }
+    public static void markAsContainer(final View view, final Typeface typeface) {
+        for (View v: view.getTouchables()) {
+            if (v instanceof TextView) {
+                ((TextView)v).setTypeface(typeface);
+            } else if (view instanceof Button) {
+                ((Button)v).setTypeface(typeface);
+            }
         }
     }
 }

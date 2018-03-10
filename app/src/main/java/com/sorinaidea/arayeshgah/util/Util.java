@@ -24,6 +24,19 @@ public class Util {
         public static final String BASE_URL = "http://sorinaidea.ir";
         public static final String REGEX_PHONE
             = "^(0|\\+98)?([ ]|,|-|[()]){0,2}9[1|2|3|4]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}$";
+
+
+        public static String SHARE_GIFT_CODE_MESSAGE = "در اپ ونوس ثبت نام کنید و با وارد کردن کد زیر"
+                + " از اعتبار هدیه ما برای آرایش و زیبایی خود، لذت ببرید!"
+                + "\n"
+                + "دانلود از کافه بازار: "
+                + "\n"
+                + "https://cafebazaar.ir/?l=fa"
+                + "\n"
+                + "---------"
+                + "\n"
+                + "کد تخفیف: "
+                + "\n";
     }
 
     public static BitmapDescriptor getBitmapDescriptor(int id, Context context) {

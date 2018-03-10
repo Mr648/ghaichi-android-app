@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.layout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,27 +14,25 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sorinaidea.arayeshgah.R;
-import com.sorinaidea.arayeshgah.ui.SorinaActivity;
+import com.sorinaidea.arayeshgah.datahelper.Gender;
 import com.sorinaidea.arayeshgah.util.FontManager;
-import com.sorinaidea.arayeshgah.util.SorinaApplication;
 import com.sorinaidea.arayeshgah.util.Util;
-
-import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LoginFragment.OnFragmentInteractionListener} interface
+ * {@link GetGiftFragment.OnGetGiftFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LoginFragment#newInstance} factory method to
+ * Use the {@link GetGiftFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
+public class GetGiftFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,9 +43,9 @@ public class LoginFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private OnGetGiftFragmentInteractionListener mListener;
 
-    public LoginFragment() {
+    public GetGiftFragment() {
         // Required empty public constructor
     }
 
@@ -59,8 +58,8 @@ public class LoginFragment extends Fragment {
      * @return A new instance of fragment LoginFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
+    public static GetGiftFragment newInstance(String param1, String param2) {
+        GetGiftFragment fragment = new GetGiftFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -81,42 +80,47 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_tell_friends, container, false);
     }
 
-    private Button btnSendCode;
-    private TextInputEditText edtPhoneNumber;
-    private TextView txtIconCall;
-    private TextInputLayout inputLayoutPhoneNumber;
+    private TextView txtGetGiftMsg;
+    private TextView txtGiftCode;
+    private TextView txtIconShare;
+
+    private Gender selectedGender;
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
 
-        btnSendCode = (Button) view.findViewById(R.id.btnSendCode);
-        txtIconCall = (TextView) view.findViewById(R.id.txtIconCall);
-        edtPhoneNumber = (TextInputEditText) view.findViewById(R.id.edtPhoneNumber);
-        inputLayoutPhoneNumber = (TextInputLayout) view.findViewById(R.id.inputLayoutPhoneNumber);
+        txtGetGiftMsg = (TextView) view.findViewById(R.id.txtGetGiftMsg);
+        txtGiftCode = (TextView) view.findViewById(R.id.txtGiftCode);
+        txtIconShare = (TextView) view.findViewById(R.id.txtIconShare);
 
+        Typeface iconFont = FontManager.getTypeface(getActivity().getApplicationContext(), FontManager.MATERIAL_ICONS);
+        Typeface irsansFont = FontManager.getTypeface(getActivity().getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
-        btnSendCode.setOnClickListener(new View.OnClickListener() {
+        FontManager.setFont(txtIconShare, iconFont);
+        FontManager.setFont(txtGetGiftMsg, irsansFont);
+
+        txtIconShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "sorina://start";
-//                mListener.onFragmentInteraction(Uri.parse(url));
-                ((SorinaActivity)getActivity()).showDoneMessage("Areeeeeeeeeee");
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+
+                String message = Util.CONSTANTS.SHARE_GIFT_CODE_MESSAGE + txtGiftCode.getText();
+                sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getString(R.string.share)));
             }
         });
 
-
-        Typeface iconFont = FontManager.getTypeface(getActivity().getApplicationContext(), FontManager.MATERIAL_ICONS);
-        FontManager.setFont(txtIconCall, iconFont);
-        edtPhoneNumber.addTextChangedListener(new MyTextWatcher(edtPhoneNumber));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onGetGiftFragmentInteraction(uri);
         }
     }
 
@@ -124,8 +128,8 @@ public class LoginFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnGetGiftFragmentInteractionListener) {
+            mListener = (OnGetGiftFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -148,49 +152,9 @@ public class LoginFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnGetGiftFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onGetGiftFragmentInteraction(Uri uri);
     }
 
-    private class MyTextWatcher implements TextWatcher {
-
-        private View view;
-
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.edtPhoneNumber:
-                    if (edtPhoneNumber.getText().length()>3){
-                        validatePhoneNumber();
-
-                    }
-                    break;
-            }
-        }
-    }
-
-    private boolean validatePhoneNumber() {
-        if (edtPhoneNumber.getText().toString().trim().isEmpty()) {
-            inputLayoutPhoneNumber.setError(getString(R.string.error_empty_phone));
-            edtPhoneNumber.requestFocus();
-            return false;
-        } else if (!Pattern.matches(Util.CONSTANTS.REGEX_PHONE, edtPhoneNumber.getText().toString())) {
-            inputLayoutPhoneNumber.setError(getString(R.string.error_invalid_phone));
-            edtPhoneNumber.requestFocus();
-            return false;
-        } else {
-            inputLayoutPhoneNumber.setErrorEnabled(false);
-        }
-        return true;
-    }
 }

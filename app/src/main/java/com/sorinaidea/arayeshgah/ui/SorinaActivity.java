@@ -52,7 +52,7 @@ public class SorinaActivity extends AppCompatActivity {
 //        txtDialogMessage.setText(getResources().getString(R.string.error_no_internet_connection));
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
-        FontManager.markAsIconContainer(txtDialogIcon, iconFont);
+        FontManager.setFont(txtDialogIcon, iconFont);
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override

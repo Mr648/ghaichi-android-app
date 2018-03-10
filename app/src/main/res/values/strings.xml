@@ -27,6 +27,8 @@
     <string name="m_icon_next_step">&#xE5C8;</string>
     <string name="m_icon_done">&#xE876;</string>
     <string name="m_icon_sms">&#xE0D8;</string>
+    <string name="m_icon_help_outline">&#xE8FD;</string>
+    <string name="m_icon_share">&#xE80D;</string>
 
 
     <string name="social_icon_instagram">x</string>
@@ -50,6 +52,9 @@
 
     <string name="about_us"></string>
     <string name="gender">جنسیت</string>
+    <string name="share">اشتراک گذاری</string>
+    <string name="get_gift">اعتبار هدیه دریافت کنید</string>
+    <string name="get_gift_msg">کد زیر را برای دوستان خود بفرستید و از آنها بخواهید هنگام ثبت نام در اپلیکیشن آن را وارد نمایند تا با اولین سفارش آنها به شما اعتبار هدیه تعلق بگیرد</string>
 
     <string-array name="genders">
         <item>آقا</item>

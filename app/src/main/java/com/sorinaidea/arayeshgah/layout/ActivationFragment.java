@@ -116,8 +116,8 @@ public class ActivationFragment extends Fragment {
 
 
         Typeface iconFont = FontManager.getTypeface(getActivity().getApplicationContext(), FontManager.MATERIAL_ICONS);
-        FontManager.markAsIconContainer(txtIconActivationCode, iconFont);
-        FontManager.markAsIconContainer(btnNextStep, iconFont);
+        FontManager.setFont(txtIconActivationCode, iconFont);
+        FontManager.setFont(btnNextStep, iconFont);
 
         edtActivationCode.addTextChangedListener(new MyTextWatcher(edtActivationCode));
     }
