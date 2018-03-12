@@ -29,6 +29,12 @@
     <string name="m_icon_sms">&#xE0D8;</string>
     <string name="m_icon_help_outline">&#xE8FD;</string>
     <string name="m_icon_share">&#xE80D;</string>
+    <string name="m_icon_down_arrow">&#xE5DB;</string>
+    <string name="m_icon_up_arrow">&#xE5D8;</string>
+    <string name="m_icon_plus">&#xE145;</string>
+
+    <string name="m_icon_credit_down">&#xE8E3;</string>
+    <string name="m_icon_credit_up">&#xE8E5;</string>
 
 
     <string name="social_icon_instagram">x</string>
@@ -51,6 +57,7 @@
 
 
     <string name="about_us"></string>
+    <string name="credid_msg">موجودی(ریال)</string>
     <string name="gender">جنسیت</string>
     <string name="share">اشتراک گذاری</string>
     <string name="get_gift">اعتبار هدیه دریافت کنید</string>

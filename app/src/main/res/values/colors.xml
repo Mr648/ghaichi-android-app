@@ -7,8 +7,14 @@
     <color name="markerSnippet">#424242</color>
     <color name="markerCircle">#26c6da</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="credit_remaining">#10B491</color>
+    <color name="credit_reservations">#FF2265</color>
+
     <color name="dropdownBackground">#fafafa</color>
+    <color name="textColorLighter">#7F7F7F</color>
     <color name="textColor">#5E5E5E</color>
+    <color name="textColorDarker">#555555</color>
 
     <color name="ic_instagram">#F44834</color>
     <color name="ic_twitter">#00c0f6</color>

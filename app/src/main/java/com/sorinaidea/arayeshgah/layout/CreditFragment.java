@@ -8,18 +8,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hookedonplay.decoviewlib.DecoView;
 import com.hookedonplay.decoviewlib.charts.SeriesItem;
+import com.hookedonplay.decoviewlib.charts.SeriesLabel;
 import com.hookedonplay.decoviewlib.events.DecoEvent;
 import com.sorinaidea.arayeshgah.R;
+import com.sorinaidea.arayeshgah.adapter.TransactionAdabper;
 import com.sorinaidea.arayeshgah.datahelper.Gender;
+import com.sorinaidea.arayeshgah.model.FAQ;
+import com.sorinaidea.arayeshgah.model.Transaction;
 import com.sorinaidea.arayeshgah.util.FontManager;
 import com.sorinaidea.arayeshgah.util.Util;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,36 +93,91 @@ public class CreditFragment extends Fragment {
     }
 
     private DecoView arcView;
+    private RecyclerView recFaq;
+
+    private TextView txtRemainingLabel;
+    private TextView txtReservationLabel;
+    private TextView txtRemaining;
+    private TextView txtReservation;
+    private TextView txtMessage;
+    private TextView txtCredit;
+
+    private Button btnAddCash;
+    private Typeface fontMaterialIcons;
+    private Typeface fontIranSans;
 
 
+    private ArrayList<Transaction> initDataset() {
+        ArrayList<Transaction> mDataset = new ArrayList<>();
+        Date date = new Date();
+        for (int i = 0; i < 20; i++) {
+            mDataset.add(new Transaction(((i % 4 == 0) ? (-1 * 100 * i) : (i * 1000)), "آرایشگاه تست " + i, "دوشنبه 30 بهمن 96"));
+        }
+        return mDataset;
+    }
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+
+        fontMaterialIcons = FontManager.getTypeface(getContext(), FontManager.MATERIAL_ICONS);
+        fontIranSans = FontManager.getTypeface(getContext(), FontManager.IRANSANS_TEXTS);
+
         arcView = (DecoView) view.findViewById(R.id.dynamicArcView);
+
+        recFaq = (RecyclerView) view.findViewById(R.id.recTransactions);
+
+        txtRemainingLabel = (TextView) view.findViewById(R.id.txtRemainingLabel);
+        txtReservationLabel = (TextView) view.findViewById(R.id.txtReservationLabel);
+        txtRemaining = (TextView) view.findViewById(R.id.txtRemaining);
+        txtReservation = (TextView) view.findViewById(R.id.txtReservations);
+
+        txtMessage = (TextView) view.findViewById(R.id.txtMessage);
+        txtCredit = (TextView) view.findViewById(R.id.txtCredit);
+
+        btnAddCash = (Button) view.findViewById(R.id.btnAddCash);
+
+        recFaq.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        recFaq.setAdapter(new TransactionAdabper(initDataset(), getContext()));
 
 // Create background track
         arcView.addSeries(new SeriesItem.Builder(Color.argb(255, 218, 218, 218))
                 .setRange(0, 100, 100)
                 .setInitialVisibility(false)
-                .setLineWidth(32f)
+                .setLineWidth(26f)
                 .build());
 
 //Create data series track
-        SeriesItem seriesItem1 = new SeriesItem.Builder(Color.argb(255, 64, 196, 0))
-                .setRange(0, 100, 0)
-                .setLineWidth(32f)
+        SeriesItem seriesItem1 = new SeriesItem.Builder(getResources().getColor(R.color.credit_remaining))
+                .setRange(0, 100, 100)
+                .setLineWidth(18f)
                 .build();
 
-        int series1Index = arcView.addSeries(seriesItem1);
+        SeriesItem seriesItem2 = new SeriesItem.Builder(getResources().getColor(R.color.credit_reservations))
+                .setRange(0, 100, 60)
+                .setLineWidth(18f)
+                .build();
 
-        arcView.addEvent(new DecoEvent.Builder(DecoEvent.EventType.EVENT_SHOW, true)
-                .setDelay(1000)
-                .setDuration(2000)
-                .build());
 
-        arcView.addEvent(new DecoEvent.Builder(25).setIndex(series1Index).setDelay(4000).build());
-        arcView.addEvent(new DecoEvent.Builder(100).setIndex(series1Index).setDelay(8000).build());
-        arcView.addEvent(new DecoEvent.Builder(10).setIndex(series1Index).setDelay(12000).build());
+        arcView.addSeries(seriesItem1);
+        arcView.addSeries(seriesItem2);
+
+
+        btnAddCash.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "btn clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        FontManager.setFont(btnAddCash, fontMaterialIcons);
+
+        FontManager.setFont(txtRemainingLabel, fontIranSans);
+        FontManager.setFont(txtReservationLabel, fontIranSans);
+        FontManager.setFont(txtRemaining, fontIranSans);
+        FontManager.setFont(txtReservation, fontIranSans);
+        FontManager.setFont(txtMessage, fontIranSans);
+        FontManager.setFont(txtCredit, fontIranSans);
 
 
     }
