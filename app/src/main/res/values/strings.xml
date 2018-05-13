@@ -31,10 +31,18 @@
     <string name="m_icon_share">&#xE80D;</string>
     <string name="m_icon_down_arrow">&#xE5DB;</string>
     <string name="m_icon_up_arrow">&#xE5D8;</string>
+    <string name="m_icon_left_arrow">&#xE314;</string>
+    <string name="m_icon_right_arrow">&#xE315;</string>
+    <string name="m_icon_dropdown_down_arrow">&#xE5C6;</string>
     <string name="m_icon_plus">&#xE145;</string>
-
+    <string name="m_icon_date">&#xE916;</string>
+    <string name="m_icon_time">&#xE192;</string>
+    <string name="m_icon_person">&#xE7FD;</string>
+    <string name="m_icon_account">&#xE851;</string>
+    <string name="m_icon_edit">&#xE254;</string>
     <string name="m_icon_credit_down">&#xE8E3;</string>
     <string name="m_icon_credit_up">&#xE8E5;</string>
+    <string name="m_icon_marker">&#xE0C8;</string>
 
 
     <string name="social_icon_instagram">x</string>
@@ -43,6 +51,7 @@
 
     <string name="didnt_get_the_code">کد را دریافت نکردید؟</string>
     <string name="send_activation_code_again">ارسال مجدد</string>
+    <string name="exit_the_app">خروج از حساب کاربری</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -57,6 +66,8 @@
 
 
     <string name="about_us"></string>
+    <string name="lorem_ipsum">lorem ipsum</string>
+    <string name="choose_location">انتخاب مکان</string>
     <string name="credid_msg">موجودی(ریال)</string>
     <string name="gender">جنسیت</string>
     <string name="share">اشتراک گذاری</string>

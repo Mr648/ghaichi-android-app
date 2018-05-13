@@ -2,15 +2,19 @@ package com.sorinaidea.arayeshgah.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.media.Image;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
-import com.sorinaidea.arayeshgah.model.FAQ;
+import com.sorinaidea.arayeshgah.model.BarberShop;
+import com.sorinaidea.arayeshgah.model.Transaction;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
@@ -19,17 +23,14 @@ import java.util.ArrayList;
  * Created by mr-code on 3/10/2018.
  */
 
-public class FAQAdabper extends RecyclerView.Adapter<FAQAdabper.ViewHolder> {
+public class TopBarberShopAdabper extends RecyclerView.Adapter<TopBarberShopAdabper.ViewHolder> {
     private static final String TAG = "FAQAdabper";
 
-    private ArrayList<FAQ> mDataSet;
+    private ArrayList<BarberShop> mDataSet;
     private Context mContext;
-    private Typeface fontMaterialIcons;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView txtIcon;
-        private final TextView txtQuestion;
-        private final TextView txtAnswer;
+        private final ImageView imgLogo;
 
         public ViewHolder(View v) {
             super(v);
@@ -39,29 +40,19 @@ public class FAQAdabper extends RecyclerView.Adapter<FAQAdabper.ViewHolder> {
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            txtIcon = (TextView) v.findViewById(R.id.txtIcon);
-            txtQuestion = (TextView) v.findViewById(R.id.txtQuestion);
-            txtAnswer = (TextView) v.findViewById(R.id.txtAnswer);
+
+            imgLogo = (ImageView) v.findViewById(R.id.imgLogo);
         }
 
-        public TextView getTxtIcon() {
-            return txtIcon;
-        }
-
-        public TextView getTxtAnswer() {
-            return txtAnswer;
-        }
-
-        public TextView getTxtQuestion() {
-            return txtQuestion;
+        public ImageView getImgLogo() {
+            return imgLogo;
         }
     }
 
 
-    public FAQAdabper(ArrayList<FAQ> faqs, Context context) {
-        mDataSet = faqs;
+    public TopBarberShopAdabper(ArrayList<BarberShop> transactions, Context context) {
+        mDataSet = transactions;
         mContext = context;
-        fontMaterialIcons = FontManager.getTypeface(mContext, FontManager.MATERIAL_ICONS);
 
         // setting fonts for icons
     }
@@ -70,17 +61,15 @@ public class FAQAdabper extends RecyclerView.Adapter<FAQAdabper.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.faq_item, viewGroup, false);
+                .inflate(R.layout.top_barbershop_item, viewGroup, false);
 
         return new ViewHolder(v);
     }
+
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Log.d(TAG, "Element " + position + " set.");
-        FontManager.setFont( viewHolder.getTxtIcon(), fontMaterialIcons);
-
-            viewHolder.getTxtAnswer().setText(mDataSet.get(position).getQuestion());
-            viewHolder.getTxtQuestion().setText(mDataSet.get(position).getAnswer());
+        viewHolder.getImgLogo().setImageResource(mDataSet.get(position).getLogo());
     }
 
     @Override

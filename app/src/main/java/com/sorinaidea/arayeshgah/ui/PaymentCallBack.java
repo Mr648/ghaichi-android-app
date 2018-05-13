@@ -18,6 +18,7 @@ import com.sorinaidea.arayeshgah.layout.CreditFragment;
 import com.sorinaidea.arayeshgah.layout.GetGiftFragment;
 import com.sorinaidea.arayeshgah.layout.LoginFragment;
 import com.sorinaidea.arayeshgah.layout.PersonalInfoFragment;
+import com.sorinaidea.arayeshgah.layout.ReservationFragment;
 import com.sorinaidea.arayeshgah.model.Transaction;
 
 import java.util.ArrayList;
@@ -32,18 +33,19 @@ public class PaymentCallBack extends SorinaActivity
         ActivationFragment.OnActivationFragmentInteractionListener,
         PersonalInfoFragment.OnPersonalInfoFragmentInteractionListener,
         CreditFragment.OnCreditFragmentInteractionListener,
+        ReservationFragment.OnReservationFragmentInteractionListener,
         GetGiftFragment.OnGetGiftFragmentInteractionListener {
 
-    //    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_login);
-////        new DrawerBuilder().withActivity(this).build();
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.replace(R.id.placeholder, new CreditFragment());
-//        ft.commit();
-//
-//    }
+        @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+//        new DrawerBuilder().withActivity(this).build();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.placeholder, new ReservationFragment());
+        ft.commit();
+
+    }
     private RecyclerView recFaq;
 
     CoordinatorLayout mCoordinatorLayout;
@@ -56,30 +58,30 @@ public class PaymentCallBack extends SorinaActivity
         return mDataset;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.testss);
-        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
-        recFaq = (RecyclerView) findViewById(R.id.recTransactions);
-        recFaq.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-
-        recFaq.setAdapter(new TransactionAdabper(initDataset(), getApplicationContext()));
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (fab != null) {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Snackbar.make(mCoordinatorLayout, "I'm a Snackbar :D", Snackbar.LENGTH_LONG).setAction("Action", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(PaymentCallBack.this, "Snackbar Action", Toast.LENGTH_LONG).show();
-                        }
-                    }).show();
-                }
-            });
-        }
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.testss);
+//        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
+//        recFaq = (RecyclerView) findViewById(R.id.recTransactions);
+//        recFaq.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+//
+//        recFaq.setAdapter(new TransactionAdabper(initDataset(), getApplicationContext()));
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        if (fab != null) {
+//            fab.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Snackbar.make(mCoordinatorLayout, "I'm a Snackbar :D", Snackbar.LENGTH_LONG).setAction("Action", new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Toast.makeText(PaymentCallBack.this, "Snackbar Action", Toast.LENGTH_LONG).show();
+//                        }
+//                    }).show();
+//                }
+//            });
+//        }
+//    }
 
     @Override
     public void onActivationFragmentInteraction(Uri uri) {
@@ -100,6 +102,11 @@ public class PaymentCallBack extends SorinaActivity
 
     @Override
     public void onCreditFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onReservationFragmentInteraction(Uri uri) {
 
     }
 }

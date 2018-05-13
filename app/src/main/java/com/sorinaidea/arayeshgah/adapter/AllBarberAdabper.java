@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
-import com.sorinaidea.arayeshgah.model.FAQ;
 import com.sorinaidea.arayeshgah.model.Transaction;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
@@ -21,7 +20,7 @@ import java.util.ArrayList;
  * Created by mr-code on 3/10/2018.
  */
 
-public class TransactionAdabper extends RecyclerView.Adapter<TransactionAdabper.ViewHolder> {
+public class AllBarberAdabper extends RecyclerView.Adapter<AllBarberAdabper.ViewHolder> {
     private static final String TAG = "FAQAdabper";
 
     private ArrayList<Transaction> mDataSet;
@@ -68,7 +67,7 @@ public class TransactionAdabper extends RecyclerView.Adapter<TransactionAdabper.
     }
 
 
-    public TransactionAdabper(ArrayList<Transaction> transactions, Context context) {
+    public AllBarberAdabper(ArrayList<Transaction> transactions, Context context) {
         mDataSet = transactions;
         mContext = context;
         fontMaterialIcons = FontManager.getTypeface(mContext, FontManager.MATERIAL_ICONS);

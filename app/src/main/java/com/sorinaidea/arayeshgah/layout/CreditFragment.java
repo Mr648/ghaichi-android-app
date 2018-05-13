@@ -124,7 +124,9 @@ public class CreditFragment extends Fragment {
 
         arcView = (DecoView) view.findViewById(R.id.dynamicArcView);
 
-        recFaq = (RecyclerView) view.findViewById(R.id.recTransactions);
+        recFaq  = (RecyclerView) view.findViewById(R.id.recTransactions);
+        recFaq.setNestedScrollingEnabled(false);
+
 
         txtRemainingLabel = (TextView) view.findViewById(R.id.txtRemainingLabel);
         txtReservationLabel = (TextView) view.findViewById(R.id.txtReservationLabel);
@@ -134,7 +136,7 @@ public class CreditFragment extends Fragment {
         txtMessage = (TextView) view.findViewById(R.id.txtMessage);
         txtCredit = (TextView) view.findViewById(R.id.txtCredit);
 
-        btnAddCash = (Button) view.findViewById(R.id.btnAddCash);
+//        btnAddCash = (Button) view.findViewById(R.id.btnAddCash);
 
         recFaq.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
@@ -163,14 +165,14 @@ public class CreditFragment extends Fragment {
         arcView.addSeries(seriesItem2);
 
 
-        btnAddCash.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "btn clicked!", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        btnAddCash.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getContext(), "btn clicked!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-        FontManager.setFont(btnAddCash, fontMaterialIcons);
+//        FontManager.setFont(btnAddCash, fontMaterialIcons);
 
         FontManager.setFont(txtRemainingLabel, fontIranSans);
         FontManager.setFont(txtReservationLabel, fontIranSans);
