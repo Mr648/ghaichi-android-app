@@ -15,6 +15,10 @@ public class BarberShop {
     public BarberShop(int logo){
         this.setLogo(logo);
     }
+    public BarberShop(int logo, String title){
+        this.setLogo(logo);
+        this.setTitle(title);
+    }
     public BarberShop(int logo,
                       String title,
                       String address,

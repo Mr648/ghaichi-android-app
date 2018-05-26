@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
@@ -40,6 +41,9 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
         private final TextView txtIconTime;
         private final TextView txtIconDate;
 
+        private final LinearLayout lnrBgr;
+
+
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +60,7 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
             txtAddress = (TextView) v.findViewById(R.id.txtAddress);
             txtIconTime = (TextView) v.findViewById(R.id.txtIconTime);
             txtIconDate = (TextView) v.findViewById(R.id.txtIconDate);
+            lnrBgr = (LinearLayout) v.findViewById(R.id.lnrBgr);
         }
 
         public TextView getTxtIconDate() {
@@ -84,6 +89,10 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
 
         public TextView getTxtTitle() {
             return txtTitle;
+        }
+
+        public LinearLayout getLnrBgr() {
+            return lnrBgr;
         }
     }
 
@@ -115,9 +124,11 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
         viewHolder.getTxtDate().setText(mDataSet.get(position).getDate());
         viewHolder.getTxtTime().setText(mDataSet.get(position).getTime());
         viewHolder.getTxtAddress().setText(mDataSet.get(position).getAddress());
+        viewHolder.getLnrBgr().setBackgroundResource(
+                position%3==0?R.drawable.background_red:R.drawable.background_green
+        );
 
         viewHolder.getImgLogo().setImageResource(mDataSet.get(position).getImgLogo());
-
         FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
         FontManager.setFont(viewHolder.getTxtAddress(), fontIranSans);
         FontManager.setFont(viewHolder.getTxtDate(), fontIranSans);

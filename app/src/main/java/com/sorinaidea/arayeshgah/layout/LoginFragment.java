@@ -101,9 +101,9 @@ public class LoginFragment extends Fragment {
         btnSendCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "sorina://start";
-//                mListener.onFragmentInteraction(Uri.parse(url));
-                ((SorinaActivity)getActivity()).showDoneMessage("Areeeeeeeeeee");
+//                String url = "sorina://start";
+////                mListener.onFragmentInteraction(Uri.parse(url));
+//                ((SorinaActivity)getActivity()).showDoneMessage("Areeeeeeeeeee");
             }
         });
 

@@ -9,7 +9,14 @@
     <include
         layout="@layout/app_bar_hairdresser"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/include" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recReservations"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/include" />
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/menu_yellow"
@@ -30,28 +37,27 @@
         fab:menu_shadowColor="#444">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab12"
+            android:id="@+id/fabAddServiceCategory"
             style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_pin"
-            fab:fab_label="Menu item 1" />
+            fab:fab_label="افزودن دسته بندی خدمات" />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabAddService"
+            style="@style/MenuButtonsStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pin"
+            fab:fab_label="افزودن خدمت جدید" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab22"
+            android:id="@+id/fabAddSampleWork"
             style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_pin"
             fab:fab_label="Menu item 2" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab32"
-            style="@style/MenuButtonsStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_pin"
-            fab:fab_label="@string/lorem_ipsum" />
 
     </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>

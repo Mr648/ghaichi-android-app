@@ -1,9 +1,6 @@
 package com.sorinaidea.arayeshgah.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
-import android.media.Image;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +11,6 @@ import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.model.BarberShop;
-import com.sorinaidea.arayeshgah.model.Transaction;
-import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
 
@@ -23,7 +18,7 @@ import java.util.ArrayList;
  * Created by mr-code on 3/10/2018.
  */
 
-public class TopBarberShopAdabper extends RecyclerView.Adapter<TopBarberShopAdabper.ViewHolder> {
+public class HairdresserListAdabper extends RecyclerView.Adapter<HairdresserListAdabper.ViewHolder> {
     private static final String TAG = "FAQAdabper";
 
     private ArrayList<BarberShop> mDataSet;
@@ -56,7 +51,7 @@ public class TopBarberShopAdabper extends RecyclerView.Adapter<TopBarberShopAdab
     }
 
 
-    public TopBarberShopAdabper(ArrayList<BarberShop> transactions, Context context) {
+    public HairdresserListAdabper(ArrayList<BarberShop> transactions, Context context) {
         mDataSet = transactions;
         mContext = context;
 
@@ -67,7 +62,7 @@ public class TopBarberShopAdabper extends RecyclerView.Adapter<TopBarberShopAdab
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.top_barbershop_item, viewGroup, false);
+                .inflate(R.layout.hairdresserlist_item, viewGroup, false);
 
         return new ViewHolder(v);
     }

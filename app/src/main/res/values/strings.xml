@@ -43,6 +43,7 @@
     <string name="m_icon_credit_down">&#xE8E3;</string>
     <string name="m_icon_credit_up">&#xE8E5;</string>
     <string name="m_icon_marker">&#xE0C8;</string>
+    <string name="m_icon_add_a_photo">&#xE0C8;</string>
 
 
     <string name="social_icon_instagram">x</string>
@@ -70,6 +71,7 @@
     <string name="choose_location">انتخاب مکان</string>
     <string name="credid_msg">موجودی(ریال)</string>
     <string name="gender">جنسیت</string>
+    <string name="label_confirm">تایید</string>
     <string name="share">اشتراک گذاری</string>
     <string name="get_gift">اعتبار هدیه دریافت کنید</string>
     <string name="get_gift_msg">کد زیر را برای دوستان خود بفرستید و از آنها بخواهید هنگام ثبت نام در اپلیکیشن آن را وارد نمایند تا با اولین سفارش آنها به شما اعتبار هدیه تعلق بگیرد</string>
