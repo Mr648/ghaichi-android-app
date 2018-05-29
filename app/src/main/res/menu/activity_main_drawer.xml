@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home_black_18dp"
+        android:title="@string/label_home" />
+    <item
+        android:id="@+id/action_credit"
+        android:icon="@drawable/ic_credit_card_black_18dp"
+        android:title="@string/label_credit" />
+
+    <item
+        android:id="@+id/action_top_barbershops"
+        android:icon="@drawable/ic_star_black_18dp"
+        android:title="@string/label_top_barbershops" />
+
+    <item
+        android:id="@+id/action_favorites"
+        android:icon="@drawable/ic_favorite_black_18dp"
+        android:title="@string/label_favorites" />
+
+    <item
+        android:id="@+id/action_free_reservation"
+        android:icon="@drawable/ic_money_off_black_18dp"
+        android:title="@string/label_free_reservation" />
+
+    <item android:title="سایر">
+        <menu>
+            <item
+                android:id="@+id/action_setting"
+                android:icon="@drawable/ic_settings_black_18dp"
+                android:title="@string/label_setting" />
+            <item
+                android:id="@+id/action_aboutus"
+                android:icon="@drawable/ic_tag_faces_black_18dp"
+                android:title="@string/label_aboutus" />
+            <item
+                android:id="@+id/action_faq"
+                android:icon="@drawable/ic_help_black_18dp"
+                android:title="@string/label_faq" />
+            <item
+                android:id="@+id/action_send_support_ticket"
+                android:icon="@drawable/ic_mail_black_18dp"
+                android:title="@string/label_send_support_ticket" />
+            <item
+                android:id="@+id/action_download_latest"
+                android:icon="@drawable/ic_file_download_black_18dp"
+                android:title="@string/label_download_latest" />
+            <item
+                android:id="@+id/action_report_bug"
+                android:icon="@drawable/ic_bug_report_black_18dp"
+                android:title="@string/label_report_bug" />
+        </menu>
+    </item>
+</menu>

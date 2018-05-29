@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efefef"
+    android:layoutDirection="rtl"
     android:orientation="vertical">
 
 
@@ -18,9 +18,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16dp"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_marginTop="@dimen/_36dp"
+        android:orientation="vertical"
+        android:padding="@dimen/_24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,32 +29,33 @@
             android:padding="8dp"
             android:weightSum="7">
 
-            <TextView
-                android:id="@+id/textViesddsfsdfw8"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="@string/m_icon_left_arrow"/>
-
-            <TextView
-                android:id="@+id/sdfsdfsdf"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/margin_8dp"
-                android:layout_marginRight="@dimen/margin_8dp"
-                android:layout_weight="6"
-                android:gravity="right|center_vertical"
-                android:text="Notifications" />
-
             <ImageView
-                android:id="@+id/sdfsdfdsfsdfs"
+                android:id="@+id/imgNotification"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="@drawable/background_circle"
                 android:padding="@dimen/padding_8dp"
                 android:scaleType="centerInside"
                 android:src="@android:drawable/ic_dialog_alert" />
+
+            <TextView
+                android:id="@+id/txtNotification"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_weight="6"
+                android:gravity="right|center_vertical"
+                android:text="دریافت اعلان ها" />
+
+            <Button
+                android:id="@+id/btnNotification"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/m_icon_left_arrow" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,32 +65,34 @@
             android:padding="8dp"
             android:weightSum="7">
 
-            <TextView
-                android:id="@+id/textViewdsf8"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="@string/m_icon_left_arrow" />
-
-            <TextView
-                android:id="@+id/sdfsdf"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/margin_8dp"
-                android:layout_marginRight="@dimen/margin_8dp"
-                android:layout_weight="6"
-                android:gravity="right|center_vertical"
-                android:text="Themes" />
-
             <ImageView
-                android:id="@+id/sdfdsfsdf"
+                android:id="@+id/imgTheme"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="@drawable/background_circle"
                 android:padding="@dimen/padding_8dp"
                 android:scaleType="centerInside"
                 android:src="@android:drawable/ic_menu_view" />
+
+            <TextView
+                android:id="@+id/txtTheme"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_weight="6"
+                android:gravity="right|center_vertical"
+                android:text="تم برنامه" />
+
+            <Button
+                android:id="@+id/btnTheme"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/m_icon_left_arrow" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -99,32 +102,34 @@
             android:padding="8dp"
             android:weightSum="7">
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="@string/m_icon_left_arrow" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/margin_8dp"
-                android:layout_marginRight="@dimen/margin_8dp"
-                android:layout_weight="6"
-                android:gravity="right|center_vertical"
-                android:text="Application Language" />
-
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imgLanguage"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="@drawable/background_circle"
                 android:padding="@dimen/padding_8dp"
                 android:scaleType="centerInside"
                 android:src="@android:drawable/ic_menu_preferences" />
+
+            <TextView
+                android:id="@+id/txtLanguage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_weight="6"
+                android:gravity="right|center_vertical"
+                android:text="زبان برنامه" />
+
+            <Button
+                android:id="@+id/btnLanguage"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/m_icon_left_arrow" />
+
         </LinearLayout>
     </LinearLayout>
 
@@ -137,7 +142,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnSendCode"
+            android:id="@+id/btnLogout"
             style="@style/AppTheme.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

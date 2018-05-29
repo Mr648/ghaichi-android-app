@@ -71,7 +71,6 @@ public class HairdresserActivity extends SorinaActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayOptions(R.id.action_todo);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
@@ -93,15 +92,15 @@ public class HairdresserActivity extends SorinaActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_todo) {
-            if (menuAction) {
-                item.setIcon(android.R.drawable.ic_menu_add);
-            } else {
-                item.setIcon(android.R.drawable.ic_menu_delete);
-            }
-            menuAction = !menuAction;
-            return true;
-        }
+//        if (id == R.id.action_todo) {
+//            if (menuAction) {
+//                item.setIcon(android.R.drawable.ic_menu_add);
+//            } else {
+//                item.setIcon(android.R.drawable.ic_menu_delete);
+//            }
+//            menuAction = !menuAction;
+//            return true;
+//        }
 
 
         return super.onOptionsItemSelected(item);

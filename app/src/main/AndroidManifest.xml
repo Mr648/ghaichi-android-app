@@ -37,26 +37,16 @@
             android:name="com.sorinaidea.arayeshgah.ui.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.AboutUsActivity"
-            android:label="@string/label_aboutus"></activity>
-        <activity
             android:name="com.sorinaidea.arayeshgah.ui.AddServiceCategoryActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/label_aboutus">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.AddServiceActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/label_aboutus">
 
-        </activity>
-        <activity
-            android:name="com.sorinaidea.arayeshgah.ui.FaqActivity"
-            android:label="@string/label_aboutus">
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.HairdresserActivity"
@@ -83,8 +73,12 @@
             android:label="@string/label_aboutus"></activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.MainActivity"
-            android:label="@string/app_name">
-
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.PaymentCallBack"

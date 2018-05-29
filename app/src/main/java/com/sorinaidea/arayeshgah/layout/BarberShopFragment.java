@@ -2,7 +2,6 @@ package com.sorinaidea.arayeshgah.layout;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -15,25 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sorinaidea.arayeshgah.R;
-import com.sorinaidea.arayeshgah.ui.SorinaActivity;
 import com.sorinaidea.arayeshgah.util.FontManager;
-import com.sorinaidea.arayeshgah.util.SorinaApplication;
-import com.sorinaidea.arayeshgah.util.Util;
-
-import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LoginFragment.OnLoginInteraction} interface
+ * {@link BarberShopFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LoginFragment#newInstance} factory method to
+ * Use the {@link BarberShopFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
+public class BarberShopFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,9 +37,9 @@ public class LoginFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnLoginInteraction mListener;
+    private OnFragmentInteractionListener mListener;
 
-    public LoginFragment() {
+    public BarberShopFragment() {
         // Required empty public constructor
     }
 
@@ -59,8 +52,8 @@ public class LoginFragment extends Fragment {
      * @return A new instance of fragment LoginFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
+    public static BarberShopFragment newInstance(String param1, String param2) {
+        BarberShopFragment fragment = new BarberShopFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -114,7 +107,7 @@ public class LoginFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed( ) {
         if (mListener != null) {
-            mListener.login( );
+            mListener.onFragmentInteraction( );
         }
     }
 
@@ -122,8 +115,8 @@ public class LoginFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnLoginInteraction) {
-            mListener = (OnLoginInteraction) context;
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -135,7 +128,125 @@ public class LoginFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+/**
+ *   RecyclerView recTopBarberShops;
+ TextView txtMoreText;
+ TextView txtMoreIcon;
+ TextView txtCategory;
+ LinearLayout lnrMore;
 
+ RecyclerView recTopBarberShops2;
+ TextView txtMoreText2;
+ TextView txtMoreIcon2;
+ TextView txtCategory2;
+ LinearLayout lnrMore2;
+
+ RecyclerView recTopBarberShops3;
+ TextView txtMoreText3;
+ TextView txtMoreIcon3;
+ TextView txtCategory3;
+ LinearLayout lnrMore3;
+
+
+ private ArrayList<BarberShop> initDatasetTops() {
+ ArrayList<BarberShop> mDataset = new ArrayList<>();
+ Date date = new Date();
+ for (int i = 0; i < 20; i++) {
+ mDataset.add(new BarberShop(R.drawable.img, "آرایشگاه تست " + i));
+ }
+ return mDataset;
+ }
+
+
+ private ArrayList<Transaction> initDatasetNormals() {
+ ArrayList<Transaction> mDataset = new ArrayList<>();
+ Date date = new Date();
+ for (int i = 0; i < 20; i++) {
+ mDataset.add(new Transaction(((i % 4 == 0) ? (-1 * 100 * i) : (i * 1000)), "آرایشگاه تست " + i, "دوشنبه 30 بهمن 96"));
+ }
+ return mDataset;
+ }
+
+ private Typeface fontMaterialIcon;
+ private Typeface fontIransans;
+
+ @Override
+ public void onCreate(@Nullable Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.fragment_barbershop);
+
+ fontMaterialIcon = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
+ fontIransans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
+
+ recTopBarberShops = (RecyclerView) findViewById(R.id.recTopBarberShops);
+ txtMoreText = (TextView) findViewById(R.id.txtMoreText);
+ txtMoreIcon = (TextView) findViewById(R.id.txtMoreIcon);
+ txtCategory = (TextView) findViewById(R.id.txtCategory);
+ lnrMore = (LinearLayout) findViewById(R.id.lnrMore);
+
+ recTopBarberShops2 = (RecyclerView) findViewById(R.id.recTopBarberShops2);
+ txtMoreText2 = (TextView) findViewById(R.id.txtMoreText2);
+ txtMoreIcon2 = (TextView) findViewById(R.id.txtMoreIcon2);
+ txtCategory2 = (TextView) findViewById(R.id.txtCategory2);
+ lnrMore2 = (LinearLayout) findViewById(R.id.lnrMore2);
+
+ recTopBarberShops3 = (RecyclerView) findViewById(R.id.recTopBarberShops3);
+ txtMoreText3 = (TextView) findViewById(R.id.txtMoreText3);
+ txtMoreIcon3 = (TextView) findViewById(R.id.txtMoreIcon3);
+ txtCategory3 = (TextView) findViewById(R.id.txtCategory3);
+ lnrMore3 = (LinearLayout) findViewById(R.id.lnrMore3);
+
+ recTopBarberShops.setNestedScrollingEnabled(false);
+
+ recTopBarberShops.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+ recTopBarberShops.setAdapter(new TopBarberShopAdabper(initDatasetTops(), getApplicationContext()));
+
+ FontManager.setFont(txtMoreIcon, fontMaterialIcon);
+ FontManager.setFont(txtMoreText, fontIransans);
+ FontManager.setFont(txtCategory, fontIransans);
+
+
+ recTopBarberShops2.setNestedScrollingEnabled(false);
+
+ recTopBarberShops2.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+ recTopBarberShops2.setAdapter(new TopBarberShopAdabper(initDatasetTops(), getApplicationContext()));
+
+ FontManager.setFont(txtMoreIcon2, fontMaterialIcon);
+ FontManager.setFont(txtMoreText2, fontIransans);
+ FontManager.setFont(txtCategory2, fontIransans);
+
+
+ recTopBarberShops3.setNestedScrollingEnabled(false);
+ recTopBarberShops3.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+ recTopBarberShops3.setAdapter(new TopBarberShopAdabper(initDatasetTops(), getApplicationContext()));
+
+ FontManager.setFont(txtMoreIcon3, fontMaterialIcon);
+ FontManager.setFont(txtMoreText3, fontIransans);
+ FontManager.setFont(txtCategory3, fontIransans);
+
+
+ txtCategory.setText("جدیدترین‌ها");
+ txtCategory2.setText("پیشنهاد ویژه");
+ txtCategory3.setText("خدمات جدید");
+
+ View.OnClickListener listener = new View.OnClickListener() {
+ @Override
+ public void onClick(View view) {
+ Intent intent = new Intent(MainActivity.this, HairdresserListActivity.class);
+ startActivity(intent);
+ }
+ };
+
+
+ lnrMore.setOnClickListener(listener);
+ lnrMore2.setOnClickListener(listener);
+ lnrMore3.setOnClickListener(listener);
+
+
+ //        slider = findViewById(R.id.banner_slider1);
+ //        slider.setAdapter(new MainActivitySliderAdapter());
+ }
+ * */
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -146,9 +257,9 @@ public class LoginFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnLoginInteraction {
+    public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void login( );
+        void onFragmentInteraction();
     }
 
     private class MyTextWatcher implements TextWatcher {
