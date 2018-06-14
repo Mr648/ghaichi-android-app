@@ -42,7 +42,7 @@ public class PaymentCallBack extends SorinaActivity
         setContentView(R.layout.activity_login);
 //        new DrawerBuilder().withActivity(this).build();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.placeholder, new ReservationFragment());
+        ft.replace(R.id.placeholder, new CreditFragment());
         ft.commit();
 
     }

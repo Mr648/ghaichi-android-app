@@ -7,7 +7,9 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ import com.sorinaidea.arayeshgah.adapter.TransactionAdabper;
 import com.sorinaidea.arayeshgah.datahelper.Gender;
 import com.sorinaidea.arayeshgah.model.FAQ;
 import com.sorinaidea.arayeshgah.model.Transaction;
+import com.sorinaidea.arayeshgah.ui.dialog.AddCreditDialog;
 import com.sorinaidea.arayeshgah.util.FontManager;
 import com.sorinaidea.arayeshgah.util.Util;
 
@@ -103,6 +106,9 @@ public class CreditFragment extends Fragment {
     private TextView txtCredit;
 
     private Button btnAddCash;
+
+    private FloatingActionButton fab;
+
     private Typeface fontMaterialIcons;
     private Typeface fontIranSans;
 
@@ -124,7 +130,7 @@ public class CreditFragment extends Fragment {
 
         arcView = (DecoView) view.findViewById(R.id.dynamicArcView);
 
-        recFaq  = (RecyclerView) view.findViewById(R.id.recTransactions);
+        recFaq = (RecyclerView) view.findViewById(R.id.recTransactions);
         recFaq.setNestedScrollingEnabled(false);
 
 
@@ -132,6 +138,7 @@ public class CreditFragment extends Fragment {
         txtReservationLabel = (TextView) view.findViewById(R.id.txtReservationLabel);
         txtRemaining = (TextView) view.findViewById(R.id.txtRemaining);
         txtReservation = (TextView) view.findViewById(R.id.txtReservations);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
         txtMessage = (TextView) view.findViewById(R.id.txtMessage);
         txtCredit = (TextView) view.findViewById(R.id.txtCredit);
@@ -163,7 +170,13 @@ public class CreditFragment extends Fragment {
 
         arcView.addSeries(seriesItem1);
         arcView.addSeries(seriesItem2);
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddCreditDialog dialog = new AddCreditDialog((AppCompatActivity) getActivity());
+                dialog.show();
+            }
+        });
 
 //        btnAddCash.setOnClickListener(new View.OnClickListener(){
 //            @Override

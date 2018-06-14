@@ -65,6 +65,10 @@
     <dimen name="_172dp">172dp</dimen>
     <dimen name="_180dp">180dp</dimen>
     <dimen name="_256dp">256dp</dimen>
+    <dimen name="_240dp">240dp</dimen>
+    <dimen name="_320dp">320dp</dimen>
+    <dimen name="_400dp">400dp</dimen>
+    <dimen name="_480dp">480dp</dimen>
 
     <dimen name="_2sp">2sp</dimen>
     <dimen name="_4sp">4sp</dimen>

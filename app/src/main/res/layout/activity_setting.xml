@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
-                android:text="@string/m_icon_left_arrow"/>
+                android:text="@string/m_icon_left_arrow" />
 
             <TextView
                 android:id="@+id/sdfsdfsdf"
@@ -142,7 +142,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/exit_the_app" />
-
     </LinearLayout>
 
 </LinearLayout>

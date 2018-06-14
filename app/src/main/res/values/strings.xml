@@ -82,6 +82,17 @@
     </string-array>
 
 
+    <string name="_lbl_add_credit">افزایش اعتبار</string>
+    <string name="_lbl_online_payment">پرداخت الکترونیکی</string>
+    <string name="_lbl_price">مبلغ (ریال) </string>
+    <string name="_lbl_cancel">انصراف</string>
+    <string name="_lbl_pay">پرداخت</string>
+
+
+
+    <string name="err__empty__cash">لطفا مبلغ را وارد نمایید</string>
+    <string name="err__invalid__cash">مبلغ وارد شده معتبر نیست</string>
+
 
 
 </resources>
