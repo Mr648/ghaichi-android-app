@@ -17,6 +17,8 @@
     <string name="title_location_permission">دسترسی به مکان</string>
     <string name="ok">بله</string>
     <string name="send_activation_code">ارسال کد فعالسازی</string>
+    <string name="verification_code_continue">ادامه</string>
+    <string name="verification_code_hint">کد فعالسازی</string>
     <string name="sample_number">شماره تلفن</string>
     <string name="sample_number_text">+98 --- --- ----</string>
 
@@ -60,7 +62,6 @@
     <string name="error_invalid_phone">شماره موبایل به درستی وارد نشده است.</string>
 
 
-
     <string name="error_empty_phone">شماره موبایل را وارد نمایید.</string>
     <string name="error_no_internet_connection">عدم اتصال به شبکه\nلطفا از طریق Data یا Wifi \nبه اینترنت وصل شوید.</string>
 
@@ -97,6 +98,20 @@
         متن درباره ما نمونه، این متن ساختگی است.
     </string>
 
+    <string name="_lbl_add_credit">افزایش اعتبار</string>
+    <string name="_lbl_online_payment">پرداخت الکترونیکی</string>
+    <string name="_lbl_price">مبلغ (ریال) </string>
+    <string name="_lbl_cancel">انصراف</string>
+    <string name="_lbl_pay">پرداخت</string>
+
+
+    <string name="err__empty__cash">لطفا مبلغ را وارد نمایید</string>
+    <string name="err__invalid__cash">مبلغ وارد شده معتبر نیست</string>
+    <string name="err__empty__phone">لطفا شماره تلفن را وارد نمایید</string>
+    <string name="err__invalid__phone">شماره تلفن وارد شده معتبر نمی‌باشد</string>
+    <string name="err__empty__verfcode">کد فعالسازی خالی است</string>
+    <string name="err__invalid__verfcode">کد فعالسازی نادرست</string>
+
 
     <string name="label_home">صفحه اصلی</string>
     <string name="label_credit">اعتبار</string>
@@ -112,5 +127,8 @@
 
     <string name="navigation_menu_open">باز کردن</string>
     <string name="navigation_menu_close">بستن</string>
+    <string name="action_bookmark">Bookmark</string>
+    <string name="action_share">Share</string>
+    <string name="action_reserve">Reserve</string>
 
 </resources>

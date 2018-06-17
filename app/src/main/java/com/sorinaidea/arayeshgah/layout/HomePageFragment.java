@@ -6,12 +6,16 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sorinaidea.arayeshgah.R;
+import com.sorinaidea.arayeshgah.adapter.BarberShopCategoryAdapter;
 import com.sorinaidea.arayeshgah.adapter.ImageSliderAdapter;
+import com.sorinaidea.arayeshgah.adapter.TopBarberShopUserAdabper;
 import com.sorinaidea.arayeshgah.model.FAQ;
 
 import java.util.ArrayList;
@@ -41,10 +45,15 @@ public class HomePageFragment extends Fragment {
         return inflater.inflate(R.layout.fargment_home, container, false);
     }
 
+
+    private RecyclerView recCategories;
+    private RecyclerView recTopBarberShops;
     private ViewPager mPager;
     private CircleIndicator indicator;
     private static int currentPage = 0;
-    private static final List<Integer> images = Arrays.asList(R.drawable.ic_bug_report_black_18dp,
+    private static final List<String> images = Arrays.asList("", "","","","");
+
+    /*private static final List<String> images = Arrays.asList(R.drawable.ic_bug_report_black_18dp,
             R.drawable.ic_credit_card_black_18dp,
             R.drawable.ic_favorite_black_18dp,
             R.drawable.ic_help_black_18dp,
@@ -52,8 +61,8 @@ public class HomePageFragment extends Fragment {
             R.drawable.ic_instagram,
             R.drawable.ic_linkedin,
             R.drawable.ic_twitter);
-
-    private ArrayList<Integer> imageList = new ArrayList<Integer>();
+*/
+    private ArrayList<String> imageList = new ArrayList<>();
 
     private void initializeImageSlider() {
 
@@ -82,7 +91,30 @@ public class HomePageFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         mPager = (ViewPager) view.findViewById(R.id.pager);
         indicator = (CircleIndicator) view.findViewById(R.id.indicator);
+        recCategories = (RecyclerView) view.findViewById(R.id.recCategories);
+
+        recCategories.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        BarberShopCategoryAdapter adapter = new BarberShopCategoryAdapter(getContext(), initProductItems());
+        recCategories.setAdapter(adapter);
+        recCategories.setNestedScrollingEnabled(false);
+
+
         initializeImageSlider();
+    }
+    private ArrayList<String> initProductItems() {
+        ArrayList<String> list = new ArrayList<String>();
+        list.addAll(Arrays.asList("Category #1", "Category #2", "Category #3", "Category #4", "Category #5", "Category #6"
+                , "Category #7"
+                , "Category #8"
+                , "Category #9"
+                , "Category #10"
+                , "Category #11"
+                , "Category #12"
+                , "Category #13"
+                , "Category #14"
+                , "Category #15"
+                , "Category #16"));
+        return list;
     }
 
     @Override

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/_16dp"
+    android:layout_marginLeft="@dimen/_16dp"
+    android:layout_marginRight="@dimen/_16dp"
+    android:layout_marginStart="@dimen/_16dp"
+    android:layout_marginTop="@dimen/_16dp"
+    android:layoutDirection="rtl"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_8dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/btnMore"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_16dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/txtBarberShopCategory"
+            android:layout_marginLeft="@dimen/_8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="همه" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="@dimen/_16dp"
+                android:layout_height="@dimen/_16dp"
+                app:srcCompat="@drawable/ic_keyboard_arrow_left_black_18dp" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recBarberShop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/_56dp" />
+
+        <TextView
+            android:id="@+id/txtBarberShopCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="TextView" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

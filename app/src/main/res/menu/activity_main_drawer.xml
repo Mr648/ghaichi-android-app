@@ -11,10 +11,6 @@
         android:icon="@drawable/ic_credit_card_black_18dp"
         android:title="@string/label_credit" />
 
-    <item
-        android:id="@+id/action_top_barbershops"
-        android:icon="@drawable/ic_star_black_18dp"
-        android:title="@string/label_top_barbershops" />
 
     <item
         android:id="@+id/action_favorites"
@@ -40,18 +36,12 @@
                 android:id="@+id/action_faq"
                 android:icon="@drawable/ic_help_black_18dp"
                 android:title="@string/label_faq" />
-            <item
-                android:id="@+id/action_send_support_ticket"
-                android:icon="@drawable/ic_mail_black_18dp"
-                android:title="@string/label_send_support_ticket" />
+
             <item
                 android:id="@+id/action_download_latest"
                 android:icon="@drawable/ic_file_download_black_18dp"
                 android:title="@string/label_download_latest" />
-            <item
-                android:id="@+id/action_report_bug"
-                android:icon="@drawable/ic_bug_report_black_18dp"
-                android:title="@string/label_report_bug" />
+
         </menu>
     </item>
 </menu>

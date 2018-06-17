@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.FAQAdabper;
 import com.sorinaidea.arayeshgah.model.FAQ;
+import com.sorinaidea.arayeshgah.ui.SendSupportTicketActivity;
 import com.sorinaidea.arayeshgah.util.FontManager;
 import com.sorinaidea.arayeshgah.util.Util;
 
@@ -28,7 +30,6 @@ public class FaqFragment extends Fragment {
     public FaqFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
@@ -45,11 +46,20 @@ public class FaqFragment extends Fragment {
 
 
     private RecyclerView recFaq;
+    private FloatingActionButton fabSupport;
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
 
         recFaq = (RecyclerView) view.findViewById(R.id.recFaq);
+        fabSupport = (FloatingActionButton) view.findViewById(R.id.fabSupport);
+        fabSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SendSupportTicketActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
         recFaq.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recFaq.setAdapter(new FAQAdabper(initDataset(), getContext()));
 
@@ -67,13 +77,13 @@ public class FaqFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
     }
-
 
 
 }

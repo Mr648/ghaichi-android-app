@@ -33,21 +33,24 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
+
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.AddServiceCategoryActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/label_aboutus">
+            android:label="@string/label_aboutus"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.AddServiceActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/label_aboutus">
+            android:label="@string/label_aboutus"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.HairdresserActivity"
             android:label="@string/label_aboutus"
@@ -62,12 +65,10 @@
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.ProfileActivity"
-            android:label="@string/label_aboutus">
-        </activity>
+            android:label="@string/label_aboutus"></activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.HairdresserListActivity"
-            android:label="لیست آرایشگران">
-        </activity>
+            android:label="لیست آرایشگران"></activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.TestActivity"
             android:label="@string/label_aboutus"></activity>
@@ -75,10 +76,53 @@
             android:name="com.sorinaidea.arayeshgah.ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+
+
+        </activity>
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.BarberShopActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.CreditActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.GetGiftActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.SmsVerificationActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.PersonalInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.SendSupportTicketActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.PaymentCallBack"
@@ -87,12 +131,15 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="start"
                     android:scheme="sorina" />
             </intent-filter>
+
         </activity>
     </application>
 </manifest>

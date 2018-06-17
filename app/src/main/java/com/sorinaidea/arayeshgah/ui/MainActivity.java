@@ -1,5 +1,6 @@
 package com.sorinaidea.arayeshgah.ui;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,8 +21,6 @@ import com.sorinaidea.arayeshgah.layout.CreditFragment;
 import com.sorinaidea.arayeshgah.layout.FaqFragment;
 import com.sorinaidea.arayeshgah.layout.GetGiftFragment;
 import com.sorinaidea.arayeshgah.layout.HomePageFragment;
-import com.sorinaidea.arayeshgah.layout.LoginFragment;
-import com.sorinaidea.arayeshgah.layout.ReservationFragment;
 import com.sorinaidea.arayeshgah.layout.SettingFragment;
 import com.sorinaidea.arayeshgah.layout.UserReservationFragment;
 
@@ -30,7 +29,6 @@ import com.sorinaidea.arayeshgah.layout.UserReservationFragment;
  */
 
 public class MainActivity extends SorinaActivity implements
-        LoginFragment.OnLoginInteraction,
         NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
@@ -39,24 +37,22 @@ public class MainActivity extends SorinaActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_setting) {
-
-            gotoFragment(new SettingFragment());
+            getSupportActionBar().setTitle("تنظیمات");
+            gotoFragment(new SettingFragment(), "Setting", true);
         } else if (id == R.id.action_credit) {
-            gotoFragment(new CreditFragment());
-        } else if (id == R.id.action_top_barbershops) {
-
+            Intent intent = new Intent(MainActivity.this, CreditActivity.class);
+            startActivity(intent);
         } else if (id == R.id.action_favorites) {
 
         } else if (id == R.id.action_free_reservation) {
-            gotoFragment(new GetGiftFragment());
+            Intent intent = new Intent(MainActivity.this, GetGiftActivity.class);
+            startActivity(intent);
         } else if (id == R.id.action_aboutus) {
-            gotoFragment(new AboutUsFragment());
+            getSupportActionBar().setTitle("درباره ما");
+            gotoFragment(new AboutUsFragment(), "Aboutus", true);
         } else if (id == R.id.action_faq) {
-            gotoFragment(new FaqFragment());
-
-        } else if (id == R.id.action_send_support_ticket) {
-
-        } else if (id == R.id.action_report_bug) {
+            getSupportActionBar().setTitle("سوالات متداول");
+            gotoFragment(new FaqFragment(), "Faq", true);
 
         }
 
@@ -66,10 +62,14 @@ public class MainActivity extends SorinaActivity implements
     }
 
 
-    private void gotoFragment(Fragment fragment){
+    private void gotoFragment(Fragment fragment, String key, boolean putKey) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.scale_up, R.anim.scale_down);
-        ft.replace(R.id.content, fragment).commit();
+        ft.replace(R.id.content, fragment);
+        if (putKey) {
+            ft.addToBackStack(key);
+        }
+        ft.commit();
     }
 
     private DrawerLayout drawer;
@@ -122,7 +122,6 @@ public class MainActivity extends SorinaActivity implements
     }
 
 
-
 //    @Override
 //    public void onRegistrationFirstStepInteraction() {
 //        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -147,7 +146,7 @@ public class MainActivity extends SorinaActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_reservations) {
-            gotoFragment(new UserReservationFragment());
+            gotoFragment(new UserReservationFragment(), "Reservations", true);
 
             return true;
         }
@@ -159,13 +158,14 @@ public class MainActivity extends SorinaActivity implements
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportActionBar().setTitle("قیچی");
+                getSupportFragmentManager().popBackStackImmediate();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
 
-    @Override
-    public void login() {
-
-    }
 }

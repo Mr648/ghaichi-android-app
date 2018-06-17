@@ -5,12 +5,20 @@ package com.sorinaidea.arayeshgah.model;
  */
 
 public class BarberShop {
+    private int id;
     private int logo;
     private String title;
     private String address;
     private int rating;
     private boolean isBookmarked;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public BarberShop(int logo){
         this.setLogo(logo);

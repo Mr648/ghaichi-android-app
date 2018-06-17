@@ -8,7 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.sorinaidea.arayeshgah.R;
+import com.sorinaidea.arayeshgah.webservice.API;
+import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 /**
@@ -16,13 +20,13 @@ import java.util.ArrayList;
  */
 
 public class ImageSliderAdapter extends PagerAdapter {
-    private ArrayList<Integer> images;
+    private ArrayList<String> images;
     private LayoutInflater inflater;
     private Context context;
 
-    public ImageSliderAdapter(Context context, ArrayList<Integer> images) {
+    public ImageSliderAdapter(Context context, ArrayList<String> images) {
         this.context = context;
-        this.images=images;
+        this.images = images;
         inflater = LayoutInflater.from(context);
     }
 
@@ -41,7 +45,14 @@ public class ImageSliderAdapter extends PagerAdapter {
         View myImageLayout = inflater.inflate(R.layout.image_slide, view, false);
         ImageView myImage = (ImageView) myImageLayout
                 .findViewById(R.id.image);
-        myImage.setImageResource(images.get(position));
+        myImage.setImageResource(R.drawable.empty);
+//        try {
+//            Picasso.with(context).load(API.BASE_URL
+//                    + URLDecoder.decode(images.get(position), "UTF-8")).into(myImage);
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+
         view.addView(myImageLayout, 0);
         return myImageLayout;
     }

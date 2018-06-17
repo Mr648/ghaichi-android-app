@@ -31,11 +31,11 @@ public class PaymentCallBack extends SorinaActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-//        new DrawerBuilder().withActivity(this).build();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.placeholder, new ReservationFragment());
-        ft.commit();
+//        setContentView(R.layout.activity_login);
+////        new DrawerBuilder().withActivity(this).build();
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.replace(R.id.placeholder, new CreditFragment());
+//        ft.commit();
 
     }
 
