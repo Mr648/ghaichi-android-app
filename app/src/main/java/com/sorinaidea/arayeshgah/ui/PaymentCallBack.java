@@ -3,14 +3,9 @@ package com.sorinaidea.arayeshgah.ui;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 
-import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.layout.ActivationFragment;
-import com.sorinaidea.arayeshgah.layout.CreditFragment;
-import com.sorinaidea.arayeshgah.layout.GetGiftFragment;
-import com.sorinaidea.arayeshgah.layout.PersonalInfoFragment;
 import com.sorinaidea.arayeshgah.layout.ReservationFragment;
 import com.sorinaidea.arayeshgah.model.Transaction;
 
@@ -24,7 +19,7 @@ import java.util.Date;
 public class PaymentCallBack extends SorinaActivity
         implements
         ActivationFragment.OnActivationFragmentInteractionListener,
-        PersonalInfoFragment.OnPersonalInfoFragmentInteractionListener,
+
         ReservationFragment.OnReservationFragmentInteractionListener
           {
 
@@ -82,9 +77,6 @@ public class PaymentCallBack extends SorinaActivity
     }
 
 
-    @Override
-    public void onPersonalInfoFragmentInteraction(Uri uri) {
-    }
 
 
     @Override

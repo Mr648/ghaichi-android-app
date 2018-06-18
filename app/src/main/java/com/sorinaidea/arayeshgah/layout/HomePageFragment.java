@@ -50,12 +50,11 @@ public class HomePageFragment extends Fragment {
 
 
     private RecyclerView recCategories;
-    private RecyclerView recTopBarberShops;
     private ViewPager mPager;
     private FloatingActionButton fabMap;
     private CircleIndicator indicator;
     private static int currentPage = 0;
-    private static final List<String> images = Arrays.asList("", "","","","");
+    private static final List<String> images = Arrays.asList("", "", "", "", "");
 
     /*private static final List<String> images = Arrays.asList(R.drawable.ic_bug_report_black_18dp,
             R.drawable.ic_credit_card_black_18dp,
@@ -114,19 +113,18 @@ public class HomePageFragment extends Fragment {
 
         initializeImageSlider();
     }
+
     private ArrayList<String> initProductItems() {
         ArrayList<String> list = new ArrayList<String>();
-        list.addAll(Arrays.asList("Category #1", "Category #2", "Category #3", "Category #4", "Category #5", "Category #6"
+        list.addAll(Arrays.asList(
+                "Category #1"
+                , "Category #2"
+                , "Category #3"
+                , "Category #4"
+                , "Category #5"
+                , "Category #6"
                 , "Category #7"
-                , "Category #8"
-                , "Category #9"
-                , "Category #10"
-                , "Category #11"
-                , "Category #12"
-                , "Category #13"
-                , "Category #14"
-                , "Category #15"
-                , "Category #16"));
+        ));
         return list;
     }
 

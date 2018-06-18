@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.datahelper.Gender;
-import com.sorinaidea.arayeshgah.layout.PersonalInfoFragment;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
 /**

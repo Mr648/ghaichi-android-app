@@ -7,7 +7,7 @@
     <string name="content_value">[content]</string>
     <string name="action_refresh">Refresh</string>
     <string name="your_current_location">موقعیت فعلی شما</string>
-
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
     <string name="info_name">نام</string>
     <string name="info_family">نام خانوادگی</string>

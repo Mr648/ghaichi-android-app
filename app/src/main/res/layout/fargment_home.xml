@@ -1,57 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl">
 
-    <RelativeLayout
-        android:id="@+id/advertices"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_172dp"
-        android:layout_below="@id/toolbar">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentTop="true" />
-
-        <me.relex.circleindicator.CircleIndicator
-            android:id="@+id/indicator"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_36dp"
-            android:layout_alignParentBottom="true" />
-    </RelativeLayout>
-
-    <ScrollView
-        android:id="@+id/scrCategories"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/advertices">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/advertices"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_172dp"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentTop="true" />
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_36dp"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recCategories"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
-    </ScrollView>
+
+    </android.support.v4.widget.NestedScrollView>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabMap"
-        android:layout_above="@id/scrCategories"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="16dp"
         android:layout_marginBottom="@dimen/_16dp"
         android:layout_marginLeft="@dimen/_16dp"
         android:layout_marginStart="@dimen/_16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:src="@drawable/ic_location_on_black_24dp"
         android:tint="@color/white"
-        android:src="@drawable/ic_favorite_black_18dp"/>
-</RelativeLayout>
+          />
+</android.support.design.widget.CoordinatorLayout>

@@ -6,7 +6,7 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.sorinaidea.arayeshgah"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -48,13 +48,9 @@ dependencies {
     compile 'me.relex:circleindicator:1.2.2@aar'
 
     compile 'com.github.clans:fab:1.6.4'
-//    compile('com.mikepenz:materialdrawer:5.8.3@aar') {
-//        transitive = true
-//    }
 
-
-//    circle chart
     compile 'com.github.bmarrdev:android-DecoView-charting:v1.2'
+
     testCompile 'junit:junit:4.12'
 }
 // glide dependencies

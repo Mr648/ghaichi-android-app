@@ -108,7 +108,7 @@ public class MapsActivity
 
 
     private LatLng getRandomLocation() {
-        return new LatLng(35 + Math.random() * 0.00000001, 46 + Math.random() * 0.00000001);
+        return new LatLng(35.3 + Math.random() , 46 + Math.random() + Math.random()*0.5 );
     }
 
     private void initMarkers(final GoogleMap googleMap) {
