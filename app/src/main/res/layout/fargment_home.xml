@@ -23,6 +23,7 @@
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/scrCategories"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/advertices">
@@ -40,4 +41,17 @@
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabMap"
+        android:layout_above="@id/scrCategories"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="@dimen/_16dp"
+        android:layout_marginLeft="@dimen/_16dp"
+        android:layout_marginStart="@dimen/_16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/white"
+        android:src="@drawable/ic_favorite_black_18dp"/>
 </RelativeLayout>

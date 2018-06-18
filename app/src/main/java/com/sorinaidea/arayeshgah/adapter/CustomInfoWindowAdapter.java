@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.sorinaidea.arayeshgah.R;
+import com.sorinaidea.arayeshgah.ui.BarberShopActivity;
 import com.sorinaidea.arayeshgah.util.SorinaApplication;
 import com.sorinaidea.arayeshgah.util.picasso.CircleTransformation;
 import com.sorinaidea.arayeshgah.util.picasso.RoundedTransformation;
@@ -35,6 +37,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         return null;
     }
 
+
     @Override
     public View getInfoContents(Marker marker) {
         View view = context.getLayoutInflater().inflate(R.layout.marker_info_window, null);
@@ -44,6 +47,14 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         txtTitle.setText("ناز عروس");
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, BarberShopActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
 //        String url = "https://cdn2.iconfinder.com/data/icons/flat-jewels-icon-set/512/0002_Tree.png";
         String url = "https://cdn2.iconfinder.com/data/icons/flat-jewels-icon-set/512/0002_Tree.png";
 

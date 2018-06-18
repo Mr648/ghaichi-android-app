@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -69,9 +71,10 @@ public class BarberShopActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        hideToolbar();
         initializeImageSlider();
- ratingBar.setIsIndicator(true);
- ratingBar.setRating(2.5f);
+        ratingBar.setIsIndicator(true);
+        ratingBar.setRating(2.5f);
 
         imgComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +93,14 @@ public class BarberShopActivity extends AppCompatActivity {
 
     private ArrayList<String> imageList = new ArrayList<>();
 
+    private void hideToolbar() {
+        toolbar.animate().translationY(-500).setInterpolator(new AccelerateInterpolator()).start();
+    }
+
+    private void showToolbar() {
+        toolbar.animate().translationY(200).setInterpolator(new DecelerateInterpolator()).start();
+    }
+
     private void initializeImageSlider() {
 
         imageList.addAll(images);
@@ -104,6 +115,29 @@ public class BarberShopActivity extends AppCompatActivity {
                 mPager.setCurrentItem(currentPage++, true);
             }
         };
+
+
+        mPager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!show) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showToolbar();
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideToolbar();
+                        }
+                    });
+                }
+                show = !show;
+            }
+        });
         Timer swipeTimer = new Timer();
         swipeTimer.schedule(new TimerTask() {
             @Override
@@ -113,6 +147,7 @@ public class BarberShopActivity extends AppCompatActivity {
         }, 2500, 2500);
     }
 
+    private boolean show = false;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

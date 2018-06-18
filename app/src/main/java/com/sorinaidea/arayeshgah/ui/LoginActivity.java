@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -45,13 +46,24 @@ public class LoginActivity extends AppCompatActivity {
         btnSendCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-submitForm();
+                submitForm();
             }
         });
 
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
+
         FontManager.setFont(txtIconCall, iconFont);
+
+        edtPhoneNumber.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    submitForm();
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -66,7 +78,6 @@ submitForm();
     }
 
     private void sendSms(final String phone) {
-
 
 
         Intent intent = new Intent(LoginActivity.this, SmsVerificationActivity.class);

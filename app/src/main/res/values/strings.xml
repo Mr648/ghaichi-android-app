@@ -70,7 +70,7 @@
     <string name="lorem_ipsum">lorem ipsum</string>
     <string name="choose_location">انتخاب مکان</string>
     <string name="credid_msg">موجودی(ریال)</string>
-    <string name="gender">جنسیت</string>
+    <string name="gender">انتخاب جنسیت</string>
     <string name="label_confirm">تایید</string>
     <string name="share">اشتراک گذاری</string>
     <string name="get_gift">اعتبار هدیه دریافت کنید</string>
@@ -111,6 +111,8 @@
     <string name="err__invalid__phone">شماره تلفن وارد شده معتبر نمی‌باشد</string>
     <string name="err__empty__verfcode">کد فعالسازی خالی است</string>
     <string name="err__invalid__verfcode">کد فعالسازی نادرست</string>
+    <string name="err__empty__field">فیلد خالی است</string>
+    <string name="err__invalid__field">کد فعالسازی نادرست</string>
 
 
     <string name="label_home">صفحه اصلی</string>

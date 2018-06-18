@@ -107,6 +107,10 @@ public class MapsActivity
     }
 
 
+    private LatLng getRandomLocation() {
+        return new LatLng(35 + Math.random() * 0.00000001, 46 + Math.random() * 0.00000001);
+    }
+
     private void initMarkers(final GoogleMap googleMap) {
         final ClusterManager<ClusterMarker> clusterManager = new ClusterManager<>(this, googleMap);
 
@@ -146,6 +150,18 @@ public class MapsActivity
 
         googleMap.setOnMarkerClickListener(clusterManager);
 
+        int counter = 0;
+        for (int i = 0; i < 200; i++) {
+            counter++;
+            ClusterMarker cmarker = new ClusterMarker();
+            cmarker.setPosition(getRandomLocation());
+            cmarker.setTitle("Title");
+            cmarker.setIcon(Util.getBitmapDescriptor(R.drawable.ic_hairdresser, getApplicationContext()));
+            clusterManager.addItem(cmarker);
+            if (counter % 10 == 0)
+                clusterManager.cluster();
+        }
+        /*
         Retrofit retrofit =
                 new Retrofit.Builder()
                         .baseUrl(Util.CONSTANTS.BASE_URL)
@@ -180,7 +196,7 @@ public class MapsActivity
             }
 
         });
-
+*/
     }
 
 
@@ -322,7 +338,7 @@ public class MapsActivity
                                         mLastKnownLocation.getLongitude());
 
                                 mMap.addMarker(new MarkerOptions()
-                                        .icon(Util.getBitmapDescriptor(R.drawable.ic_pin , getApplicationContext()))
+                                        .icon(Util.getBitmapDescriptor(R.drawable.ic_pin, getApplicationContext()))
                                         .title(getString(R.string.your_current_location))
                                         .flat(true)
                                         .anchor(0.5f, 1f)

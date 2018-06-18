@@ -102,10 +102,14 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
     private ArrayList<BarberShop> initBarberShops() {
         ArrayList<BarberShop> list = new ArrayList<>();
         list.addAll(Arrays.asList(
-                new BarberShop(R.drawable.barbershop),
-                new BarberShop(R.drawable.barbershop),
-                new BarberShop(R.drawable.barbershop),
-                new BarberShop(R.drawable.barbershop)
+                new BarberShop(R.drawable.barbershop,"BarberShop 1"),
+                new BarberShop(R.drawable.barbershop,"BarberShop 2"),
+                new BarberShop(R.drawable.barbershop,"BarberShop 3"),
+                new BarberShop(R.drawable.barbershop,"BarberShop 4"),
+                new BarberShop(R.drawable.barbershop,"BarberShop 5"),
+                new BarberShop(R.drawable.barbershop,"BarberShop 6"),
+                new BarberShop(R.drawable.barbershop,"BarberShop 7"),
+                new BarberShop(R.drawable.barbershop,"BarberShop 8")
         ));
         return list;
     }

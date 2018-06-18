@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -34,8 +35,6 @@ public class SmsVerificationActivity extends AppCompatActivity {
     private TextInputEditText edtVerificationCode;
 
     private Handler handler;
-
-
 
 
     View.OnClickListener verfiyClickListener = new View.OnClickListener() {
@@ -68,14 +67,21 @@ public class SmsVerificationActivity extends AppCompatActivity {
         }
 
 
-
         btnVerify = (Button) findViewById(R.id.btnVerify);
         inputLayoutVerificationCode = (TextInputLayout) findViewById(R.id.inputLayoutVerificationCode);
         edtVerificationCode = (TextInputEditText) findViewById(R.id.edtVerificationCode);
 
+        edtVerificationCode.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    submitForm(phone);
+                }
+                return false;
+            }
+        });
 
         btnVerify.setOnClickListener(verfiyClickListener);
-
 
 
     }
@@ -141,7 +147,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
     private boolean validateVerificationCode() {
         if (edtVerificationCode.getText().toString().trim().isEmpty()) {
-            inputLayoutVerificationCode.setError(getString(R.string.err__empty__phone));
+            inputLayoutVerificationCode.setError(getString(R.string.err__empty__verfcode));
             requestFocus(edtVerificationCode);
             return false;
 

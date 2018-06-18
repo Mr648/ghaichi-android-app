@@ -12,8 +12,8 @@
 
 
     <RelativeLayout
-        android:layout_width="@dimen/_128dp"
-        android:layout_height="@dimen/_144dp">
+        android:layout_width="@dimen/_96dp"
+        android:layout_height="@dimen/_120dp">
 
         <TextView
             android:id="@+id/txtProductCategory"
@@ -21,9 +21,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/_16dp"
+            android:layout_marginTop="@dimen/_8dp"
             android:gravity="center_vertical|center_horizontal"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/textColorDarker" />
 
         <ImageView
             android:id="@+id/imgProduct"

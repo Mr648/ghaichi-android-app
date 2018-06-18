@@ -62,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imageView"
                 android:layout_centerHorizontal="false"
+android:text="09185397210"
                 android:ems="@integer/phone_edit_text_length"
                 android:gravity="center"
                 android:imeOptions="actionGo"

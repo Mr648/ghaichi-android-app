@@ -92,16 +92,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
-        android:padding="@dimen/padding_8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/padding_8dp">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnSelectGender"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_weight="1"
-            android:gravity="right"
-            android:padding="@dimen/padding_4dp"
+            android:gravity="center"
+            android:padding="@dimen/_16dp"
             android:text="@string/gender"
             android:textSize="@dimen/text_18sp" />
 
@@ -111,8 +113,9 @@
             android:layout_height="@dimen/spinner_min_height"
             android:layout_weight="1"
             android:background="@drawable/round_rect_bg_gray"
-            android:spinnerMode="dropdown"
-            android:entries="@array/genders" />
+            android:entries="@array/genders"
+            android:spinnerMode="dialog"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <LinearLayout

@@ -1,9 +1,11 @@
 package com.sorinaidea.arayeshgah.layout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ import com.sorinaidea.arayeshgah.adapter.BarberShopCategoryAdapter;
 import com.sorinaidea.arayeshgah.adapter.ImageSliderAdapter;
 import com.sorinaidea.arayeshgah.adapter.TopBarberShopUserAdabper;
 import com.sorinaidea.arayeshgah.model.FAQ;
+import com.sorinaidea.arayeshgah.ui.MapsActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +52,7 @@ public class HomePageFragment extends Fragment {
     private RecyclerView recCategories;
     private RecyclerView recTopBarberShops;
     private ViewPager mPager;
+    private FloatingActionButton fabMap;
     private CircleIndicator indicator;
     private static int currentPage = 0;
     private static final List<String> images = Arrays.asList("", "","","","");
@@ -92,7 +96,16 @@ public class HomePageFragment extends Fragment {
         mPager = (ViewPager) view.findViewById(R.id.pager);
         indicator = (CircleIndicator) view.findViewById(R.id.indicator);
         recCategories = (RecyclerView) view.findViewById(R.id.recCategories);
+        fabMap = (FloatingActionButton) view.findViewById(R.id.fabMap);
 
+
+        fabMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MapsActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
         recCategories.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         BarberShopCategoryAdapter adapter = new BarberShopCategoryAdapter(getContext(), initProductItems());
         recCategories.setAdapter(adapter);

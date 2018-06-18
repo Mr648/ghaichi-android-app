@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.datahelper.Gender;
@@ -24,6 +25,8 @@ import com.sorinaidea.arayeshgah.util.FontManager;
 public class PersonalInfoActivity extends AppCompatActivity {
 
     private Button btnNextStep;
+    private Button btnSelectGender;
+    private TextView txtGender;
     private Spinner spnGender;
     private TextInputEditText edtName;
     private TextInputEditText edtFamily;
@@ -36,6 +39,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_personal_info);
         btnNextStep = (Button) findViewById(R.id.btnNextStep);
+        btnSelectGender = (Button) findViewById(R.id.btnSelectGender);
         spnGender = (Spinner) findViewById(R.id.spnGender);
 
 
@@ -54,17 +58,32 @@ public class PersonalInfoActivity extends AppCompatActivity {
             }
         });
 
-        spnGender.setSelection(0);
+        btnSelectGender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spnGender.performClick();
+
+            }
+        });
+
 
         spnGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedGender = Gender.values()[position];
+               if (!lock) {
+                   selectedGender = Gender.values()[position];
+                   btnSelectGender.setText((selectedGender == Gender.FEMALE) ? "خانم" : "آقا");
+               }                lock = false;
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selectedGender = Gender.values()[0];
+                if (!lock) {
+                    selectedGender = Gender.values()[0];
+                    btnSelectGender.setText("لطفا جنسیت خود را انتخاب نمایید");
+                }                lock = false;
+
             }
         });
 
@@ -72,4 +91,6 @@ public class PersonalInfoActivity extends AppCompatActivity {
         FontManager.setFont(btnNextStep, iconFont);
 
     }
+
+    boolean lock = true;
 }
