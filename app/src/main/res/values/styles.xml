@@ -38,6 +38,12 @@
         <item name="titleTextColor">@color/colorPrimary</item>
     </style>
 
+    <style name="ToolbarStyle.White" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:background">@color/colorGrayLighter</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="titleTextColor">@color/colorPrimary</item>
+    </style>
+
     <style name="ToolbarStyle.Primary" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="android:background">@color/colorPrimary</item>
         <item name="colorControlNormal">@color/white</item>

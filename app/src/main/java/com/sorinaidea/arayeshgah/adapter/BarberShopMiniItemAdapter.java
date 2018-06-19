@@ -92,7 +92,7 @@ public class BarberShopMiniItemAdapter extends RecyclerView.Adapter<BarberShopMi
 
 
         final BarberShop barberShop = mItems.get(position);
-        holder.getImgProduct().setImageResource(drawables[((int) (Math.random() * 3))]);
+        holder.getImgProduct().setImageResource(R.drawable.preview_small);
         holder.getTxtProductName().setText(barberShop.getTitle());
         holder.getProductItem().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +105,6 @@ public class BarberShopMiniItemAdapter extends RecyclerView.Adapter<BarberShopMi
         });
     }
 
-    int[] drawables = {R.drawable.barbershop, R.drawable.barbershop, R.drawable.barbershop, R.drawable.barbershop};
 
     @Override
     public int getItemCount() {

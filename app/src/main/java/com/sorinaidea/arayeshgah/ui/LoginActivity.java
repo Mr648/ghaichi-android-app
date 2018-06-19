@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -32,11 +34,24 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout inputLayoutPhoneNumber;
 
     private String TAG = "LoginActivity";
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        ViewCompat.setElevation(toolbar, Util.dp(5, LoginActivity.this));
+
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setText("ورود به حساب کاربری");
+
         btnSendCode = (Button) findViewById(R.id.btnSendCode);
         txtIconCall = (TextView) findViewById(R.id.txtIconCall);
         edtPhoneNumber = (TextInputEditText) findViewById(R.id.edtPhoneNumber);

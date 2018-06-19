@@ -1,26 +1,19 @@
-package com.sorinaidea.arayeshgah.layout;
+package com.sorinaidea.arayeshgah.ui;
 
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
-import com.sorinaidea.arayeshgah.adapter.FAQAdabper;
 import com.sorinaidea.arayeshgah.model.AboutUs;
-import com.sorinaidea.arayeshgah.model.FAQ;
 import com.sorinaidea.arayeshgah.util.FontManager;
 import com.sorinaidea.arayeshgah.util.Util;
 import com.sorinaidea.arayeshgah.webservice.AboutUsService;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,42 +21,32 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
-public class AboutUsFragment extends Fragment {
-
-    public AboutUsFragment() {
-        // Required empty public constructor
-    }
-
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_aboutus, container, false);
-    }
+public class AboutUsActivity extends AppCompatActivity {
 
     private TextView txtAboutUs;
     private TextView txtInstagram;
     private TextView txtLinkedIn;
     private TextView txtTwitter;
+    private Toolbar toolbar;
 
-    @Override
-    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
-        txtAboutUs = (TextView) view.findViewById(R.id.txtAboutUs);
-        txtInstagram = (TextView) view.findViewById(R.id.txtInstagram);
-        txtLinkedIn = (TextView) view.findViewById(R.id.txtLinkedIn);
-        txtTwitter = (TextView) view.findViewById(R.id.txtTwitter);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_aboutus);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("درباره ما");
+
+        txtAboutUs = (TextView) findViewById(R.id.txtAboutUs);
+        txtInstagram = (TextView) findViewById(R.id.txtInstagram);
+        txtLinkedIn = (TextView) findViewById(R.id.txtLinkedIn);
+        txtTwitter = (TextView) findViewById(R.id.txtTwitter);
 
         // getting fonts
-        Typeface fontSocialIcons = FontManager.getTypeface(getContext(), FontManager.SOCIAL_ICONS);
-        Typeface fontIransans = FontManager.getTypeface(getContext(), FontManager.IRANSANS_TEXTS);
+        Typeface fontSocialIcons = FontManager.getTypeface(getApplicationContext(), FontManager.SOCIAL_ICONS);
+        Typeface fontIransans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         // setting fonts for icons
         FontManager.setFont(txtInstagram, fontSocialIcons);
@@ -96,21 +79,23 @@ public class AboutUsFragment extends Fragment {
                 txtAboutUs.setText(response.body().getAboutUsText() + response.body().getAboutUsText());
             }
         });
-
-    }
-
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
 
-
+        super.onBackPressed();
+    }
 }

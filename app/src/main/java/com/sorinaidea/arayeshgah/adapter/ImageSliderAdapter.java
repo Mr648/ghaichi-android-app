@@ -45,7 +45,7 @@ public class ImageSliderAdapter extends PagerAdapter {
         View myImageLayout = inflater.inflate(R.layout.image_slide, view, false);
         ImageView myImage = (ImageView) myImageLayout
                 .findViewById(R.id.image);
-        myImage.setImageResource(R.drawable.empty);
+        myImage.setImageResource(R.drawable.preview_xlarge);
 //        try {
 //            Picasso.with(context).load(API.BASE_URL
 //                    + URLDecoder.decode(images.get(position), "UTF-8")).into(myImage);

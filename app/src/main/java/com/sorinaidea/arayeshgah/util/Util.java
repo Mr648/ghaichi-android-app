@@ -71,4 +71,13 @@ public class Util {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
+
+    public static int dp(float value, Context context) {
+        if (value == 0) {
+            return 0;
+        }
+        float  density = context.getResources().getDisplayMetrics().density;
+        return (int) Math.ceil(density * value);
+    }
+
 }

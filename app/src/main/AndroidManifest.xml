@@ -44,8 +44,21 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+
+        <activity
+            android:name=".ui.SettingActivity"
+            android:label="@string/label_setting"
+            android:theme="@style/AppTheme">
+
+        </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.AddServiceActivity"
+            android:label="@string/label_aboutus"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".ui.FaqActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -53,6 +66,12 @@
 
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.HairdresserActivity"
+            android:label="@string/label_aboutus"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.AboutUsActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar">
 

@@ -6,6 +6,21 @@
     android:orientation="vertical"
     android:weightSum="5">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:theme="@style/ToolbarStyle.White">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/_16dp"
+            android:text="Toolbar Title" />
+    </android.support.v7.widget.Toolbar>
 
     <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
     <LinearLayout
@@ -18,6 +33,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_16dp"
         android:layout_weight="2.25"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal">
@@ -26,7 +42,7 @@
             android:id="@+id/imgLogo"
             android:layout_width="144dp"
             android:layout_height="144dp"
-            app:srcCompat="@drawable/background_circle" />
+            app:srcCompat="@mipmap/ic_launcher" />
 
     </LinearLayout>
 
@@ -95,15 +111,25 @@
         android:orientation="vertical"
         android:padding="@dimen/padding_8dp">
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnSelectGender"
-            style="@style/Widget.AppCompat.Button.Colored"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:background="@drawable/bg_light_border"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:drawableEnd="@mipmap/ic_gender_types"
+            android:drawablePadding="@dimen/_8dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="@dimen/_16dp"
+            android:gravity="right|center_vertical"
+
+            android:paddingStart="@dimen/_16dp"
+            android:paddingEnd="@dimen/_16dp"
+            android:paddingTop="@dimen/_4dp"
+            android:paddingBottom="@dimen/_4dp"
+            android:layout_marginTop="@dimen/_4dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:scaleType="centerInside"
             android:text="@string/gender"
             android:textSize="@dimen/text_18sp" />
 

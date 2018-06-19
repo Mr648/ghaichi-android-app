@@ -46,15 +46,8 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         ImageView imgLogo = (ImageView) view.findViewById(R.id.marker_logo);
 
         txtTitle.setText("ناز عروس");
+        imgLogo.setImageResource(R.drawable.barbershop);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, BarberShopActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
 //        String url = "https://cdn2.iconfinder.com/data/icons/flat-jewels-icon-set/512/0002_Tree.png";
         String url = "https://cdn2.iconfinder.com/data/icons/flat-jewels-icon-set/512/0002_Tree.png";
 
@@ -62,11 +55,11 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         // TODO: use glide to get logo of marker
 
 
-        Picasso.with(context)
-                .load(url)
-                .resize(48, 48)
-                .centerCrop()
-                .transform(new CircleTransformation()).into(imgLogo);
+//        Picasso.with(context)
+//                .load(url)
+//                .resize(48, 48)
+//                .centerCrop()
+//                .transform(new CircleTransformation()).into(imgLogo);
 
 
 //        Glide.with(context).load(url).into(imgLogo);

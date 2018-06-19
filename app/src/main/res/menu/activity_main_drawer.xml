@@ -36,12 +36,6 @@
                 android:id="@+id/action_faq"
                 android:icon="@drawable/ic_help_black_18dp"
                 android:title="@string/label_faq" />
-
-            <item
-                android:id="@+id/action_download_latest"
-                android:icon="@drawable/ic_file_download_black_18dp"
-                android:title="@string/label_download_latest" />
-
         </menu>
     </item>
 </menu>

@@ -6,12 +6,15 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.util.Util;
@@ -28,7 +31,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
     private final static int TIME_TO_TRY_AGAIN_SECONDS = 10;
 
     private String phone;
-
+    private Toolbar toolbar;
 
     private Button btnVerify;
     private TextInputLayout inputLayoutVerificationCode;
@@ -57,6 +60,16 @@ public class SmsVerificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        ViewCompat.setElevation(toolbar, Util.dp(5, SmsVerificationActivity.this));
+
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setText("دریافت کد فعالسازی");
 
         Bundle extras = getIntent().getExtras();
 

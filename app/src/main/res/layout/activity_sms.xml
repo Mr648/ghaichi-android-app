@@ -6,6 +6,22 @@
     android:orientation="vertical"
     android:weightSum="5">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="@dimen/_2dp"
+        app:theme="@style/ToolbarStyle.White">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_marginRight="@dimen/_16dp"
+            android:layout_gravity="right"
+            android:text="Toolbar Title" />
+    </android.support.v7.widget.Toolbar>
 
     <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
     <LinearLayout
@@ -18,6 +34,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_16dp"
         android:layout_weight="2.25"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal">
@@ -26,7 +43,7 @@
             android:id="@+id/imgLogo"
             android:layout_width="144dp"
             android:layout_height="144dp"
-            app:srcCompat="@drawable/background_circle" />
+            app:srcCompat="@mipmap/ic_launcher" />
 
     </LinearLayout>
 
@@ -67,8 +84,8 @@
                 android:imeOptions="actionGo"
                 android:inputType="phone"
                 android:maxLength="4"
-                android:text="4568"
                 android:maxLines="1"
+                android:text="4568"
                 android:textSize="18sp" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>

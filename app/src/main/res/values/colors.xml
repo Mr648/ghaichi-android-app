@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#fe4b5e</color>
-    <color name="colorPrimaryDark">#ba3d4b</color>
+    <color name="colorPrimaryDark">#d32f2f</color>
     <color name="colorAccent">#fe4b5e</color>
     <color name="colorRed">#f44336</color>
-    <color name="colorGreen">#1faa00</color>
+    <color name="colorGreen">#10B491</color>
+    <color name="colorGray">#e0e0e0</color>
+    <color name="colorGrayLighter">#fafafa</color>
+
+    <!--<color name="colorGreen">#1faa00</color>-->
     <color name="markerTitle">#212121</color>
     <color name="markerSnippet">#424242</color>
     <color name="markerCircle">#26c6da</color>

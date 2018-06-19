@@ -16,12 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sorinaidea.arayeshgah.R;
-import com.sorinaidea.arayeshgah.layout.AboutUsFragment;
-import com.sorinaidea.arayeshgah.layout.CreditFragment;
-import com.sorinaidea.arayeshgah.layout.FaqFragment;
-import com.sorinaidea.arayeshgah.layout.GetGiftFragment;
 import com.sorinaidea.arayeshgah.layout.HomePageFragment;
-import com.sorinaidea.arayeshgah.layout.SettingFragment;
 import com.sorinaidea.arayeshgah.layout.UserReservationFragment;
 
 /**
@@ -37,23 +32,23 @@ public class MainActivity extends SorinaActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_setting) {
-            getSupportActionBar().setTitle("تنظیمات");
-            gotoFragment(new SettingFragment(), "Setting", true);
+            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+            startActivity(intent);
         } else if (id == R.id.action_credit) {
             Intent intent = new Intent(MainActivity.this, CreditActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_favorites) {
-
+//            Intent intent = new Intent(MainActivity.this, CreditActivity.class);
+//            startActivity(intent);
         } else if (id == R.id.action_free_reservation) {
             Intent intent = new Intent(MainActivity.this, GetGiftActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_aboutus) {
-            getSupportActionBar().setTitle("درباره ما");
-            gotoFragment(new AboutUsFragment(), "Aboutus", true);
+            Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.action_faq) {
-            getSupportActionBar().setTitle("سوالات متداول");
-            gotoFragment(new FaqFragment(), "Faq", true);
-
+            Intent intent = new Intent(MainActivity.this, FaqActivity.class);
+            startActivity(intent);
         }
 
 

@@ -33,6 +33,6 @@
             android:layout_centerInParent="true"
             android:layout_alignParentTop="true"
             android:scaleType="fitCenter"
-            android:src="@android:drawable/btn_star" />
+            android:src="@drawable/preview_small" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

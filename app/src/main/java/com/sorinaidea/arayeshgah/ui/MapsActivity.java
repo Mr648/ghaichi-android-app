@@ -2,6 +2,7 @@ package com.sorinaidea.arayeshgah.ui;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -108,7 +109,7 @@ public class MapsActivity
 
 
     private LatLng getRandomLocation() {
-        return new LatLng(35.3 + Math.random() , 46 + Math.random() + Math.random()*0.5 );
+        return new LatLng(35.3 + Math.random(), 46 + Math.random() + Math.random() * 0.5);
     }
 
     private void initMarkers(final GoogleMap googleMap) {
@@ -235,8 +236,9 @@ public class MapsActivity
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Toast.makeText(this, "Info window clicked",
-                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MapsActivity.this, BarberShopActivity.class);
+        // TODO put extra here!
+        startActivity(intent);
     }
 
 

@@ -52,7 +52,7 @@ public class AddCreditDialog extends Dialog implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.add_credit_dialog);
+        setContentView(R.layout.dialog_add_credit);
 
         btnCancel = (AppCompatButton) findViewById(R.id.btnCancel);
         btnPay = (AppCompatButton) findViewById(R.id.btnPay);

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Map Markers</string>
+    <string name="app_name">Ghaichi</string>
     <string name="title_activity_maps">Sorina Map</string>
     <string name="id_label">The ID is</string>
     <string name="id_value">[id]</string>
@@ -70,7 +70,7 @@
     <string name="lorem_ipsum">lorem ipsum</string>
     <string name="choose_location">انتخاب مکان</string>
     <string name="credid_msg">موجودی(ریال)</string>
-    <string name="gender">انتخاب جنسیت</string>
+    <string name="gender">جنسیت</string>
     <string name="label_confirm">تایید</string>
     <string name="share">اشتراک گذاری</string>
     <string name="get_gift">اعتبار هدیه دریافت کنید</string>
@@ -79,6 +79,14 @@
     <string-array name="genders">
         <item>آقا</item>
         <item>خانم</item>
+    </string-array>
+    <string-array name="pref_languages">
+        <item>فارسی</item>
+        <item>English</item>
+    </string-array>
+    <string-array name="pref_languages_values">
+        <item>Fa</item>
+        <item>En</item>
     </string-array>
 
     <string name="aboutus">
@@ -103,6 +111,7 @@
     <string name="_lbl_price">مبلغ (ریال) </string>
     <string name="_lbl_cancel">انصراف</string>
     <string name="_lbl_pay">پرداخت</string>
+    <string name="_lbl_comment">نظر دهید</string>
 
 
     <string name="err__empty__cash">لطفا مبلغ را وارد نمایید</string>

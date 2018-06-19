@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <SwitchPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:defaultValue="false"
+        android:key="settings_get_notifications"
+        android:title="نمایش اعلان" />
+    <SwitchPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:defaultValue="false"
+        android:key="settings_get_news"
+        android:title="دریافت اخبار" />
+    <ListPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/pref_languages"
+        android:entryValues="@array/pref_languages_values"
+        android:key="settings_language"
+        android:title="زبان برنامه" />
+</PreferenceScreen>

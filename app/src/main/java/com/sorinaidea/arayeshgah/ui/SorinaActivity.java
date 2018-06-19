@@ -1,6 +1,5 @@
 package com.sorinaidea.arayeshgah.ui;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
@@ -31,7 +30,7 @@ public class SorinaActivity extends AppCompatActivity {
         final AlertDialog dialog;
 
 
-        View dialogView = SorinaApplication.inflater.inflate(R.layout.alert_dialog, null);
+        View dialogView = SorinaApplication.inflater.inflate(R.layout.dialog_alert, null);
         builder.setView(dialogView);
 
         dialog = builder.create();
