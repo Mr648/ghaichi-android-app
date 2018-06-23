@@ -74,6 +74,10 @@ public class PersonalInfoActivity extends AppCompatActivity {
                 Intent intent = new Intent(PersonalInfoActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+//
+//                Intent intent = new Intent(PersonalInfoActivity.this, HairdresserActivity.class);
+//                startActivity(intent);
+//                finish();
             }
         });
 
@@ -87,7 +91,6 @@ public class PersonalInfoActivity extends AppCompatActivity {
         spnGender.setSelection(0);
 
         ArrayList<GenderItem> genders = new ArrayList<>();
-
         String[] genderTitles = getResources().getStringArray(R.array.genders);
         genders.add(new GenderItem(R.mipmap.ic_gender_male, genderTitles[0]));
         genders.add(new GenderItem(R.mipmap.ic_gender_female, genderTitles[1]));
@@ -97,30 +100,22 @@ public class PersonalInfoActivity extends AppCompatActivity {
         spnGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!lock) {
-                    selectedGender = Gender.values()[position];
-                    btnSelectGender.setText((selectedGender == Gender.FEMALE) ? "خانم" : "آقا");
+                selectedGender = Gender.values()[position];
+                btnSelectGender.setText((selectedGender == Gender.FEMALE) ? "خانم" : "آقا");
 //                    Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.mipmap.ic_launcher);
-                    btnSelectGender.setCompoundDrawablesWithIntrinsicBounds(
-                            0,
-                            0,
-                            ((selectedGender == Gender.FEMALE) ? R.mipmap.ic_gender_female : R.mipmap.ic_gender_male),
-                            0
-                    );
-                    btnSelectGender.setCompoundDrawablePadding(Util.dp(8, PersonalInfoActivity.this));
-                }
-                lock = false;
-
+                btnSelectGender.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        ((selectedGender == Gender.FEMALE) ? R.mipmap.ic_gender_female : R.mipmap.ic_gender_male),
+                        0
+                );
+                btnSelectGender.setCompoundDrawablePadding(Util.dp(8, PersonalInfoActivity.this));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                if (!lock) {
-                    selectedGender = Gender.values()[0];
-                    btnSelectGender.setText("لطفا جنسیت خود را انتخاب نمایید");
-                }
-                lock = false;
-
+                selectedGender = Gender.values()[0];
+                btnSelectGender.setText("لطفا جنسیت خود را انتخاب نمایید");
             }
         });
 
@@ -129,5 +124,4 @@ public class PersonalInfoActivity extends AppCompatActivity {
 
     }
 
-    boolean lock = true;
 }

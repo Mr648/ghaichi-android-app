@@ -11,13 +11,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.layout.HomePageFragment;
 import com.sorinaidea.arayeshgah.layout.UserReservationFragment;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by mr-code on 4/8/2018.
@@ -27,6 +32,9 @@ public class MainActivity extends SorinaActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
+    private TextView txtUserInfo;
+    private TextView txtCity;
+    private AppCompatImageView imgProfile;
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -57,16 +65,6 @@ public class MainActivity extends SorinaActivity implements
     }
 
 
-    private void gotoFragment(Fragment fragment, String key, boolean putKey) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.anim.scale_up, R.anim.scale_down);
-        ft.replace(R.id.content, fragment);
-        if (putKey) {
-            ft.addToBackStack(key);
-        }
-        ft.commit();
-    }
-
     private DrawerLayout drawer;
 
     @Override
@@ -91,6 +89,11 @@ public class MainActivity extends SorinaActivity implements
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navView);
 
+
+        txtUserInfo = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
+        txtCity = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtCity);
+        imgProfile = (AppCompatImageView) navigationView.getHeaderView(0).findViewById(R.id.imgProfile);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             navigationView.setLayoutDirection(NavigationView.LAYOUT_DIRECTION_RTL);
         }
@@ -100,10 +103,16 @@ public class MainActivity extends SorinaActivity implements
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.scale_up, R.anim.scale_down);
         ft.add(R.id.content, new HomePageFragment()).commit();
-//        getSupportActionBar().setDisplayShowTitleEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        txtUserInfo.setText("کاربر مهمان");
+        txtCity.setText("سنندج");
 
     }
 
@@ -141,8 +150,8 @@ public class MainActivity extends SorinaActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_reservations) {
-            gotoFragment(new UserReservationFragment(), "Reservations", true);
-
+            Intent intent = new Intent(MainActivity.this, ReservationActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);

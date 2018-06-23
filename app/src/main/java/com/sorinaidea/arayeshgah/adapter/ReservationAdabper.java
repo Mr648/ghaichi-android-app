@@ -41,7 +41,7 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
         private final TextView txtIconTime;
         private final TextView txtIconDate;
 
-        private final LinearLayout lnrBgr;
+//        private final LinearLayout lnrBgr;
 
 
         public ViewHolder(View v) {
@@ -60,7 +60,7 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
             txtAddress = (TextView) v.findViewById(R.id.txtAddress);
             txtIconTime = (TextView) v.findViewById(R.id.txtIconTime);
             txtIconDate = (TextView) v.findViewById(R.id.txtIconDate);
-            lnrBgr = (LinearLayout) v.findViewById(R.id.lnrBgr);
+//            lnrBgr = (LinearLayout) v.findViewById(R.id.lnrBgr);
         }
 
         public TextView getTxtIconDate() {
@@ -91,9 +91,9 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
             return txtTitle;
         }
 
-        public LinearLayout getLnrBgr() {
-            return lnrBgr;
-        }
+//        public LinearLayout getLnrBgr() {
+//            return lnrBgr;
+//        }
     }
 
 
@@ -124,9 +124,9 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
         viewHolder.getTxtDate().setText(mDataSet.get(position).getDate());
         viewHolder.getTxtTime().setText(mDataSet.get(position).getTime());
         viewHolder.getTxtAddress().setText(mDataSet.get(position).getAddress());
-        viewHolder.getLnrBgr().setBackgroundResource(
-                position%3==0?R.drawable.background_red:R.drawable.background_green
-        );
+//        viewHolder.getLnrBgr().setBackgroundResource(
+//                        position%3==0?R.drawable.background_red:R.drawable.background_green
+//        );
 
         viewHolder.getImgLogo().setImageResource(mDataSet.get(position).getImgLogo());
         FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);

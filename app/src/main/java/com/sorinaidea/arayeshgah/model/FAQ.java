@@ -7,6 +7,17 @@ package com.sorinaidea.arayeshgah.model;
 public class FAQ {
     private String question;
     private String answer;
+    private String title;
+    private boolean hide;
+
+
+    public boolean isHide() {
+        return hide;
+    }
+
+    public void setHide(boolean hide) {
+        this.hide = hide;
+    }
 
     public String getAnswer() {
         return answer;
@@ -24,7 +35,13 @@ public class FAQ {
         this.question = question;
     }
 
-    public FAQ(String answer,String question){
+    public String getTitle() {
+        return title;
+    }
+
+    public FAQ(String answer, String question){
+        this.title = "عنوان";
+        this.setHide(true);
         this.answer = answer;
         this.question = question;
     }

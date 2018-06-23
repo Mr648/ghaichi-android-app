@@ -2,11 +2,14 @@ package com.sorinaidea.arayeshgah.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
@@ -27,9 +30,12 @@ public class FAQAdabper extends RecyclerView.Adapter<FAQAdabper.ViewHolder> {
     private Typeface fontMaterialIcons;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView txtIcon;
-        private final TextView txtQuestion;
-        private final TextView txtAnswer;
+        private final LinearLayout lnrQA;
+        private final LinearLayout lnrFAQ;
+        private final AppCompatImageView imgDrop;
+        private final AppCompatTextView txtTitle;
+        private final AppCompatTextView txtQuestion;
+        private final AppCompatTextView txtAnswer;
 
         public ViewHolder(View v) {
             super(v);
@@ -39,13 +45,16 @@ public class FAQAdabper extends RecyclerView.Adapter<FAQAdabper.ViewHolder> {
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            txtIcon = (TextView) v.findViewById(R.id.txtIcon);
-            txtQuestion = (TextView) v.findViewById(R.id.txtQuestion);
-            txtAnswer = (TextView) v.findViewById(R.id.txtAnswer);
+            lnrQA = (LinearLayout) v.findViewById(R.id.lnrQA);
+            lnrFAQ = (LinearLayout) v.findViewById(R.id.lnrFAQ);
+            imgDrop = (AppCompatImageView) v.findViewById(R.id.imgDrop);
+            txtTitle = (AppCompatTextView) v.findViewById(R.id.txtTitle);
+            txtQuestion = (AppCompatTextView) v.findViewById(R.id.txtQuestion);
+            txtAnswer = (AppCompatTextView) v.findViewById(R.id.txtAnswer);
         }
 
-        public TextView getTxtIcon() {
-            return txtIcon;
+        public TextView getTxtTitle() {
+            return txtTitle;
         }
 
         public TextView getTxtAnswer() {
@@ -54,6 +63,18 @@ public class FAQAdabper extends RecyclerView.Adapter<FAQAdabper.ViewHolder> {
 
         public TextView getTxtQuestion() {
             return txtQuestion;
+        }
+
+        public AppCompatImageView getImgDrop() {
+            return imgDrop;
+        }
+
+        public LinearLayout getLnrQA() {
+            return lnrQA;
+        }
+
+        public LinearLayout getLnrFAQ() {
+            return lnrFAQ;
         }
     }
 
@@ -74,14 +95,47 @@ public class FAQAdabper extends RecyclerView.Adapter<FAQAdabper.ViewHolder> {
 
         return new ViewHolder(v);
     }
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Log.d(TAG, "Element " + position + " set.");
-        FontManager.setFont( viewHolder.getTxtIcon(), fontMaterialIcons);
 
-            viewHolder.getTxtAnswer().setText(mDataSet.get(position).getQuestion());
-            viewHolder.getTxtQuestion().setText(mDataSet.get(position).getAnswer());
+    @Override
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
+
+        viewHolder.getTxtAnswer().setText(mDataSet.get(position).getTitle());
+        viewHolder.getTxtAnswer().setText(mDataSet.get(position).getAnswer());
+        viewHolder.getTxtQuestion().setText(mDataSet.get(position).getQuestion());
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (mDataSet.get(position).isHide()) {
+
+                    viewHolder.getImgDrop().animate().setDuration(150).alpha(0.0f).start();
+                    viewHolder.getImgDrop().setImageResource(R.drawable.ic_keyboard_arrow_up_white_24dp);
+                    viewHolder.getImgDrop().animate().setDuration(150).alpha(1.0f).start();
+
+
+                    viewHolder.getLnrQA().setVisibility(View.VISIBLE);
+                    viewHolder.getLnrQA().animate().setDuration(1000).alpha(1.0f).start();
+                    mDataSet.get(position).setHide(false);
+                } else {
+
+
+                    viewHolder.getImgDrop().animate().setDuration(150).alpha(0.0f).start();
+                    viewHolder.getImgDrop().setImageResource(R.drawable.ic_keyboard_arrow_down_white_24dp);
+                    viewHolder.getImgDrop().animate().setDuration(150).alpha(1.0f).start();
+
+
+                    viewHolder.getLnrQA().setVisibility(View.GONE);
+                    viewHolder.getLnrQA().animate().alpha(0.0f).setDuration(0).start();
+                    mDataSet.get(position).setHide(true);
+                }
+
+            }
+        };
+        viewHolder.getImgDrop().setOnClickListener(listener);
+        viewHolder.getLnrFAQ().setOnClickListener(listener);
     }
+
 
     @Override
     public int getItemCount() {

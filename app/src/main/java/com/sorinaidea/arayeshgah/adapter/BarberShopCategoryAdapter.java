@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.model.BarberShop;
+import com.sorinaidea.arayeshgah.ui.BarberShopActivity;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
@@ -97,20 +99,24 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
         BarberShopMiniItemAdapter adapter = new BarberShopMiniItemAdapter(mContext, initBarberShops());
         holder.getRecBarberShop().setAdapter(adapter);
 
+
+        holder.getBtnMore().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, BarberShopGridActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+
+            }
+        });
+
     }
 
     private ArrayList<BarberShop> initBarberShops() {
         ArrayList<BarberShop> list = new ArrayList<>();
-        list.addAll(Arrays.asList(
-                new BarberShop(R.drawable.barbershop,"BarberShop 1"),
-                new BarberShop(R.drawable.barbershop,"BarberShop 2"),
-                new BarberShop(R.drawable.barbershop,"BarberShop 3"),
-                new BarberShop(R.drawable.barbershop,"BarberShop 4"),
-                new BarberShop(R.drawable.barbershop,"BarberShop 5"),
-                new BarberShop(R.drawable.barbershop,"BarberShop 6"),
-                new BarberShop(R.drawable.barbershop,"BarberShop 7"),
-                new BarberShop(R.drawable.barbershop,"BarberShop 8")
-        ));
+        for (int i = 0; i < 25; i++) {
+            list.add(new BarberShop(R.drawable.barbershop, "BarberShop #" + i));
+        }
         return list;
     }
 

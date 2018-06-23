@@ -107,15 +107,25 @@
     </string>
 
     <string name="_lbl_add_credit">افزایش اعتبار</string>
+    <string name="_lbl_comment_title">نظرسنجی</string>
     <string name="_lbl_online_payment">پرداخت الکترونیکی</string>
     <string name="_lbl_price">مبلغ (ریال) </string>
     <string name="_lbl_cancel">انصراف</string>
+    <string name="_lbl_cancel_2">لغو</string>
+    <string name="_lbl_search_barbershop">جستجوی آرایشگاه</string>
     <string name="_lbl_pay">پرداخت</string>
-    <string name="_lbl_comment">نظر دهید</string>
+    <string name="_lbl_comment">نظر</string>
+    <string name="_lbl_confirm">تایید</string>
+    <string name="_lbl_manage_sample_work">مدیریت نمونه کارها</string>
+    <string name="_lbl_manage_service">مدیریت خدمات</string>
+    <string name="_lbl_service_category">دسته‌بندی خدمات</string>
+    <string name="_lbl_request_advertise">درخواست تبلیغات</string>
+    <string name="_lbl_set_location">ثبت مکان</string>
 
 
     <string name="err__empty__cash">لطفا مبلغ را وارد نمایید</string>
     <string name="err__invalid__cash">مبلغ وارد شده معتبر نیست</string>
+    <string name="err__invalid__comment">نظر نباید بیشتر از 400 کاراکتر باشد.</string>
     <string name="err__empty__phone">لطفا شماره تلفن را وارد نمایید</string>
     <string name="err__invalid__phone">شماره تلفن وارد شده معتبر نمی‌باشد</string>
     <string name="err__empty__verfcode">کد فعالسازی خالی است</string>
@@ -141,5 +151,10 @@
     <string name="action_bookmark">Bookmark</string>
     <string name="action_share">Share</string>
     <string name="action_reserve">Reserve</string>
+
+
+    <string name="_hint_name">نام</string>
+    <string name="_hint_family">نام خانوادکی</string>
+    <string name="_hint_gender">جنیست</string>
 
 </resources>

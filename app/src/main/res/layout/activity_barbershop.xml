@@ -6,8 +6,8 @@
     android:layoutDirection="rtl">
 
     <ScrollView
+        android:id="@+id/scrViewRoot"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
 
@@ -39,14 +39,22 @@
                         android:layout_alignParentBottom="true" />
                 </RelativeLayout>
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/imgLogo"
-                    android:layout_width="@dimen/_56dp"
-                    android:layout_height="@dimen/_56dp"
+                <RelativeLayout
+                    android:layout_width="@dimen/_64dp"
+                    android:layout_height="@dimen/_64dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/_16dp"
-                    app:srcCompat="@drawable/ic_favorite_black_18dp" />
+                    android:layout_marginRight="@dimen/_24dp"
+                    android:padding="@dimen/_8dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:background="@drawable/bg_barber_logo" >
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/imgLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/_8dp"
+                        app:srcCompat="@drawable/barbershop" />
+                </RelativeLayout>
             </RelativeLayout>
 
 
@@ -97,29 +105,33 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/imgComment"
-                        android:layout_width="@dimen/_24dp"
-                        android:layout_height="@dimen/_24dp"
-                        android:layout_marginLeft="@dimen/_8dp"
-                        android:tint="@color/ratingbarNormal"
-                        app:srcCompat="@drawable/ic_insert_comment_white_24dp" />
+                    <TextView
+                        android:id="@+id/txtRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_4dp"
+                        android:layout_marginRight="@dimen/_8dp"
+                        android:text="5" />
 
                     <RatingBar
                         android:id="@+id/ratingBar"
                         style="@style/RatingBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_4dp"
                         android:layoutDirection="ltr"
                         android:numStars="5"
                         android:stepSize="0.5" />
 
-                    <TextView
-                        android:id="@+id/txtRating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/_8dp"
-                        android:text="5" />
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/imgComment"
+                        android:layout_width="@dimen/_24dp"
+                        android:layout_height="@dimen/_24dp"
+                        android:layout_margin="@dimen/_4dp"
+                        android:layout_marginLeft="@dimen/_8dp"
+                        android:contextClickable="true"
+                        android:tint="@color/ratingbarNormal"
+                        app:srcCompat="@drawable/ic_insert_comment_white_24dp" />
                 </LinearLayout>
             </RelativeLayout>
 

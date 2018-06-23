@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#fe4b5e</color>
     <color name="colorPrimaryDark">#ba3d4b</color>
+    <color name="colorPrimaryDarkRipple">#c62828</color>
     <color name="colorAccent">#fe4b5e</color>
     <color name="markerTitle">#212121</color>
     <color name="markerSnippet">#424242</color>

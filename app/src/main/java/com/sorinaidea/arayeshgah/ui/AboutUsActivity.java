@@ -1,12 +1,10 @@
 package com.sorinaidea.arayeshgah.ui;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
@@ -24,9 +22,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AboutUsActivity extends AppCompatActivity {
 
     private TextView txtAboutUs;
-    private TextView txtInstagram;
-    private TextView txtLinkedIn;
-    private TextView txtTwitter;
     private Toolbar toolbar;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -40,19 +35,11 @@ public class AboutUsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("درباره ما");
 
         txtAboutUs = (TextView) findViewById(R.id.txtAboutUs);
-        txtInstagram = (TextView) findViewById(R.id.txtInstagram);
-        txtLinkedIn = (TextView) findViewById(R.id.txtLinkedIn);
-        txtTwitter = (TextView) findViewById(R.id.txtTwitter);
 
         // getting fonts
-        Typeface fontSocialIcons = FontManager.getTypeface(getApplicationContext(), FontManager.SOCIAL_ICONS);
         Typeface fontIransans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         // setting fonts for icons
-        FontManager.setFont(txtInstagram, fontSocialIcons);
-        FontManager.setFont(txtTwitter, fontSocialIcons);
-        FontManager.setFont(txtLinkedIn, fontSocialIcons);
-
         // setting fonts for about us text
         FontManager.setFont(txtAboutUs, fontIransans);
 

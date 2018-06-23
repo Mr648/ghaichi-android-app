@@ -6,6 +6,8 @@
     android:background="@color/colorDialogBackground"
     android:gravity="center_horizontal|center_vertical"
     android:layoutDirection="rtl"
+    android:maxHeight="@dimen/_400dp"
+    android:minHeight="@dimen/_320dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -13,63 +15,67 @@
         android:layout_height="@dimen/_320dp"
         android:background="@drawable/dialog_bg">
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/txtTitle"
-            style="@style/TextAppearance.AppCompat.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="@dimen/_16dp"
-            android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_16dp"
-            android:text="@string/_lbl_add_credit" />
-
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imgIcon"
-            android:layout_below="@id/txtTitle"
-            android:layout_width="@dimen/_56dp"
-            android:layout_height="@dimen/_56dp"
+            android:layout_width="@dimen/_72dp"
+            android:layout_height="@dimen/_72dp"
+            android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/_24dp"
-            app:srcCompat="@drawable/ic_file_download_black_18dp" />
+            android:layout_marginTop="@dimen/_16dp"
+            android:text="@string/_lbl_add_credit"
+            android:tint="@color/colorPrimary"
+            app:srcCompat="@drawable/ic_new_releases_black_48dp" />
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/txtMessage"
-            style="@style/TextAppearance.AppCompat.Medium"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgIcon"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/_24dp"
-            android:gravity="center"
-            android:padding="@dimen/_8dp"
-            android:text="description" />
+            android:layout_above="@+id/linearLayout"
+            android:layout_below="@+id/imgIcon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_16dp">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtMessage"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="خطا در بارگزاری اطلاعات"
+                android:textAlignment="center"
+                android:textIsSelectable="false" />
+        </android.support.v4.widget.NestedScrollView>
+
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:layout_alignParentBottom="true"
+            android:background="@drawable/dialog_button_background"
+            android:gravity="center_vertical"
             android:weightSum="2">
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnCancel"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/AppTheme.DialogButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/_2dp"
                 android:layout_weight="1"
-                android:text="Cancel" />
+                android:text="@string/_lbl_cancel" />
+
+            <ImageView
+                android:layout_width="@dimen/_1dp"
+                android:layout_height="@dimen/_48dp"
+                android:src="@color/white" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnOk"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/AppTheme.DialogButton.Bold"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/_2dp"
                 android:layout_weight="1"
-                android:text="Ok" />
+                android:text="@string/_lbl_confirm" />
 
         </LinearLayout>
     </RelativeLayout>

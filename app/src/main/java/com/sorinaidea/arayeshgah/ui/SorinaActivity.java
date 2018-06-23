@@ -23,42 +23,4 @@ public class SorinaActivity extends AppCompatActivity {
         super.onResume();
         SorinaApplication.currentActivity = this;
     }
-
-    public void showDoneMessage(String message) {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.SorinaDialogTheme);
-        final AlertDialog dialog;
-
-
-        View dialogView = SorinaApplication.inflater.inflate(R.layout.dialog_alert, null);
-        builder.setView(dialogView);
-
-        dialog = builder.create();
-
-        Button btnDialogOk = (Button) dialogView.findViewById(R.id.btnDialogOk);
-        Button btnDialogCancel = (Button) dialogView.findViewById(R.id.btnDialogCancel);
-        TextView txtDialogIcon = (TextView) dialogView.findViewById(R.id.txtDialogIcon);
-        TextView txtDialogMessage = (TextView) dialogView.findViewById(R.id.txtDialogMessage);
-
-        btnDialogOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        txtDialogMessage.setText("شسیسشیشی");
-//        txtDialogMessage.setText(getResources().getString(R.string.error_no_internet_connection));
-
-        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
-        FontManager.setFont(txtDialogIcon, iconFont);
-
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                finish();
-            }
-        });
-        dialog.show();
-    }
 }

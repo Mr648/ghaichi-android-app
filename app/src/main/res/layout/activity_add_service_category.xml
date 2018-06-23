@@ -6,12 +6,6 @@
     android:layoutDirection="rtl"
     tools:context=".ui.AddServiceActivity">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/app_bar_hairdresser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recServiceCategories"
         android:layout_width="match_parent"

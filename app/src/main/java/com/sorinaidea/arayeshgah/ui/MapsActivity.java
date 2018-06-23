@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.ui;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +13,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -102,8 +107,19 @@ public class MapsActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
+        View locationButton = ((View) mapFragment.getView().findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+        RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+// position on right bottom
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+        rlp.setMargins(16, 0, 0, 16);
 
         mapFragment.getMapAsync(this);
+
+
+//        SearchView search = (SearchView) findViewById(R.id.txtSearch);
+//        search.setLayoutParams(getSupportLoaderManager().LayoutParams(Gravity.RIGHT));
 
     }
 
@@ -162,6 +178,8 @@ public class MapsActivity
             if (counter % 10 == 0)
                 clusterManager.cluster();
         }
+
+
         /*
         Retrofit retrofit =
                 new Retrofit.Builder()
@@ -231,6 +249,7 @@ public class MapsActivity
 
         CustomInfoWindowAdapter adapter = new CustomInfoWindowAdapter(MapsActivity.this);
         mMap.setInfoWindowAdapter(adapter);
+
 
     }
 

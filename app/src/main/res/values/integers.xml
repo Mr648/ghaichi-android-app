@@ -2,5 +2,7 @@
 <resources>
     <integer name="phone_edit_text_length">13</integer>
     <integer name="ten">10</integer>
+    <integer name="five">5</integer>
+    <integer name="three">3</integer>
     <integer name="name_and_family_edit_text_length">50</integer>
 </resources>

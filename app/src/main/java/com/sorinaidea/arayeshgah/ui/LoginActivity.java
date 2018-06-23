@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().hide(); // TODO delete toolbar
 
         ViewCompat.setElevation(toolbar, Util.dp(5, LoginActivity.this));
 

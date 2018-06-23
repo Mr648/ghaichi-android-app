@@ -14,12 +14,14 @@ import com.sorinaidea.arayeshgah.R;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private static final int SPLASH_TIME = 1500;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        new CountDownTimer(5000, 100) {
+        new CountDownTimer(SPLASH_TIME, 100) {
             @Override
             public void onTick(final long l) {
 
@@ -27,13 +29,8 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-//                if (isAuthenticated) {
-//                    startActivity(new Intent(SplashActivity.this, Login.class));
-//                    finish();
-//                } else {
-                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                    finish();
-//                }
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                finish();
             }
         }.start();
 

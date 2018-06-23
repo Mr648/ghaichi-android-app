@@ -38,6 +38,12 @@
             android:name="com.sorinaidea.arayeshgah.ui.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
 
+
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.ReservationActivity"
+            android:label="@string/title_activity_maps"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.AddServiceCategoryActivity"
             android:label="@string/label_aboutus"
@@ -48,7 +54,19 @@
         <activity
             android:name=".ui.SettingActivity"
             android:label="@string/label_setting"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".ui.UserProfileActivity"
+            android:label="@string/label_setting"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".ui.EditProfileActivity"
+            android:label="@string/label_setting"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
@@ -82,9 +100,6 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity
-            android:name="com.sorinaidea.arayeshgah.ui.ProfileActivity"
-            android:label="@string/label_aboutus"></activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.HairdresserListActivity"
             android:label="لیست آرایشگران"></activity>

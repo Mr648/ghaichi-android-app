@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl">
+
+    <RelativeLayout
+        android:id="@+id/imgPorfileContainer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200dp">
+
+        <RelativeLayout
+            android:layout_width="@dimen/_128dp"
+            android:layout_height="@dimen/_128dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+
+            android:background="@drawable/bg_user_profile"
+            android:gravity="center_horizontal|center_vertical"
+            android:padding="@dimen/_16dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgUserProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:padding="@dimen/_16dp"
+                android:tint="@color/colorPrimary"
+                app:srcCompat="@drawable/ic_account_circle_white_24dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgPorfileContainer"
+        android:layout_marginTop="@dimen/_16dp"
+        android:orientation="vertical"
+        android:padding="@dimen/_16dp">
+
+        <TextView
+            android:id="@+id/txtName"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:gravity="right|center_vertical"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/txtFamily"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:gravity="right|center_vertical"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/txtGender"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:gravity="right|center_vertical"
+            android:text="TextView" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnrEditProfile"
+        style="@style/AppTheme.Button"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imgEditProfile"
+            android:layout_width="@dimen/_36dp"
+            android:layout_height="@dimen/_36dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_edit_white_24dp" />
+    </LinearLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        app:theme="@style/ToolbarStyle.Primary" />
+
+</RelativeLayout>

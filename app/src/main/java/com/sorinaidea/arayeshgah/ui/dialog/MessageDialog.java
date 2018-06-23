@@ -26,52 +26,11 @@ import java.util.regex.Pattern;
 public class MessageDialog extends Dialog {
 
     private AppCompatActivity activity;
-    private String TAG = "AddCreditDialog";
-
-    private View.OnClickListener btnOkClickListener;
-    private View.OnClickListener btnCancelClickListener;
+    private String TAG = "MessageDialog";
 
     public MessageDialog(AppCompatActivity activity) {
         super(activity);
         this.activity = activity;
-    }
-
-    public void setBtnCancelClickListener(View.OnClickListener btnCancelClickListener) {
-        this.btnCancelClickListener = btnCancelClickListener;
-    }
-
-    public void setBtnOkClickListener(View.OnClickListener btnOkClickListener) {
-        this.btnOkClickListener = btnOkClickListener;
-    }
-
-
-    public void setBtnOkVisible(int visiblity) {
-        this.btnOk.setVisibility(visiblity);
-    }
-
-    public void setBtnCancelVisible(int visiblity) {
-        this.btnCancel.setVisibility(visiblity);
-    }
-
-    public void setBtnOkText(String text) {
-        this.btnOk.setText(text);
-    }
-
-    public void setBtnCancelText(String text) {
-        this.btnCancel.setText(text);
-    }
-
-    public void setImgIconVisiblity(int visiblity) {
-        this.imgIcon.setVisibility(visiblity);
-    }
-
-    public void setTextMessage(String txtMessage) {
-        this.textMessage = txtMessage;
-    }
-
-    public void setImgIconResource(int imgIconResource) {
-        this.imgIconResource = imgIconResource;
-        imgIcon.setImageResource(imgIconResource);
     }
 
     private AppCompatButton btnCancel;
@@ -92,10 +51,14 @@ public class MessageDialog extends Dialog {
         btnOk = (AppCompatButton) findViewById(R.id.btnOk);
         txtMessage = (AppCompatTextView) findViewById(R.id.txtMessage);
         imgIcon = (AppCompatImageView) findViewById(R.id.imgIcon);
+        String message = "";
+        for (int i = 0; i < 10; i++) {
+            message += "ورژن جدید برنامه موجود است،\n بروزرسانی کنید.";
+        }
+            txtMessage.setText(message);
+
 
     }
-
-
 
 
 }

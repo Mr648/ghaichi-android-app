@@ -14,6 +14,6 @@ public class TestActivity extends SorinaActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+//        setContentView(R.layout.activity_profile);
     }
 }

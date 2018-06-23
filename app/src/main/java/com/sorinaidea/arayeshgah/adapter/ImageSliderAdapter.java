@@ -46,6 +46,9 @@ public class ImageSliderAdapter extends PagerAdapter {
         ImageView myImage = (ImageView) myImageLayout
                 .findViewById(R.id.image);
         myImage.setImageResource(R.drawable.preview_xlarge);
+        if (imageOnCLickListener!=null){
+            myImage.setOnClickListener(imageOnCLickListener);
+        }
 //        try {
 //            Picasso.with(context).load(API.BASE_URL
 //                    + URLDecoder.decode(images.get(position), "UTF-8")).into(myImage);
@@ -55,6 +58,12 @@ public class ImageSliderAdapter extends PagerAdapter {
 
         view.addView(myImageLayout, 0);
         return myImageLayout;
+    }
+
+    private View.OnClickListener imageOnCLickListener = null ;
+
+    public void setImageOnCLickListener(View.OnClickListener imageOnCLickListener) {
+        this.imageOnCLickListener = imageOnCLickListener;
     }
 
     @Override
