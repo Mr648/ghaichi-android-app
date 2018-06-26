@@ -59,7 +59,7 @@
             <ImageView
                 android:layout_width="@dimen/_1dp"
                 android:layout_height="@dimen/_48dp"
-                android:src="@color/white" />
+                android:src="@color/colorWhite" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnOk"

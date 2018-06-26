@@ -58,7 +58,19 @@
 
         </activity>
         <activity
+            android:name=".ui.ImageSliderActivity"
+            android:label="@string/label_setting"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
             android:name=".ui.UserProfileActivity"
+            android:label="@string/label_setting"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".ui.BarberShopGridActivity"
             android:label="@string/label_setting"
             android:theme="@style/AppTheme.NoActionBar">
 

@@ -6,8 +6,8 @@ package com.sorinaidea.arayeshgah.datahelper;
 
 public enum Gender {
 
-    MALE("وانت"),
-    FEMALE("وانت پیکان");
+    MALE("آقا"),
+    FEMALE("خانم");
 
     private String type;
 

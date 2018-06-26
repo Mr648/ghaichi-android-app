@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDialogBackground"
+    android:gravity="center_horizontal|center_vertical"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="@dimen/_320dp"
+        android:layout_height="@dimen/_320dp"
+        android:background="@drawable/dialog_bg">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="@dimen/_56dp"
+            android:layout_height="@dimen/_56dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_12dp"
+            app:srcCompat="@mipmap/ic_gender_types" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtTitle"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_72dp"
+            android:text="@string/_lbl_select_gender" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/btnMale"
+                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48dp"
+                    android:text="@string/_txt_gender_male"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/btnFemale"
+                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48dp"
+                    android:text="@string/_txt_gender_female"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/dialog_button_background"
+            android:gravity="center_vertical|center_horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnSelect"
+                style="@style/AppTheme.DialogButton.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_2dp"
+                android:layout_weight="1"
+                android:text="@string/_lbl_choose" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
-            android:src="@drawable/ic_confirmation_number_white_48dp"
+            android:src="@drawable/ic_dialpad_white_48dp"
             android:tint="@color/colorPrimary" />
     </LinearLayout>
 

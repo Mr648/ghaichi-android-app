@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8dp"
             android:text="کاربر مهمان"
-            android:textColor="@color/white"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/_24sp" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_margin="@dimen/_8dp"
 
             android:text="اپلیکیشن قیچی"
-            android:textColor="@color/white" />
+            android:textColor="@color/colorWhite" />
     </LinearLayout>
 
 </RelativeLayout>

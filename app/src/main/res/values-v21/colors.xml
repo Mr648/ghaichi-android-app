@@ -7,7 +7,7 @@
     <color name="markerTitle">#212121</color>
     <color name="markerSnippet">#424242</color>
     <color name="markerCircle">#26c6da</color>
-    <color name="white">#FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
 
     <color name="credit_remaining">#10B491</color>
     <color name="credit_reservations">#FF2265</color>

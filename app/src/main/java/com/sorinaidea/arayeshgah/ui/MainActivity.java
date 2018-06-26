@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,9 +19,6 @@ import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.layout.HomePageFragment;
-import com.sorinaidea.arayeshgah.layout.UserReservationFragment;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by mr-code on 4/8/2018.
@@ -34,7 +30,6 @@ public class MainActivity extends SorinaActivity implements
     private Toolbar toolbar;
     private TextView txtUserInfo;
     private TextView txtCity;
-    private AppCompatImageView imgProfile;
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -56,6 +51,9 @@ public class MainActivity extends SorinaActivity implements
             startActivity(intent);
         } else if (id == R.id.action_faq) {
             Intent intent = new Intent(MainActivity.this, FaqActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_profile) {
+            Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
             startActivity(intent);
         }
 
@@ -83,7 +81,7 @@ public class MainActivity extends SorinaActivity implements
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_menu_open, R.string.navigation_menu_close);
         drawer.setDrawerListener(toggle);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         toggle.syncState();
 
 
@@ -92,7 +90,6 @@ public class MainActivity extends SorinaActivity implements
 
         txtUserInfo = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
         txtCity = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtCity);
-        imgProfile = (AppCompatImageView) navigationView.getHeaderView(0).findViewById(R.id.imgProfile);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             navigationView.setLayoutDirection(NavigationView.LAYOUT_DIRECTION_RTL);
@@ -104,13 +101,6 @@ public class MainActivity extends SorinaActivity implements
         ft.setCustomAnimations(R.anim.scale_up, R.anim.scale_down);
         ft.add(R.id.content, new HomePageFragment()).commit();
 
-        imgProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
-                startActivity(intent);
-            }
-        });
         txtUserInfo.setText("کاربر مهمان");
         txtCity.setText("سنندج");
 

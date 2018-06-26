@@ -10,7 +10,7 @@
     android:layout_marginStart="@dimen/_4dp"
     android:layout_marginTop="@dimen/_10dp"
     android:layoutDirection="rtl"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/colorWhite"
     app:cardCornerRadius="@dimen/_4dp">
 
 

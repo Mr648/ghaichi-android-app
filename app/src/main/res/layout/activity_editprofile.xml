@@ -8,7 +8,8 @@
     <RelativeLayout
         android:id="@+id/imgPorfileContainer"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200dp">
+        android:layout_height="@dimen/_200dp"
+        android:layout_below="@+id/toolbar">
 
         <RelativeLayout
             android:layout_width="@dimen/_128dp"

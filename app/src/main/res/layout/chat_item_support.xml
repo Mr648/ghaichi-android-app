@@ -47,6 +47,7 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imgProfile"
+            android:tint="@color/colorGrayDark"
             android:layout_width="@dimen/_48dp"
             android:layout_height="@dimen/_48dp"
             app:srcCompat="@drawable/ic_bug_report_black_18dp" />

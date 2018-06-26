@@ -108,12 +108,12 @@ public class SupportChatAdapter extends RecyclerView.Adapter<SupportChatAdapter.
 
         switch (mDataSet.get(position).getViewType()) {
             case VIEW_TYPE_USER:
-                try {
-                    Picasso.with(mContext).load(API.BASE_URL
-                            + URLDecoder.decode(mDataSet.get(position).getImageUrl(), "UTF-8")).into(viewHolder.getImgProfile());
-                } catch (UnsupportedEncodingException e) {
-                    viewHolder.getImgProfile().setImageResource(R.drawable.ic_account_circle_white_24dp);
-                }
+                viewHolder.getImgProfile().setImageResource(R.drawable.ic_account_circle_white_24dp);
+//                try {
+//                    Picasso.with(mContext).load(API.BASE_URL
+//                            + URLDecoder.decode(mDataSet.get(position).getImageUrl(), "UTF-8")).into(viewHolder.getImgProfile());
+//                } catch (UnsupportedEncodingException e) {
+//                }
                 break;
 
             case VIEW_TYPE_SUPPORT:

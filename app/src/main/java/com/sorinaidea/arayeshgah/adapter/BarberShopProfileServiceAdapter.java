@@ -1,8 +1,10 @@
 package com.sorinaidea.arayeshgah.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.model.ChatItem;
 import com.sorinaidea.arayeshgah.model.Service;
 import com.sorinaidea.arayeshgah.model.ServiceCategory;
+import com.sorinaidea.arayeshgah.ui.ImageSliderActivity;
 import com.sorinaidea.arayeshgah.util.FontManager;
 import com.sorinaidea.arayeshgah.webservice.API;
 import com.squareup.picasso.Picasso;
@@ -39,41 +42,32 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView txtTitle;
-        private final ViewPager pager;
+        private final AppCompatImageView imgSelectedImage;
 
 
         public ViewHolder(View v) {
             super(v);
 
             txtTitle = (TextView) v.findViewById(R.id.txtTitle);
-            pager = (ViewPager) v.findViewById(R.id.pager);
+            imgSelectedImage = (AppCompatImageView) v.findViewById(R.id.imgSelectedImage);
+        }
+
+
+        public AppCompatImageView getImgSelectedImage() {
+            return imgSelectedImage;
         }
 
         public TextView getTxtTitle() {
+
             return txtTitle;
         }
-
-        public ViewPager getPager() {
-            return pager;
-        }
     }
-
-
-    private static final List<String> images = Arrays.asList(
-            "asdasd",
-            "asdasd",
-            "asdasd",
-            "asdasd"
-    );
-
-    private ArrayList<String> imageList = new ArrayList<>();
 
 
     public BarberShopProfileServiceAdapter(ArrayList<Service> chatItems, Context context) {
         mDataSet = chatItems;
         mContext = context;
         fontIranSans = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
-        imageList.addAll(images);
 
     }
 
@@ -81,7 +75,8 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.barbershop_profile_service_item, viewGroup, false);;
+                .inflate(R.layout.barbershop_profile_service_item, viewGroup, false);
+        ;
 
         return new ViewHolder(v);
     }
@@ -92,8 +87,14 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
         Log.d(TAG, "Element " + position + " set.");
 
         viewHolder.getTxtTitle().setText(mDataSet.get(position).getTitle());
-        viewHolder.getPager().setAdapter(new ImageSliderAdapter(mContext, imageList));
-
+        viewHolder.getImgSelectedImage().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, ImageSliderActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
+        });
         FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
     }
 

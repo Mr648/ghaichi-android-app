@@ -10,6 +10,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +22,7 @@ import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.GenderSpinnerAdapter;
 import com.sorinaidea.arayeshgah.datahelper.Gender;
 import com.sorinaidea.arayeshgah.datahelper.GenderItem;
+import com.sorinaidea.arayeshgah.ui.dialog.GenderDialog;
 import com.sorinaidea.arayeshgah.util.FontManager;
 import com.sorinaidea.arayeshgah.util.Util;
 
@@ -33,9 +35,9 @@ import java.util.ArrayList;
 public class PersonalInfoActivity extends AppCompatActivity {
 
     private Button btnNextStep;
-    private Button btnSelectGender;
+    private AppCompatButton btnSelectGender;
     private TextView txtGender;
-    private Spinner spnGender;
+    //    private Spinner spnGender;
     private TextInputEditText edtName;
     private TextInputEditText edtFamily;
     private TextInputLayout inputLayoutName;
@@ -58,8 +60,8 @@ public class PersonalInfoActivity extends AppCompatActivity {
 
 
         btnNextStep = (Button) findViewById(R.id.btnNextStep);
-        btnSelectGender = (Button) findViewById(R.id.btnSelectGender);
-        spnGender = (Spinner) findViewById(R.id.spnGender);
+        btnSelectGender = (AppCompatButton) findViewById(R.id.btnSelectGender);
+//        spnGender = (Spinner) findViewById(R.id.spnGender);
 
 
         edtName = (TextInputEditText) findViewById(R.id.edtName);
@@ -84,40 +86,42 @@ public class PersonalInfoActivity extends AppCompatActivity {
         btnSelectGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spnGender.performClick();
+//                spnGender.performClick();
+                GenderDialog genderDialog = new GenderDialog(PersonalInfoActivity.this, btnSelectGender);
+                genderDialog.show();
 
             }
         });
-        spnGender.setSelection(0);
+//        spnGender.setSelection(0);
 
-        ArrayList<GenderItem> genders = new ArrayList<>();
-        String[] genderTitles = getResources().getStringArray(R.array.genders);
-        genders.add(new GenderItem(R.mipmap.ic_gender_male, genderTitles[0]));
-        genders.add(new GenderItem(R.mipmap.ic_gender_female, genderTitles[1]));
-
-        GenderSpinnerAdapter adapter = new GenderSpinnerAdapter(this, R.layout.gender_spinner_item, R.id.txtTitle, genders);
-        spnGender.setAdapter(adapter);
-        spnGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedGender = Gender.values()[position];
-                btnSelectGender.setText((selectedGender == Gender.FEMALE) ? "خانم" : "آقا");
-//                    Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.mipmap.ic_launcher);
-                btnSelectGender.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        ((selectedGender == Gender.FEMALE) ? R.mipmap.ic_gender_female : R.mipmap.ic_gender_male),
-                        0
-                );
-                btnSelectGender.setCompoundDrawablePadding(Util.dp(8, PersonalInfoActivity.this));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                selectedGender = Gender.values()[0];
-                btnSelectGender.setText("لطفا جنسیت خود را انتخاب نمایید");
-            }
-        });
+//        ArrayList<GenderItem> genders = new ArrayList<>();
+//        String[] genderTitles = getResources().getStringArray(R.array.genders);
+//        genders.add(new GenderItem(R.mipmap.ic_gender_male, genderTitles[0]));
+//        genders.add(new GenderItem(R.mipmap.ic_gender_female, genderTitles[1]));
+//
+//        GenderSpinnerAdapter adapter = new GenderSpinnerAdapter(this, R.layout.gender_spinner_item, R.id.txtTitle, genders);
+//        spnGender.setAdapter(adapter);
+//        spnGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                selectedGender = Gender.values()[position];
+//                btnSelectGender.setText((selectedGender == Gender.FEMALE) ? "خانم" : "آقا");
+////                    Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.mipmap.ic_launcher);
+//                btnSelectGender.setCompoundDrawablesWithIntrinsicBounds(
+//                        0,
+//                        0,
+//                        ((selectedGender == Gender.FEMALE) ? R.mipmap.ic_gender_female : R.mipmap.ic_gender_male),
+//                        0
+//                );
+//                btnSelectGender.setCompoundDrawablePadding(Util.dp(8, PersonalInfoActivity.this));
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                selectedGender = Gender.values()[0];
+//                btnSelectGender.setText("لطفا جنسیت خود را انتخاب نمایید");
+//            }
+//        });
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
         FontManager.setFont(btnNextStep, iconFont);

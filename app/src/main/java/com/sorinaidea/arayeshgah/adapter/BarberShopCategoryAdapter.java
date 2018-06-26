@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.model.BarberShop;
 import com.sorinaidea.arayeshgah.ui.BarberShopActivity;
+import com.sorinaidea.arayeshgah.ui.BarberShopGridActivity;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;

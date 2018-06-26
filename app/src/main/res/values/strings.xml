@@ -107,9 +107,11 @@
     </string>
 
     <string name="_lbl_add_credit">افزایش اعتبار</string>
+    <string name="_lbl_choose">انتخاب</string>
     <string name="_lbl_comment_title">نظرسنجی</string>
     <string name="_lbl_online_payment">پرداخت الکترونیکی</string>
     <string name="_lbl_price">مبلغ (ریال) </string>
+    <string name="_lbl_select_gender">انتخاب جنسیت</string>
     <string name="_lbl_cancel">انصراف</string>
     <string name="_lbl_cancel_2">لغو</string>
     <string name="_lbl_search_barbershop">جستجوی آرایشگاه</string>
@@ -135,6 +137,8 @@
 
 
     <string name="label_home">صفحه اصلی</string>
+    <string name="label_edit">ویرایش</string>
+    <string name="label_profile">پروفایل</string>
     <string name="label_credit">اعتبار</string>
     <string name="label_faq">سوالات متداول</string>
     <string name="label_top_barbershops">برترین ها</string>
@@ -154,7 +158,13 @@
 
 
     <string name="_hint_name">نام</string>
+    <string name="_hint_empty_content">هنوز هیچ آیتمی به این لیست اضافه نشده است.</string>
     <string name="_hint_family">نام خانوادکی</string>
+    <string name="_hint_phone">شماره موبایل</string>
+    <string name="_hint_name_family">نام و نام خانوادگی</string>
     <string name="_hint_gender">جنیست</string>
+    <string name="_txt_gender_male">آقا</string>
+    <string name="_txt_gender_female">خانم</string>
+    <string name="_txt_gender_other">سایر</string>
 
 </resources>

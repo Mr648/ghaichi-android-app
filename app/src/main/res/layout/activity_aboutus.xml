@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layoutDirection="rtl"
+    android:orientation="vertical"
     android:scrollbars="none">
 
     <LinearLayout
@@ -33,39 +33,41 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="@dimen/_48dp"
-                    android:layout_height="@dimen/_48dp"
-                    android:scaleType="centerInside"
-
-                    android:src="@mipmap/ic_launcher" />
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/imgLogo"
+                    android:layout_width="@dimen/_64dp"
+                    android:layout_height="@dimen/_64dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/ic_launcher_normal"
+                    android:tint="@color/colorGray" />
             </LinearLayout>
 
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1dp"
+                android:layout_marginBottom="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
                 app:srcCompat="@color/colorGray" />
 
             <TextView
                 android:id="@+id/txtAboutUs"
+                style="@style/TextAppearance.AppCompat.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8dp"
                 android:text="@string/aboutus"
-                style="@style/TextAppearance.AppCompat.Small"
                 android:visibility="visible" />
 
             <TextView
                 android:id="@+id/txtRules"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorPrimary"
                 android:layout_margin="@dimen/_16dp"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="قوانین و شرایط استفاده" />
+                android:text="قوانین و شرایط استفاده"
+                android:textColor="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +80,10 @@
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     app:srcCompat="@color/colorGray" />
+
                 <TextView
                     android:id="@+id/txtVersion"
                     android:layout_width="wrap_content"
