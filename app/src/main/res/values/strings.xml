@@ -123,6 +123,7 @@
     <string name="_lbl_service_category">دسته‌بندی خدمات</string>
     <string name="_lbl_request_advertise">درخواست تبلیغات</string>
     <string name="_lbl_set_location">ثبت مکان</string>
+    <string name="_lbl_personal_info">اطلاعات شخصی</string>
 
 
     <string name="err__empty__cash">لطفا مبلغ را وارد نمایید</string>
@@ -137,6 +138,7 @@
 
 
     <string name="label_home">صفحه اصلی</string>
+    <string name="label_pick_photo">انتخاب تصویر</string>
     <string name="label_edit">ویرایش</string>
     <string name="label_profile">پروفایل</string>
     <string name="label_credit">اعتبار</string>
@@ -154,7 +156,7 @@
     <string name="navigation_menu_close">بستن</string>
     <string name="action_bookmark">Bookmark</string>
     <string name="action_share">Share</string>
-    <string name="action_reserve">Reserve</string>
+    <string name="action_reserve">رزرو</string>
 
 
     <string name="_hint_name">نام</string>
@@ -166,5 +168,6 @@
     <string name="_txt_gender_male">آقا</string>
     <string name="_txt_gender_female">خانم</string>
     <string name="_txt_gender_other">سایر</string>
+    <string name="_txt_service_name">نام سرویس</string>
 
 </resources>

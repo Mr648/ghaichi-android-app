@@ -52,6 +52,13 @@
         </activity>
 
         <activity
+            android:name="com.sorinaidea.arayeshgah.ui.ShowDirectionActivity"
+            android:label="@string/label_aboutus"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
             android:name=".ui.SettingActivity"
             android:label="@string/label_setting"
             android:theme="@style/AppTheme.NoActionBar">

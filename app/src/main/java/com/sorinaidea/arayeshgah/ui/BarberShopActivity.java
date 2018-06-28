@@ -1,5 +1,6 @@
 package com.sorinaidea.arayeshgah.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -89,7 +90,7 @@ public class BarberShopActivity extends AppCompatActivity {
         ratingBar.setRating(3.5f);
         ratingBar.setIsIndicator(true);
         txtRating.setText(String.format("%.1f", 3.5f));
-        scrViewRoot.scrollTo(0, 0);
+        scrViewRoot.pageScroll(scrViewRoot.FOCUS_UP);
         imgComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,9 +145,6 @@ public class BarberShopActivity extends AppCompatActivity {
 
     private void hideToolbar() {
         toolbar.animate().translationY(-256).setInterpolator(new AccelerateInterpolator()).start();
-//        if (getSupportActionBar().isShowing()){
-//            getSupportActionBar().hide();
-//        }
     }
 
     private void showToolbar() {
@@ -210,13 +208,19 @@ public class BarberShopActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         } else if (id == R.id.action_share) {
-
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody = "آرایشگاه تست";
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "به اشتراک گذاری با"));
         } else if (id == R.id.action_bookmark) {
 
         } else if (id == R.id.action_reserve) {
 
         } else if (id == R.id.action_route) {
-
+            Intent intent = new Intent(BarberShopActivity.this, ShowDirectionActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

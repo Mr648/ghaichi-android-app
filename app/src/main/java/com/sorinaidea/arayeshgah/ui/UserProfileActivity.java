@@ -1,137 +1,113 @@
 package com.sorinaidea.arayeshgah.ui;
 
-import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
+import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
-import com.sorinaidea.arayeshgah.adapter.BarberShopProfileServiceAdapter;
-import com.sorinaidea.arayeshgah.adapter.ImageSliderAdapter;
-import com.sorinaidea.arayeshgah.model.Service;
-import com.sorinaidea.arayeshgah.ui.dialog.CommentDialog;
-import com.sorinaidea.arayeshgah.ui.dialog.GenderDialog;
-import com.sorinaidea.arayeshgah.ui.dialog.InputDialog;
-import com.sorinaidea.arayeshgah.ui.dialog.MessageDialog;
-import com.sorinaidea.arayeshgah.util.FontManager;
-import com.sorinaidea.arayeshgah.util.Util;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
-
-import me.relex.circleindicator.CircleIndicator;
 
 /**
  * Created by mr-code on 6/17/2018.
  */
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity
+        implements AppBarLayout.OnOffsetChangedListener {
 
-    private Toolbar toolbar;
-    private AppCompatImageView imgUserProfile;
-    private AppCompatButton btnNameAndFamily;
-    private AppCompatButton btnGender;
-    private AppCompatButton btnPhone;
-    private Typeface fontIransSans;
+    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
+    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
+    private static final int ALPHA_ANIMATIONS_DURATION = 200;
+
+    private boolean mIsTheTitleVisible = false;
+    private boolean mIsTheTitleContainerVisible = true;
+
+    private LinearLayout mTitleContainer;
+    private TextView mTitle;
+    private AppBarLayout mAppBarLayout;
+    private Toolbar mToolbar;
+
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userprofile);
-        fontIransSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("حساب کاربری");
+        bindActivity();
 
-        imgUserProfile = (AppCompatImageView) findViewById(R.id.imgUserProfile);
-        btnNameAndFamily = (AppCompatButton) findViewById(R.id.btnNameAndFamily);
-        btnGender = (AppCompatButton) findViewById(R.id.btnGender);
-        btnPhone = (AppCompatButton) findViewById(R.id.btnPhone);
+        mAppBarLayout.addOnOffsetChangedListener(this);
 
-        btnNameAndFamily.setText("نام کاربر");
-        btnGender.setText("جنسیت کاربر");
-        btnPhone.setText("09360835848");
-
-        imgUserProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO open gallery to select profile photo!
-            }
-        });
-
-
-        btnNameAndFamily.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Predicate<String> validator = (x) -> !x.isEmpty();
-                InputDialog dialog = new InputDialog(UserProfileActivity.this, btnNameAndFamily, null, R.drawable.ic_account_circle_white_24dp, R.string._hint_name_family, R.string._hint_name_family);
-                dialog.show();
-            }
-        });
-
-        btnPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Predicate<String> validator = (x) -> Pattern.matches(Util.CONSTANTS.REGEX_PHONE, x);
-                InputDialog dialog = new InputDialog(UserProfileActivity.this, btnPhone, null, R.drawable.ic_dialpad_white_48dp, R.string._hint_phone, R.string._hint_phone);
-                dialog.show();
-            }
-        });
-
-        btnGender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GenderDialog genderDialog = new GenderDialog(UserProfileActivity.this, btnGender);
-                genderDialog.show();
-            }
-        });
-
-        FontManager.setFont(btnNameAndFamily, fontIransSans);
-        FontManager.setFont(btnGender, fontIransSans);
-        FontManager.setFont(btnPhone, fontIransSans);
-
+        mToolbar.inflateMenu(R.menu.activity_user_profile);
+        startAlphaAnimation(mTitle, 0, View.INVISIBLE);
     }
 
+    private void bindActivity() {
+        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        mTitle = (TextView) findViewById(R.id.main_textview_title);
+        mTitleContainer = (LinearLayout) findViewById(R.id.main_linearlayout_title);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.main_appbar);
+    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_user_profile, menu);
+        return true;
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
+        int maxScroll = appBarLayout.getTotalScrollRange();
+        float percentage = (float) Math.abs(offset) / (float) maxScroll;
+
+        handleAlphaOnTitle(percentage);
+        handleToolbarTitleVisibility(percentage);
+    }
+
+    private void handleToolbarTitleVisibility(float percentage) {
+        if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
+
+            if (!mIsTheTitleVisible) {
+                startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+                mIsTheTitleVisible = true;
+            }
+
+        } else {
+
+            if (mIsTheTitleVisible) {
+                startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+                mIsTheTitleVisible = false;
+            }
         }
-        return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    private void handleAlphaOnTitle(float percentage) {
+        if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
+            if (mIsTheTitleContainerVisible) {
+                startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+                mIsTheTitleContainerVisible = false;
+            }
+
+        } else {
+
+            if (!mIsTheTitleContainerVisible) {
+                startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+                mIsTheTitleContainerVisible = true;
+            }
+        }
+    }
+
+    public static void startAlphaAnimation(View v, long duration, int visibility) {
+        AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
+                ? new AlphaAnimation(0f, 1f)
+                : new AlphaAnimation(1f, 0f);
+
+        alphaAnimation.setDuration(duration);
+        alphaAnimation.setFillAfter(true);
+        v.startAnimation(alphaAnimation);
     }
 
 }

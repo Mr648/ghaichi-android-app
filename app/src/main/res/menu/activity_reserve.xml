@@ -6,8 +6,8 @@
         android:id="@+id/action_pick_photo"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="@drawable/ic_camera_alt_white_24dp"
-        android:title="@string/label_pick_photo" />
+        android:icon="@drawable/ic_done_white_24dp"
+        android:title="@string/action_reserve" />
 
 
 </menu>

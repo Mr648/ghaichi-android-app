@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.BarberShopProfileServiceAdapter;
 import com.sorinaidea.arayeshgah.adapter.ImageSliderAdapter;
+import com.sorinaidea.arayeshgah.adapter.PhotoSliderAdapter;
 import com.sorinaidea.arayeshgah.model.Service;
 import com.sorinaidea.arayeshgah.ui.dialog.CommentDialog;
 import com.sorinaidea.arayeshgah.ui.dialog.MessageDialog;
@@ -42,7 +43,6 @@ public class ImageSliderActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ViewPager mPager;
-    private CircleIndicator indicator;
 
     private static int currentPage = 0;
 
@@ -54,51 +54,78 @@ public class ImageSliderActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mPager = (ViewPager) findViewById(R.id.pager);
-        indicator = (CircleIndicator) findViewById(R.id.indicator);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("تصاویر");
 
         initializeImageSlider();
     }
 
 
     private static final List<String> images = Arrays.asList(
-            "asdasd",
-            "asdasd",
-            "asdasd",
-            "asdasd",
-            "asdasd"
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
     );
 
     private ArrayList<String> imageList = new ArrayList<>();
 
+    private void hideToolbar() {
+        toolbar.animate().translationY(-256).setInterpolator(new AccelerateInterpolator()).start();
+    }
+
+    private void showToolbar() {
+        toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
+    }
+
+    private boolean show = false;
 
     private void initializeImageSlider() {
 
         imageList.addAll(images);
-        ImageSliderAdapter adapter = new ImageSliderAdapter(getApplicationContext(), imageList);
+        PhotoSliderAdapter adapter = new PhotoSliderAdapter(getApplicationContext(), imageList);
+        getSupportActionBar().setTitle(1 + " از " + images.size());
         mPager.setAdapter(adapter);
-        indicator.setViewPager(mPager);
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == images.size()) {
-                    currentPage = 0;
-                }
-                mPager.setCurrentItem(currentPage++, true);
-            }
-        };
-
-
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
+        adapter.setImageOnCLickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                handler.post(Update);
+            public void onClick(View view) {
+                if (!show) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showToolbar();
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideToolbar();
+                        }
+                    });
+                }
+                show = !show;
             }
-        }, 2500, 2500);
+        });
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                getSupportActionBar().setTitle((position + 1) + " از " + images.size());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
 
 
