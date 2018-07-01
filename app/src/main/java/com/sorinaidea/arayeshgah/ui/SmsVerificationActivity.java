@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.ui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
+import com.sorinaidea.arayeshgah.util.FontManager;
 import com.sorinaidea.arayeshgah.util.Util;
 
 import java.util.regex.Pattern;
@@ -96,6 +98,14 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
         btnVerify.setOnClickListener(verfiyClickListener);
 
+
+        Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
+
+
+        FontManager.setFont(btnVerify, iranSans);
+        FontManager.setFont(inputLayoutVerificationCode , iranSans);
+        FontManager.setFont(edtVerificationCode , iranSans);
+        FontManager.setFont(mTitle , iranSans);
 
     }
 

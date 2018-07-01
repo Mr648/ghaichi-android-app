@@ -27,9 +27,8 @@
                 android:layout_width="128dp"
                 android:layout_height="128dp"
                 android:layout_margin="@dimen/margin_4dp"
-                android:layout_weight="1"
                 android:scaleType="centerInside"
-                android:src="@drawable/icbg_twitter" />
+                android:src="@drawable/preview_small" />
         </LinearLayout>
 
         <TextView

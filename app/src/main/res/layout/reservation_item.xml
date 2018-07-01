@@ -30,7 +30,7 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/sss" />
+                android:src="@drawable/preview_small" />
         </LinearLayout>
 
         <LinearLayout

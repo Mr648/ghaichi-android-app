@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.ui.dialog;
 
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
+import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,10 +29,13 @@ public class MessageDialog extends Dialog {
 
     private AppCompatActivity activity;
     private String TAG = "MessageDialog";
+    private Typeface fontIranSans;
 
     public MessageDialog(AppCompatActivity activity) {
         super(activity);
         this.activity = activity;
+        this.fontIranSans = FontManager.getTypeface(activity, FontManager.IRANSANS_TEXTS);
+
     }
 
     private AppCompatButton btnCancel;
@@ -55,8 +60,11 @@ public class MessageDialog extends Dialog {
         for (int i = 0; i < 10; i++) {
             message += "ورژن جدید برنامه موجود است،\n بروزرسانی کنید.";
         }
-            txtMessage.setText(message);
+        txtMessage.setText(message);
 
+        FontManager.setFont(btnCancel, fontIranSans);
+        FontManager.setFont(btnOk, fontIranSans);
+        FontManager.setFont(txtMessage, fontIranSans);
 
     }
 

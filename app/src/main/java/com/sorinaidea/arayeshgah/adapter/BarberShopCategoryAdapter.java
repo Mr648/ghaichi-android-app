@@ -27,7 +27,7 @@ import java.util.Arrays;
 
 public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCategoryAdapter.ViewHolder> {
 
-    private static Context mContext;
+    private  Context mContext;
     private ArrayList<String> mItems;
     Typeface fontIransans;
 
@@ -45,6 +45,7 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
 
         private final LinearLayout btnMore;
         private final TextView txtBarberShopCategory;
+        private final TextView txtAll;
         private final RecyclerView recBarberShop;
 
 
@@ -53,7 +54,12 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
             this.view = view;
             btnMore = (LinearLayout) view.findViewById(R.id.btnMore);
             txtBarberShopCategory = (TextView) view.findViewById(R.id.txtBarberShopCategory);
+            txtAll = (TextView) view.findViewById(R.id.txtAll);
             recBarberShop = (RecyclerView) view.findViewById(R.id.recBarberShop);
+        }
+
+        public TextView getTxtAll() {
+            return txtAll;
         }
 
         public View getView() {
@@ -90,7 +96,6 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
 //       FontManager.setFont(holder.getTxtFavorite(),fontMaterialIcons);
 //        FontManager.setFont(holder.getTxtShare(),fontMaterialIcons);
 //        FontManager.setFont(holder.getTxtLike(),fontMaterialIcons);
-//        FontManager.setFont(holder.getTxtDislike(),fontMaterialIcons);
 
 
         holder.getTxtBarberShopCategory().setText(mItems.get(position));
@@ -111,12 +116,16 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
             }
         });
 
+        FontManager.setFont(holder.getTxtBarberShopCategory(), fontIransans);
+        FontManager.setFont(holder.getTxtAll(), fontIransans);
+
+
     }
 
     private ArrayList<BarberShop> initBarberShops() {
         ArrayList<BarberShop> list = new ArrayList<>();
         for (int i = 0; i < 25; i++) {
-            list.add(new BarberShop(R.drawable.barbershop, "BarberShop #" + i));
+            list.add(new BarberShop(R.drawable.barbershop, "آرایشگاه #" + i));
         }
         return list;
     }

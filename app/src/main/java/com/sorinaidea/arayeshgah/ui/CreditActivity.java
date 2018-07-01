@@ -54,8 +54,10 @@ public class CreditActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("اعتبار");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setText("اعتبار");
 
         fontMaterialIcons = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
         fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
@@ -116,6 +118,7 @@ public class CreditActivity extends AppCompatActivity {
         FontManager.setFont(txtReservation, fontIranSans);
         FontManager.setFont(txtMessage, fontIranSans);
         FontManager.setFont(txtCredit, fontIranSans);
+        FontManager.setFont(mTitle, fontIranSans);
 
 
     }

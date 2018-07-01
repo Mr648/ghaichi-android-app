@@ -17,6 +17,8 @@ public class GetGiftActivity extends AppCompatActivity {
 
     private TextView txtGetGiftMsg;
     private TextView txtGiftCode;
+    private TextView txtGetGift;
+    private TextView txtShare;
     private TextView txtIconShare;
     private Toolbar toolbar;
 
@@ -27,19 +29,25 @@ public class GetGiftActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("معرفی به دوستان");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setText("معرفی به دوستان");
 
         txtGetGiftMsg = (TextView) findViewById(R.id.txtGetGiftMsg);
         txtGiftCode = (TextView) findViewById(R.id.txtGiftCode);
         txtIconShare = (TextView) findViewById(R.id.txtIconShare);
+        txtGetGift = (TextView) findViewById(R.id.txtGetGift);
+        txtShare = (TextView) findViewById(R.id.txtShare);
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
         Typeface irsansFont = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         FontManager.setFont(txtIconShare, iconFont);
         FontManager.setFont(txtGetGiftMsg, irsansFont);
+        FontManager.setFont(txtShare, irsansFont);
+        FontManager.setFont(txtGetGift, irsansFont);
+        FontManager.setFont(mTitle, irsansFont);
 
         txtIconShare.setOnClickListener(new View.OnClickListener() {
             @Override

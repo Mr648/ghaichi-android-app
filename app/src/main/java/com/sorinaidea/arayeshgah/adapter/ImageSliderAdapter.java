@@ -45,8 +45,7 @@ public class ImageSliderAdapter extends PagerAdapter {
         View myImageLayout = inflater.inflate(R.layout.image_slide, view, false);
         ImageView myImage = (ImageView) myImageLayout
                 .findViewById(R.id.image);
-        myImage.setImageResource(R.drawable.preview_xlarge);
-        if (imageOnCLickListener!=null){
+        if (imageOnCLickListener != null) {
             myImage.setOnClickListener(imageOnCLickListener);
         }
 //        try {
@@ -60,7 +59,7 @@ public class ImageSliderAdapter extends PagerAdapter {
         return myImageLayout;
     }
 
-    private View.OnClickListener imageOnCLickListener = null ;
+    private View.OnClickListener imageOnCLickListener = null;
 
     public void setImageOnCLickListener(View.OnClickListener imageOnCLickListener) {
         this.imageOnCLickListener = imageOnCLickListener;

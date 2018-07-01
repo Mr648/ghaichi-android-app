@@ -28,6 +28,7 @@ public class TopBarberShopAdabper extends RecyclerView.Adapter<TopBarberShopAdab
 
     private ArrayList<BarberShop> mDataSet;
     private Context mContext;
+    private Typeface fontIranSans;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView imgLogo;
@@ -59,7 +60,7 @@ public class TopBarberShopAdabper extends RecyclerView.Adapter<TopBarberShopAdab
     public TopBarberShopAdabper(ArrayList<BarberShop> transactions, Context context) {
         mDataSet = transactions;
         mContext = context;
-
+        fontIranSans = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
         // setting fonts for icons
     }
 
@@ -77,6 +78,8 @@ public class TopBarberShopAdabper extends RecyclerView.Adapter<TopBarberShopAdab
         Log.d(TAG, "Element " + position + " set.");
         viewHolder.getImgLogo().setImageResource(mDataSet.get(position).getLogo());
         viewHolder.getTxtName().setText(mDataSet.get(position).getTitle());
+
+        FontManager.setFont(viewHolder.getTxtName(), fontIranSans);
     }
 
     @Override

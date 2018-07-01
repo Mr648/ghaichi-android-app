@@ -125,7 +125,6 @@
                 android:id="@+id/imgLogo"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_weight="1"
                 android:scaleType="centerInside"
                 android:src="@android:drawable/btn_star" />
         </LinearLayout>

@@ -117,13 +117,13 @@ public class HomePageFragment extends Fragment {
     private ArrayList<String> initProductItems() {
         ArrayList<String> list = new ArrayList<String>();
         list.addAll(Arrays.asList(
-                "Category #1"
-                , "Category #2"
-                , "Category #3"
-                , "Category #4"
-                , "Category #5"
-                , "Category #6"
-                , "Category #7"
+                  "دسته‌بندی #1"
+                , "دسته‌بندی #2"
+                , "دسته‌بندی #3"
+                , "دسته‌بندی #4"
+                , "دسته‌بندی #5"
+                , "دسته‌بندی #6"
+                , "دسته‌بندی #7"
         ));
         return list;
     }

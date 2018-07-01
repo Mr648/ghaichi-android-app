@@ -1,16 +1,19 @@
 package com.sorinaidea.arayeshgah.ui.dialog;
 
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.datahelper.Gender;
+import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,6 +28,7 @@ public class GenderDialog extends Dialog implements View.OnClickListener {
     private AppCompatActivity activity;
     private ActivityUpdater activityUpdater;
     private String TAG = "GenderDialog";
+    private Typeface fontIranSans;
 
     private void setActivityUpdater(ActivityUpdater activityUpdater) {
         this.activityUpdater = activityUpdater;
@@ -39,6 +43,8 @@ public class GenderDialog extends Dialog implements View.OnClickListener {
         selectedGender = null;
         this.setActivity(activity);
         this.setActivityUpdater(new ActivityUpdater(btnSelectGender));
+        this.fontIranSans = FontManager.getTypeface(activity, FontManager.IRANSANS_TEXTS);
+
     }
 
     @Override
@@ -56,6 +62,8 @@ public class GenderDialog extends Dialog implements View.OnClickListener {
     private AppCompatRadioButton btnMale;
     private AppCompatRadioButton btnFemale;
     private AppCompatButton btnSelect;
+    private AppCompatTextView txtTitle;
+
     private Gender selectedGender;
 
     @Override
@@ -67,8 +75,15 @@ public class GenderDialog extends Dialog implements View.OnClickListener {
         btnSelect = (AppCompatButton) findViewById(R.id.btnSelect);
         btnMale = (AppCompatRadioButton) findViewById(R.id.btnMale);
         btnFemale = (AppCompatRadioButton) findViewById(R.id.btnFemale);
+        txtTitle = (AppCompatTextView) findViewById(R.id.txtTitle);
 
         btnSelect.setOnClickListener(this);
+
+        FontManager.setFont(txtTitle, fontIranSans);
+        FontManager.setFont(btnMale, fontIranSans);
+        FontManager.setFont(btnSelect, fontIranSans);
+        FontManager.setFont(btnFemale, fontIranSans);
+
     }
 
     private boolean validateGender() {

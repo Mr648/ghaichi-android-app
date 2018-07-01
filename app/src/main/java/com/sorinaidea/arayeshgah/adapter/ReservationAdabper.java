@@ -129,6 +129,7 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
 //        );
 
         viewHolder.getImgLogo().setImageResource(mDataSet.get(position).getImgLogo());
+
         FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
         FontManager.setFont(viewHolder.getTxtAddress(), fontIranSans);
         FontManager.setFont(viewHolder.getTxtDate(), fontIranSans);

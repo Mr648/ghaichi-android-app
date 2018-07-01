@@ -97,7 +97,7 @@ public class ReservationFragment extends Fragment {
         ArrayList<Reservation> mDataset = new ArrayList<>();
         Date date = new Date();
         for (int i = 0; i < 20; i++) {
-            mDataset.add(new Reservation(R.drawable.img_logo_border,"نام کاربر","1396/11/12","16:45 بعد از ظهر","لیست مختصر خدمات..."));
+            mDataset.add(new Reservation(R.drawable.preview_small,"نام کاربر","1396/11/12","16:45 بعد از ظهر","لیست مختصر خدمات..."));
         }
         return mDataset;
     }

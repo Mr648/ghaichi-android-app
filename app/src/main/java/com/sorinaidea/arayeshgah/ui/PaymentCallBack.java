@@ -3,6 +3,7 @@ package com.sorinaidea.arayeshgah.ui;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
 import com.sorinaidea.arayeshgah.layout.ActivationFragment;
@@ -16,7 +17,7 @@ import java.util.Date;
  * Created by mr-code on 2/10/2018.
  */
 
-public class PaymentCallBack extends SorinaActivity
+public class PaymentCallBack extends AppCompatActivity
         implements
         ActivationFragment.OnActivationFragmentInteractionListener,
 

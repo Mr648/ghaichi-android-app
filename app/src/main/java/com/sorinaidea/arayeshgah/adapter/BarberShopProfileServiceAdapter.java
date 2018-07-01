@@ -76,7 +76,6 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.barbershop_profile_service_item, viewGroup, false);
-        ;
 
         return new ViewHolder(v);
     }

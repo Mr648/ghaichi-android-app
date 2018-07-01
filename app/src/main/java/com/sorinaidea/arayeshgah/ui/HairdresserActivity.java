@@ -3,6 +3,7 @@ package com.sorinaidea.arayeshgah.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +23,7 @@ import java.util.Date;
  * Created by mr-code on 5/6/2018.
  */
 
-public class HairdresserActivity extends SorinaActivity {
+public class HairdresserActivity extends AppCompatActivity {
 
     FloatingActionButton fabAddServiceCategory;
     FloatingActionButton fabAddService;
@@ -33,7 +34,7 @@ public class HairdresserActivity extends SorinaActivity {
         ArrayList<Reservation> mDataset = new ArrayList<>();
         Date date = new Date();
         for (int i = 0; i < 20; i++) {
-            mDataset.add(new Reservation(R.drawable.background_green, "نام کاربر", "1396/11/12", "16:45 بعد از ظهر", "لیست مختصر خدمات..."));
+            mDataset.add(new Reservation(R.drawable.background_green, "نام کاربر", "1396/11/12", "16:45 ب.ظ", "لیست مختصر خدمات..."));
         }
         return mDataset;
     }

@@ -3,6 +3,10 @@ package com.sorinaidea.arayeshgah.util;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,6 +35,16 @@ public class FontManager {
             ((TextView)view).setTypeface(typeface);
         } else if (view instanceof Button) {
             ((Button)view).setTypeface(typeface);
+        }else if (view instanceof AppCompatButton) {
+            ((AppCompatButton)view).setTypeface(typeface);
+        }else if (view instanceof AppCompatTextView) {
+            ((AppCompatTextView)view).setTypeface(typeface);
+        }else if (view instanceof TextInputLayout) {
+            ((TextInputLayout)view).setTypeface(typeface);
+        }else if (view instanceof TextInputEditText) {
+            ((TextInputEditText)view).setTypeface(typeface);
+        }else if (view instanceof SwitchCompat) {
+            ((SwitchCompat)view).setTypeface(typeface);
         }
     }
     public static void markAsContainer(final View view, final Typeface typeface) {

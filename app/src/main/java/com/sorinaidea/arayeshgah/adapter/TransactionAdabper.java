@@ -91,6 +91,9 @@ public class TransactionAdabper extends RecyclerView.Adapter<TransactionAdabper.
         Log.d(TAG, "Element " + position + " set.");
 
         FontManager.setFont(viewHolder.getTxtIcon(), fontMaterialIcons);
+        FontManager.setFont(viewHolder.getTxtDate(), fontIranSans);
+        FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
+        FontManager.setFont(viewHolder.getTxtCashValue(), fontIranSans);
 
         viewHolder.getTxtTitle().setText(mDataSet.get(position).getTitle());
         viewHolder.getTxtDate().setText(mDataSet.get(position).getDate());

@@ -173,7 +173,7 @@ public class MapsActivity
             ClusterMarker cmarker = new ClusterMarker();
             cmarker.setPosition(getRandomLocation());
             cmarker.setTitle("Title");
-            cmarker.setIcon(Util.getBitmapDescriptor(R.drawable.ic_hairdresser, getApplicationContext()));
+            cmarker.setIcon(Util.getBitmapDescriptor(R.drawable.ic_hairdresser_64px, getApplicationContext()));
             clusterManager.addItem(cmarker);
             if (counter % 10 == 0)
                 clusterManager.cluster();

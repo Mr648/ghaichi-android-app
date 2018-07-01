@@ -1,5 +1,6 @@
 package com.sorinaidea.arayeshgah.ui;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
+import com.sorinaidea.arayeshgah.util.FontManager;
 
 /**
  * Created by mr-code on 6/17/2018.
@@ -31,6 +33,18 @@ public class UserProfileActivity extends AppCompatActivity
     private AppBarLayout mAppBarLayout;
     private Toolbar mToolbar;
 
+    private TextView txtLb1;
+    private TextView txtName;
+    private TextView txtLb2;
+    private TextView txtFamily;
+    private TextView txtLb3;
+    private TextView txtGender;
+    private TextView txtLb4;
+    private TextView txtPhone;
+    private TextView txtLb5;
+    private TextView txtTitle;
+    private TextView txtHeaderName;
+    private TextView txtHeaderNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +57,42 @@ public class UserProfileActivity extends AppCompatActivity
 
         mToolbar.inflateMenu(R.menu.activity_user_profile);
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
+
+
+        txtLb1 = (TextView) findViewById(R.id.txtLb1);
+        txtName = (TextView) findViewById(R.id.txtName);
+        txtLb2 = (TextView) findViewById(R.id.txtLb2);
+        txtFamily = (TextView) findViewById(R.id.txtFamily);
+        txtLb3 = (TextView) findViewById(R.id.txtLb3);
+        txtGender = (TextView) findViewById(R.id.txtGender);
+        txtLb4 = (TextView) findViewById(R.id.txtLb4);
+        txtPhone = (TextView) findViewById(R.id.txtPhone);
+        txtLb5 = (TextView) findViewById(R.id.txtLb5);
+        txtTitle = (TextView) findViewById(R.id.txtTitle);
+        txtHeaderName = (TextView) findViewById(R.id.txtHeaderName);
+        txtHeaderNumber = (TextView) findViewById(R.id.txtHeaderNumber);
+
+        Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
+
+
+        FontManager.setFont(txtLb1, iranSans);
+        FontManager.setFont(txtName, iranSans);
+        FontManager.setFont(txtLb2, iranSans);
+        FontManager.setFont(txtFamily, iranSans);
+        FontManager.setFont(txtLb3, iranSans);
+        FontManager.setFont(txtGender, iranSans);
+        FontManager.setFont(txtLb4, iranSans);
+        FontManager.setFont(txtPhone, iranSans);
+        FontManager.setFont(txtLb5, iranSans);
+        FontManager.setFont(txtTitle, iranSans);
+        FontManager.setFont(txtHeaderName, iranSans);
+        FontManager.setFont(txtHeaderNumber, iranSans);
+
     }
 
     private void bindActivity() {
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        mTitle = (TextView) findViewById(R.id.main_textview_title);
+        mTitle = (TextView) findViewById(R.id.txtTitle);
         mTitleContainer = (LinearLayout) findViewById(R.id.main_linearlayout_title);
         mAppBarLayout = (AppBarLayout) findViewById(R.id.main_appbar);
     }

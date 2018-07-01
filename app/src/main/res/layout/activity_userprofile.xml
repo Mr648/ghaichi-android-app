@@ -16,15 +16,16 @@
             android:id="@+id/main.collapsing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <ImageView
                 android:id="@+id/main.imageview.placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
+                android:background="@color/colorPrimaryLight"
                 android:src="@drawable/cover"
-                android:tint="#34fe4b5e"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.9" />
 
@@ -47,19 +48,22 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtHeaderName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="bottom|center"
                         android:text="رحمت ویسی"
                         android:textColor="@color/colorWhite"
-                        android:textSize="30sp" />
+                        android:textSize="@dimen/_24sp" />
 
                     <TextView
+                        android:id="@+id/txtHeaderNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/_4dp"
+                        android:layout_marginBottom="@dimen/_8dp"
                         android:text="09360835848"
                         android:textColor="@color/colorWhite" />
 
@@ -67,8 +71,6 @@
             </FrameLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
-
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -86,11 +88,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtLb1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_16dp"
-                    android:layout_marginTop="@dimen/_16dp"
                     android:layout_marginEnd="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_16dp"
                     android:text="@string/_lbl_personal_info"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorGrayDark" />
@@ -114,6 +117,7 @@
                         android:textColor="@color/colorGrayDark" />
 
                     <TextView
+                        android:id="@+id/txtLb2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4dp"
@@ -153,6 +157,7 @@
                         android:textColor="@color/colorGrayDark" />
 
                     <TextView
+                        android:id="@+id/txtLb3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4dp"
@@ -193,6 +198,7 @@
                         android:textColor="@color/colorGrayDark" />
 
                     <TextView
+                        android:id="@+id/txtLb4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4dp"
@@ -230,6 +236,7 @@
                         android:textColor="@color/colorGrayDark" />
 
                     <TextView
+                        android:id="@+id/txtLb5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4dp"
@@ -266,7 +273,7 @@
                 android:layout_height="@dimen/image_final_width" />
 
             <TextView
-                android:id="@+id/main.textview.title"
+                android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
@@ -282,7 +289,7 @@
         android:layout_width="@dimen/image_width"
         android:layout_height="@dimen/image_width"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/img_profile"
+        android:src="@drawable/ic_account_circle_white_24dp"
         app:civ_border_color="@android:color/white"
         app:civ_border_width="2dp"
         app:finalHeight="@dimen/image_final_width"
@@ -291,4 +298,6 @@
         app:startHeight="2dp"
         app:startToolbarPosition="2dp"
         app:startXPosition="2dp" />
+
+
 </android.support.design.widget.CoordinatorLayout>

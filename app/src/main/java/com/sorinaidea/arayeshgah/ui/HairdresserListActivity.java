@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.ui;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +20,7 @@ import java.util.Date;
  * Created by mr-code on 3/10/2018.
  */
 
-public class HairdresserListActivity extends SorinaActivity {
+public class HairdresserListActivity extends AppCompatActivity {
 
     private RecyclerView recHairdressers;
 
@@ -38,7 +39,7 @@ public class HairdresserListActivity extends SorinaActivity {
         ArrayList<BarberShop> mDataset = new ArrayList<>();
         Date date = new Date();
         for (int i = 0; i < 20; i++) {
-            mDataset.add(new BarberShop(R.drawable.icbg_twitter, "آرایشگاه تست " + i));
+            mDataset.add(new BarberShop(R.drawable.preview_small, "آرایشگاه تست " + i));
         }
         return mDataset;
     }

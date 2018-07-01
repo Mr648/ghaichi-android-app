@@ -1,93 +1,43 @@
 <resources>
     <string name="app_name">Ghaichi</string>
     <string name="title_activity_maps">Sorina Map</string>
-    <string name="id_label">The ID is</string>
-    <string name="id_value">[id]</string>
-    <string name="content_label">The Content is</string>
-    <string name="content_value">[content]</string>
     <string name="action_refresh">Refresh</string>
     <string name="your_current_location">موقعیت فعلی شما</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
     <string name="info_name">نام</string>
     <string name="info_family">نام خانوادگی</string>
-    <string name="text_location_permission">کاربر گرامی،
-    \n
-    برای نمایش نزدیک ترین آرایشگاه‌ها به شما و نیز بعضی از قابلیت های دیگر، برنامه نیاز دارد به مکان فعلی شما دسترسی داشته باشد، این اجازه به برنامه می دهید؟</string>
-    <string name="title_location_permission">دسترسی به مکان</string>
-    <string name="ok">بله</string>
     <string name="send_activation_code">ارسال کد فعالسازی</string>
     <string name="verification_code_continue">ادامه</string>
     <string name="verification_code_hint">کد فعالسازی</string>
-    <string name="sample_number">شماره تلفن</string>
-    <string name="sample_number_text">+98 --- --- ----</string>
 
 
     <string name="m_icon_call">&#xE0B0;</string>
-    <string name="m_icon_signal_wifi_off">&#xE1DA;</string>
     <string name="m_icon_next_step">&#xE5C8;</string>
     <string name="m_icon_done">&#xE876;</string>
     <string name="m_icon_sms">&#xE0D8;</string>
-    <string name="m_icon_help_outline">&#xE8FD;</string>
     <string name="m_icon_share">&#xE80D;</string>
-    <string name="m_icon_down_arrow">&#xE5DB;</string>
-    <string name="m_icon_up_arrow">&#xE5D8;</string>
     <string name="m_icon_left_arrow">&#xE314;</string>
-    <string name="m_icon_right_arrow">&#xE315;</string>
-    <string name="m_icon_dropdown_down_arrow">&#xE5C6;</string>
-    <string name="m_icon_plus">&#xE145;</string>
     <string name="m_icon_date">&#xE916;</string>
     <string name="m_icon_time">&#xE192;</string>
-    <string name="m_icon_person">&#xE7FD;</string>
-    <string name="m_icon_account">&#xE851;</string>
-    <string name="m_icon_edit">&#xE254;</string>
     <string name="m_icon_credit_down">&#xE8E3;</string>
     <string name="m_icon_credit_up">&#xE8E5;</string>
     <string name="m_icon_marker">&#xE0C8;</string>
-    <string name="m_icon_add_a_photo">&#xE0C8;</string>
 
 
-    <string name="social_icon_instagram">x</string>
-    <string name="social_icon_twitter">a</string>
-    <string name="social_icon_linkedin">j</string>
+
 
     <string name="didnt_get_the_code">کد را دریافت نکردید؟</string>
     <string name="send_activation_code_again">ارسال مجدد</string>
     <string name="exit_the_app">خروج از حساب کاربری</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
     <string name="error_invalid_phone">شماره موبایل به درستی وارد نشده است.</string>
-
-
     <string name="error_empty_phone">شماره موبایل را وارد نمایید.</string>
-    <string name="error_no_internet_connection">عدم اتصال به شبکه\nلطفا از طریق Data یا Wifi \nبه اینترنت وصل شوید.</string>
-
-
-    <string name="about_us"></string>
-    <string name="lorem_ipsum">lorem ipsum</string>
     <string name="choose_location">انتخاب مکان</string>
     <string name="credid_msg">موجودی(ریال)</string>
-    <string name="gender">جنسیت</string>
-    <string name="label_confirm">تایید</string>
     <string name="share">اشتراک گذاری</string>
     <string name="get_gift">اعتبار هدیه دریافت کنید</string>
     <string name="get_gift_msg">کد زیر را برای دوستان خود بفرستید و از آنها بخواهید هنگام ثبت نام در اپلیکیشن آن را وارد نمایند تا با اولین سفارش آنها به شما اعتبار هدیه تعلق بگیرد</string>
 
-    <string-array name="genders">
-        <item>آقا</item>
-        <item>خانم</item>
-    </string-array>
-    <string-array name="pref_languages">
-        <item>فارسی</item>
-        <item>English</item>
-    </string-array>
-    <string-array name="pref_languages_values">
-        <item>Fa</item>
-        <item>En</item>
-    </string-array>
 
     <string name="aboutus">
         متن درباره ما نمونه، این متن ساختگی است،متن درباره ما نمونه، این متن ساختگی است، متن درباره ما نمونه، این متن ساختگی است،
@@ -109,21 +59,20 @@
     <string name="_lbl_add_credit">افزایش اعتبار</string>
     <string name="_lbl_choose">انتخاب</string>
     <string name="_lbl_comment_title">نظرسنجی</string>
-    <string name="_lbl_online_payment">پرداخت الکترونیکی</string>
     <string name="_lbl_price">مبلغ (ریال) </string>
     <string name="_lbl_select_gender">انتخاب جنسیت</string>
     <string name="_lbl_cancel">انصراف</string>
-    <string name="_lbl_cancel_2">لغو</string>
     <string name="_lbl_search_barbershop">جستجوی آرایشگاه</string>
     <string name="_lbl_pay">پرداخت</string>
     <string name="_lbl_comment">نظر</string>
+    <string name="_lbl_all">همه</string>
     <string name="_lbl_confirm">تایید</string>
     <string name="_lbl_manage_sample_work">مدیریت نمونه کارها</string>
     <string name="_lbl_manage_service">مدیریت خدمات</string>
     <string name="_lbl_service_category">دسته‌بندی خدمات</string>
     <string name="_lbl_request_advertise">درخواست تبلیغات</string>
-    <string name="_lbl_set_location">ثبت مکان</string>
     <string name="_lbl_personal_info">اطلاعات شخصی</string>
+    <string name="label_home">اطلاعات شخصی</string>
 
 
     <string name="err__empty__cash">لطفا مبلغ را وارد نمایید</string>
@@ -133,29 +82,21 @@
     <string name="err__invalid__phone">شماره تلفن وارد شده معتبر نمی‌باشد</string>
     <string name="err__empty__verfcode">کد فعالسازی خالی است</string>
     <string name="err__invalid__verfcode">کد فعالسازی نادرست</string>
-    <string name="err__empty__field">فیلد خالی است</string>
-    <string name="err__invalid__field">کد فعالسازی نادرست</string>
 
 
-    <string name="label_home">صفحه اصلی</string>
     <string name="label_pick_photo">انتخاب تصویر</string>
-    <string name="label_edit">ویرایش</string>
     <string name="label_profile">پروفایل</string>
     <string name="label_credit">اعتبار</string>
     <string name="label_faq">سوالات متداول</string>
-    <string name="label_top_barbershops">برترین ها</string>
     <string name="label_favorites">علاقه مندی ها</string>
     <string name="label_free_reservation">رزرو رایگان</string>
-    <string name="label_send_support_ticket">ارسال تیکت پشتیبانی</string>
     <string name="label_setting">تنظیمات</string>
     <string name="label_aboutus">درباره ما</string>
-    <string name="label_report_bug">گزارش خطا</string>
-    <string name="label_download_latest">دانلود آخرین ورژن برنامه</string>
-
     <string name="navigation_menu_open">باز کردن</string>
     <string name="navigation_menu_close">بستن</string>
-    <string name="action_bookmark">Bookmark</string>
-    <string name="action_share">Share</string>
+    <string name="action_bookmark">افزودن به علاقه‌مندی‌ها</string>
+    <string name="action_share">به اشتراک‌ گزاری</string>
+    <string name="action_route">مسیر</string>
     <string name="action_reserve">رزرو</string>
 
 
@@ -163,11 +104,9 @@
     <string name="_hint_empty_content">هنوز هیچ آیتمی به این لیست اضافه نشده است.</string>
     <string name="_hint_family">نام خانوادکی</string>
     <string name="_hint_phone">شماره موبایل</string>
-    <string name="_hint_name_family">نام و نام خانوادگی</string>
     <string name="_hint_gender">جنیست</string>
     <string name="_txt_gender_male">آقا</string>
     <string name="_txt_gender_female">خانم</string>
-    <string name="_txt_gender_other">سایر</string>
     <string name="_txt_service_name">نام سرویس</string>
 
 </resources>

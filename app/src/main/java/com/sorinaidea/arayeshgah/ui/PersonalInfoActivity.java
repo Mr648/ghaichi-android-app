@@ -2,31 +2,23 @@ package com.sorinaidea.arayeshgah.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
-import com.sorinaidea.arayeshgah.adapter.GenderSpinnerAdapter;
 import com.sorinaidea.arayeshgah.datahelper.Gender;
-import com.sorinaidea.arayeshgah.datahelper.GenderItem;
 import com.sorinaidea.arayeshgah.ui.dialog.GenderDialog;
 import com.sorinaidea.arayeshgah.util.FontManager;
 import com.sorinaidea.arayeshgah.util.Util;
-
-import java.util.ArrayList;
 
 /**
  * Created by mr-code on 6/17/2018.
@@ -67,7 +59,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
         edtName = (TextInputEditText) findViewById(R.id.edtName);
         edtFamily = (TextInputEditText) findViewById(R.id.edtFamily);
         inputLayoutName = (TextInputLayout) findViewById(R.id.inputLayoutName);
-        inputLayoutName = (TextInputLayout) findViewById(R.id.inputLayoutFamily);
+        inputLayoutFamily = (TextInputLayout) findViewById(R.id.inputLayoutFamily);
 
 
         btnNextStep.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +116,15 @@ public class PersonalInfoActivity extends AppCompatActivity {
 //        });
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
+        Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
+
         FontManager.setFont(btnNextStep, iconFont);
+        FontManager.setFont(mTitle, iranSans);
+        FontManager.setFont(btnSelectGender, iranSans);
+        FontManager.setFont(edtName, iranSans);
+        FontManager.setFont(edtFamily, iranSans);
+        FontManager.setFont(inputLayoutName, iranSans);
+        FontManager.setFont(inputLayoutFamily, iranSans);
 
     }
 

@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.ui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,17 +21,19 @@ import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.layout.HomePageFragment;
+import com.sorinaidea.arayeshgah.util.FontManager;
 
 /**
  * Created by mr-code on 4/8/2018.
  */
 
-public class MainActivity extends SorinaActivity implements
+public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
     private TextView txtUserInfo;
     private TextView txtCity;
+    private Typeface fontIranSans;
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -73,6 +77,7 @@ public class MainActivity extends SorinaActivity implements
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
+        fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -103,6 +108,9 @@ public class MainActivity extends SorinaActivity implements
 
         txtUserInfo.setText("کاربر مهمان");
         txtCity.setText("سنندج");
+
+        FontManager.setFont(txtCity, fontIranSans);
+        FontManager.setFont(txtUserInfo, fontIranSans);
 
     }
 

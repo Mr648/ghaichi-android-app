@@ -28,45 +28,6 @@ public class AllBarberAdabper extends RecyclerView.Adapter<AllBarberAdabper.View
     private Typeface fontMaterialIcons;
     private Typeface fontIranSans;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView txtIcon;
-        private final TextView txtTitle;
-        private final TextView txtDate;
-        private final TextView txtCashValue;
-
-        public ViewHolder(View v) {
-            super(v);
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                }
-            });
-
-            txtIcon = (TextView) v.findViewById(R.id.txtIcon);
-            txtTitle = (TextView) v.findViewById(R.id.txtTitle);
-            txtDate = (TextView) v.findViewById(R.id.txtDate);
-            txtCashValue = (TextView) v.findViewById(R.id.txtCashValue);
-        }
-
-        public TextView getTxtIcon() {
-            return txtIcon;
-        }
-
-        public TextView getTxtCashValue() {
-            return txtCashValue;
-        }
-
-        public TextView getTxtDate() {
-            return txtDate;
-        }
-
-        public TextView getTxtTitle() {
-            return txtTitle;
-        }
-    }
-
-
     public AllBarberAdabper(ArrayList<Transaction> transactions, Context context) {
         mDataSet = transactions;
         mContext = context;
@@ -89,7 +50,6 @@ public class AllBarberAdabper extends RecyclerView.Adapter<AllBarberAdabper.View
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Log.d(TAG, "Element " + position + " set.");
 
-        FontManager.setFont(viewHolder.getTxtIcon(), fontMaterialIcons);
 
         viewHolder.getTxtTitle().setText(mDataSet.get(position).getTitle());
         viewHolder.getTxtDate().setText(mDataSet.get(position).getDate());
@@ -127,10 +87,56 @@ public class AllBarberAdabper extends RecyclerView.Adapter<AllBarberAdabper.View
         }
 
 
+        // Setting font on UI
+        FontManager.setFont(viewHolder.getTxtIcon(), fontMaterialIcons);
+
+        FontManager.setFont(viewHolder.getTxtCashValue(), fontIranSans);
+        FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
+        FontManager.setFont(viewHolder.getTxtDate(), fontIranSans);
+
+
     }
 
     @Override
     public int getItemCount() {
         return mDataSet.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView txtIcon;
+        private final TextView txtTitle;
+        private final TextView txtDate;
+        private final TextView txtCashValue;
+
+        public ViewHolder(View v) {
+            super(v);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
+                }
+            });
+
+            txtIcon = (TextView) v.findViewById(R.id.txtIcon);
+            txtTitle = (TextView) v.findViewById(R.id.txtTitle);
+            txtDate = (TextView) v.findViewById(R.id.txtDate);
+            txtCashValue = (TextView) v.findViewById(R.id.txtCashValue);
+        }
+
+        public TextView getTxtIcon() {
+            return txtIcon;
+        }
+
+        public TextView getTxtCashValue() {
+            return txtCashValue;
+        }
+
+        public TextView getTxtDate() {
+            return txtDate;
+        }
+
+        public TextView getTxtTitle() {
+            return txtTitle;
+        }
     }
 }

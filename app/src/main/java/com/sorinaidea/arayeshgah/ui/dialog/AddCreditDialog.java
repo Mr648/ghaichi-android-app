@@ -1,16 +1,19 @@
 package com.sorinaidea.arayeshgah.ui.dialog;
 
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
 import com.sorinaidea.arayeshgah.R;
+import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,10 +27,12 @@ public class AddCreditDialog extends Dialog implements View.OnClickListener {
 
     private AppCompatActivity activity;
     private String TAG = "AddCreditDialog";
+    private Typeface fontIranSans;
 
     public AddCreditDialog(AppCompatActivity activity) {
         super(activity);
         this.activity = activity;
+        this.fontIranSans = FontManager.getTypeface(activity, FontManager.IRANSANS_TEXTS);
     }
 
     @Override
@@ -41,6 +46,7 @@ public class AddCreditDialog extends Dialog implements View.OnClickListener {
                 break;
         }
     }
+    private AppCompatTextView txtTitle;
 
     private AppCompatButton btnCancel;
     private AppCompatButton btnPay;
@@ -58,9 +64,17 @@ public class AddCreditDialog extends Dialog implements View.OnClickListener {
         btnPay = (AppCompatButton) findViewById(R.id.btnPay);
         txtCashValue = (TextInputEditText) findViewById(R.id.txtCashValue);
         inputLayoutCashValue = (TextInputLayout) findViewById(R.id.inputLayoutCashValue);
+        txtTitle = (AppCompatTextView) findViewById(R.id.txtTitle);
 
         btnCancel.setOnClickListener(this);
         btnPay.setOnClickListener(this);
+
+
+        FontManager.setFont(btnCancel, fontIranSans);
+        FontManager.setFont(btnPay, fontIranSans);
+        FontManager.setFont(txtCashValue, fontIranSans);
+        FontManager.setFont(txtTitle, fontIranSans);
+        FontManager.setFont(inputLayoutCashValue, fontIranSans);
     }
 
     private boolean isValidCashValue() {

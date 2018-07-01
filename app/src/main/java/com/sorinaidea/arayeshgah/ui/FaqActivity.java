@@ -34,14 +34,17 @@ public class FaqActivity extends AppCompatActivity {
     private FloatingActionButton fabSupport;
     private Toolbar toolbar;
 
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_faq);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("سوالات متداول");
 
@@ -57,11 +60,14 @@ public class FaqActivity extends AppCompatActivity {
         recFaq.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recFaq.setAdapter(new FAQAdabper(initDataset(), getApplicationContext()));
 
+        Typeface iranSans= FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
+        FontManager.setFont(mTitle, iranSans);
+
     }
 
     private ArrayList<FAQ> initDataset() {
         ArrayList<FAQ> mDataset = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 25; i++) {
             mDataset.add(new FAQ("یک جواب نمونه، این یک نمونه است", "سوال نمونه، سوال نمونه"));
         }
         return mDataset;

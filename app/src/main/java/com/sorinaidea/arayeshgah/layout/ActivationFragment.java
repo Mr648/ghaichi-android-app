@@ -15,24 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sorinaidea.arayeshgah.R;
-import com.sorinaidea.arayeshgah.ui.SorinaActivity;
 import com.sorinaidea.arayeshgah.util.FontManager;
-import com.sorinaidea.arayeshgah.util.SorinaApplication;
-import com.sorinaidea.arayeshgah.util.Util;
 
-import java.util.regex.Pattern;
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ActivationFragment.OnActivationFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ActivationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ActivationFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match

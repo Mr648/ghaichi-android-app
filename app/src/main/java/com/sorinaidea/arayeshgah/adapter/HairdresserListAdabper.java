@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.model.BarberShop;
+import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 
 public class HairdresserListAdabper extends RecyclerView.Adapter<HairdresserListAdabper.ViewHolder> {
     private static final String TAG = "FAQAdabper";
+    private Typeface fontIranSans;
 
     private ArrayList<BarberShop> mDataSet;
     private Context mContext;
@@ -54,6 +57,7 @@ public class HairdresserListAdabper extends RecyclerView.Adapter<HairdresserList
     public HairdresserListAdabper(ArrayList<BarberShop> transactions, Context context) {
         mDataSet = transactions;
         mContext = context;
+        fontIranSans = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
 
         // setting fonts for icons
     }
@@ -72,6 +76,8 @@ public class HairdresserListAdabper extends RecyclerView.Adapter<HairdresserList
         Log.d(TAG, "Element " + position + " set.");
         viewHolder.getImgLogo().setImageResource(mDataSet.get(position).getLogo());
         viewHolder.getTxtName().setText(mDataSet.get(position).getTitle());
+        FontManager.setFont(viewHolder.getTxtName(), fontIranSans);
+
     }
 
     @Override

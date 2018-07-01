@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class BarberShopMiniItemAdapter extends RecyclerView.Adapter<BarberShopMiniItemAdapter.ViewHolder> {
 
-    private static Context mContext;
+    private   Context mContext;
     private ArrayList<BarberShop> mItems;
     Typeface fontIransans;
 
@@ -92,7 +92,7 @@ public class BarberShopMiniItemAdapter extends RecyclerView.Adapter<BarberShopMi
 
 
         final BarberShop barberShop = mItems.get(position);
-        holder.getImgProduct().setImageResource(R.drawable.preview_small);
+//        holder.getImgProduct().setImageResource(R.drawable.preview_small);
         holder.getTxtProductName().setText(barberShop.getTitle());
         holder.getProductItem().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +103,9 @@ public class BarberShopMiniItemAdapter extends RecyclerView.Adapter<BarberShopMi
                 mContext.startActivity(intent);
             }
         });
+
+        FontManager.setFont(holder.getTxtProductName(), fontIransans);
+
     }
 
 

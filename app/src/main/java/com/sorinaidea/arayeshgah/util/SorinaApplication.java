@@ -15,7 +15,7 @@ import android.view.LayoutInflater;
 public class SorinaApplication extends Application {
 
 
-    public static AppCompatActivity currentActivity;
+    public   AppCompatActivity currentActivity;
     public static LayoutInflater inflater;
     public static Handler handler;
 

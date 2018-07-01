@@ -10,6 +10,7 @@
     <color name="colorGray">#e0e0e0</color>
     <color name="colorGrayDarker">#9e9e9e</color>
     <color name="colorGrayLighter">#fafafa</color>
+    <color name="colorGrayLight">#efebe9</color>
 
     <!--<color name="colorGreen">#1faa00</color>-->
     <color name="markerTitle">#212121</color>

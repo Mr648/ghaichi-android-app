@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +30,7 @@ import com.sorinaidea.arayeshgah.adapter.ServiceCategoryAdapter;
 import com.sorinaidea.arayeshgah.adapter.SupportChatAdapter;
 import com.sorinaidea.arayeshgah.model.ChatItem;
 import com.sorinaidea.arayeshgah.ui.dialog.MessageDialog;
+import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -57,6 +59,7 @@ public class SendSupportTicketActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_support_ticket);
 
+        Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         inputLayoutMessage = (TextInputLayout) findViewById(R.id.inputLayoutMessage);
@@ -100,6 +103,10 @@ public class SendSupportTicketActivity extends AppCompatActivity {
 
             }
         });
+
+        FontManager.setFont(inputLayoutMessage , iranSans);
+        FontManager.setFont(txtMessage , iranSans);
+
     }
 
 
@@ -108,8 +115,8 @@ public class SendSupportTicketActivity extends AppCompatActivity {
         for (int i = 0; i < 20; i++) {
             ChatItem item = new ChatItem();
 
-            item.setDate("5 minutes ago");
-            item.setMessage("How To wash our faces?");
+            item.setDate("5 دقیقه قبل");
+            item.setMessage("چطور مو را برس بکشیم؟");
             item.setImageUrl("12313://aadsadd");
             item.setViewType(i % 2 + 1);
             chatItem.add(item);

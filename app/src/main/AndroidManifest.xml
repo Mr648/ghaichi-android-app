@@ -58,6 +58,14 @@
 
         </activity>
 
+
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.ReserveActivity"
+            android:label="@string/label_aboutus"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
         <activity
             android:name=".ui.SettingActivity"
             android:label="@string/label_setting"
@@ -78,12 +86,6 @@
         </activity>
         <activity
             android:name=".ui.BarberShopGridActivity"
-            android:label="@string/label_setting"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity
-            android:name=".ui.EditProfileActivity"
             android:label="@string/label_setting"
             android:theme="@style/AppTheme.NoActionBar">
 

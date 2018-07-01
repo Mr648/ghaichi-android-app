@@ -88,6 +88,8 @@ public class SupportChatAdapter extends RecyclerView.Adapter<SupportChatAdapter.
                 break;
         }
 
+
+
         return new ViewHolder(v);
     }
 

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.EmptyAdabper;
@@ -31,13 +32,14 @@ public class ReservationActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_reservation);
 
 
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         container = (NestedScrollView) findViewById(R.id.container);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("رزروها");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setText("رزروها");
 
         fontMaterialIcons = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
         fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
@@ -49,6 +51,8 @@ public class ReservationActivity extends AppCompatActivity {
 //        recReservations.setAdapter(new ReservationAdabper(initDataset(), getApplicationContext()));
         recReservations.setAdapter(new EmptyAdabper(getApplicationContext()));
         recReservations.setMinimumHeight(container.getHeight());
+
+        FontManager.setFont(mTitle, fontIranSans);
     }
 
 
@@ -63,7 +67,7 @@ public class ReservationActivity extends AppCompatActivity {
         ArrayList<Reservation> mDataset = new ArrayList<>();
         Date date = new Date();
         for (int i = 0; i < 20; i++) {
-            mDataset.add(new Reservation(R.drawable.img_logo_border, "نام کاربر", "1396/11/12", "16:45 بعد از ظهر", "لیست مختصر خدمات..."));
+            mDataset.add(new Reservation(R.drawable.preview_small, "نام کاربر", "1396/11/12", "16:45 ب.ظ", "لیست مختصر خدمات..."));
         }
         return mDataset;
     }

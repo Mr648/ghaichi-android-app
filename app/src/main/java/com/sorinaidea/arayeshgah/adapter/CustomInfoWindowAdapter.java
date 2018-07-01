@@ -7,6 +7,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.ui.BarberShopActivity;
+import com.sorinaidea.arayeshgah.util.FontManager;
 import com.sorinaidea.arayeshgah.util.SorinaApplication;
 import com.sorinaidea.arayeshgah.util.picasso.CircleTransformation;
 import com.sorinaidea.arayeshgah.util.picasso.RoundedTransformation;
@@ -27,9 +29,12 @@ import com.squareup.picasso.Transformation;
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private Activity context;
+    private Typeface fontIransans;
+
 
     public CustomInfoWindowAdapter(Activity context) {
         this.context = context;
+        fontIransans = FontManager.getTypeface(context, FontManager.IRANSANS_TEXTS);
     }
 
     @Override
@@ -42,6 +47,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     public View getInfoContents(Marker marker) {
         View view = context.getLayoutInflater().inflate(R.layout.marker_info_window, null);
 
+
         TextView txtTitle = (TextView) view.findViewById(R.id.marker_title);
         ImageView imgLogo = (ImageView) view.findViewById(R.id.marker_logo);
 
@@ -50,6 +56,8 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
 //        String url = "https://cdn2.iconfinder.com/data/icons/flat-jewels-icon-set/512/0002_Tree.png";
         String url = "https://cdn2.iconfinder.com/data/icons/flat-jewels-icon-set/512/0002_Tree.png";
+
+        FontManager.setFont(txtTitle, fontIransans);
 
 
         // TODO: use glide to get logo of marker

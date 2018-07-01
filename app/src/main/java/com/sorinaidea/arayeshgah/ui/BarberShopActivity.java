@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.ui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import com.sorinaidea.arayeshgah.layout.UserReservationFragment;
 import com.sorinaidea.arayeshgah.model.Service;
 import com.sorinaidea.arayeshgah.ui.dialog.CommentDialog;
 import com.sorinaidea.arayeshgah.ui.dialog.MessageDialog;
+import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,7 +58,7 @@ public class BarberShopActivity extends AppCompatActivity {
     private TextView txtDescription;
     private RatingBar ratingBar;
     private RecyclerView recServices;
-
+    private Typeface fontIranSans;
     private static int currentPage = 0;
 
     @Override
@@ -64,21 +66,30 @@ public class BarberShopActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barbershop);
 
+        scrViewRoot = (ScrollView) findViewById(R.id.scrViewRoot);
+        recServices = (RecyclerView) findViewById(R.id.recServices);
+
+        recServices.setFocusable(false);
+
+        scrViewRoot.fullScroll(ScrollView.FOCUS_UP);
+        scrViewRoot.smoothScrollTo(0, 0);
+
+
+        fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mPager = (ViewPager) findViewById(R.id.pager);
         indicator = (CircleIndicator) findViewById(R.id.indicator);
         imgLogo = (AppCompatImageView) findViewById(R.id.imgLogo);
         imgComment = (AppCompatImageView) findViewById(R.id.imgComment);
-        scrViewRoot = (ScrollView) findViewById(R.id.scrViewRoot);
-
 
         txtAddress = (TextView) findViewById(R.id.txtAddress);
         txtRating = (TextView) findViewById(R.id.txtRating);
         txtName = (TextView) findViewById(R.id.txtName);
         txtDescription = (TextView) findViewById(R.id.txtDescription);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        recServices = (RecyclerView) findViewById(R.id.recServices);
+
+
         recServices.setLayoutManager(new GridLayoutManager(BarberShopActivity.this, 2, GridLayoutManager.VERTICAL, true));
         recServices.setAdapter(new BarberShopProfileServiceAdapter(initServices(), BarberShopActivity.this));
         recServices.setNestedScrollingEnabled(false);
@@ -90,7 +101,6 @@ public class BarberShopActivity extends AppCompatActivity {
         ratingBar.setRating(3.5f);
         ratingBar.setIsIndicator(true);
         txtRating.setText(String.format("%.1f", 3.5f));
-        scrViewRoot.pageScroll(scrViewRoot.FOCUS_UP);
         imgComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,13 +133,22 @@ public class BarberShopActivity extends AppCompatActivity {
                 // DO SOMETHING WITH THE SCROLL COORDINATES
             }
         });
+
+
+        FontManager.setFont(txtAddress, fontIranSans);
+        FontManager.setFont(txtRating, fontIranSans);
+        FontManager.setFont(txtName, fontIranSans);
+        FontManager.setFont(txtDescription, fontIranSans);
+        FontManager.setFont(ratingBar, fontIranSans);
+
+
     }
 
     private ArrayList<Service> initServices() {
         ArrayList<Service> services = new ArrayList<>();
 
         for (int i = 0; i < 20; i++) {
-            services.add(new Service("Service #" + i));
+            services.add(new Service("خدمت #" + i));
         }
         return services;
     }
@@ -217,7 +236,8 @@ public class BarberShopActivity extends AppCompatActivity {
         } else if (id == R.id.action_bookmark) {
 
         } else if (id == R.id.action_reserve) {
-
+            Intent intent = new Intent(BarberShopActivity.this, ReserveActivity.class);
+            startActivity(intent);
         } else if (id == R.id.action_route) {
             Intent intent = new Intent(BarberShopActivity.this, ShowDirectionActivity.class);
             startActivity(intent);

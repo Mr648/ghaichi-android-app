@@ -21,20 +21,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AboutUsActivity extends AppCompatActivity {
 
-    private TextView txtAboutUs;
-    private Toolbar toolbar;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aboutus);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("درباره ما");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        txtAboutUs = (TextView) findViewById(R.id.txtAboutUs);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setText("درباره ما");
+
+        TextView txtAboutUs = (TextView) findViewById(R.id.txtAboutUs);
+        TextView txtRules = (TextView) findViewById(R.id.txtRules);
+        TextView txtVersion = (TextView) findViewById(R.id.txtVersion);
 
         // getting fonts
         Typeface fontIransans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
@@ -42,6 +44,9 @@ public class AboutUsActivity extends AppCompatActivity {
         // setting fonts for icons
         // setting fonts for about us text
         FontManager.setFont(txtAboutUs, fontIransans);
+        FontManager.setFont(txtVersion, fontIransans);
+        FontManager.setFont(txtRules, fontIransans);
+        FontManager.setFont(mTitle, fontIransans);
 
 
         // build retrofit

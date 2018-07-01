@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.ui.dialog;
 
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -15,6 +16,7 @@ import android.view.Window;
 import com.google.gson.annotations.Since;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.datahelper.Gender;
+import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.function.Predicate;
 
@@ -30,6 +32,7 @@ public class InputDialog extends Dialog implements View.OnClickListener {
     private String message;
     private String hint;
     private int icon;
+    private Typeface fontIranSans;
 
 
     private Predicate<String> validator;
@@ -67,6 +70,8 @@ public class InputDialog extends Dialog implements View.OnClickListener {
         setHint(activity.getResources().getString(hint));
         setIcon(icon);
         this.setActivityUpdater(new ActivityUpdater(btn));
+        this.fontIranSans = FontManager.getTypeface(activity, FontManager.IRANSANS_TEXTS);
+
     }
 
     @Override
@@ -108,6 +113,13 @@ public class InputDialog extends Dialog implements View.OnClickListener {
 
         btnCancel.setOnClickListener(this);
         btnOk.setOnClickListener(this);
+
+        FontManager.setFont(btnCancel, fontIranSans);
+        FontManager.setFont(btnOk, fontIranSans);
+        FontManager.setFont(txtTitle, fontIranSans);
+        FontManager.setFont(inputLayoutValue, fontIranSans);
+        FontManager.setFont(txtValue, fontIranSans);
+
     }
 
 

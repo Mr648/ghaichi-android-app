@@ -27,7 +27,7 @@ public class FAQAdabper extends RecyclerView.Adapter<FAQAdabper.ViewHolder> {
 
     private ArrayList<FAQ> mDataSet;
     private Context mContext;
-    private Typeface fontMaterialIcons;
+    private Typeface fontIransans;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final LinearLayout lnrQA;
@@ -82,7 +82,7 @@ public class FAQAdabper extends RecyclerView.Adapter<FAQAdabper.ViewHolder> {
     public FAQAdabper(ArrayList<FAQ> faqs, Context context) {
         mDataSet = faqs;
         mContext = context;
-        fontMaterialIcons = FontManager.getTypeface(mContext, FontManager.MATERIAL_ICONS);
+        fontIransans = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
 
         // setting fonts for icons
     }
@@ -134,6 +134,11 @@ public class FAQAdabper extends RecyclerView.Adapter<FAQAdabper.ViewHolder> {
         };
         viewHolder.getImgDrop().setOnClickListener(listener);
         viewHolder.getLnrFAQ().setOnClickListener(listener);
+
+        FontManager.setFont(viewHolder.getTxtTitle(), fontIransans);
+        FontManager.setFont(viewHolder.getTxtAnswer(), fontIransans);
+        FontManager.setFont(viewHolder.getTxtQuestion(), fontIransans);
+
     }
 
 

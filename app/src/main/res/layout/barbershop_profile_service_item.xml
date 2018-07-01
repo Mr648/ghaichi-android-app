@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/txtTitle"
-            style="@style/TextAppearance.AppCompat.Medium"
+            style="@style/TextAppearance.AppCompat.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -29,11 +29,11 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imgSelectedImage"
-            android:layout_marginTop="@dimen/_48dp"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
-            app:srcCompat="@drawable/background_green"/>
+            android:layout_marginTop="@dimen/_48dp"
+            app:srcCompat="@drawable/preview_small" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

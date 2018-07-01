@@ -15,15 +15,66 @@ import android.widget.TextView;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.model.Reservation;
 import com.sorinaidea.arayeshgah.model.Service;
+import com.sorinaidea.arayeshgah.model.ServiceList;
+import com.sorinaidea.arayeshgah.model.ServiceListViewHolder;
+import com.sorinaidea.arayeshgah.model.ServiceViewHolder;
 import com.sorinaidea.arayeshgah.util.FontManager;
+import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
+import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mr-code on 3/10/2018.
  */
 
-public class ServiceSelectionAdabper extends RecyclerView.Adapter<ServiceSelectionAdabper.ViewHolder> {
+public class ServiceSelectionAdabper extends ExpandableRecyclerViewAdapter<ServiceListViewHolder, ServiceViewHolder> {
+
+    public ServiceSelectionAdabper(List<? extends ExpandableGroup> groups) {
+        super(groups);
+    }
+
+    @Override
+    public ServiceListViewHolder onCreateGroupViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.reserve_service_list_item, parent, false);
+
+        return new ServiceListViewHolder(view);
+    }
+
+    @Override
+    public ServiceViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.reserve_service_item, parent, false);
+
+
+        return new ServiceViewHolder(view);
+    }
+
+    @Override
+    public void onBindChildViewHolder(ServiceViewHolder holder, int flatPosition,
+                                      ExpandableGroup group, int childIndex) {
+
+        final Service service = ((ServiceList) group).getItems().get(childIndex);
+        holder.setServiceName(service.getTitle());
+        holder.setServiceIsSelected(service.isSelected());
+        holder.setServicePrice();
+
+    }
+
+    @Override
+    public void onBindGroupViewHolder(ServiceListViewHolder  holder, int flatPosition,
+                                      ExpandableGroup group) {
+
+        holder.setServiceListTitle(group);
+    }
+}
+
+
+
+/*
+* extends RecyclerView.Adapter<ServiceSelectionAdabper.ViewHolder> {
     private static final String TAG = "ServiceSelection";
 
     private ArrayList<Service> mDataSet;
@@ -101,4 +152,4 @@ public class ServiceSelectionAdabper extends RecyclerView.Adapter<ServiceSelecti
     public int getItemCount() {
         return mDataSet.size();
     }
-}
+}*/

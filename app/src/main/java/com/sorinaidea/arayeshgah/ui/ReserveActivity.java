@@ -1,9 +1,13 @@
 package com.sorinaidea.arayeshgah.ui;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +17,10 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.PhotoSliderAdapter;
+import com.sorinaidea.arayeshgah.adapter.ServiceSelectionAdabper;
+import com.sorinaidea.arayeshgah.model.Service;
+import com.sorinaidea.arayeshgah.model.ServiceList;
+import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +33,7 @@ import java.util.List;
 public class ReserveActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-
+    View parentLayout ;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +45,55 @@ public class ReserveActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle("رزرو خدمات");
+        List<ServiceList> serviceLists = serviceLists();
+        RecyclerView recServices = (RecyclerView) findViewById(R.id.recServices);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        parentLayout = findViewById(android.R.id.content);
+        //instantiate your adapter with the list of genres
+        ServiceSelectionAdabper adapter = new ServiceSelectionAdabper(serviceLists);
+        recServices.setLayoutManager(layoutManager);
+        recServices.setAdapter(adapter);
+
+
 
 
     }
 
+    private List<ServiceList> serviceLists() {
+        return Arrays.asList(
+                new ServiceList("مو",
+                        Arrays.asList(
+                                new Service("مدل"),
+                                new Service("کوتاه کردن"),
+                                new Service("کچل کردن")
+                        )
+                ),
+                new ServiceList("پوست",
+                        Arrays.asList(
+                                new Service("اپیلاسیون"),
+                                new Service("برنزه کردن"),
+                                new Service("مرطوب کردن")
+                        )
+                ),
+                new ServiceList("زیبایی",
+                        Arrays.asList(
+                                new Service("آرایش"),
+                                new Service("پیرایش"),
+                                new Service("ویرایش")
+                        )
+                ),
+                new ServiceList("ناخن",
+                        Arrays.asList(
+                                new Service("پدیکور"),
+                                new Service("مانیکور"),
+                                new Service("لاک"),
+                                new Service("کوتاه کردن"),
+                                new Service("ناخن مصنوعی")
+
+                        )
+                )
+        );
+    }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -55,7 +108,7 @@ public class ReserveActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_reserve,menu);
+        getMenuInflater().inflate(R.menu.activity_reserve, menu);
         return true;
     }
 

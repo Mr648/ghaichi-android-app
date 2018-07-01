@@ -68,7 +68,6 @@ public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategory
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Log.d(TAG, "Element " + position + " set.");
-        FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
 
         viewHolder.getTxtTitle().setText(mDataSet.get(position).getName());
         viewHolder.getImgDelete().setOnClickListener(new View.OnClickListener() {
@@ -78,6 +77,8 @@ public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategory
                 notifyDataSetChanged();
             }
         });
+
+        FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
     }
 
     @Override

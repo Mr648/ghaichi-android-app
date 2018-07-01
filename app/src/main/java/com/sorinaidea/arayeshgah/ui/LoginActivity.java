@@ -68,8 +68,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
+        Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         FontManager.setFont(txtIconCall, iconFont);
+        FontManager.setFont(mTitle, iranSans);
+        FontManager.setFont(btnSendCode , iranSans);
+        FontManager.setFont(edtPhoneNumber , iranSans);
+        FontManager.setFont(inputLayoutPhoneNumber , iranSans);
 
         edtPhoneNumber.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -101,7 +106,6 @@ public class LoginActivity extends AppCompatActivity {
 
         startActivity(intent);
         finish();
-        return;
         /*
         Gson gson = new GsonBuilder().setLenient().create();
 
