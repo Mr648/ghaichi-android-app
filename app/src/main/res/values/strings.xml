@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ghaichi</string>
+    <string name="app_name">قیچی</string>
     <string name="title_activity_maps">Sorina Map</string>
     <string name="action_refresh">Refresh</string>
     <string name="your_current_location">موقعیت فعلی شما</string>
@@ -108,5 +108,6 @@
     <string name="_txt_gender_male">آقا</string>
     <string name="_txt_gender_female">خانم</string>
     <string name="_txt_service_name">نام سرویس</string>
+    <string name="_txt_service_price">قیمت سرویس</string>
 
 </resources>

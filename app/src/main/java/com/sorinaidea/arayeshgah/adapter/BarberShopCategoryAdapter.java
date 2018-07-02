@@ -111,6 +111,7 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, BarberShopGridActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("TITLE" , mItems.get(position));
                 mContext.startActivity(intent);
 
             }

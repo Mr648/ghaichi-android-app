@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@color/colorGrayLighter"
     android:layoutDirection="rtl"
-    >
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:padding="@dimen/_8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_8dp">
 
         <TextView
             android:id="@+id/txtName"
@@ -36,20 +35,52 @@
             android:layout_marginEnd="@dimen/_8dp"
             android:text="@null" />
 
+        <RelativeLayout
+            android:id="@+id/relativeDiscount"
+            android:layout_width="@dimen/_48dp"
+            android:layout_height="@dimen/_48dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_16dp"
+            android:layout_toStartOf="@id/swSelect"
+            android:visibility="gone">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgIcon"
+                android:layout_width="@dimen/_36dp"
+                android:layout_height="@dimen/_36dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:tint="@color/colorPrimary"
+                app:srcCompat="@drawable/ic_discount" />
+
+            <TextView
+                android:id="@+id/txtPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+
+                android:text="25%"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_10sp" />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/txtPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:padding="@dimen/_8dp"
-            android:text="@string/_txt_service_name"
+            android:text="@string/_txt_service_price"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/colorGrayDark" />
 
     </RelativeLayout>
+
     <android.support.v7.widget.AppCompatImageView
         android:layout_width="match_parent"
-        app:srcCompat="@color/colorGrayLight"
-        android:layout_height="@dimen/_1dp" />
+        android:layout_height="@dimen/_1dp"
+        app:srcCompat="@color/colorGrayLight" />
 
 </LinearLayout>

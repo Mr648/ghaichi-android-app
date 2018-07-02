@@ -1,28 +1,19 @@
 package com.sorinaidea.arayeshgah.adapter;
 
-import android.content.Context;
-import android.graphics.Typeface;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
-import com.sorinaidea.arayeshgah.model.Reservation;
 import com.sorinaidea.arayeshgah.model.Service;
 import com.sorinaidea.arayeshgah.model.ServiceList;
 import com.sorinaidea.arayeshgah.model.ServiceListViewHolder;
 import com.sorinaidea.arayeshgah.model.ServiceViewHolder;
-import com.sorinaidea.arayeshgah.util.FontManager;
+import com.sorinaidea.arayeshgah.ui.PriceUpdater;
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,8 +22,12 @@ import java.util.List;
 
 public class ServiceSelectionAdabper extends ExpandableRecyclerViewAdapter<ServiceListViewHolder, ServiceViewHolder> {
 
-    public ServiceSelectionAdabper(List<? extends ExpandableGroup> groups) {
+
+    private PriceUpdater updater;
+
+    public ServiceSelectionAdabper(List<? extends ExpandableGroup> groups, PriceUpdater updater) {
         super(groups);
+        this.updater = updater;
     }
 
     @Override
@@ -43,28 +38,30 @@ public class ServiceSelectionAdabper extends ExpandableRecyclerViewAdapter<Servi
         return new ServiceListViewHolder(view);
     }
 
+    private static int counter = 0;
+
     @Override
     public ServiceViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.reserve_service_item, parent, false);
+        Log.i("SERVICE_HOLDER", Integer.toString(counter++));
 
-
-        return new ServiceViewHolder(view);
+        return new ServiceViewHolder(view, updater);
     }
 
     @Override
     public void onBindChildViewHolder(ServiceViewHolder holder, int flatPosition,
                                       ExpandableGroup group, int childIndex) {
 
+
         final Service service = ((ServiceList) group).getItems().get(childIndex);
-        holder.setServiceName(service.getTitle());
-        holder.setServiceIsSelected(service.isSelected());
-        holder.setServicePrice();
+        Log.i("SERVICE", service.toString());
+        holder.onBind(service);
 
     }
 
     @Override
-    public void onBindGroupViewHolder(ServiceListViewHolder  holder, int flatPosition,
+    public void onBindGroupViewHolder(ServiceListViewHolder holder, int flatPosition,
                                       ExpandableGroup group) {
 
         holder.setServiceListTitle(group);

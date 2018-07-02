@@ -80,8 +80,8 @@ public class CreditActivity extends AppCompatActivity {
 //        btnAddCash = (Button) view.findViewById(R.id.btnAddCash);
 
         recFaq.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-
-        recFaq.setAdapter(new TransactionAdabper(initDataset(), getApplicationContext()));
+        ArrayList<Transaction> dataset = initDataset();
+        recFaq.setAdapter(new TransactionAdabper(dataset, getApplicationContext()));
 
 // Create background track
         arcView.addSeries(new SeriesItem.Builder(Color.argb(255, 218, 218, 218))
@@ -90,14 +90,35 @@ public class CreditActivity extends AppCompatActivity {
                 .setLineWidth(26f)
                 .build());
 
+//        int credit = dataset.stream().mapToInt(transaction -> transaction.getCashValue()).sum();
+
+        int creditSum = 0;
+        int creditReal = 0;
+        int income = 0;
+        int outgoing = 0;
+        for (Transaction tr :
+                dataset) {
+            if (tr.getCashValue() > 0) {
+                income += tr.getCashValue();
+            } else {
+                outgoing += Math.abs(tr.getCashValue());
+            }
+            creditSum += Math.abs(tr.getCashValue());
+            creditReal += tr.getCashValue();
+        }
+
+        txtCredit.setText(String.valueOf(creditReal) + "ريال");
+
 //Create data series track
         SeriesItem seriesItem1 = new SeriesItem.Builder(getResources().getColor(R.color.credit_remaining))
                 .setRange(0, 100, 100)
                 .setLineWidth(18f)
                 .build();
-
+        int expensePercentage = (int) (outgoing * 1.0f / creditSum * 100);
+        txtRemaining.setText(String.valueOf(100 - expensePercentage) + "%");
+        txtReservation.setText(String.valueOf(expensePercentage) + "%");
         SeriesItem seriesItem2 = new SeriesItem.Builder(getResources().getColor(R.color.credit_reservations))
-                .setRange(0, 100, 60)
+                .setRange(0, 100, expensePercentage)
                 .setLineWidth(18f)
                 .build();
 
@@ -143,9 +164,8 @@ public class CreditActivity extends AppCompatActivity {
 
     private ArrayList<Transaction> initDataset() {
         ArrayList<Transaction> mDataset = new ArrayList<>();
-        Date date = new Date();
-        for (int i = 0; i < 20; i++) {
-            mDataset.add(new Transaction(((i % 4 == 0) ? (-1 * 100 * i) : (i * 1000)), "آرایشگاه تست " + i, "دوشنبه 30 بهمن 96"));
+        for (int i = 1000, j = 1; i < 1020; i++, j += 4) {
+            mDataset.add(new Transaction(((i % 4 == 0) ? (i * 1000) : (-1 * 250 * i)), (i % 4 == 0) ? "تمدید اعتبار" : "رزرو آرایشگاه " + j, " روز ماه سال"));
         }
         return mDataset;
     }

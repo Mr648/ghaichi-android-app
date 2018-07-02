@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.PhotoSliderAdapter;
@@ -33,7 +35,10 @@ import java.util.List;
 public class ReserveActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    View parentLayout ;
+    private TextView txtPrice;
+    private RelativeLayout relativeLayout;
+    View parentLayout;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,20 +46,36 @@ public class ReserveActivity extends AppCompatActivity {
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        txtPrice = (TextView) findViewById(R.id.txtPrice);
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+
+
+        relativeLayout.animate().alpha(0.0f).setDuration(10).start();
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle("رزرو خدمات");
+
+
         List<ServiceList> serviceLists = serviceLists();
         RecyclerView recServices = (RecyclerView) findViewById(R.id.recServices);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         parentLayout = findViewById(android.R.id.content);
+
+
         //instantiate your adapter with the list of genres
-        ServiceSelectionAdabper adapter = new ServiceSelectionAdabper(serviceLists);
+        ServiceSelectionAdabper adapter = new ServiceSelectionAdabper(serviceLists, new PriceUpdater(txtPrice) {
+            @Override
+            public void update(float price) {
+                runOnUiThread(() -> {
+                    super.update(price);
+                    relativeLayout.animate().alpha(1.0f).setDuration(500).start();
+                });
+            }
+        });
         recServices.setLayoutManager(layoutManager);
         recServices.setAdapter(adapter);
-
-
 
 
     }
@@ -64,7 +85,7 @@ public class ReserveActivity extends AppCompatActivity {
                 new ServiceList("مو",
                         Arrays.asList(
                                 new Service("مدل"),
-                                new Service("کوتاه کردن"),
+                                new Service("کوتاه کردن", 0.099f),
                                 new Service("کچل کردن")
                         )
                 ),
@@ -72,13 +93,13 @@ public class ReserveActivity extends AppCompatActivity {
                         Arrays.asList(
                                 new Service("اپیلاسیون"),
                                 new Service("برنزه کردن"),
-                                new Service("مرطوب کردن")
+                                new Service("مرطوب کردن", 0.10f)
                         )
                 ),
                 new ServiceList("زیبایی",
                         Arrays.asList(
                                 new Service("آرایش"),
-                                new Service("پیرایش"),
+                                new Service("پیرایش",0.35f),
                                 new Service("ویرایش")
                         )
                 ),
@@ -86,7 +107,7 @@ public class ReserveActivity extends AppCompatActivity {
                         Arrays.asList(
                                 new Service("پدیکور"),
                                 new Service("مانیکور"),
-                                new Service("لاک"),
+                                new Service("لاک", 0.2f),
                                 new Service("کوتاه کردن"),
                                 new Service("ناخن مصنوعی")
 

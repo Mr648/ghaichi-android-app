@@ -23,7 +23,7 @@
                 android:id="@+id/main.imageview.placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:scaleType="fitCenter"
+                android:scaleType="fitXY"
                 android:background="@color/colorPrimaryLight"
                 android:src="@drawable/cover"
                 app:layout_collapseMode="parallax"

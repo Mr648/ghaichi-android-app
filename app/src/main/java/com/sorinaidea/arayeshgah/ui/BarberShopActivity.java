@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.BarberShopProfileServiceAdapter;
 import com.sorinaidea.arayeshgah.adapter.ImageSliderAdapter;
+import com.sorinaidea.arayeshgah.adapter.ItemOffsetDecoration;
 import com.sorinaidea.arayeshgah.layout.UserReservationFragment;
 import com.sorinaidea.arayeshgah.model.Service;
 import com.sorinaidea.arayeshgah.ui.dialog.CommentDialog;
@@ -60,7 +61,7 @@ public class BarberShopActivity extends AppCompatActivity {
     private RecyclerView recServices;
     private Typeface fontIranSans;
     private static int currentPage = 0;
-
+    private static final int NUM_COLUMNS = 2;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +91,10 @@ public class BarberShopActivity extends AppCompatActivity {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
 
-        recServices.setLayoutManager(new GridLayoutManager(BarberShopActivity.this, 2, GridLayoutManager.VERTICAL, true));
+//        recServices.setLayoutManager(new GridLayoutManager(BarberShopActivity.this, 2, GridLayoutManager.VERTICAL, true));
+        recServices.setLayoutManager(new GridLayoutManager(getApplicationContext(), NUM_COLUMNS,GridLayoutManager.VERTICAL, true));
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen._4dp);
+        recServices.addItemDecoration(itemDecoration);
         recServices.setAdapter(new BarberShopProfileServiceAdapter(initServices(), BarberShopActivity.this));
         recServices.setNestedScrollingEnabled(false);
         setSupportActionBar(toolbar);

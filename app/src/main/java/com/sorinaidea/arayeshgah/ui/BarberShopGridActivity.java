@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.FAQAdabper;
 import com.sorinaidea.arayeshgah.adapter.GridItemsAdabper;
+import com.sorinaidea.arayeshgah.adapter.ItemOffsetDecoration;
 import com.sorinaidea.arayeshgah.model.BarberShop;
 import com.sorinaidea.arayeshgah.model.FAQ;
 
@@ -28,6 +29,7 @@ public class BarberShopGridActivity extends AppCompatActivity {
     private FloatingActionButton fabRefresh;
     private GridItemsAdabper adapter;
     private ArrayList<BarberShop> dataset;
+    private static final int NUM_COLUMNS = 2;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,9 @@ public class BarberShopGridActivity extends AppCompatActivity {
         }
 
         recAllItems = (RecyclerView) findViewById(R.id.recAllItems);
-        recAllItems.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        recAllItems.setLayoutManager(new GridLayoutManager(getApplicationContext(), NUM_COLUMNS));
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen._4dp);
+        recAllItems.addItemDecoration(itemDecoration);
 
         dataset = initDataset();
         adapter = new GridItemsAdabper(dataset, getApplicationContext());
@@ -85,11 +89,14 @@ public class BarberShopGridActivity extends AppCompatActivity {
 
     }
 
+    private int from = 1;
+
     private ArrayList<BarberShop> initDataset() {
         ArrayList<BarberShop> mDataset = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            mDataset.add(new BarberShop(R.drawable.barbershop, "BarberShop #" + i));
+        for (int i = from; i <= (from + 20); i++) {
+            mDataset.add(new BarberShop(R.drawable.barbershop, "آرایشگاه #" + i));
         }
+        from += 20;
         return mDataset;
     }
 

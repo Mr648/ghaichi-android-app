@@ -7,14 +7,21 @@ import android.os.Parcelable;
  * Created by mr-code on 6/20/2018.
  */
 
-public class Service implements Parcelable{
+public class Service implements Parcelable {
 
     private String title;
     private boolean isSelected;
+    private float price;
+    private final boolean hasDiscount;
+    private float discountPercent = 1.0f;
+
 
     protected Service(Parcel in) {
         title = in.readString();
         isSelected = in.readByte() != 0;
+        price = in.readFloat();
+        discountPercent = in.readFloat();
+        hasDiscount = in.readByte() != 0;
     }
 
     public static final Creator<Service> CREATOR = new Creator<Service>() {
@@ -45,8 +52,43 @@ public class Service implements Parcelable{
         return title;
     }
 
-    public Service(String title){
+    public float getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(float discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public float getPrice() {
+
+        return hasDiscount ? price : price * discountPercent;
+    }
+
+    public boolean hasDiscount() {
+        return hasDiscount;
+    }
+
+
+    public Service(String title) {
         this.setTitle(title);
+        this.setPrice((float) Math.random() * 15000);
+        this.hasDiscount = false;
+    }
+
+    /**
+     * @param title
+     * @param discountPercent should be between 0.0f and 1.0f
+     */
+    public Service(String title, float discountPercent) {
+        this.setTitle(title);
+        this.setDiscountPercent(discountPercent);
+        this.setPrice((float) Math.random() * 15000);
+        this.hasDiscount = true;
     }
 
     @Override
@@ -58,5 +100,19 @@ public class Service implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(title);
         parcel.writeByte((byte) (isSelected ? 1 : 0));
+        parcel.writeFloat(price);
+        parcel.writeFloat(hasDiscount ? discountPercent : 1.0f);
+        parcel.writeByte((byte) (hasDiscount ? 1 : 0));
     }
+
+
+    @Override
+    public String toString() {
+        return this.getTitle() + "::" + this.getPrice() + "::" + this.isSelected() + "::" + this.hasDiscount();
+    }
+
+    public interface ServiceSelectionChangeListener {
+        void notifySelectionChanged();
+    }
+
 }

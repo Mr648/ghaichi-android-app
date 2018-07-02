@@ -98,8 +98,8 @@ public class CreditFragment extends Fragment {
     private ArrayList<Transaction> initDataset() {
         ArrayList<Transaction> mDataset = new ArrayList<>();
         Date date = new Date();
-        for (int i = 0; i < 20; i++) {
-            mDataset.add(new Transaction(((i % 4 == 0) ? (-1 * 100 * i) : (i * 1000)), "آرایشگاه تست " + i, "دوشنبه 30 بهمن 96"));
+        for (int i = 1000, j = 1; i < 1020; i++, j += 4) {
+            mDataset.add(new Transaction(((i % 4 == 0) ? (i * 1000) : (-1 * 100 * i)), (i % 4 == 0) ? "تمدید اعتبار" : "رزرو آرایشگاه" + j, " روز ماه سال"));
         }
         return mDataset;
     }
@@ -196,7 +196,6 @@ public class CreditFragment extends Fragment {
         super.onDetach();
 
     }
-
 
 
 }
