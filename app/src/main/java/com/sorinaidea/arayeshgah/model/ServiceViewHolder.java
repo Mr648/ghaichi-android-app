@@ -1,11 +1,6 @@
 package com.sorinaidea.arayeshgah.model;
 
-import android.animation.Animator;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.icu.text.CompactDecimalFormat;
-import android.icu.text.DecimalFormat;
-import android.icu.text.NumberFormat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
@@ -13,14 +8,11 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.ui.PriceUpdater;
-import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
-import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
 
 /**
@@ -73,13 +65,11 @@ public class ServiceViewHolder extends ChildViewHolder {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    updater.update(service.getPrice());
-                    service.setSelected(true);
+                    updater.add(service );
                 } else {
                     if (service.isSelected()) {
-                        updater.update(-1.0f * service.getPrice());
+                        updater.delete(service);
                     }
-
                     service.setSelected(false);
                 }
             }

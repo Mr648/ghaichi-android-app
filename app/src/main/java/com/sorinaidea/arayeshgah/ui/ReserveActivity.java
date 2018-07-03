@@ -1,30 +1,23 @@
 package com.sorinaidea.arayeshgah.ui;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
-import com.sorinaidea.arayeshgah.adapter.PhotoSliderAdapter;
 import com.sorinaidea.arayeshgah.adapter.ServiceSelectionAdabper;
 import com.sorinaidea.arayeshgah.model.Service;
 import com.sorinaidea.arayeshgah.model.ServiceList;
-import com.sorinaidea.arayeshgah.util.FontManager;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,8 +42,7 @@ public class ReserveActivity extends AppCompatActivity {
         txtPrice = (TextView) findViewById(R.id.txtPrice);
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 
-
-        relativeLayout.animate().alpha(0.0f).setDuration(10).start();
+        relativeLayout.animate().alpha(0.0f).setDuration(1).start();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,11 +59,23 @@ public class ReserveActivity extends AppCompatActivity {
         //instantiate your adapter with the list of genres
         ServiceSelectionAdabper adapter = new ServiceSelectionAdabper(serviceLists, new PriceUpdater(txtPrice) {
             @Override
-            public void update(float price) {
+            public void add(Service service) {
                 runOnUiThread(() -> {
-                    super.update(price);
-                    relativeLayout.animate().alpha(1.0f).setDuration(500).start();
+                    super.add(service);
+                    if (!selectedServices.isEmpty()) {
+                        relativeLayout.animate().alpha(1.0f).setDuration(500).start();
+                        Log.i("ADD_TAG_SERVICE", "SERVICE " + serviceLists.size());
+                    }
                 });
+            }
+
+            @Override
+            public void delete(Service service) {
+                super.delete(service);
+                if (selectedServices.isEmpty()) {
+                    relativeLayout.animate().alpha(0.0f).setDuration(500).start();
+                }
+                Log.i("DELETE_TAG_SERVICE", "SERVICE " + serviceLists.size());
             }
         });
         recServices.setLayoutManager(layoutManager);
@@ -99,7 +103,7 @@ public class ReserveActivity extends AppCompatActivity {
                 new ServiceList("زیبایی",
                         Arrays.asList(
                                 new Service("آرایش"),
-                                new Service("پیرایش",0.35f),
+                                new Service("پیرایش", 0.35f),
                                 new Service("ویرایش")
                         )
                 ),

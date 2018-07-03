@@ -44,7 +44,6 @@ public class ServiceSelectionAdabper extends ExpandableRecyclerViewAdapter<Servi
     public ServiceViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.reserve_service_item, parent, false);
-        Log.i("SERVICE_HOLDER", Integer.toString(counter++));
 
         return new ServiceViewHolder(view, updater);
     }
@@ -52,12 +51,8 @@ public class ServiceSelectionAdabper extends ExpandableRecyclerViewAdapter<Servi
     @Override
     public void onBindChildViewHolder(ServiceViewHolder holder, int flatPosition,
                                       ExpandableGroup group, int childIndex) {
-
-
         final Service service = ((ServiceList) group).getItems().get(childIndex);
-        Log.i("SERVICE", service.toString());
         holder.onBind(service);
-
     }
 
     @Override

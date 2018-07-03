@@ -104,7 +104,7 @@ public class BarberShopFragment extends Fragment {
         edtPhoneNumber.addTextChangedListener(new MyTextWatcher(edtPhoneNumber));
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    // TODO: Rename method, add argument and hook method into UI event
     public void onButtonPressed( ) {
         if (mListener != null) {
             mListener.onFragmentInteraction( );

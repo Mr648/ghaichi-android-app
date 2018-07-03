@@ -125,7 +125,7 @@ public class HairdresserChooseLocationActivity
 
 
 
-                // TODO update User Location here
+                // TODO add User Location here
                 Toast.makeText(HairdresserChooseLocationActivity.this, "Loaction is \n"
                                 + choosenLocation.latitude + ", "
                                 + choosenLocation.longitude

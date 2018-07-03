@@ -3,6 +3,8 @@ package com.sorinaidea.arayeshgah.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Objects;
+
 /**
  * Created by mr-code on 6/20/2018.
  */
@@ -111,8 +113,20 @@ public class Service implements Parcelable {
         return this.getTitle() + "::" + this.getPrice() + "::" + this.isSelected() + "::" + this.hasDiscount();
     }
 
-    public interface ServiceSelectionChangeListener {
-        void notifySelectionChanged();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Service service = (Service) o;
+        if (Float.compare(service.price, price) != 0) return false;
+        return title.equals(service.title);
+
     }
 
+    @Override
+    public int hashCode() {
+        int result = title.hashCode();
+        result = 31 * result + (price != +0.0f ? Float.floatToIntBits(price) : 0);
+        return result;
+    }
 }

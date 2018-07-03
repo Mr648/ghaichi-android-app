@@ -108,7 +108,7 @@ public class ActivationFragment extends Fragment {
         edtActivationCode.addTextChangedListener(new MyTextWatcher(edtActivationCode));
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    // TODO: Rename method, add argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onActivationFragmentInteraction(uri);

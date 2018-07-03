@@ -107,7 +107,7 @@ public class GetGiftFragment extends Fragment {
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    // TODO: Rename method, add argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
 
     }
