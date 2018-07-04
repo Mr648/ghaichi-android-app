@@ -157,6 +157,12 @@
         </activity>
 
         <activity
+            android:name="com.sorinaidea.arayeshgah.ui.CommentsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
             android:name="com.sorinaidea.arayeshgah.ui.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

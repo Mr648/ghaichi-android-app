@@ -20,6 +20,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import com.sorinaidea.arayeshgah.layout.UserReservationFragment;
 import com.sorinaidea.arayeshgah.model.Service;
 import com.sorinaidea.arayeshgah.ui.dialog.CommentDialog;
 import com.sorinaidea.arayeshgah.ui.dialog.MessageDialog;
+import com.sorinaidea.arayeshgah.ui.dialog.TransactionDialog;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
@@ -52,16 +54,18 @@ public class BarberShopActivity extends AppCompatActivity {
     private ScrollView scrViewRoot;
     private CircleIndicator indicator;
     private AppCompatImageView imgLogo;
-    private AppCompatImageView imgComment;
+//    private AppCompatImageView imgComment;
     private TextView txtAddress;
     private TextView txtRating;
     private TextView txtName;
     private TextView txtDescription;
+    private RelativeLayout relativeLayout;
     private RatingBar ratingBar;
     private RecyclerView recServices;
     private Typeface fontIranSans;
     private static int currentPage = 0;
     private static final int NUM_COLUMNS = 2;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,17 +86,18 @@ public class BarberShopActivity extends AppCompatActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         indicator = (CircleIndicator) findViewById(R.id.indicator);
         imgLogo = (AppCompatImageView) findViewById(R.id.imgLogo);
-        imgComment = (AppCompatImageView) findViewById(R.id.imgComment);
+//        imgComment = (AppCompatImageView) findViewById(R.id.imgComment);
 
         txtAddress = (TextView) findViewById(R.id.txtAddress);
         txtRating = (TextView) findViewById(R.id.txtRating);
         txtName = (TextView) findViewById(R.id.txtName);
         txtDescription = (TextView) findViewById(R.id.txtDescription);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 
 
 //        recServices.setLayoutManager(new GridLayoutManager(BarberShopActivity.this, 2, GridLayoutManager.VERTICAL, true));
-        recServices.setLayoutManager(new GridLayoutManager(getApplicationContext(), NUM_COLUMNS,GridLayoutManager.VERTICAL, true));
+        recServices.setLayoutManager(new GridLayoutManager(getApplicationContext(), NUM_COLUMNS, GridLayoutManager.VERTICAL, true));
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen._4dp);
         recServices.addItemDecoration(itemDecoration);
         recServices.setAdapter(new BarberShopProfileServiceAdapter(initServices(), BarberShopActivity.this));
@@ -104,12 +109,14 @@ public class BarberShopActivity extends AppCompatActivity {
         initializeImageSlider();
         ratingBar.setRating(3.5f);
         ratingBar.setIsIndicator(true);
+
         txtRating.setText(String.format("%.1f", 3.5f));
-        imgComment.setOnClickListener(new View.OnClickListener() {
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommentDialog commentDialog = new CommentDialog(BarberShopActivity.this);
-                commentDialog.show();
+                Intent intent = new Intent(getApplicationContext(), CommentsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
 
@@ -238,7 +245,8 @@ public class BarberShopActivity extends AppCompatActivity {
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
             startActivity(Intent.createChooser(sharingIntent, "به اشتراک گذاری با"));
         } else if (id == R.id.action_bookmark) {
-
+            TransactionDialog dialog = new TransactionDialog(BarberShopActivity.this);
+            dialog.show();
         } else if (id == R.id.action_reserve) {
             Intent intent = new Intent(BarberShopActivity.this, ReserveActivity.class);
             startActivity(intent);

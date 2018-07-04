@@ -12,7 +12,7 @@
 
     <RelativeLayout
         android:layout_width="@dimen/_320dp"
-        android:layout_height="@dimen/_320dp"
+        android:layout_height="@dimen/_360dp"
         android:background="@drawable/dialog_bg">
 
         <RelativeLayout
@@ -21,9 +21,7 @@
             android:layout_height="@dimen/_72dp"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/_16dp"
-            android:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_new_releases_black_48dp">
+            android:layout_marginTop="@dimen/_16dp">
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/imgIconLeft"
@@ -31,6 +29,7 @@
                 android:layout_height="@dimen/_64dp"
                 android:layout_centerInParent="true"
                 android:tint="@color/colorPrimary"
+                android:visibility="visible"
                 app:srcCompat="@drawable/ic_scissor_left_handle" />
 
             <android.support.v7.widget.AppCompatImageView
@@ -50,19 +49,26 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_16dp">
 
+            <TextClock
+                android:id="@+id/toggleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_18sp"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_below="@+id/txtMessage"
+                android:layout_centerHorizontal="true" />
+
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtMessage"
                 style="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorGrayDark"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text=""
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center"
+                android:text="15000 تومان"
                 android:textAlignment="center"
                 android:textIsSelectable="false" />
-            <DatePicker
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-            </DatePicker>
         </RelativeLayout>
 
 
