@@ -20,6 +20,7 @@
     <color name="markerCircle">#26c6da</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorGold">#ffea00</color>
     <color name="colorGrayDark">#212121</color>
 
     <color name="credit_remaining">#10B491</color>

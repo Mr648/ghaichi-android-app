@@ -116,6 +116,10 @@ public class SmsVerificationActivity extends AppCompatActivity {
         startActivity(intent);
 
         finish();
+//
+//        Intent intent = new Intent(SmsVerificationActivity .this, BarberShopMainActivity.class);
+//        startActivity(intent);
+//        finish();
 
         /*
         Gson gson = new GsonBuilder().setLenient().create();

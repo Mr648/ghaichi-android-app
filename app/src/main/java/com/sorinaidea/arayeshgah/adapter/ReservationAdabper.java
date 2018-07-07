@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.media.Image;
 import android.os.Build;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by mr-code on 3/10/2018.
  */
@@ -33,13 +36,14 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
     private Typeface fontIranSans;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView imgLogo;
+        private final CircleImageView imgLogo;
         private final TextView txtTitle;
         private final TextView txtAddress;
         private final TextView txtDate;
         private final TextView txtTime;
         private final TextView txtIconTime;
         private final TextView txtIconDate;
+        private final CardView cardView;
 
 //        private final LinearLayout lnrBgr;
 
@@ -53,13 +57,14 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
                 }
             });
 
-            imgLogo = (ImageView) v.findViewById(R.id.imgLogo);
+            imgLogo = (CircleImageView) v.findViewById(R.id.imgLogo);
             txtTitle = (TextView) v.findViewById(R.id.txtTitle);
             txtDate = (TextView) v.findViewById(R.id.txtDate);
             txtTime = (TextView) v.findViewById(R.id.txtTime);
             txtAddress = (TextView) v.findViewById(R.id.txtAddress);
             txtIconTime = (TextView) v.findViewById(R.id.txtIconTime);
             txtIconDate = (TextView) v.findViewById(R.id.txtIconDate);
+            cardView = (CardView) v.findViewById(R.id.cardView);
 //            lnrBgr = (LinearLayout) v.findViewById(R.id.lnrBgr);
         }
 
@@ -110,7 +115,7 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.reservation_item , viewGroup, false);
+                .inflate(R.layout.reservation_item, viewGroup, false);
 
         return new ViewHolder(v);
     }
@@ -128,7 +133,7 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
 //                        position%3==0?R.drawable.background_red:R.drawable.background_green
 //        );
 
-        viewHolder.getImgLogo().setImageResource(mDataSet.get(position).getImgLogo());
+//        viewHolder.getImgLogo().setImageResource(mDataSet.get(position).getImgLogo());
 
         FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
         FontManager.setFont(viewHolder.getTxtAddress(), fontIranSans);

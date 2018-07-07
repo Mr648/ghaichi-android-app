@@ -59,6 +59,8 @@ dependencies {
 
     compile 'com.github.bmarrdev:android-DecoView-charting:v1.2'
 
+    compile 'com.alirezaafkar:sundatepicker:2.0.8'
+
     testCompile 'junit:junit:4.12'
 }
 // glide dependencies

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+android:id="@+id/cardView"
     android:layoutDirection="rtl"
     app:contentPadding="@dimen/_4dp"
     android:layout_margin="@dimen/_4dp"
@@ -25,12 +25,13 @@
             android:gravity="center_vertical|center_horizontal"
             android:orientation="horizontal">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgLogo"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/preview_small" />
+                android:layout_width="@dimen/_64dp"
+                android:layout_height="@dimen/_64dp"
+                android:src="@drawable/preview_small"
+                app:civ_border_color="@color/colorPrimaryLight"
+                app:civ_border_width="@dimen/_2dp" />
         </LinearLayout>
 
         <LinearLayout

@@ -1,6 +1,7 @@
 package com.sorinaidea.arayeshgah.ui;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,12 +14,15 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.ServiceSelectionAdabper;
 import com.sorinaidea.arayeshgah.model.Service;
 import com.sorinaidea.arayeshgah.model.ServiceList;
+import com.sorinaidea.arayeshgah.ui.dialog.TransactionDialog;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -64,6 +68,7 @@ public class ReserveActivity extends AppCompatActivity {
                     super.add(service);
                     if (!selectedServices.isEmpty()) {
                         relativeLayout.animate().alpha(1.0f).setDuration(500).start();
+                        btnReserve.setEnabled(true);
                         Log.i("ADD_TAG_SERVICE", "SERVICE " + serviceLists.size());
                     }
                 });
@@ -74,6 +79,7 @@ public class ReserveActivity extends AppCompatActivity {
                 super.delete(service);
                 if (selectedServices.isEmpty()) {
                     relativeLayout.animate().alpha(0.0f).setDuration(500).start();
+                    btnReserve.setEnabled(false);
                 }
                 Log.i("DELETE_TAG_SERVICE", "SERVICE " + serviceLists.size());
             }
@@ -127,19 +133,37 @@ public class ReserveActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_reserve) {
             // TODO Show Reserve Dialog
+            TransactionDialog dialog = new TransactionDialog(ReserveActivity.this);
+            dialog.show();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private MenuItem btnReserve;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_reserve, menu);
+        btnReserve = menu.findItem(R.id.action_reserve);
+
         return true;
+    }
+
+    private void changeReserveState(boolean state) {
+        if (state) {
+            @DrawableRes int icon = R.drawable.ic_done_white_24dp;
+            btnReserve.setIcon(icon);
+        } else {
+            @DrawableRes int icon = R.drawable.ic_done_gray_24dp;
+            btnReserve.setIcon(icon);
+        }
+        btnReserve.setEnabled(state);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
+
 
 }

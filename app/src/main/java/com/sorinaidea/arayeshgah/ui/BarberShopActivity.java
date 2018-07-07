@@ -245,8 +245,7 @@ public class BarberShopActivity extends AppCompatActivity {
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
             startActivity(Intent.createChooser(sharingIntent, "به اشتراک گذاری با"));
         } else if (id == R.id.action_bookmark) {
-            TransactionDialog dialog = new TransactionDialog(BarberShopActivity.this);
-            dialog.show();
+
         } else if (id == R.id.action_reserve) {
             Intent intent = new Intent(BarberShopActivity.this, ReserveActivity.class);
             startActivity(intent);

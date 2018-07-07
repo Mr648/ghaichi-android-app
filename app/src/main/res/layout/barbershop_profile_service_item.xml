@@ -24,7 +24,7 @@
             android:layout_height="@dimen/_1dp"
             android:layout_below="@id/txtTitle"
             android:layout_marginTop="@dimen/_8dp"
-            android:src="@color/colorPrimary" />
+            android:src="@color/colorGray" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imgSelectedImage"
@@ -33,6 +33,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="@dimen/_48dp"
+            android:tint="@color/colorGray"
             app:srcCompat="@drawable/preview_small" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

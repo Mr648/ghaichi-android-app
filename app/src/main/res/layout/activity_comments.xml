@@ -46,8 +46,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/_16dp"
+        android:layout_margin="@dimen/_12dp"
+        app:fabSize="normal"
         android:src="@drawable/ic_insert_comment_white_24dp"
-        app:fabSize="normal" />
+        />
 
 </RelativeLayout>

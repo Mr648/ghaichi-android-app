@@ -86,6 +86,7 @@
 
     <string name="label_pick_photo">انتخاب تصویر</string>
     <string name="label_profile">پروفایل</string>
+    <string name="label_advertise">درخواست تبلیغات</string>
     <string name="label_credit">اعتبار</string>
     <string name="label_faq">سوالات متداول</string>
     <string name="label_favorites">علاقه مندی ها</string>
@@ -94,7 +95,7 @@
     <string name="label_aboutus">درباره ما</string>
     <string name="navigation_menu_open">باز کردن</string>
     <string name="navigation_menu_close">بستن</string>
-    <string name="action_bookmark">افزودن به علاقه‌مندی‌ها</string>
+    <string name="action_bookmark">نشان کردن</string>
     <string name="action_share">به اشتراک‌ گزاری</string>
     <string name="action_route">مسیر</string>
     <string name="action_reserve">رزرو</string>
@@ -106,6 +107,7 @@
     <string name="_hint_family">نام خانوادکی</string>
     <string name="_hint_phone">شماره موبایل</string>
     <string name="_hint_gender">جنیست</string>
+    <string name="_hint_date">تاریخ رزور</string>
     <string name="_txt_gender_male">آقا</string>
     <string name="_txt_gender_female">خانم</string>
     <string name="_txt_service_name">نام سرویس</string>

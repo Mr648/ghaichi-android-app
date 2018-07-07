@@ -6,69 +6,63 @@
     android:background="@color/colorDialogBackground"
     android:gravity="center_horizontal|center_vertical"
     android:layoutDirection="rtl"
-    android:maxHeight="@dimen/_400dp"
     android:minHeight="@dimen/_320dp"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="@dimen/_320dp"
-        android:layout_height="@dimen/_360dp"
+        android:layout_height="@dimen/_320dp"
         android:background="@drawable/dialog_bg">
 
         <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="@dimen/_72dp"
-            android:layout_height="@dimen/_72dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/_16dp">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/imgIconLeft"
-                android:layout_width="@dimen/_64dp"
-                android:layout_height="@dimen/_64dp"
-                android:layout_centerInParent="true"
-                android:tint="@color/colorPrimary"
-                android:visibility="visible"
-                app:srcCompat="@drawable/ic_scissor_left_handle" />
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/imgIconRight"
-                android:layout_width="@dimen/_64dp"
-                android:layout_height="@dimen/_64dp"
-                android:layout_centerInParent="true"
-                android:tint="@color/colorPrimary"
-                app:srcCompat="@drawable/ic_scissor_right_handle" />
-        </RelativeLayout>
-
-        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayout"
-            android:layout_below="@+id/relativeLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_16dp">
+            android:layout_height="@dimen/_256dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
 
-            <TextClock
-                android:id="@+id/toggleButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/_18sp"
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnDate"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_below="@+id/txtMessage"
-                android:layout_centerHorizontal="true" />
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_24dp"
+                android:minWidth="@dimen/_144dp"
+                android:text="@string/_hint_date"
+                android:textSize="@dimen/_18sp" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnDate"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_8dp"
+                android:minWidth="@dimen/_144dp">
+
+                <RadioButton
+                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48dp"
+                    android:text="صبح" />
+
+                <RadioButton
+                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48dp"
+                    android:text="عصر" />
+            </RadioGroup>
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtMessage"
                 style="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorGrayDark"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentBottom="true"
                 android:gravity="center"
                 android:text="15000 تومان"
                 android:textAlignment="center"
+                android:textColor="@color/colorGrayDark"
                 android:textIsSelectable="false" />
-
         </RelativeLayout>
 
 
@@ -91,8 +85,8 @@
                 android:text="@string/_lbl_cancel" />
 
             <ImageView
-                android:layout_width="@dimen/_1dp"
-                android:layout_height="@dimen/_48dp"
+                android:layout_width="@dimen/_1px"
+                android:layout_height="@dimen/_42dp"
                 android:src="@color/colorWhite" />
 
             <android.support.v7.widget.AppCompatButton

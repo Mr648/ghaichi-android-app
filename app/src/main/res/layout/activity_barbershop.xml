@@ -24,11 +24,13 @@
                     android:id="@+id/ratingBar"
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
+                    android:progressTint="@color/colorGold"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_16dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
                     android:layoutDirection="ltr"
+                    android:isIndicator="true"
                     android:numStars="5"
                     android:stepSize="0.5" />
 

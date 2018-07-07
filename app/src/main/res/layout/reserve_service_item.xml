@@ -42,7 +42,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/_16dp"
             android:layout_toStartOf="@id/swSelect"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/imgIcon"
@@ -51,7 +51,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:scaleType="centerInside"
-                android:tint="@color/colorPrimary"
+                android:tint="@color/colorGold"
                 app:srcCompat="@drawable/ic_discount" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:layout_centerVertical="true"
 
                 android:text="25%"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorGrayDark"
                 android:textSize="@dimen/_10sp" />
         </RelativeLayout>
 

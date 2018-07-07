@@ -64,8 +64,8 @@
                 android:text="@string/_lbl_cancel" />
 
             <ImageView
-                android:layout_width="@dimen/_1dp"
-                android:layout_height="@dimen/_48dp"
+                android:layout_width="@dimen/_1px"
+                android:layout_height="@dimen/_42dp"
                 android:src="@color/colorWhite" />
 
             <android.support.v7.widget.AppCompatButton

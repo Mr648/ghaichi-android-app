@@ -2,6 +2,7 @@ package com.sorinaidea.arayeshgah.ui;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public class BarberShopGridActivity extends AppCompatActivity {
 
     private RecyclerView recAllItems;
     private Toolbar toolbar;
-    private FloatingActionButton fabRefresh;
+//    private FloatingActionButton fabRefresh;
     private GridItemsAdabper adapter;
     private ArrayList<BarberShop> dataset;
     private static final int NUM_COLUMNS = 2;
@@ -40,7 +41,7 @@ public class BarberShopGridActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        fabRefresh = (FloatingActionButton) findViewById(R.id.fabRefresh);
+//        fabRefresh = (FloatingActionButton) findViewById(R.id.fabRefresh);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null && !extras.isEmpty()) {
@@ -60,32 +61,33 @@ public class BarberShopGridActivity extends AppCompatActivity {
 
         recAllItems.setAdapter(adapter);
 
-        fabRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fabRefresh.animate().rotation(360).setDuration(1500).setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animator) {
-                        dataset.addAll(initDataset());
-                    }
 
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animator) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animator) {
-
-                    }
-                }).start();
-            }
-        });
+//        fabRefresh.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                fabRefresh.animate().rotation(360).setDuration(1000).setListener(new Animator.AnimatorListener() {
+//                    @Override
+//                    public void onAnimationStart(Animator animator) {
+//                        dataset.addAll(initDataset());
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animator animator) {
+//                        adapter.notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onAnimationCancel(Animator animator) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animator animator) {
+//
+//                    }
+//                }).start();
+//            }
+//        });
 
     }
 

@@ -57,6 +57,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:isIndicator="true"
+            android:progressTint="@color/colorGold"
             android:layoutDirection="rtl"
             android:max="5"
             android:rating="3.5" />
