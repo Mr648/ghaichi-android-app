@@ -33,7 +33,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="@dimen/_48dp"
-            android:tint="@color/colorGray"
+            android:tint="@color/colorPrimary"
             app:srcCompat="@drawable/preview_small" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

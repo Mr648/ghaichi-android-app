@@ -54,7 +54,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         recComments.setLayoutManager(layoutManager);
         recComments.setAdapter(new CommentsAdabper(getApplicationContext()));
-
+        recComments.setNestedScrollingEnabled(false);
         fabComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

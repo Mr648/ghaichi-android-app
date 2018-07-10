@@ -20,20 +20,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_224dp">
 
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    style="@style/Widget.AppCompat.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:progressTint="@color/colorGold"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_16dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layoutDirection="ltr"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.5" />
-
                 <RelativeLayout
                     android:id="@+id/relSlideShow"
                     android:layout_width="match_parent"
@@ -50,73 +36,39 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_36dp"
                         android:layout_alignParentBottom="true"
-                        app:ci_drawable="@drawable/indicator" />
+                        app:ci_drawable="@drawable/indicator">
+
+                    </me.relex.circleindicator.CircleIndicator>
                 </RelativeLayout>
 
-                <RelativeLayout
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgLogo"
                     android:layout_width="@dimen/_64dp"
                     android:layout_height="@dimen/_64dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/_24dp"
-                    android:background="@drawable/bg_barber_logo"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:padding="@dimen/_8dp">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/imgLogo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/_8dp"
-                        app:srcCompat="@drawable/barbershop" />
-                </RelativeLayout>
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_16dp">
-
-                <TextView
-                    android:id="@+id/txtName"
-                    style="@style/TextAppearance.AppCompat.Large"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:text="نام آرایشگاه" />
-
-                <TextView
-                    android:id="@+id/txtDescription"
-                    android:layout_below="@id/txtName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_8dp"
-                    android:text="توضیحات آرایشگاه، توضیحات آرایشگاه، توضیحات آرایشگاه، توضیحات آرایشگاه، توضیحات آرایشگاه، " />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:padding="@dimen/_16dp">
-
-                <TextView
-                    android:id="@+id/txtAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="کردستان، سنندج، بهاران، میدان قانع\n روبروی شیرینی آ حسین، طبقه دوم پلاک 78" />
+                    android:layout_marginStart="@dimen/_24dp"
+                    android:src="@drawable/barbershop"
+                    app:civ_border_color="@color/colorGray"
+                    app:civ_border_width="@dimen/_1dp" />
 
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/relSlideShow"
+                android:layout_marginTop="@dimen/_16dp">
 
                 <LinearLayout
                     android:id="@+id/lnrRating"
                     android:layout_width="wrap_content"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="@dimen/_8dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:orientation="horizontal">
 
@@ -125,12 +77,72 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_4dp"
-                        android:layout_marginRight="@dimen/_8dp"
+                        android:layout_marginEnd="@dimen/_4dp"
                         android:text="5" />
 
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_16dp"
+                        android:isIndicator="true"
+                        android:layoutDirection="ltr"
+                        android:numStars="5"
+                        android:rating="3.5"
+                        android:stepSize="0.5"
+                        android:theme="@style/AppTheme.RatingBar" />
+
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtName"
+                    style="@style/TextAppearance.AppCompat.Large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/_24dp"
+                    android:text="نام آرایشگاه" />
+
+                <TextView
+                    android:id="@+id/txtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtName"
+                    android:layout_margin="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:text="توضیحات آرایشگاه، توضیحات آرایشگاه، توضیحات آرایشگاه، توضیحات آرایشگاه، توضیحات آرایشگاه، " />
+
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_8dp">
+
+                <ImageView
+                    android:id="@+id/imgLocation"
+                    android:layout_width="@dimen/_36dp"
+                    android:layout_height="@dimen/_36dp"
+                    android:layout_alignParentStart="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_location_on_black_24dp" />
+
+                <TextView
+                    android:id="@+id/txtAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/imgLocation"
+                    android:layout_marginStart="@dimen/_8dp"
+                    android:text="کردستان، سنندج، بهاران، میدان قانع\n روبروی شیرینی آ حسین، طبقه دوم پلاک 78" />
+
+            </RelativeLayout>
+<android.support.v4.widget.Space
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_16dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

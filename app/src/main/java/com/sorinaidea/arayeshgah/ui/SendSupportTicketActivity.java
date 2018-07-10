@@ -82,7 +82,7 @@ public class SendSupportTicketActivity extends AppCompatActivity {
 
                 Drawable icon = getResources().getDrawable(R.drawable.ic_signal_wifi_off_white_24dp);
                 icon.setColorFilter(new ColorMatrixColorFilter(
-                        new float[] {
+                        new float[]{
                                 -1, 0, 0, 0, 254, // red = 255 - red
                                 0, -1, 0, 0, 75,  // green = 255 - green
                                 0, 0, -1, 0, 94,  // blue = 255 - blue
@@ -94,18 +94,18 @@ public class SendSupportTicketActivity extends AppCompatActivity {
                         .setIcon(icon)
                         .setMessage("adsasd")
                         .setNeutralButton("Are", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).show();
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).show();
 
 
             }
         });
 
-        FontManager.setFont(inputLayoutMessage , iranSans);
-        FontManager.setFont(txtMessage , iranSans);
+        FontManager.setFont(inputLayoutMessage, iranSans);
+        FontManager.setFont(txtMessage, iranSans);
 
     }
 
@@ -116,7 +116,11 @@ public class SendSupportTicketActivity extends AppCompatActivity {
             ChatItem item = new ChatItem();
 
             item.setDate("5 دقیقه قبل");
-            item.setMessage("چطور مو را برس بکشیم؟");
+            if (i % 4 == 0) {
+                item.setMessage("چطور مو را برس بکشیم؟ چطور مو را برس بکشیم؟ چطور مو را برس بکشیم؟ چطور مو را برس بکشیم؟ چطور مو را برس بکشیم؟ چطور مو را برس بکشیم؟");
+            } else {
+                item.setMessage("چطور مو را برس بکشیم؟");
+            }
             item.setImageUrl("12313://aadsadd");
             item.setViewType(i % 2 + 1);
             chatItem.add(item);

@@ -22,6 +22,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by mr-code on 3/10/2018.
  */
@@ -34,7 +36,7 @@ public class SupportChatAdapter extends RecyclerView.Adapter<SupportChatAdapter.
     private Typeface fontIranSans;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView imgProfile;
+        private final CircleImageView imgProfile;
         private final TextView txtMessage;
         private final TextView txtDate;
 
@@ -42,7 +44,7 @@ public class SupportChatAdapter extends RecyclerView.Adapter<SupportChatAdapter.
         public ViewHolder(View v) {
             super(v);
 
-            imgProfile = (ImageView) v.findViewById(R.id.imgProfile);
+            imgProfile = (CircleImageView) v.findViewById(R.id.imgIcon);
             txtMessage = (TextView) v.findViewById(R.id.txtMessage);
             txtDate = (TextView) v.findViewById(R.id.txtDate);
         }

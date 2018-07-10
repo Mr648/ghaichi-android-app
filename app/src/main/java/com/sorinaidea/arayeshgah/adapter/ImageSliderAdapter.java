@@ -48,6 +48,7 @@ public class ImageSliderAdapter extends PagerAdapter {
         if (imageOnCLickListener != null) {
             myImage.setOnClickListener(imageOnCLickListener);
         }
+
 //        try {
 //            Picasso.with(context).load(API.BASE_URL
 //                    + URLDecoder.decode(images.get(position), "UTF-8")).into(myImage);

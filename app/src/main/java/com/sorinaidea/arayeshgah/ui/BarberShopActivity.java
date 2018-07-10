@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 
 /**
@@ -53,7 +54,7 @@ public class BarberShopActivity extends AppCompatActivity {
     private ViewPager mPager;
     private ScrollView scrViewRoot;
     private CircleIndicator indicator;
-    private AppCompatImageView imgLogo;
+    private CircleImageView imgLogo;
 //    private AppCompatImageView imgComment;
     private TextView txtAddress;
     private TextView txtRating;
@@ -85,7 +86,7 @@ public class BarberShopActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mPager = (ViewPager) findViewById(R.id.pager);
         indicator = (CircleIndicator) findViewById(R.id.indicator);
-        imgLogo = (AppCompatImageView) findViewById(R.id.imgLogo);
+        imgLogo = (CircleImageView) findViewById(R.id.imgLogo);
 //        imgComment = (AppCompatImageView) findViewById(R.id.imgComment);
 
         txtAddress = (TextView) findViewById(R.id.txtAddress);

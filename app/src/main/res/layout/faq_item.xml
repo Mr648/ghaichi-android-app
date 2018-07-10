@@ -33,7 +33,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/_16dp"
                 android:scaleType="centerInside"
-                android:tint="@color/colorPrimary"
+                android:tint="@color/colorGrayDarker"
                 app:srcCompat="@drawable/ic_keyboard_arrow_down_white_24dp" />
         </RelativeLayout>
 

@@ -106,6 +106,7 @@
     <string name="_hint_empty_content">هنوز هیچ آیتمی به این لیست اضافه نشده است.</string>
     <string name="_hint_family">نام خانوادکی</string>
     <string name="_hint_phone">شماره موبایل</string>
+    <string name="_hint_message">پیام خود را بنویسید</string>
     <string name="_hint_gender">جنیست</string>
     <string name="_hint_date">تاریخ رزور</string>
     <string name="_txt_gender_male">آقا</string>
