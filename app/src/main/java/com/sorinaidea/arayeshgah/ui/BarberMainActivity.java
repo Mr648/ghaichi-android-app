@@ -8,17 +8,16 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -26,12 +25,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.github.clans.fab.FloatingActionButton;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.ImageSliderAdapter;
 import com.sorinaidea.arayeshgah.adapter.ReservationAdabper;
-import com.sorinaidea.arayeshgah.layout.HomePageFragment;
-import com.sorinaidea.arayeshgah.model.BarberShop;
+import com.sorinaidea.arayeshgah.adapter.ReservationV2Adabper;
 import com.sorinaidea.arayeshgah.model.Reservation;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
@@ -48,7 +45,7 @@ import me.relex.circleindicator.CircleIndicator;
  * Created by mr-code on 4/8/2018.
  */
 
-public class BarberShopMainActivity extends AppCompatActivity implements
+public class BarberMainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
@@ -60,16 +57,19 @@ public class BarberShopMainActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_setting) {
-            Intent intent = new Intent(BarberShopMainActivity.this, SettingActivity.class);
+            Intent intent = new Intent(BarberMainActivity.this, SettingActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_aboutus) {
-            Intent intent = new Intent(BarberShopMainActivity.this, AboutUsActivity.class);
+            Intent intent = new Intent(BarberMainActivity.this, AboutUsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_advertise) {
+            Intent intent = new Intent(BarberMainActivity.this, AdvertismentActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_faq) {
-            Intent intent = new Intent(BarberShopMainActivity.this, FaqActivity.class);
+            Intent intent = new Intent(BarberMainActivity.this, FaqActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_profile) {
-            Intent intent = new Intent(BarberShopMainActivity.this, UserProfileActivity.class);
+            Intent intent = new Intent(BarberMainActivity.this, UserProfileActivity.class);
             startActivity(intent);
         }
 
@@ -80,13 +80,17 @@ public class BarberShopMainActivity extends AppCompatActivity implements
 
 
     private DrawerLayout drawer;
-    FloatingActionButton fabAddServiceCategory;
-    FloatingActionButton fabAddService;
+    //    FloatingActionButton fabAddServiceCategory;
+//    FloatingActionButton fabAddService;
     RecyclerView recReservations;
     private ViewPager mPager;
     private CircleIndicator indicator;
     private static int currentPage = 0;
     private NestedScrollView scrViewRoot;
+
+    private CardView cardCategory;
+    private CardView cardServices;
+    private CardView cardSample;
 
     private ArrayList<Reservation> initDataset() {
         ArrayList<Reservation> mDataset = new ArrayList<>();
@@ -102,32 +106,47 @@ public class BarberShopMainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barbershop_admin);
 
-        fabAddServiceCategory = (FloatingActionButton) findViewById(R.id.fabAddServiceCategory);
-        fabAddService = (FloatingActionButton) findViewById(R.id.fabAddService);
+//        fabAddServiceCategory = (FloatingActionButton) findViewById(R.id.fabAddServiceCategory);
+//        fabAddService = (FloatingActionButton) findViewById(R.id.fabAddService);
         scrViewRoot = (NestedScrollView) findViewById(R.id.scrViewRoot);
+        cardCategory = (CardView) findViewById(R.id.cardCategory);
+        cardServices = (CardView) findViewById(R.id.cardServices);
+        cardSample = (CardView) findViewById(R.id.cardSample);
 
-
-        fabAddServiceCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BarberShopMainActivity.this, AddServiceCategoryActivity.class);
-                startActivity(intent);
-            }
+        cardCategory.setOnClickListener((view) -> {
+            Intent intent = new Intent(BarberMainActivity.this, AddServiceCategoryActivity.class);
+            startActivity(intent);
+        });
+        cardServices.setOnClickListener((view) -> {
+//            Intent intent = new Intent(BarberMainActivity.this, AddServiceCategoryActivity.class);
+//            startActivity(intent);
+        });
+        cardSample.setOnClickListener((view) -> {
+//            Intent intent = new Intent(BarberMainActivity.this, AddServiceCategoryActivity.class);
+//            startActivity(intent);
         });
 
+//        fabAddServiceCategory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(BarberMainActivity.this, AddServiceCategoryActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
-        fabAddService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BarberShopMainActivity.this, AddServiceActivity.class);
-                startActivity(intent);
-            }
-        });
+
+//        fabAddService.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(BarberMainActivity.this, AddServiceActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         recReservations = (RecyclerView) findViewById(R.id.recReservations);
         recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        recReservations.setAdapter(new ReservationAdabper(initDataset(), getApplicationContext()));
+        recReservations.setAdapter(new ReservationV2Adabper(initDataset(), getApplicationContext()));
         recReservations.setNestedScrollingEnabled(false);
 
 

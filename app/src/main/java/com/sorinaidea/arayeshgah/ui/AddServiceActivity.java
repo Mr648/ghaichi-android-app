@@ -24,13 +24,13 @@ import java.util.List;
 
 public class AddServiceActivity extends AppCompatActivity {
 
-    Button btnAddService;
-    RecyclerView recServiceCategories;
-    ImageView imgSelectImages;
+    private Button btnAddService;
+    private RecyclerView recServiceCategories;
+    private ImageView imgSelectImages;
     private static final int RESULT_CODE_PICKER_IMAGES = 9000;
 
+    private Toolbar toolbar;
 
-    Toolbar toolbar ;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

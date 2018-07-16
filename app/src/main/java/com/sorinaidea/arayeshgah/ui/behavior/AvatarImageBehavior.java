@@ -3,11 +3,13 @@ package com.sorinaidea.arayeshgah.ui.behavior;
 /**
  * Created by mr-code on 6/26/2018.
  */
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.sorinaidea.arayeshgah.R;
@@ -17,8 +19,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 @SuppressWarnings("unused")
 public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircleImageView> {
 
-    private final static float MIN_AVATAR_PERCENTAGE_SIZE   = 0.3f;
-    private final static int EXTRA_FINAL_AVATAR_PADDING     = 80;
+    private final static float MIN_AVATAR_PERCENTAGE_SIZE = 0.3f;
+    private final static int EXTRA_FINAL_AVATAR_PADDING = 80;
 
     private final static String TAG = "behavior";
     private Context mContext;
@@ -84,12 +86,13 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircleImageV
             float heightFactor = (mChangeBehaviorPoint - expandedPercentageFactor) / mChangeBehaviorPoint;
 
             float distanceXToSubtract = ((mStartXPosition - mFinalXPosition)
-                    * heightFactor) + (child.getHeight()/2);
+                    * heightFactor) + (child.getHeight() / 2);
             float distanceYToSubtract = ((mStartYPosition - mFinalYPosition)
-                    * (1f - expandedPercentageFactor)) + (child.getHeight()/2);
+                    * (1f - expandedPercentageFactor)) + (child.getHeight() / 2);
 
-            child.setX(mStartXPosition - distanceXToSubtract);
-            child.setY(mStartYPosition - distanceYToSubtract);
+//            child.setX(mStartXPosition - distanceXToSubtract);
+//            child.setY(mStartYPosition - distanceYToSubtract);
+
 
             float heightToSubtract = ((mStartHeight - mCustomFinalHeight) * heightFactor);
 
@@ -97,17 +100,26 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircleImageV
             lp.width = (int) (mStartHeight - heightToSubtract);
             lp.height = (int) (mStartHeight - heightToSubtract);
             child.setLayoutParams(lp);
+
+            child.setX(mContext.getResources().getDimensionPixelOffset(R.dimen._10dp));
+            child.setY(mContext.getResources().getDimensionPixelOffset(R.dimen._12dp));
+            child.animate().alpha(0.0f).setDuration(500);
+            Log.i("POS1", String.format("X:%s, Y:%s", String.valueOf(mContext.getResources().getDimensionPixelOffset(R.dimen._16dp)), String.valueOf(mContext.getResources().getDimensionPixelOffset(R.dimen._12dp))));
+            Log.i("POSX", String.format("X:%s, Y:%s", String.valueOf(child.getX()), String.valueOf(child.getY())));
+
         } else {
             float distanceYToSubtract = ((mStartYPosition - mFinalYPosition)
-                    * (1f - expandedPercentageFactor)) + (mStartHeight/2);
-
-            child.setX(mStartXPosition - child.getWidth()/2);
+                    * (1f - expandedPercentageFactor)) + (mStartHeight / 2);
+            child.animate().alpha(1.0f).setDuration(500);
+            child.setX(mStartXPosition - child.getWidth() / 2);
             child.setY(mStartYPosition - distanceYToSubtract);
 
             CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
             lp.width = mStartHeight;
             lp.height = mStartHeight;
             child.setLayoutParams(lp);
+
+            Log.i("POS2", String.format("X:%S, Y:%s", String.valueOf((mStartXPosition - child.getWidth() / 2)), String.valueOf((mStartYPosition - distanceYToSubtract))));
         }
         return true;
     }
@@ -116,18 +128,20 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircleImageV
         if (mStartYPosition == 0)
             mStartYPosition = (int) (dependency.getY());
 
-        if (mFinalYPosition == 0)
-            mFinalYPosition = (dependency.getHeight() /2);
-
+        if (mFinalYPosition == 0) {
+            mFinalYPosition = (dependency.getHeight() / 2);
+//            mFinalYPosition = mContext.getResources().getDimensionPixelOffset(R.dimen._16dp);
+        }
         if (mStartHeight == 0)
             mStartHeight = child.getHeight();
 
         if (mStartXPosition == 0)
             mStartXPosition = (int) (child.getX() + (child.getWidth() / 2));
 
-        if (mFinalXPosition == 0)
-            mFinalXPosition = mContext.getResources().getDimensionPixelOffset(R.dimen.abc_action_bar_content_inset_material) + ((int) mCustomFinalHeight / 2);
-
+        if (mFinalXPosition == 0) {
+//            mFinalXPosition = mContext.getResources().getDimensionPixelOffset(R.dimen.abc_action_bar_content_inset_material) + ((int) mCustomFinalHeight / 2);
+            mFinalXPosition = mContext.getResources().getDimensionPixelOffset(R.dimen._16dp);
+        }
         if (mStartToolbarPosition == 0)
             mStartToolbarPosition = dependency.getY();
 

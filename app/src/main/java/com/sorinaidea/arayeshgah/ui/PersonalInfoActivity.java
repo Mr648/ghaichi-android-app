@@ -68,10 +68,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
                 Intent intent = new Intent(PersonalInfoActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-//
-//                Intent intent = new Intent(PersonalInfoActivity.this, HairdresserActivity.class);
-//                startActivity(intent);
-//                finish();
+
             }
         });
 

@@ -10,12 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.model.BarberShop;
-import com.sorinaidea.arayeshgah.model.FAQ;
 import com.sorinaidea.arayeshgah.ui.BarberShopActivity;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
@@ -45,7 +43,7 @@ public class GridItemsAdabper extends RecyclerView.Adapter<GridItemsAdabper.View
                 }
             });
             imgLogo = (AppCompatImageView) v.findViewById(R.id.imgLogo);
-            txtName = (AppCompatTextView) v.findViewById(R.id.txtName);
+            txtName = (AppCompatTextView) v.findViewById(R.id.txtUsername);
         }
 
         public TextView getTxtName() {

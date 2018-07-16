@@ -41,7 +41,7 @@ public class HairdresserListAdabper extends RecyclerView.Adapter<HairdresserList
             });
 
             imgLogo = (ImageView) v.findViewById(R.id.imgLogo);
-            txtName = (TextView) v.findViewById(R.id.txtName);
+            txtName = (TextView) v.findViewById(R.id.txtUsername);
         }
 
         public TextView getTxtName() {

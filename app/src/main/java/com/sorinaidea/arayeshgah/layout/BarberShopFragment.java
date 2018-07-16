@@ -232,8 +232,6 @@ public class BarberShopFragment extends Fragment {
  View.OnClickListener listener = new View.OnClickListener() {
  @Override
  public void onClick(View view) {
- Intent intent = new Intent(MainActivity.this, HairdresserListActivity.class);
- startActivity(intent);
  }
  };
 

@@ -24,7 +24,7 @@
             app:srcCompat="@drawable/barbershop" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/txtName"
+            android:id="@+id/txtUsername"
             style="@style/TextAppearance.AppCompat.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

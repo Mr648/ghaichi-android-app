@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -49,8 +50,7 @@ public class SendSupportTicketActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private AppCompatImageView imgSend;
-    private TextInputLayout inputLayoutMessage;
-    private TextInputEditText txtMessage;
+    private EditText txtMessage;
     private RecyclerView recSupportChat;
 
 
@@ -62,8 +62,8 @@ public class SendSupportTicketActivity extends AppCompatActivity {
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        inputLayoutMessage = (TextInputLayout) findViewById(R.id.inputLayoutMessage);
-        txtMessage = (TextInputEditText) findViewById(R.id.txtMessage);
+//        inputLayoutMessage = (TextInputLayout) findViewById(R.id.inputLayoutMessage);
+        txtMessage = (EditText) findViewById(R.id.txtMessage);
         imgSend = (AppCompatImageView) findViewById(R.id.imgSend);
         recSupportChat = (RecyclerView) findViewById(R.id.recSupportChat);
 
@@ -104,7 +104,6 @@ public class SendSupportTicketActivity extends AppCompatActivity {
             }
         });
 
-        FontManager.setFont(inputLayoutMessage, iranSans);
         FontManager.setFont(txtMessage, iranSans);
 
     }

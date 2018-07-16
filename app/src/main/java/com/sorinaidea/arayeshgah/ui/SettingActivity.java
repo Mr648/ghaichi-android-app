@@ -26,7 +26,8 @@ public class SettingActivity extends AppCompatActivity {
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+//        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_barber_settings);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);

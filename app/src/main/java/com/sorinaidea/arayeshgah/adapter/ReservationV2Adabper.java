@@ -2,8 +2,6 @@ package com.sorinaidea.arayeshgah.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.media.Image;
-import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,12 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.model.Reservation;
-import com.sorinaidea.arayeshgah.model.Transaction;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
@@ -27,8 +24,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by mr-code on 3/10/2018.
  */
 
-public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.ViewHolder> {
-    private static final String TAG = "FAQAdabper";
+public class ReservationV2Adabper extends RecyclerView.Adapter<ReservationV2Adabper.ViewHolder> {
+    private static final String TAG = "ReservationV2Adabper";
 
     private ArrayList<Reservation> mDataSet;
     private Context mContext;
@@ -36,16 +33,16 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
     private Typeface fontIranSans;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final CircleImageView imgLogo;
-        private final TextView txtTitle;
-        private final TextView txtAddress;
-        private final TextView txtDate;
-        private final TextView txtTime;
-        private final TextView txtIconTime;
-        private final TextView txtIconDate;
+        private final CircleImageView imgIcon;
+        private final TextView txtUsername,
+                txtDate,
+                txtTime,
+                txtServices;
+
         private final CardView cardView;
 
-//        private final LinearLayout lnrBgr;
+        public RelativeLayout relBackground,
+                relForeground;
 
 
         public ViewHolder(View v) {
@@ -57,52 +54,43 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
                 }
             });
 
-            imgLogo = (CircleImageView) v.findViewById(R.id.imgLogo);
-            txtTitle = (TextView) v.findViewById(R.id.txtTitle);
+            imgIcon = (CircleImageView) v.findViewById(R.id.imgIcon);
+            txtUsername = (TextView) v.findViewById(R.id.txtUsername);
             txtDate = (TextView) v.findViewById(R.id.txtDate);
             txtTime = (TextView) v.findViewById(R.id.txtTime);
-            txtAddress = (TextView) v.findViewById(R.id.txtAddress);
-            txtIconTime = (TextView) v.findViewById(R.id.txtIconTime);
-            txtIconDate = (TextView) v.findViewById(R.id.txtIconDate);
+            txtServices = (TextView) v.findViewById(R.id.txtServices);
             cardView = (CardView) v.findViewById(R.id.cardView);
-//            lnrBgr = (LinearLayout) v.findViewById(R.id.lnrBgr);
+            relBackground = (RelativeLayout) v.findViewById(R.id.relBackground);
+            relForeground = (RelativeLayout) v.findViewById(R.id.relForeground);
         }
 
-        public TextView getTxtIconDate() {
-            return txtIconDate;
-        }
-
-        public TextView getTxtIconTime() {
-            return txtIconTime;
-        }
-
-        public ImageView getImgLogo() {
-            return imgLogo;
-        }
-
-        public TextView getTxtAddress() {
-            return txtAddress;
-        }
-
-        public TextView getTxtTime() {
-            return txtTime;
+        public CircleImageView getImgIcon() {
+            return imgIcon;
         }
 
         public TextView getTxtDate() {
             return txtDate;
         }
 
-        public TextView getTxtTitle() {
-            return txtTitle;
+        public TextView getTxtTime() {
+            return txtTime;
         }
 
-//        public LinearLayout getLnrBgr() {
+        public TextView getTxtServices() {
+            return txtServices;
+        }
+
+        public TextView getTxtUsername() {
+            return txtUsername;
+        }
+
+        //        public LinearLayout getLnrBgr() {
 //            return lnrBgr;
 //        }
     }
 
 
-    public ReservationAdabper(ArrayList<Reservation> transactions, Context context) {
+    public ReservationV2Adabper(ArrayList<Reservation> transactions, Context context) {
         mDataSet = transactions;
         mContext = context;
         fontMaterialIcons = FontManager.getTypeface(mContext, FontManager.MATERIAL_ICONS);
@@ -125,23 +113,33 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
         Log.d(TAG, "Element " + position + " set.");
 
 
-        viewHolder.getTxtTitle().setText(mDataSet.get(position).getTitle());
+        viewHolder.getTxtUsername().setText(mDataSet.get(position).getTitle());
         viewHolder.getTxtDate().setText(mDataSet.get(position).getDate());
         viewHolder.getTxtTime().setText(mDataSet.get(position).getTime());
-        viewHolder.getTxtAddress().setText(mDataSet.get(position).getAddress());
+        String text = "مانیکور، ";
+        text += "کاشت ناخن" + "، ";
+        text += "اپیلاسیون" + "، ";
+        text += "رنگ مو" + "، ";
+        text += "گریم صورت" + "، ";
+        text += "حالت دادن مو" + "، ";
+        text += "کوتاه کردن مو" + "، ";
+        text += "تزریق بوتاکس و ژل" + "، ";
+        text += "پروتز لب" + "، ";
+        text += "ماساژ صورت" + "، ";
+        text += "پدیکور";
+
+        viewHolder.getTxtServices().setText(text);
 //        viewHolder.getLnrBgr().setBackgroundResource(
 //                        position%3==0?R.drawable.background_red:R.drawable.background_green
 //        );
 
 //        viewHolder.getImgLogo().setImageResource(mDataSet.get(position).getImgLogo());
 
-        FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
-        FontManager.setFont(viewHolder.getTxtAddress(), fontIranSans);
         FontManager.setFont(viewHolder.getTxtDate(), fontIranSans);
-        FontManager.setFont(viewHolder.getTxtTime(), fontIranSans);
+        FontManager.setFont(viewHolder.getTxtServices(), fontIranSans);
+        FontManager.setFont(viewHolder.getTxtDate(), fontIranSans);
+        FontManager.setFont(viewHolder.getTxtUsername(), fontIranSans);
 
-        FontManager.setFont(viewHolder.getTxtIconDate(), fontMaterialIcons);
-        FontManager.setFont(viewHolder.getTxtIconTime(), fontMaterialIcons);
 
     }
 

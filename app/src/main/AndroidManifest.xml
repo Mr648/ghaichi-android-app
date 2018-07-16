@@ -103,12 +103,7 @@
 
         </activity>
 
-        <activity
-            android:name="com.sorinaidea.arayeshgah.ui.HairdresserActivity"
-            android:label="@string/label_aboutus"
-            android:theme="@style/AppTheme.NoActionBar">
 
-        </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.AboutUsActivity"
             android:label="@string/label_aboutus"
@@ -116,33 +111,25 @@
 
         </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.HairdresserChooseLocationActivity"
+            android:name="com.sorinaidea.arayeshgah.ui.BarberChooseLocationActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity
-            android:name="com.sorinaidea.arayeshgah.ui.HairdresserListActivity"
-            android:label="لیست آرایشگران"></activity>
-        <activity
-            android:name="com.sorinaidea.arayeshgah.ui.TestActivity"
-            android:label="@string/label_aboutus"></activity>
+
+
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-
-
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.BarberShopActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.CreditActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.GetGiftActivity"
@@ -157,15 +144,19 @@
         </activity>
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.BarberShopMainActivity"
+            android:name="com.sorinaidea.arayeshgah.ui.BarberMainActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
-        <activity
-            android:name="com.sorinaidea.arayeshgah.ui.CommentsActivity"
-            android:theme="@style/AppTheme.NoActionBar">
 
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.AdvertismentActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.sorinaidea.arayeshgah.ui.AdvertismentInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity

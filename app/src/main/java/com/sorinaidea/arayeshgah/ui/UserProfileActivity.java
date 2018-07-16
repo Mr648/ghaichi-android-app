@@ -60,7 +60,7 @@ public class UserProfileActivity extends AppCompatActivity
 
 
         txtLb1 = (TextView) findViewById(R.id.txtLb1);
-        txtName = (TextView) findViewById(R.id.txtName);
+        txtName = (TextView) findViewById(R.id.txtUsername);
         txtLb2 = (TextView) findViewById(R.id.txtLb2);
         txtFamily = (TextView) findViewById(R.id.txtFamily);
         txtLb3 = (TextView) findViewById(R.id.txtLb3);

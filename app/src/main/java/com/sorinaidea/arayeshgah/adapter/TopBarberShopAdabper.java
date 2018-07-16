@@ -2,8 +2,6 @@ package com.sorinaidea.arayeshgah.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.media.Image;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.model.BarberShop;
-import com.sorinaidea.arayeshgah.model.Transaction;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
@@ -44,7 +41,7 @@ public class TopBarberShopAdabper extends RecyclerView.Adapter<TopBarberShopAdab
             });
 
             imgLogo = (ImageView) v.findViewById(R.id.imgLogo);
-            txtName = (TextView) v.findViewById(R.id.txtName);
+            txtName = (TextView) v.findViewById(R.id.txtUsername);
         }
 
         public TextView getTxtName() {

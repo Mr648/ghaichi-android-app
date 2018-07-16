@@ -1,10 +1,8 @@
 package com.sorinaidea.arayeshgah.ui;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.icu.util.MeasureUnit;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +14,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,9 +38,8 @@ import com.google.android.gms.tasks.Task;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.CustomInfoWindowAdapter;
 import com.sorinaidea.arayeshgah.util.FontManager;
-import com.sorinaidea.arayeshgah.util.Util;
 
-public class HairdresserChooseLocationActivity
+public class BarberChooseLocationActivity
         extends FragmentActivity
         implements OnMapReadyCallback,
         LocationListener,
@@ -126,7 +122,7 @@ public class HairdresserChooseLocationActivity
 
 
                 // TODO add User Location here
-                Toast.makeText(HairdresserChooseLocationActivity.this, "Loaction is \n"
+                Toast.makeText(BarberChooseLocationActivity.this, "Loaction is \n"
                                 + choosenLocation.latitude + ", "
                                 + choosenLocation.longitude
                                 + "\n"
@@ -167,7 +163,7 @@ public class HairdresserChooseLocationActivity
         mMap.setMinZoomPreference(5.0f);
         mMap.setMaxZoomPreference(20.0f);
 
-        CustomInfoWindowAdapter adapter = new CustomInfoWindowAdapter(HairdresserChooseLocationActivity.this);
+        CustomInfoWindowAdapter adapter = new CustomInfoWindowAdapter(BarberChooseLocationActivity.this);
         mMap.setInfoWindowAdapter(adapter);
 
     }

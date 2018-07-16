@@ -5,12 +5,9 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -28,11 +25,8 @@ import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.BarberShopProfileServiceAdapter;
 import com.sorinaidea.arayeshgah.adapter.ImageSliderAdapter;
 import com.sorinaidea.arayeshgah.adapter.ItemOffsetDecoration;
-import com.sorinaidea.arayeshgah.layout.UserReservationFragment;
 import com.sorinaidea.arayeshgah.model.Service;
-import com.sorinaidea.arayeshgah.ui.dialog.CommentDialog;
 import com.sorinaidea.arayeshgah.ui.dialog.MessageDialog;
-import com.sorinaidea.arayeshgah.ui.dialog.TransactionDialog;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
@@ -91,7 +85,7 @@ public class BarberShopActivity extends AppCompatActivity {
 
         txtAddress = (TextView) findViewById(R.id.txtAddress);
         txtRating = (TextView) findViewById(R.id.txtRating);
-        txtName = (TextView) findViewById(R.id.txtName);
+        txtName = (TextView) findViewById(R.id.txtUsername);
         txtDescription = (TextView) findViewById(R.id.txtDescription);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);

@@ -112,14 +112,14 @@ public class SmsVerificationActivity extends AppCompatActivity {
     private void sendVerificationCode(final String phone, final String verificationCode) {
 
 
-        Intent intent = new Intent(SmsVerificationActivity.this, PersonalInfoActivity.class);
-        startActivity(intent);
-
-        finish();
-//
-//        Intent intent = new Intent(SmsVerificationActivity .this, BarberShopMainActivity.class);
+//        Intent intent = new Intent(SmsVerificationActivity.this, PersonalInfoActivity.class);
 //        startActivity(intent);
+//
 //        finish();
+////
+        Intent intent = new Intent(SmsVerificationActivity .this, BarberMainActivity.class);
+        startActivity(intent);
+        finish();
 
         /*
         Gson gson = new GsonBuilder().setLenient().create();

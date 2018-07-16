@@ -7,9 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    tools:context=".ui.BarberShopMainActivity"
+    tools:context=".ui.BarberMainActivity"
     tools:openDrawer="start">
-
 
 
     <RelativeLayout
@@ -45,6 +44,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <RelativeLayout
                     android:id="@+id/relSlideShow"
                     android:layout_width="match_parent"
@@ -63,162 +63,135 @@
                         android:layout_alignParentBottom="true"
                         app:ci_drawable="@drawable/indicator" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:id="@+id/lnrActions"
-                    android:layout_below="@+id/relSlideShow"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_128dp"
-                    android:weightSum="3">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relSlideShow"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:paddingBottom="@dimen/_8dp"
+                    android:paddingTop="@dimen/_8dp">
+
                     <android.support.v7.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:id="@+id/cardCategory"
+                        android:layout_width="@dimen/_96dp"
+                        android:layout_height="@dimen/_96dp"
+                        android:layout_margin="@dimen/_10dp"
                         app:cardCornerRadius="@dimen/_4dp"
-                        android:layout_margin="@dimen/_8dp"
-                        app:contentPadding="@dimen/_8dp">
+                        app:contentPadding="@dimen/_4dp">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
+
                             <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/imgIcon"
+                                android:id="@+id/imgIcon1"
+                                android:layout_width="@dimen/_36dp"
+                                android:layout_height="@dimen/_36dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_centerInParent="true"
                                 android:layout_marginTop="@dimen/_16dp"
-                                android:layout_width="@dimen/_48dp"
-                                android:layout_height="@dimen/_48dp" app:srcCompat="@drawable/ic_help_black_18dp" android:tint="@color/colorPrimary"/>
+                                android:padding="@dimen/_4dp"
+                                android:scaleType="centerInside"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/ic_add_category" />
+
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_marginTop="@dimen/_8dp"
-                                android:layout_below="@id/imgIcon"
-                                android:layout_centerInParent="true"
                                 android:layout_height="wrap_content"
-                                android:text="متن تستی"/>
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginBottom="@dimen/_8dp"
+                                android:text="دسته‌بندی‌ها"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                         </RelativeLayout>
                     </android.support.v7.widget.CardView>
+
                     <android.support.v7.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:id="@+id/cardServices"
+                        android:layout_width="@dimen/_96dp"
+                        android:layout_height="@dimen/_96dp"
+                        android:layout_margin="@dimen/_10dp"
                         app:cardCornerRadius="@dimen/_4dp"
-                        android:layout_margin="@dimen/_8dp"
-                        app:contentPadding="@dimen/_8dp">
+                        app:contentPadding="@dimen/_4dp">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
+
                             <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/imgIcon"
+                                android:id="@+id/imgIcon2"
+                                android:layout_width="@dimen/_36dp"
+                                android:layout_height="@dimen/_36dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_centerInParent="true"
                                 android:layout_marginTop="@dimen/_16dp"
-                                android:layout_width="@dimen/_48dp"
-                                android:layout_height="@dimen/_48dp" app:srcCompat="@drawable/ic_help_black_18dp" android:tint="@color/colorPrimary"/>
+                                android:scaleType="centerInside"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/ic_add_service" />
+
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_marginTop="@dimen/_8dp"
-                                android:layout_below="@id/imgIcon"
-                                android:layout_centerInParent="true"
                                 android:layout_height="wrap_content"
-                                android:text="متن تستی"/>
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginBottom="@dimen/_8dp"
+                                android:text="خدمات"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                         </RelativeLayout>
                     </android.support.v7.widget.CardView>
+
                     <android.support.v7.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:id="@+id/cardSample"
+                        android:layout_width="@dimen/_96dp"
+                        android:layout_height="@dimen/_96dp"
+                        android:layout_margin="@dimen/_10dp"
                         app:cardCornerRadius="@dimen/_4dp"
-                        android:layout_margin="@dimen/_8dp"
-                        app:contentPadding="@dimen/_8dp">
+                        app:contentPadding="@dimen/_4dp">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
+
                             <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/imgIcon"
+                                android:id="@+id/imgIcon3"
+                                android:layout_width="@dimen/_36dp"
+                                android:layout_height="@dimen/_36dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_centerInParent="true"
                                 android:layout_marginTop="@dimen/_16dp"
-                                android:layout_width="@dimen/_48dp"
-                                android:layout_height="@dimen/_48dp" app:srcCompat="@drawable/ic_help_black_18dp" android:tint="@color/colorPrimary"/>
+                                android:scaleType="centerInside"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/ic_add_sample" />
+
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_marginTop="@dimen/_8dp"
-                                android:layout_below="@id/imgIcon"
-                                android:layout_centerInParent="true"
                                 android:layout_height="wrap_content"
-                                android:text="متن تستی"/>
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginBottom="@dimen/_8dp"
+                                android:text="نمونه کارها"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                         </RelativeLayout>
                     </android.support.v7.widget.CardView>
                 </LinearLayout>
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recReservations"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/lnrActions"
-                    />
+                    android:layout_below="@+id/lnrActions" />
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
-
-        <com.github.clans.fab.FloatingActionMenu
-            android:id="@+id/menu_yellow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            fab:menu_animationDelayPerItem="0"
-            fab:menu_colorNormal="@color/colorPrimary"
-            fab:menu_colorPressed="@color/colorPrimaryDark"
-            fab:menu_colorRipple="@color/colorPrimaryDarkRipple"
-            fab:menu_labels_hideAnimation="@anim/jump_to_down"
-            fab:menu_labels_position="right"
-            fab:menu_labels_showAnimation="@anim/jump_from_down"
-            fab:menu_labels_style="@style/MenuLabelsStyle"
-            fab:menu_shadowColor="#444">
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fabAddServiceCategory"
-                style="@style/MenuButtonsStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_dashboard_black_24dp"
-                android:tint="#fff"
-                fab:fab_label="@string/_lbl_service_category" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fabAddService"
-                style="@style/MenuButtonsStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_service_add_black_24dp"
-                android:tint="#fff"
-                fab:fab_label="@string/_lbl_manage_service" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fabAddSampleWork"
-                style="@style/MenuButtonsStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_cut_24dp"
-                android:tint="#fff"
-                fab:fab_label="@string/_lbl_manage_sample_work" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fabRequestAdvertise"
-                style="@style/MenuButtonsStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_advertise_24"
-                android:tint="#fff"
-                fab:fab_label="@string/_lbl_request_advertise" />
-        </com.github.clans.fab.FloatingActionMenu>
     </RelativeLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:scrollbars="none"
-        android:visibility="gone"
         app:headerLayout="@layout/nav_header_main"
         app:itemIconTint="@color/colorPrimary"
         app:menu="@menu/activity_main_hairdresser_drawer" />
