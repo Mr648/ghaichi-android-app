@@ -49,7 +49,7 @@ public class BarberShopActivity extends AppCompatActivity {
     private ScrollView scrViewRoot;
     private CircleIndicator indicator;
     private CircleImageView imgLogo;
-//    private AppCompatImageView imgComment;
+    //    private AppCompatImageView imgComment;
     private TextView txtAddress;
     private TextView txtRating;
     private TextView txtName;
@@ -60,11 +60,21 @@ public class BarberShopActivity extends AppCompatActivity {
     private Typeface fontIranSans;
     private static int currentPage = 0;
     private static final int NUM_COLUMNS = 2;
+    private int barbershopId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barbershop);
+
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && !extras.isEmpty()) {
+            barbershopId = Integer.parseInt(extras.getString("phone"));
+        } else {
+            finish();
+        }
+
 
         scrViewRoot = (ScrollView) findViewById(R.id.scrViewRoot);
         recServices = (RecyclerView) findViewById(R.id.recServices);

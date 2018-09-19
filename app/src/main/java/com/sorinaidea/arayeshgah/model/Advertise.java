@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by mr-code on 7/11/2018.
  */
 
-public class Advertise implements Serializable{
+public class Advertise implements Serializable {
 
     private int amount;
     private int views;
@@ -62,10 +62,10 @@ public class Advertise implements Serializable{
         obj.addProperty("value", String.valueOf(getAmount()));
         obj.addProperty("icon", R.drawable.ic_remove_red_eye_black_18dp);
         list.add(obj);
-
+//
         obj = new JsonObject();
-        obj.addProperty("title", "تعداد بازدید تاکنون");
-        obj.addProperty("value", String.valueOf(getViews()));
+        obj.addProperty("title", "درصد بازدید");
+        obj.addProperty("value", String.valueOf((getViews() * 1.0f / getAmount() * 100)) + "%");
         obj.addProperty("icon", R.drawable.ic_remove_red_eye_black_18dp);
         list.add(obj);
 

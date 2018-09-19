@@ -124,15 +124,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-//    @Override
-//    public void onRegistrationFirstStepInteraction() {
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.setCustomAnimations(R.anim.scale_up, R.anim.scale_down);
-//        ft.replace(R.id.content, new HomeFragment()).commit();
-//    }
-//
-//
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);

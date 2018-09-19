@@ -18,8 +18,13 @@ import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.BarberShopCategoryAdapter;
 import com.sorinaidea.arayeshgah.adapter.ImageSliderAdapter;
 import com.sorinaidea.arayeshgah.adapter.TopBarberShopUserAdabper;
+import com.sorinaidea.arayeshgah.fast.Advertise;
 import com.sorinaidea.arayeshgah.model.FAQ;
 import com.sorinaidea.arayeshgah.ui.MapsActivity;
+import com.sorinaidea.arayeshgah.util.GhaichiPrefrenceManager;
+import com.sorinaidea.arayeshgah.util.Util;
+import com.sorinaidea.arayeshgah.webservice.API;
+import com.sorinaidea.arayeshgah.webservice.AdvertisesService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +33,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.Query;
 
 
 public class HomePageFragment extends Fragment {
@@ -36,6 +46,11 @@ public class HomePageFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        imageList = null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,28 +69,43 @@ public class HomePageFragment extends Fragment {
     private FloatingActionButton fabMap;
     private CircleIndicator indicator;
     private static int currentPage = 0;
-    private static final List<String> images = Arrays.asList("", "", "", "", "");
 
-    /*private static final List<String> images = Arrays.asList(R.drawable.ic_bug_report_black_18dp,
-            R.drawable.ic_credit_card_black_18dp,
-            R.drawable.ic_favorite_black_18dp,
-            R.drawable.ic_help_black_18dp,
-            R.drawable.ic_home_black_18dp,
-            R.drawable.ic_instagram,
-            R.drawable.ic_linkedin,
-            R.drawable.ic_twitter);
-*/
     private ArrayList<String> imageList = new ArrayList<>();
 
     private void initializeImageSlider() {
 
-        imageList.addAll(images);
-        mPager.setAdapter(new ImageSliderAdapter(getContext(), imageList));
+
+        Retrofit retrofit = API.getRetrofit();
+        AdvertisesService advertises = retrofit.create(AdvertisesService.class);
+
+        String accessKey = Util.getAccessKey(getContext());
+
+        ImageSliderAdapter adapter = new ImageSliderAdapter(getContext(), imageList);
+        mPager.setAdapter(adapter);
         indicator.setViewPager(mPager);
+
+        advertises.advertises(accessKey).enqueue(new Callback<List<Advertise>>() {
+            @Override
+            public void onResponse(Call<List<Advertise>> call, Response<List<Advertise>> response) {
+                if (response.body() != null) {
+                    for (Advertise ad : response.body()) {
+                        imageList.add(ad.photo.getPath());
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Advertise>> call, Throwable t) {
+
+            }
+        });
+
+
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
-                if (currentPage == images.size()) {
+                if (currentPage == imageList.size()) {
                     currentPage = 0;
                 }
                 mPager.setCurrentItem(currentPage++, true);
@@ -87,7 +117,7 @@ public class HomePageFragment extends Fragment {
             public void run() {
                 handler.post(Update);
             }
-        }, 2500, 2500);
+        }, 1000, 1500);
     }
 
     @Override
@@ -117,13 +147,11 @@ public class HomePageFragment extends Fragment {
     private ArrayList<String> initProductItems() {
         ArrayList<String> list = new ArrayList<String>();
         list.addAll(Arrays.asList(
-                  "دسته‌بندی #1"
-                , "دسته‌بندی #2"
-                , "دسته‌بندی #3"
-                , "دسته‌بندی #4"
-                , "دسته‌بندی #5"
-                , "دسته‌بندی #6"
-                , "دسته‌بندی #7"
+                "پیشنهادات ویژه",
+                "نزدیک‌ترین‌ها",
+                "تخفیفات",
+                "بیشترین خدمات",
+                "جدید"
         ));
         return list;
     }

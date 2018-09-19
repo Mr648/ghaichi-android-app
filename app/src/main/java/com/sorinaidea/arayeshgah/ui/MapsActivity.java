@@ -1,7 +1,6 @@
 package com.sorinaidea.arayeshgah.ui;
 
 import android.Manifest;
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,11 +12,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -31,6 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -38,23 +35,26 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.maps.android.clustering.Cluster;
-import com.google.maps.android.clustering.ClusterManager;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.CustomInfoWindowAdapter;
-import com.sorinaidea.arayeshgah.model.ClusterMarker;
-import com.sorinaidea.arayeshgah.model.MapMarker;
-import com.sorinaidea.arayeshgah.util.CustomClusterRenderer;
+import com.sorinaidea.arayeshgah.model.SampleClusterItem;
+import com.sorinaidea.arayeshgah.util.GhaichiPrefrenceManager;
 import com.sorinaidea.arayeshgah.util.Util;
-import com.sorinaidea.arayeshgah.webservice.MapBuilderWebService;
+import com.sorinaidea.arayeshgah.webservice.API;
+import com.sorinaidea.arayeshgah.webservice.BarbershopServices;
 
+import net.sharewire.googlemapsclustering.Cluster;
+import net.sharewire.googlemapsclustering.ClusterManager;
+import net.sharewire.googlemapsclustering.DefaultIconGenerator;
+import net.sharewire.googlemapsclustering.IconStyle;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MapsActivity
         extends FragmentActivity
@@ -74,7 +74,7 @@ public class MapsActivity
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private final LatLng mDefaultLocation = new LatLng(35.311308, 46.995735);
+    private final LatLng mDefaultLocation = new LatLng(35.3219, 46.9862);
     private static final int DEFAULT_ZOOM = 20;
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -109,7 +109,7 @@ public class MapsActivity
 
         View locationButton = ((View) mapFragment.getView().findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
-// position on right bottom
+
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
@@ -124,32 +124,30 @@ public class MapsActivity
     }
 
 
-    private LatLng getRandomLocation() {
-        return new LatLng(35.3 + Math.random(), 46 + Math.random() + Math.random() * 0.5);
-    }
-
     private void initMarkers(final GoogleMap googleMap) {
-        final ClusterManager<ClusterMarker> clusterManager = new ClusterManager<>(this, googleMap);
 
 
-        final CustomClusterRenderer renderer = new CustomClusterRenderer(this, googleMap, clusterManager);
-        clusterManager.setRenderer(renderer);
-
-
+        final ClusterManager<SampleClusterItem> clusterManager = new ClusterManager<>(this, googleMap);
         googleMap.setOnCameraIdleListener(clusterManager);
 
-        clusterManager.setOnClusterClickListener(new ClusterManager.OnClusterClickListener<ClusterMarker>() {
+
+        DefaultIconGenerator<SampleClusterItem> iconGenerator = new DefaultIconGenerator<>(this);
+
+        iconGenerator.setIconStyle(
+                new IconStyle.Builder(this)
+                        .setClusterIconResId(R.drawable.ic_pin)
+                        .build()
+        );
+
+        clusterManager.setIconGenerator(iconGenerator);
+
+
+        clusterManager.setCallbacks(new ClusterManager.Callbacks<SampleClusterItem>() {
             @Override
-            public boolean onClusterClick(Cluster<ClusterMarker> cluster) {
-
-
-                // Zoom in the cluster. Need to create LatLngBounds and including all the cluster items
-                // inside of bounds, then animate to center of the bounds.
-
-                // Create the builder to collect all essential cluster items for the bounds.
+            public boolean onClusterClick(@NonNull Cluster<SampleClusterItem> cluster) {
                 LatLngBounds.Builder builder = LatLngBounds.builder();
-                for (ClusterMarker item : cluster.getItems()) {
-                    builder.include(item.getPosition());
+                for (SampleClusterItem item : cluster.getItems()) {
+                    builder.include(item.getLocation());
                 }
                 // Get the LatLngBounds
                 final LatLngBounds bounds = builder.build();
@@ -160,64 +158,70 @@ public class MapsActivity
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 return true;
+            }
+
+            @Override
+            public boolean onClusterItemClick(@NonNull SampleClusterItem clusterItem) {
+
+                return false;
             }
         });
 
-        googleMap.setOnMarkerClickListener(clusterManager);
 
-        int counter = 0;
-        for (int i = 0; i < 200; i++) {
-            counter++;
-            ClusterMarker cmarker = new ClusterMarker();
-            cmarker.setPosition(getRandomLocation());
-            cmarker.setTitle("Title");
-            cmarker.setIcon(Util.getBitmapDescriptor(R.drawable.ic_hairdresser_64px, getApplicationContext()));
-            clusterManager.addItem(cmarker);
-            if (counter % 10 == 0)
-                clusterManager.cluster();
-        }
+        getBarbershopsLocations(clusterManager);
 
 
-        /*
-        Retrofit retrofit =
-                new Retrofit.Builder()
-                        .baseUrl(Util.CONSTANTS.BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+    }
 
 
-        MapBuilderWebService service = retrofit.create(MapBuilderWebService.class);
-        Call<List<MapMarker>> repos = service.listMarkers();
-        repos.enqueue(new Callback<List<MapMarker>>() {
+    private void getBarbershopsLocations(ClusterManager<SampleClusterItem> clusterManager) {
+
+        Retrofit retrofit = API.getRetrofit();
+
+
+        BarbershopServices service = retrofit.create(BarbershopServices.class);
+
+        String accessKey = Util.getAccessKey(getApplicationContext());
+
+        Call<List<com.sorinaidea.arayeshgah.fast.Location>> repos = service.locations(accessKey);
+
+        repos.enqueue(new Callback<List<com.sorinaidea.arayeshgah.fast.Location>>() {
+
             @Override
-            public void onFailure(Call<List<MapMarker>> call, Throwable t) {
+            public void onFailure(Call<List<com.sorinaidea.arayeshgah.fast.Location>> call, Throwable t) {
                 Log.d("ERROR", "ERROR IN GETTING DATA");
             }
 
             @Override
-            public void onResponse(Call<List<MapMarker>> call, Response<List<MapMarker>> response) {
-                int counter = 0;
-                Context context = getApplicationContext();
-                for (MapMarker marker :
-                        response.body()) {
-                    counter++;
-                    ClusterMarker cmarker = new ClusterMarker();
-                    cmarker.setPosition(new LatLng(marker.getLatitude(), marker.getLongitude()));
-                    cmarker.setTitle(marker.getTitle());
-                    cmarker.setSnippet(marker.getSnippet());
-                    cmarker.setIcon(Util.getBitmapDescriptor(R.drawable.ic_hairdresser, context));
-                    clusterManager.addItem(cmarker);
-                    if (counter % 10 == 0)
-                        clusterManager.cluster();
+            public void onResponse(Call<List<com.sorinaidea.arayeshgah.fast.Location>> call,
+                                   Response<List<com.sorinaidea.arayeshgah.fast.Location>> response) {
+
+                if (response.body() != null && !response.body().isEmpty()) {
+
+                    List<SampleClusterItem> clusterItems = new ArrayList<>();
+                    for (com.sorinaidea.arayeshgah.fast.Location marker :
+                            response.body()) {
+                        SampleClusterItem item = new SampleClusterItem(
+                                marker.getId(),
+                                new LatLng(Double.parseDouble(marker.getLatitude()),
+                                        Double.parseDouble(marker.getLongitude()))
+                                , marker.getName()
+                                , marker.getIcon()
+                        );
+
+
+                        clusterItems.add(item);
+                    }
+                    clusterManager.setItems(clusterItems);
+                } else {
+                    Log.d("ERROR", "response is null");
+
                 }
             }
 
         });
-*/
     }
-
 
     /**
      * Manipulates the map once available.
@@ -236,27 +240,25 @@ public class MapsActivity
 
         getLocationPermission();
 
-        // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
 
-        // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
         mMap.setOnInfoWindowClickListener(this);
         mMap.setPadding(0, 0, 16, 16);
         mMap.setMinZoomPreference(5.0f);
         mMap.setMaxZoomPreference(20.0f);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
 
         CustomInfoWindowAdapter adapter = new CustomInfoWindowAdapter(MapsActivity.this);
         mMap.setInfoWindowAdapter(adapter);
-
 
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
         Intent intent = new Intent(MapsActivity.this, BarberShopActivity.class);
-        // TODO put extra here!
+        intent.putExtra("BARBERSHOP_ID", (String) marker.getTag());
         startActivity(intent);
     }
 
@@ -279,11 +281,11 @@ public class MapsActivity
     }
 
     private void getLocationPermission() {
-    /*
-     * Request location permission, so that we can get the location of the
-     * device. The result of the permission request is handled by a callback,
-     * onRequestPermissionsResult.
-     */
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -306,7 +308,7 @@ public class MapsActivity
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
-        markerOptions.title("Current Position");
+        markerOptions.title("موقعیت فعلی شما");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
@@ -340,10 +342,10 @@ public class MapsActivity
 
 
     private void getDeviceLocation() {
-    /*
-     * Get the best and most recent location of the device, which may be null in rare
-     * cases when a location is not available.
-     */
+        /*
+         * Get the best and most recent location of the device, which may be null in rare
+         * cases when a location is not available.
+         */
         try {
             if (mLocationPermissionGranted) {
                 Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
@@ -358,12 +360,12 @@ public class MapsActivity
                                 LatLng lastKnownPosition = new LatLng(mLastKnownLocation.getLatitude(),
                                         mLastKnownLocation.getLongitude());
 
-                                mMap.addMarker(new MarkerOptions()
-                                        .icon(Util.getBitmapDescriptor(R.drawable.ic_pin, getApplicationContext()))
-                                        .title(getString(R.string.your_current_location))
-                                        .flat(true)
-                                        .anchor(0.5f, 1f)
-                                        .position(lastKnownPosition));
+//                                mMap.addMarker(new MarkerOptions()
+//                                        .icon(Util.getBitmapDescriptor(R.drawable.ic_hairdresser_64px, getApplicationContext()))
+//                                        .title(getString(R.string.your_current_location))
+//                                        .flat(true)
+//                                        .anchor(0.5f, 1f)
+//                                        .position(lastKnownPosition));
 
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastKnownPosition, DEFAULT_ZOOM));
                             }

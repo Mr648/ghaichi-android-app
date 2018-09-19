@@ -98,7 +98,7 @@ public class BarberShopMiniItemAdapter extends RecyclerView.Adapter<BarberShopMi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, BarberShopActivity.class);
-                intent.putExtra("PRODUCT_ID", barberShop.getId());
+                intent.putExtra("BARBERSHOP_ID", barberShop.getId());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }

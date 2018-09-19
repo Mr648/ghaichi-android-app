@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -140,7 +142,19 @@ public class ReservationV2Adabper extends RecyclerView.Adapter<ReservationV2Adab
         FontManager.setFont(viewHolder.getTxtDate(), fontIranSans);
         FontManager.setFont(viewHolder.getTxtUsername(), fontIranSans);
 
+        setAnimation(viewHolder.itemView, position);
 
+    }
+
+    private int lastPosition = -1;
+
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.sorinaidea.arayeshgah.model.Advertise;
 import com.sorinaidea.arayeshgah.model.Transaction;
 import com.sorinaidea.arayeshgah.ui.AdvertismentInfoActivity;
 import com.sorinaidea.arayeshgah.util.FontManager;
+import com.sorinaidea.arayeshgah.util.Util;
 
 import java.util.ArrayList;
 
@@ -92,42 +93,6 @@ public class AdvertisementAdabper extends RecyclerView.Adapter<AdvertisementAdab
     }
 
 
-    private int colors[] = {
-            /* This Colors are comming from Semantic UI CSS Frameword!*/
-            Color.argb(255, 219, 40, 40), // RED
-            Color.argb(255, 242, 113, 28), // ORANGE
-            Color.argb(255, 251, 189, 8), // YELLOW
-            Color.argb(255, 181, 204, 24), // OLIVE
-            Color.argb(255, 33, 186, 69), // GREEN
-            Color.argb(255, 0, 181, 173) // TEAl
-    };
-
-    private enum Colors {
-        RED,
-        ORANGE,
-        YELLOW,
-        OLIVE,
-        GREEN,
-        TEAL
-    }
-
-    private int getSuitableColor(Advertise ad) {
-        int percentage = (int) ((1.0f*ad.getViews() / ad.getAmount()) * 100);
-        Log.i("PERCENTAGE", "" + percentage);
-        if (percentage <= 20) {
-            return colors[Colors.RED.ordinal()];
-        } else if (percentage > 20 && percentage <= 50) {
-            return colors[Colors.ORANGE.ordinal()];
-        } else if (percentage > 50 && percentage <= 75) {
-            return colors[Colors.YELLOW.ordinal()];
-        } else if (percentage > 75 && percentage <= 99) {
-            return colors[Colors.OLIVE.ordinal()];
-        } else if (percentage == 100) {
-            return colors[Colors.GREEN.ordinal()];
-        } else {
-            return colors[Colors.TEAL.ordinal()];
-        }
-    }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
@@ -139,7 +104,7 @@ public class AdvertisementAdabper extends RecyclerView.Adapter<AdvertisementAdab
         Advertise currentAd = mDataSet.get(position);
         viewHolder.getTxtAmount().setText(String.format("تعداد: %d", currentAd.getAmount()));
         viewHolder.getTxtPrice().setText(String.format("%.2f تومان", currentAd.getPrice()));
-        viewHolder.getImgIsDone().setColorFilter(getSuitableColor(currentAd));
+        viewHolder.getImgIsDone().setColorFilter(Util.getSuitableColor(currentAd));
         viewHolder.getCardAdvertise().setOnClickListener((view)->{
             Intent intent = new Intent(mContext, AdvertismentInfoActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

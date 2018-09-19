@@ -59,12 +59,18 @@
     <string name="_lbl_add_credit">افزایش اعتبار</string>
     <string name="_lbl_choose">انتخاب</string>
     <string name="_lbl_comment_title">نظرسنجی</string>
+    <string name="_lbl_add_service">افزودن خدمت</string>
     <string name="_lbl_price">مبلغ (ریال) </string>
     <string name="_lbl_select_gender">انتخاب جنسیت</string>
     <string name="_lbl_cancel">انصراف</string>
     <string name="_lbl_search_barbershop">جستجوی آرایشگاه</string>
     <string name="_lbl_pay">پرداخت</string>
+    <string name="_lbl_add_sample">افزودن نمونه کار</string>
     <string name="_lbl_comment">نظر</string>
+    <string name="_lbl_choose_category">انتخاب دسته‌بندی</string>
+    <string name="_lbl_service">نام خدمت</string>
+    <string name="_lbl_sample_work">عنوان نمونه کار</string>
+    <string name="_lbl_duration">مدت زمان (دقیقه)</string>
     <string name="_lbl_all">همه</string>
     <string name="_lbl_confirm">تایید</string>
     <string name="_lbl_manage_sample_work">مدیریت نمونه کارها</string>
@@ -81,6 +87,8 @@
     <string name="err__empty__phone">لطفا شماره تلفن را وارد نمایید</string>
     <string name="err__invalid__phone">شماره تلفن وارد شده معتبر نمی‌باشد</string>
     <string name="err__empty__verfcode">کد فعالسازی خالی است</string>
+    <string name="err__empty__name">فیلد نام خالی است</string>
+    <string name="err__empty__family">فیلد نام‌خانوادگی خالی است</string>
     <string name="err__invalid__verfcode">کد فعالسازی نادرست</string>
 
 
@@ -99,6 +107,9 @@
     <string name="action_share">به اشتراک‌ گزاری</string>
     <string name="action_route">مسیر</string>
     <string name="action_reserve">رزرو</string>
+    <string name="action_filter">فیلتر</string>
+    <string name="action_single_category">انتخاب دسته‌بندی</string>
+    <string name="action_all_categories">نمایش همه خدمات</string>
     <string name="action_comment">نظردهی</string>
 
 

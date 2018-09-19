@@ -22,7 +22,6 @@ import com.sorinaidea.arayeshgah.ui.dialog.AddCreditDialog;
 import com.sorinaidea.arayeshgah.util.FontManager;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class CreditActivity extends AppCompatActivity {
 
@@ -80,7 +79,7 @@ public class CreditActivity extends AppCompatActivity {
 //        btnAddCash = (Button) view.findViewById(R.id.btnAddCash);
 
         recFaq.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        ArrayList<Transaction> dataset = initDataset();
+        ArrayList<Transaction> dataset = initDataset(true);
         recFaq.setAdapter(new TransactionAdabper(dataset, getApplicationContext()));
 
 // Create background track
@@ -162,10 +161,10 @@ public class CreditActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    private ArrayList<Transaction> initDataset() {
+    private ArrayList<Transaction> initDataset(boolean isBarber) {
         ArrayList<Transaction> mDataset = new ArrayList<>();
         for (int i = 1000, j = 1; i < 1020; i++, j += 4) {
-            mDataset.add(new Transaction(((i % 4 == 0) ? (i * 1000) : (-1 * 250 * i)), (i % 4 == 0) ? "تمدید اعتبار" : "رزرو آرایشگاه " + j, " روز ماه سال"));
+            mDataset.add(new Transaction(((i % 4 == 0) ? (i * 1000) : (-1 * 250 * i)), (i % 4 == 0) ? "تمدید اعتبار" : isBarber ? ("رزرو کاربر " + j) : ("رزرو آرایشگاه " + j), " روز ماه سال"));
         }
         return mDataset;
     }

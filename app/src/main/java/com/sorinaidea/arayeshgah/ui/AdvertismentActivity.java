@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.hookedonplay.decoviewlib.DecoView;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.AdvertisementAdabper;
 import com.sorinaidea.arayeshgah.model.Advertise;
@@ -91,11 +90,13 @@ public class AdvertismentActivity extends AppCompatActivity {
 
     private ArrayList<Advertise> initDataset() {
         ArrayList<Advertise> mDataset = new ArrayList<>();
-        for (int i = 10000, j = 0; i <= 10020; i++, j += 5) {
+        for (int amount = 10000, j = 0; amount <= 10020; amount++, j += 5) {
+            int views = (amount % 4 == 0) ? amount : (int) ((j == 0 ? 1 : j) * (j == 100 ? 1 : Math.random()) * (amount / (j == 0 ? 1 : j)));
+            int clicks = (int) ((j == 0 ? 1 : j) * (j == 100 ? 1 : Math.random()) * (amount / (j == 0 ? 1 : j)));
             mDataset.add(new Advertise(
-                            i
-                            , (int) ((j == 0 ? 1 : j) * (j == 100 ? 1 : Math.random()) * (i / (j == 0 ? 1 : j)))
-                            , (int) ((j == 0 ? 1 : j) * (j == 100 ? 1 : Math.random()) * (i / (j == 0 ? 1 : j)))
+                            amount
+                            , views
+                            , clicks
                             , 100000
                             , (j == 100)
                     )

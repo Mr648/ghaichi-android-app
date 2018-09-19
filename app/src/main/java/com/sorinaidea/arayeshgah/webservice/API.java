@@ -1,11 +1,15 @@
 package com.sorinaidea.arayeshgah.webservice;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sorinaidea.arayeshgah.model.BarberShop;
 import com.sorinaidea.arayeshgah.model.ServerResponse;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -16,32 +20,32 @@ import retrofit2.http.Path;
  * Created by mr-code on 4/25/2018.
  */
 
-public interface API {
-
-    //the base URL for our API
-    //make sure you are not using localhost
-    //find the ip usinc ipconfig command
-    String BASE_URL = "http://192.168.2.1/";
-
-    //this is our multipart request
-    //we have two parameters on is name and other one is description
-//    @POST("check")
-//    Call<ServerResponse> uploadImage(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("desc") RequestBody desc);
+public class API {
 
 
-
-    @GET("barbershop")
-    Call<List<BarberShop>> getAllBarberShops();
+    public static final String BASE_URL = "http://192.168.1.10/";
 
 
-    @GET("barbershop/{id}")
-    Call<BarberShop> getBarberShop(@Path("id") Integer barberShopId);
+    private static Retrofit retrofit;
+
+    public static Retrofit getRetrofit() {
+
+        return (retrofit == null) ? initRetrofit() : retrofit;
+    }
+
+    private static Retrofit initRetrofit() {
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(API.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        return retrofit;
+    }
 
 
-    @POST("login")
-    Call<ServerResponse> login();
-
-
-    @POST("logout")
-    Call<ServerResponse> logout();
 }

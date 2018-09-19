@@ -33,7 +33,6 @@ public class AdvertisementInfoAdabper extends RecyclerView.Adapter<Advertisement
     private Typeface fontIranSans;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final AppCompatImageView imgIcon;
         private final TextView txtTitle;
         private final TextView txtValue;
 
@@ -42,16 +41,12 @@ public class AdvertisementInfoAdabper extends RecyclerView.Adapter<Advertisement
 
             txtTitle = (TextView) v.findViewById(R.id.txtTitle);
             txtValue = (TextView) v.findViewById(R.id.txtValue);
-            imgIcon = (AppCompatImageView) v.findViewById(R.id.imgIcon);
         }
 
         public TextView getTxtTitle() {
             return txtTitle;
         }
 
-        public AppCompatImageView getImgIcon() {
-            return imgIcon;
-        }
 
         public TextView getTxtValue() {
             return txtValue;
@@ -86,7 +81,7 @@ public class AdvertisementInfoAdabper extends RecyclerView.Adapter<Advertisement
 
         viewHolder.getTxtTitle().setText(obj.get("title").getAsString());
         viewHolder.getTxtValue().setText(obj.get("value").getAsString());
-        viewHolder.getImgIcon().setImageResource(obj.get("icon").getAsInt());
+
     }
 
 

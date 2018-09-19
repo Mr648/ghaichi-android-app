@@ -57,8 +57,12 @@ public class AboutUsActivity extends AppCompatActivity {
                         .build();
 
         /**
-         *  get about us text from SERVER using {@link AboutUsService}
+         *  Get about us text from SERVER using {@link AboutUsService}
+         *
+         *
+         *
          * */
+
         AboutUsService service = retrofit.create(AboutUsService.class);
         Call<AboutUs> repos = service.getAboutUs();
         repos.enqueue(new Callback<AboutUs>() {

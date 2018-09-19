@@ -7,7 +7,7 @@
     <color name="markerTitle">#212121</color>
     <color name="markerSnippet">#424242</color>
     <color name="markerCircle">#26c6da</color>
-    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhite">#ffffff</color>
 
     <color name="credit_remaining">#10B491</color>
     <color name="credit_reservations">#FF2265</color>
@@ -18,7 +18,7 @@
     <color name="textColorDarker">#555555</color>
 
     <color name="ic_instagram">#F44834</color>
-    <color name="ic_twitter">#00c0f6</color>
+    <color name="ic_twitter">#00b0ff</color>
     <color name="ic_linkedin">#007AB9</color>
 
 </resources>

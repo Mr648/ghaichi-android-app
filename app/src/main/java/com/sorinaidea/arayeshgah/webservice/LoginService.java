@@ -1,8 +1,9 @@
 package com.sorinaidea.arayeshgah.webservice;
 
-import com.sorinaidea.arayeshgah.webservice.model.LoginRequest;
-import com.sorinaidea.arayeshgah.webservice.model.LoginResponse;
-import com.sorinaidea.arayeshgah.webservice.model.VerificationRequest;
+import com.sorinaidea.arayeshgah.webservice.model.requests.LoginRequest;
+import com.sorinaidea.arayeshgah.webservice.model.responses.LoginResponse;
+import com.sorinaidea.arayeshgah.webservice.model.requests.VerificationRequest;
+import com.sorinaidea.arayeshgah.webservice.model.responses.VerificationResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -13,10 +14,13 @@ import retrofit2.http.POST;
  */
 
 public interface LoginService {
-    @POST("sendSms")
+
+
+
+    @POST("api/system/sms/send")
     Call<LoginResponse> login(@Body LoginRequest request);
 
-    @POST("verifyCode")
-    Call<LoginResponse> verify(@Body VerificationRequest request);
+    @POST("api/system/sms/verify")
+    Call<VerificationResponse> verify(@Body VerificationRequest request);
 
 }

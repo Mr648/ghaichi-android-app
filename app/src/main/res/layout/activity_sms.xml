@@ -90,9 +90,8 @@
                 android:gravity="center"
                 android:imeOptions="actionGo"
                 android:inputType="phone"
-                android:maxLength="4"
+                android:maxLength="5"
                 android:maxLines="1"
-                android:text="4568"
                 android:textSize="18sp" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>

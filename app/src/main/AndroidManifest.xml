@@ -12,15 +12,20 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:name=".util.SorinaApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- android:allowBackup="false" means app data will be removed when uninstall -->
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -34,15 +39,25 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <receiver android:name=".util.SmsReciver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps">
+
+        </activity>
 
 
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.ReservationActivity"
             android:label="@string/title_activity_maps"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
 
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.AddServiceCategoryActivity"
@@ -97,6 +112,12 @@
 
         </activity>
         <activity
+            android:name="com.sorinaidea.arayeshgah.ui.ManageSampleActivity"
+            android:label="@string/label_aboutus"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
             android:name=".ui.FaqActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar">
@@ -120,17 +141,19 @@
 
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.MainActivity"
-            android:label="@string/app_name"
+            android:label="MAIN"
             android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.BarberShopActivity"
+            android:label="BARBERSHOP"
             android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.CreditActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.GetGiftActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -145,6 +168,7 @@
 
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.BarberMainActivity"
+            android:label="BARBER"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
@@ -153,10 +177,12 @@
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.AdvertismentActivity"
             android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.AdvertismentInfoActivity"
             android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
 
         <activity
@@ -179,9 +205,7 @@
         </activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.SendSupportTicketActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name="com.sorinaidea.arayeshgah.ui.PaymentCallBack"
             android:label="@string/title_activity_maps"

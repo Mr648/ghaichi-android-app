@@ -20,14 +20,20 @@ import com.sorinaidea.arayeshgah.util.FontManager;
 import com.sorinaidea.arayeshgah.util.SorinaApplication;
 import com.sorinaidea.arayeshgah.util.picasso.CircleTransformation;
 import com.sorinaidea.arayeshgah.util.picasso.RoundedTransformation;
+import com.sorinaidea.arayeshgah.webservice.API;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 /**
  * Created by mr-code on 2/12/2018.
  */
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
     private Activity context;
     private Typeface fontIransans;
 
@@ -51,26 +57,27 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         TextView txtTitle = (TextView) view.findViewById(R.id.marker_title);
         ImageView imgLogo = (ImageView) view.findViewById(R.id.marker_logo);
 
-        txtTitle.setText("ناز عروس");
-        imgLogo.setImageResource(R.drawable.barbershop);
-
-//        String url = "https://cdn2.iconfinder.com/data/icons/flat-jewels-icon-set/512/0002_Tree.png";
-        String url = "https://cdn2.iconfinder.com/data/icons/flat-jewels-icon-set/512/0002_Tree.png";
+        String markerTitle = marker.getTitle().split("@")[0];
+        String markerBarbershopId = marker.getTitle().split("@")[1];
+        txtTitle.setText(markerTitle);
+        marker.setTag(markerBarbershopId);
+        String icon = marker.getSnippet();
 
         FontManager.setFont(txtTitle, fontIransans);
 
 
         // TODO: use glide to get logo of marker
 
-
-//        Picasso.with(context)
-//                .load(url)
-//                .resize(48, 48)
-//                .centerCrop()
-//                .transform(new CircleTransformation()).into(imgLogo);
-
-
-//        Glide.with(context).load(url).into(imgLogo);
+        try {
+            Picasso.with(context)
+                    .load(API.BASE_URL
+                            + URLDecoder.decode(icon, "UTF-8"))
+                    .resize(48, 48)
+                    .centerCrop()
+                    .transform(new CircleTransformation()).into(imgLogo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         return view;

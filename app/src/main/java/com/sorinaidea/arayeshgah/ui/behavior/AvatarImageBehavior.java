@@ -16,7 +16,7 @@ import com.sorinaidea.arayeshgah.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-@SuppressWarnings("unused")
+
 public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircleImageView> {
 
     private final static float MIN_AVATAR_PERCENTAGE_SIZE = 0.3f;

@@ -28,17 +28,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.maps.android.clustering.Cluster;
-import com.google.maps.android.clustering.ClusterManager;
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.CustomInfoWindowAdapter;
-import com.sorinaidea.arayeshgah.model.ClusterMarker;
-import com.sorinaidea.arayeshgah.util.CustomClusterRenderer;
 import com.sorinaidea.arayeshgah.util.GetDirection;
 import com.sorinaidea.arayeshgah.util.Util;
 

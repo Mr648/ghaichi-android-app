@@ -10,6 +10,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,9 +20,22 @@ import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.util.FontManager;
+import com.sorinaidea.arayeshgah.util.GhaichiPrefrenceManager;
+import com.sorinaidea.arayeshgah.util.SmsListener;
+import com.sorinaidea.arayeshgah.util.SmsReciver;
+import com.sorinaidea.arayeshgah.util.SorinaApplication;
 import com.sorinaidea.arayeshgah.util.Util;
+import com.sorinaidea.arayeshgah.webservice.API;
+import com.sorinaidea.arayeshgah.webservice.LoginService;
+import com.sorinaidea.arayeshgah.webservice.model.requests.VerificationRequest;
+import com.sorinaidea.arayeshgah.webservice.model.responses.VerificationResponse;
 
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by mr-code on 6/17/2018.
@@ -56,6 +70,29 @@ public class SmsVerificationActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (SorinaApplication.hasAccessKey(getApplicationContext())) {
+            finish();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (SorinaApplication.hasAccessKey(getApplicationContext())) {
+            finish();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (SorinaApplication.hasAccessKey(getApplicationContext())) {
+            finish();
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,90 +123,97 @@ public class SmsVerificationActivity extends AppCompatActivity {
         inputLayoutVerificationCode = (TextInputLayout) findViewById(R.id.inputLayoutVerificationCode);
         edtVerificationCode = (TextInputEditText) findViewById(R.id.edtVerificationCode);
 
-        edtVerificationCode.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    submitForm(phone);
-                }
-                return false;
+        edtVerificationCode.setOnKeyListener((view, i, keyEvent) -> {
+            if (btnVerify.isEnabled() && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                submitForm(phone);
             }
+            return false;
         });
 
         btnVerify.setOnClickListener(verfiyClickListener);
+//        btnVerify.setEnabled(false);
 
 
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
 
         FontManager.setFont(btnVerify, iranSans);
-        FontManager.setFont(inputLayoutVerificationCode , iranSans);
-        FontManager.setFont(edtVerificationCode , iranSans);
-        FontManager.setFont(mTitle , iranSans);
+        FontManager.setFont(inputLayoutVerificationCode, iranSans);
+        FontManager.setFont(edtVerificationCode, iranSans);
+        FontManager.setFont(mTitle, iranSans);
+
+        SmsReciver.bindListener(new SmsListener() {
+            @Override
+            public void onMessageReceived(String messageText) {
+                Log.e("Text", messageText);
+                edtVerificationCode.setText(messageText);
+                btnVerify.setEnabled(true);
+                btnVerify.animate().scaleXBy(1.1f);
+            }
+        });
 
     }
 
     private void sendVerificationCode(final String phone, final String verificationCode) {
 
 
-//        Intent intent = new Intent(SmsVerificationActivity.this, PersonalInfoActivity.class);
-//        startActivity(intent);
-//
-//        finish();
-////
-        Intent intent = new Intent(SmsVerificationActivity .this, BarberMainActivity.class);
-        startActivity(intent);
-        finish();
-
-        /*
-        Gson gson = new GsonBuilder().setLenient().create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
+        Retrofit retrofit = API.getRetrofit();
 
         LoginService webService = retrofit.create(LoginService.class);
 
 
-        Call<LoginResponse> callWebservice =
-                webService.verify(new VerificationRequest(phone, verificationCode));
+        final String userType = Util.base64decode(
+                GhaichiPrefrenceManager.getString(getApplicationContext(),
+                        Util.md5(Util.PREFRENCES_KEYS.USER_ROLE)
+                        , null
+                ),
+                Util.PREFRENCES_KEYS.BASE_64_ENCODE_DECODE_COUNT
+        );
 
-        callWebservice.enqueue(new Callback<LoginResponse>() {
+        Call<VerificationResponse> callWebservice =
+                webService.verify(new VerificationRequest(phone, verificationCode, userType));
+
+        callWebservice.enqueue(new Callback<VerificationResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<VerificationResponse> call, Response<VerificationResponse> response) {
                 if (response.body() != null) {
 
                     if (!response.body().hasError()) {
 
                         // TODO Goto Other Part Of Program.
-                        getApplicationContext().getSharedPreferences("userConfiguration", MODE_PRIVATE).edit().putString(
-                                "authKey",
-                                response.body().getAuthKey()
+                        GhaichiPrefrenceManager.putString(getApplicationContext(),
+                                Util.md5(Util.PREFRENCES_KEYS.USER_ACCESS_KEY),
+                                Util.base64encode(response.body().getAccessKey(), Util.PREFRENCES_KEYS.BASE_64_ENCODE_DECODE_COUNT)
                         );
 
                         Log.i(TAG, "onResponse.SUCCESS: " + response.body().getMessage());
-                        Intent intent = new Intent(SmsVerificationActivity.this, PersonalInfoActivity.class);
-                        startActivity(intent);
-
-                        finish();
+                        if (!response.body().isProfileCompleted()) {
+                            Intent intent = new Intent(SmsVerificationActivity.this, PersonalInfoActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            if (userType.equals(Util.CONSTANTS.ROLE_BARBERSHOP)) {
+                                startActivity(new Intent(SmsVerificationActivity.this, BarberMainActivity.class));
+                                finish();
+                            } else if (userType.equals(Util.CONSTANTS.ROLE_NORMAL_USER)) {
+                                startActivity(new Intent(SmsVerificationActivity.this, MainActivity.class));
+                                finish();
+                            }
+                        }
                     } else {
-                        timer.cancel();
                         Log.i(TAG, "onResponse.FAILURE: " + response.body().getMessage());
                     }
 
                 } else {
-                    timer.cancel();
                     Log.i(TAG, "onResponse.NULL: " + null);
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<VerificationResponse> call, Throwable t) {
                 Log.i(TAG, "onFailure: " + t.getMessage());
-                timer.cancel();
             }
-        });*/
+        });
     }
 
     private boolean validateVerificationCode() {
@@ -185,13 +229,12 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
         } else {
             inputLayoutVerificationCode.setErrorEnabled(false);
-
         }
         return true;
     }
 
     private void submitForm(final String phone) {
-        btnVerify.setEnabled(false);
+//        btnVerify.setEnabled(false);
         if (!validateVerificationCode()) {
             btnVerify.setEnabled(true);
             return;

@@ -26,14 +26,38 @@
             android:text="Toolbar Title" />
     </android.support.v7.widget.Toolbar>
 
+    <RelativeLayout
+        android:id="@+id/relArcView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar">
+
+        <com.hookedonplay.decoviewlib.DecoView
+            android:id="@+id/dynamicArcView"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_144dp"
+            android:layout_marginBottom="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_8dp"
+            app:dv_lineWidth="@dimen/_8dp" />
+
+        <TextView
+            android:id="@+id/txtViews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="نمودار تعداد بازدید"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+    </RelativeLayout>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/relArcView">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recInfo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </android.support.v4.widget.NestedScrollView>
 
 

@@ -101,11 +101,6 @@ public class AddServiceCategoryActivity extends AppCompatActivity implements Rec
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.barbershop_add_category_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

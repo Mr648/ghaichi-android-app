@@ -82,7 +82,6 @@
                 android:inputType="phone"
                 android:maxLength="@integer/phone_edit_text_length"
                 android:maxLines="1"
-                android:text="09185397210"
                 android:textSize="18sp" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
@@ -99,6 +98,8 @@
         <Button
             android:id="@+id/btnSendCode"
             style="@style/AppTheme.Button"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/send_activation_code" />

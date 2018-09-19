@@ -65,13 +65,172 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/relStatistics"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_144dp"
+                    android:layout_below="@id/relSlideShow"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_8dp"
+                    android:weightSum="5">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_4dp"
+                        android:layout_weight="3"
+                        app:cardBackgroundColor="@color/colorPurple"
+                        app:cardCornerRadius="@dimen/_8dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_margin="@dimen/_16dp"
+                                android:text="کل رزروهای امرزو"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/colorWhite" />
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/img1"
+                                android:layout_width="@dimen/_48dp"
+                                android:layout_height="@dimen/_48dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_margin="@dimen/_16dp"
+                                android:scaleType="centerInside"
+                                android:tint="@color/colorWhite"
+                                app:srcCompat="@drawable/ic_pie_chart" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginBottom="@dimen/_16dp"
+                                android:layout_toStartOf="@id/img1"
+                                android:text="14"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/_32sp" />
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_56dp"
+                            android:layout_margin="@dimen/_4dp"
+                            app:cardBackgroundColor="@color/ic_twitter"
+
+                            app:cardCornerRadius="@dimen/_8dp"
+                            app:contentPadding="@dimen/_4dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginStart="@dimen/_4dp"
+                                    android:layout_marginTop="@dimen/_2dp"
+                                    android:text="تعداد رزرو صبح"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="@dimen/_8sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_marginStart="@dimen/_4dp"
+                                    android:layout_toStartOf="@+id/img2"
+                                    android:text="5"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                    android:textColor="@color/colorWhite" />
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/img2"
+                                    android:layout_width="@dimen/_48dp"
+                                    android:layout_height="@dimen/_48dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:scaleType="centerInside"
+                                    android:tint="@color/colorWhite"
+                                    app:srcCompat="@drawable/ic_sun_morning" />
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_56dp"
+                            android:layout_margin="@dimen/_4dp"
+                            app:cardBackgroundColor="@color/colorOrange"
+
+                            app:cardCornerRadius="@dimen/_8dp"
+                            app:contentPadding="@dimen/_4dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginStart="@dimen/_4dp"
+                                    android:layout_marginTop="@dimen/_2dp"
+                                    android:text="تعداد رزرو عصر"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="@dimen/_8sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_marginStart="@dimen/_4dp"
+                                    android:layout_toStartOf="@+id/img3"
+                                    android:text="9"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                    android:textColor="@color/colorWhite" />
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/img3"
+                                    android:layout_width="@dimen/_48dp"
+                                    android:layout_height="@dimen/_48dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:scaleType="centerInside"
+                                    android:tint="@color/colorWhite"
+                                    app:srcCompat="@drawable/ic_sun_evening" />
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/lnrActions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/relSlideShow"
+                    android:layout_below="@id/relStatistics"
                     android:gravity="center_horizontal|center_vertical"
-                    android:paddingBottom="@dimen/_8dp"
-                    android:paddingTop="@dimen/_8dp">
+                    android:paddingBottom="@dimen/_4dp"
+                    android:paddingTop="@dimen/_4dp">
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/cardCategory"
@@ -192,6 +351,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:scrollbars="none"
+        android:visibility="visible"
         app:headerLayout="@layout/nav_header_main"
         app:itemIconTint="@color/colorPrimary"
         app:menu="@menu/activity_main_hairdresser_drawer" />

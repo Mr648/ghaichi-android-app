@@ -1,11 +1,8 @@
 package com.sorinaidea.arayeshgah.webservice;
 
-import com.sorinaidea.arayeshgah.webservice.model.LoginRequest;
-import com.sorinaidea.arayeshgah.webservice.model.LoginResponse;
-import com.sorinaidea.arayeshgah.webservice.model.VerificationRequest;
+import com.sorinaidea.arayeshgah.webservice.model.responses.LoginResponse;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 

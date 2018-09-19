@@ -30,13 +30,19 @@ public class MessageDialog extends Dialog {
     private AppCompatActivity activity;
     private String TAG = "MessageDialog";
     private Typeface fontIranSans;
+    private String message;
 
     public MessageDialog(AppCompatActivity activity) {
+        this(activity, "");
+    }
+
+    public MessageDialog(AppCompatActivity activity, String message) {
         super(activity);
+        this.message = message;
         this.activity = activity;
         this.fontIranSans = FontManager.getTypeface(activity, FontManager.IRANSANS_TEXTS);
-
     }
+
 
     private AppCompatButton btnCancel;
     private AppCompatButton btnOk;
@@ -51,21 +57,14 @@ public class MessageDialog extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.message_dialog);
-
         btnCancel = (AppCompatButton) findViewById(R.id.btnCancel);
         btnOk = (AppCompatButton) findViewById(R.id.btnOk);
         txtMessage = (AppCompatTextView) findViewById(R.id.txtMessage);
         imgIcon = (AppCompatImageView) findViewById(R.id.imgIcon);
-        String message = "";
-        for (int i = 0; i < 10; i++) {
-            message += "ورژن جدید برنامه موجود است،\n بروزرسانی کنید.";
-        }
-        txtMessage.setText(message);
-
+        txtMessage.setText(this.message);
         FontManager.setFont(btnCancel, fontIranSans);
         FontManager.setFont(btnOk, fontIranSans);
         FontManager.setFont(txtMessage, fontIranSans);
-
     }
 
 

@@ -27,7 +27,6 @@ import android.widget.TextView;
 
 import com.sorinaidea.arayeshgah.R;
 import com.sorinaidea.arayeshgah.adapter.ImageSliderAdapter;
-import com.sorinaidea.arayeshgah.adapter.ReservationAdabper;
 import com.sorinaidea.arayeshgah.adapter.ReservationV2Adabper;
 import com.sorinaidea.arayeshgah.model.Reservation;
 import com.sorinaidea.arayeshgah.util.FontManager;
@@ -62,6 +61,9 @@ public class BarberMainActivity extends AppCompatActivity implements
         } else if (id == R.id.action_aboutus) {
             Intent intent = new Intent(BarberMainActivity.this, AboutUsActivity.class);
             startActivity(intent);
+        } else if (id == R.id.action_credit) {
+            Intent intent = new Intent(BarberMainActivity.this, CreditActivity.class);
+            startActivity(intent);
         } else if (id == R.id.action_advertise) {
             Intent intent = new Intent(BarberMainActivity.this, AdvertismentActivity.class);
             startActivity(intent);
@@ -95,7 +97,7 @@ public class BarberMainActivity extends AppCompatActivity implements
     private ArrayList<Reservation> initDataset() {
         ArrayList<Reservation> mDataset = new ArrayList<>();
         Date date = new Date();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 50; i++) {
             mDataset.add(new Reservation(R.drawable.background_green, "نام کاربر", "1396/11/12", "16:45 ب.ظ", "لیست مختصر خدمات..."));
         }
         return mDataset;
@@ -118,12 +120,12 @@ public class BarberMainActivity extends AppCompatActivity implements
             startActivity(intent);
         });
         cardServices.setOnClickListener((view) -> {
-//            Intent intent = new Intent(BarberMainActivity.this, AddServiceCategoryActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(BarberMainActivity.this, AddServiceActivity.class);
+            startActivity(intent);
         });
         cardSample.setOnClickListener((view) -> {
-//            Intent intent = new Intent(BarberMainActivity.this, AddServiceCategoryActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(BarberMainActivity.this, ManageSampleActivity.class);
+            startActivity(intent);
         });
 
 //        fabAddServiceCategory.setOnClickListener(new View.OnClickListener() {

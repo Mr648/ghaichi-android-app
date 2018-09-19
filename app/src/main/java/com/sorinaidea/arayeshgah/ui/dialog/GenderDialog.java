@@ -113,6 +113,7 @@ public class GenderDialog extends Dialog implements View.OnClickListener {
         @Override
         public void run() {
             btnSelectGender.setText(selectedGender.getType());
+            btnSelectGender.setTag(selectedGender.equals(Gender.MALE)?Boolean.TRUE:Boolean.FALSE);
             dismiss();
         }
 
