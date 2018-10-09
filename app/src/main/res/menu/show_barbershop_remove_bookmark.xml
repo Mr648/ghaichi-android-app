@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_more_vert_white_24dp"
+        android:orderInCategory="103"
+        android:title=""
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_bookmark"
+                android:icon="@drawable/ic_bookmark_white_24dp"
+                android:orderInCategory="101"
+                android:title="@string/action_remove_bookmark"
+                app:showAsAction="always" />
+            <item
+
+                android:id="@+id/action_share"
+                android:icon="@drawable/ic_share_black_24dp"
+                android:orderInCategory="102"
+                android:title="@string/action_share"
+                app:showAsAction="always" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_route"
+        android:icon="@drawable/ic_directions_white_24dp"
+        android:orderInCategory="101"
+        android:title="@string/action_route"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_reserve"
+        android:icon="@drawable/ic_alarm_add_white_24dp"
+        android:orderInCategory="102"
+        android:title="@string/action_reserve"
+        app:showAsAction="always" />
+
+</menu>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sorinaidea.arayeshgah">
+    package="com.sorinaidea.ghaichi">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -15,6 +15,12 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
 
 
     <application
@@ -46,28 +52,34 @@
         </receiver>
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.MapsActivity"
+            android:name="com.sorinaidea.ghaichi.ui.MapsActivity"
             android:label="@string/title_activity_maps">
+
+        </activity>
+        <activity
+            android:name="com.sorinaidea.ghaichi.ui.CommentsActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.ReservationActivity"
+            android:name="com.sorinaidea.ghaichi.ui.ReservationActivity"
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.AddServiceCategoryActivity"
+            android:name="com.sorinaidea.ghaichi.ui.AddServiceCategoryActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.ShowDirectionActivity"
+            android:name="com.sorinaidea.ghaichi.ui.ShowDirectionActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -75,7 +87,7 @@
 
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.ReserveActivity"
+            android:name="com.sorinaidea.ghaichi.ui.ReserveActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -106,13 +118,13 @@
 
         </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.AddServiceActivity"
+            android:name="com.sorinaidea.ghaichi.ui.AddServiceActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.ManageSampleActivity"
+            android:name="com.sorinaidea.ghaichi.ui.ManageSampleActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -126,13 +138,13 @@
 
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.AboutUsActivity"
+            android:name="com.sorinaidea.ghaichi.ui.AboutUsActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.BarberChooseLocationActivity"
+            android:name="com.sorinaidea.ghaichi.ui.BarberChooseLocationActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -140,34 +152,43 @@
 
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.MainActivity"
-            android:label="MAIN"
+            android:name="com.sorinaidea.ghaichi.ui.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name="com.sorinaidea.ghaichi.ui.BookmarksActivity"
+            android:label="@string/lable_activity_bookmarks"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.BarberShopActivity"
+            android:name="com.sorinaidea.ghaichi.ui.BarberShopActivity"
             android:label="BARBERSHOP"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.CreditActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name="com.sorinaidea.ghaichi.ui.CreditActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.GetGiftActivity"
+            android:name="com.sorinaidea.ghaichi.ui.GetGiftActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.LoginActivity"
+            android:name="com.sorinaidea.ghaichi.ui.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.BarberMainActivity"
+            android:name="com.sorinaidea.ghaichi.ui.BarberMainActivity"
             android:label="BARBER"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -175,18 +196,18 @@
 
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.AdvertismentActivity"
+            android:name="com.sorinaidea.ghaichi.ui.AdvertismentActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.AdvertismentInfoActivity"
+            android:name="com.sorinaidea.ghaichi.ui.AdvertismentInfoActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.SplashActivity"
+            android:name="com.sorinaidea.ghaichi.ui.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -194,20 +215,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.SmsVerificationActivity"
+            android:name="com.sorinaidea.ghaichi.ui.SmsVerificationActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.PersonalInfoActivity"
+            android:name="com.sorinaidea.ghaichi.ui.PersonalInfoActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.SendSupportTicketActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name="com.sorinaidea.ghaichi.ui.SendSupportTicketActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
-            android:name="com.sorinaidea.arayeshgah.ui.PaymentCallBack"
+            android:name="com.sorinaidea.ghaichi.ui.PaymentCallBack"
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize">

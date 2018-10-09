@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,4 +10,25 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/preview_small" />
-</RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/prgLoad"
+        android:layout_width="@dimen/_56dp"
+        android:layout_height="@dimen/_56dp"
+        android:layout_gravity="center"
+        android:background="@color/transparent"
+        android:indeterminate="true" />
+
+    <TextView
+        android:id="@+id/txtMessage"
+        style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_56dp"
+        android:layout_gravity="center"
+        android:background="@color/transparent"
+        android:gravity="center"
+        android:indeterminate="true"
+        android:visibility="invisible" />
+
+
+</FrameLayout>

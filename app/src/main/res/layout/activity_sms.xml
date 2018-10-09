@@ -105,12 +105,50 @@
         android:gravity="bottom"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnVerify"
-            style="@style/AppTheme.Button"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/verification_code_continue" />
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btnVerify"
+                style="@style/AppTheme.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="@string/verification_code_continue" />
+
+            <RelativeLayout
+                android:id="@+id/relProgress"
+                android:layout_width="@dimen/_48dp"
+                android:layout_height="@dimen/_48dp"
+                android:layout_above="@+id/btnVerify"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/_2dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:background="@color/white">
+
+                <ProgressBar
+                    android:id="@+id/prgTimer"
+                    style="@style/Widget.AppCompat.ProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="true" />
+
+                <TextView
+                    android:id="@+id/txtProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="100"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
     </LinearLayout>
 
 

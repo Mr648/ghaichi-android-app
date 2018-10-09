@@ -22,9 +22,8 @@
             android:layout_height="@dimen/_48dp"
             android:layout_alignParentStart="true"
             android:src="@drawable/ic_account_circle_white_24dp"
-            app:civ_border_color="@color/colorGrayDarker"
-            app:civ_circle_background_color="@color/colorGray"
-            app:civ_border_width="1dp"
+            app:civ_border_color="@color/colorGray"
+            app:civ_border_width="@dimen/_1dp"
             />
 
         <TextView
@@ -36,7 +35,6 @@
             android:layout_marginStart="@dimen/_8dp"
             android:layout_toEndOf="@id/imgProfile"
             android:gravity="center"
-            android:text="محمد کریمی"
             android:textColor="@color/colorGrayDarker" />
 
         <TextView
@@ -46,22 +44,20 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txtUsername"
             android:layout_marginTop="@dimen/_16dp"
-            android:text="نظر تستی، به نظر خوب است بود خواهد شد.نظر تستی، به نظر خوب است بود خواهد شد.نظر تستی، به نظر خوب است بود خواهد شد.نظر تستی، به نظر خوب است بود خواهد شد.نظر تستی، به نظر خوب است بود خواهد شد.نظر تستی، به نظر خوب است بود خواهد شد."
             android:textColor="@color/colorGrayDark" />
 
         <android.support.v7.widget.AppCompatRatingBar
             android:id="@+id/ratingBar"
             style="@style/Widget.AppCompat.RatingBar.Small"
-            android:theme="@style/AppTheme.RatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:isIndicator="true"
-
             android:layoutDirection="rtl"
+
             android:max="5"
-            android:rating="3.5" />
+            android:theme="@style/AppTheme.RatingBar" />
 
         <TextView
             android:id="@+id/txtDate"
@@ -72,7 +68,6 @@
             android:layout_below="@id/ratingBar"
             android:layout_marginTop="@dimen/_12dp"
             android:gravity="center"
-            android:text="97/12/13"
             android:textColor="@color/colorGrayDarker" />
     </RelativeLayout>
 

@@ -77,7 +77,6 @@
             android:paddingRight="@dimen/padding_16dp"
             android:paddingStart="@dimen/padding_16dp"
             android:paddingTop="@dimen/padding_8dp"
-            android:text="ASD23WE2SSD"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_24sp" />
 

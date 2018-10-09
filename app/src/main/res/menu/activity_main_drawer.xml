@@ -38,4 +38,8 @@
                 android:title="@string/label_faq" />
         </menu>
     </item>
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_exit_to_app_black_18dp"
+        android:title="@string/label_logout" />
 </menu>

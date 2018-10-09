@@ -2,6 +2,7 @@
     <string name="app_name">قیچی</string>
     <string name="title_activity_maps">Sorina Map</string>
     <string name="action_refresh">Refresh</string>
+    <string name="lable_activity_bookmarks">علاقه‌مندی‌ها</string>
     <string name="your_current_location">موقعیت فعلی شما</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
@@ -30,7 +31,7 @@
     <string name="didnt_get_the_code">کد را دریافت نکردید؟</string>
     <string name="send_activation_code_again">ارسال مجدد</string>
     <string name="exit_the_app">خروج از حساب کاربری</string>
-    <string name="error_invalid_phone">شماره موبایل به درستی وارد نشده است.</string>
+    <string name="error_invalid_phone"> شماره موبایل به درستی وارد نشده است. نمونه شماره معتبر: 0919***1234</string>
     <string name="error_empty_phone">شماره موبایل را وارد نمایید.</string>
     <string name="choose_location">انتخاب مکان</string>
     <string name="credid_msg">موجودی(ریال)</string>
@@ -90,6 +91,7 @@
     <string name="err__empty__name">فیلد نام خالی است</string>
     <string name="err__empty__family">فیلد نام‌خانوادگی خالی است</string>
     <string name="err__invalid__verfcode">کد فعالسازی نادرست</string>
+    <string name="err__load_image_failed">خطا در بارگزاری تصویر</string>
 
 
     <string name="label_pick_photo">انتخاب تصویر</string>
@@ -99,11 +101,13 @@
     <string name="label_faq">سوالات متداول</string>
     <string name="label_favorites">علاقه مندی ها</string>
     <string name="label_free_reservation">رزرو رایگان</string>
+    <string name="label_logout">خروج از حساب کاربری</string>
     <string name="label_setting">تنظیمات</string>
     <string name="label_aboutus">درباره ما</string>
     <string name="navigation_menu_open">باز کردن</string>
     <string name="navigation_menu_close">بستن</string>
     <string name="action_bookmark">نشان کردن</string>
+    <string name="action_remove_bookmark">حذف از نشان شده‌ها</string>
     <string name="action_share">به اشتراک‌ گزاری</string>
     <string name="action_route">مسیر</string>
     <string name="action_reserve">رزرو</string>

@@ -10,24 +10,23 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8dp"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/marker_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="title title"
             style="@style/TextAppearance.AppCompat.Small"
-         />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right" />
 
     </LinearLayout>
 
     <ImageView
         android:id="@+id/marker_logo"
-        android:layout_width="@dimen/_24dp"
-        android:layout_height="@dimen/_24dp"
+        android:layout_width="@dimen/_48dp"
+        android:layout_height="@dimen/_56dp"
         android:layout_marginLeft="8dp"
         android:src="@drawable/ic_hairdresser_64px" />
 

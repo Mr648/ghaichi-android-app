@@ -52,6 +52,8 @@
                     app:civ_border_color="@color/colorGray"
                     app:civ_border_width="@dimen/_1dp" />
 
+
+
             </RelativeLayout>
 
 
@@ -77,8 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_4dp"
-                        android:layout_marginEnd="@dimen/_4dp"
-                        android:text="5" />
+                        android:layout_marginEnd="@dimen/_4dp" />
 
                     <RatingBar
                         android:id="@+id/ratingBar"
@@ -89,8 +90,7 @@
                         android:isIndicator="true"
                         android:layoutDirection="ltr"
                         android:numStars="5"
-                        android:rating="3.5"
-                        android:stepSize="0.5"
+                        android:stepSize="0.01"
                         android:theme="@style/AppTheme.RatingBar" />
 
                 </LinearLayout>
@@ -102,8 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginStart="@dimen/_24dp"
-                    android:text="نام آرایشگاه" />
+                    android:layout_marginStart="@dimen/_24dp" />
 
                 <TextView
                     android:id="@+id/txtDescription"
@@ -111,8 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txtUsername"
                     android:layout_margin="@dimen/_8dp"
-                    android:layout_marginTop="@dimen/_16dp"
-                    android:text="توضیحات آرایشگاه، توضیحات آرایشگاه، توضیحات آرایشگاه، توضیحات آرایشگاه، توضیحات آرایشگاه، " />
+                    android:layout_marginTop="@dimen/_16dp" />
 
             </RelativeLayout>
 
@@ -135,9 +133,8 @@
                     android:id="@+id/txtAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toEndOf="@id/imgLocation"
                     android:layout_marginStart="@dimen/_8dp"
-                    android:text="کردستان، سنندج، بهاران، میدان قانع\n روبروی شیرینی آ حسین، طبقه دوم پلاک 78" />
+                    android:layout_toEndOf="@id/imgLocation" />
 
             </RelativeLayout>
 <android.support.v4.widget.Space

@@ -6,6 +6,11 @@
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imgProfileImage"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:layout_width="wrap_content"

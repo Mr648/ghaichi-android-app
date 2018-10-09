@@ -52,26 +52,12 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/dialog_button_background"
             android:gravity="center_vertical"
-            android:weightSum="2">
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btnCancel"
-                style="@style/AppTheme.DialogButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/_2dp"
-                android:layout_weight="1"
-                android:text="@string/_lbl_cancel" />
-
-            <ImageView
-                android:layout_width="@dimen/_1px"
-                android:layout_height="@dimen/_42dp"
-                android:src="@color/colorWhite" />
+             >
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnOk"
                 style="@style/AppTheme.DialogButton.Bold"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/_2dp"
                 android:layout_weight="1"
