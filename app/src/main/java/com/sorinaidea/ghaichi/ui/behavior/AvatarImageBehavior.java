@@ -103,7 +103,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircleImageV
 
             child.setX(mContext.getResources().getDimensionPixelOffset(R.dimen._10dp));
             child.setY(mContext.getResources().getDimensionPixelOffset(R.dimen._12dp));
-            child.animate().alpha(0.0f).setDuration(500);
+//            child.animate().alpha(0.0f).setDuration(500);
             Log.i("POS1", String.format("X:%s, Y:%s", String.valueOf(mContext.getResources().getDimensionPixelOffset(R.dimen._16dp)), String.valueOf(mContext.getResources().getDimensionPixelOffset(R.dimen._12dp))));
             Log.i("POSX", String.format("X:%s, Y:%s", String.valueOf(child.getX()), String.valueOf(child.getY())));
 

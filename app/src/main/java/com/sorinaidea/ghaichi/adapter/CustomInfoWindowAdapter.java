@@ -59,7 +59,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
             imgLogo.setImageResource(R.drawable.ic_cluster);
         } else {
             try {
-                Picasso.with(context)
+                API.getPicasso(context)
                         .load(API.BASE_URL
                                 + URLDecoder.decode(icon, "UTF-8"))
                         .resize(128,128)

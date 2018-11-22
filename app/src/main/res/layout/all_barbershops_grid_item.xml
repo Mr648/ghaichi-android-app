@@ -1,39 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/_172dp"
-    android:layout_height="@dimen/_200dp"
-    app:cardCornerRadius="@dimen/_4dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_4dp"
+    app:contentPadding="@dimen/_8dp">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layoutDirection="rtl"
-        android:minHeight="@dimen/_172dp">
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layoutDirection="rtl">
 
-        <android.support.v7.widget.AppCompatImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgLogo"
-            android:layout_width="@dimen/_144dp"
-            android:layout_height="@dimen/_144dp"
-            android:padding="@dimen/_32dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/_4dp"
-            android:scaleType="centerInside"
+            android:layout_width="@dimen/_96dp"
+            android:layout_height="@dimen/_96dp"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp"
             app:srcCompat="@drawable/barbershop" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/txtUsername"
             style="@style/TextAppearance.AppCompat.Small"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="@dimen/_12dp"
-            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_16dp"
             android:gravity="center"
-            android:text="@string/_hint_name" />
+            android:text="@string/_hint_name"
+            app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    app:cardCornerRadius="@dimen/_4dp"
+    app:contentPadding="@dimen/_8dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layoutDirection="rtl">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="@dimen/_96dp"
+            android:layout_height="@dimen/_96dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp"
+            app:srcCompat="@drawable/barbershop" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtUsername"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imgLogo"
+            android:layout_marginTop="@dimen/_12dp"
+            android:text="@string/_hint_name" />
+
+        <RatingBar
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/_16dp"
+            android:isIndicator="true"
+            android:rating="5"
+            android:stepSize="1" />
+
+        <TextView
+            android:id="@+id/txtAddress"
+            android:text="آدرس نمونه، آدرس نمونه، نمونه آدرس..."
+            android:layout_toEndOf="@id/imgLogo"
+            android:layout_marginTop="@dimen/_8dp"
+            android:layout_below="@id/txtUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

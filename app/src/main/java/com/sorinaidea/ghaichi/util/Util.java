@@ -46,8 +46,11 @@ public class Util {
         public static final String ROLE_BARBERSHOP = "03b20058f47f15cc31cea6f089ec292a";
         public static final String ROLE_NORMAL_USER = "29c1cab0898b664bee9dd17ed48bbed0";
 
+
+//                        = "^(0|\\+98)?([ ]|,|-|[()]){0,2}9[1|2|3|4]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}$";
+
         public static final String REGEX_PHONE
-                = "^(0|\\+98)?([ ]|,|-|[()]){0,2}9[1|2|3|4]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}$";
+                = "^(0|\\+98)?([ ]|,|-|[()]){0,2}9[0|1|2|3|4|5]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}$";
         public static final String REGEX_VERIFICATIONCODE
                 = "[0-9]{5}";
 
@@ -60,7 +63,7 @@ public class Util {
 
     public static BitmapDescriptor getBitmapDescriptor(int id, Context context) {
 
-        // TODO amasa
+        // TODO change icon here
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            VectorDrawable vectorDrawable = (VectorDrawable) context.getDrawable(id);
 //
@@ -138,11 +141,9 @@ public class Util {
 
     public static String base64encode(String str, int count) {
         String output = "";
-
         for (int i = 0; i < count; i++) {
             output = new String(Base64.encode(str.getBytes(), Base64.URL_SAFE));
         }
-
         return output;
     }
 

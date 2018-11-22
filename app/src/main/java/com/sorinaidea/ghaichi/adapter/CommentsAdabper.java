@@ -104,7 +104,7 @@ public class CommentsAdabper extends RecyclerView.Adapter<CommentsAdabper.ViewHo
         viewHolder.getRatingBar().setRating(Integer.parseInt(comment.getRating()));
 
         try {
-            Picasso.with(mContext)
+            API.getPicasso(mContext)
                     .load(API.BASE_URL
                             + URLDecoder.decode(comment.getImg(), "UTF-8"))
                     .into( viewHolder.getImgProfile());

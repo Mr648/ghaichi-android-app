@@ -7,28 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.CommentsAdabper;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
-import com.sorinaidea.ghaichi.adapter.ServiceSelectionAdabper;
-import com.sorinaidea.ghaichi.fast.Barbershop;
 import com.sorinaidea.ghaichi.fast.Comment;
-import com.sorinaidea.ghaichi.model.Empty;
-import com.sorinaidea.ghaichi.model.Service;
-import com.sorinaidea.ghaichi.model.ServiceList;
 import com.sorinaidea.ghaichi.ui.dialog.CommentDialog;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
 
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -53,8 +44,7 @@ public class CommentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_comments);
 
         recComments = (RecyclerView) findViewById(R.id.recComments);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recComments.setLayoutManager(layoutManager);
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null && !extras.isEmpty()) {
@@ -98,8 +88,10 @@ public class CommentsActivity extends AppCompatActivity {
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                 if (response.body() != null) {
                     if (response.body().isEmpty()) {
+                        recComments.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         recComments.setAdapter(new EmptyAdabper(getApplicationContext()));
                     } else {
+                        recComments.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         recComments.setAdapter(new CommentsAdabper(getApplicationContext(), response.body()));
                         recComments.setNestedScrollingEnabled(false);
                     }

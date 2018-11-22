@@ -48,10 +48,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="@dimen/_24dp"
-                    android:src="@drawable/barbershop"
                     app:civ_border_color="@color/colorGray"
                     app:civ_border_width="@dimen/_1dp" />
-
 
 
             </RelativeLayout>
@@ -137,9 +135,11 @@
                     android:layout_toEndOf="@id/imgLocation" />
 
             </RelativeLayout>
-<android.support.v4.widget.Space
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_16dp" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_16dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -148,7 +148,8 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recServices"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -161,5 +162,15 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorBarberShopToolbar"
         app:theme="@style/ToolbarStyle" />
+
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/bottomNavigation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--app:itemBackground="@color/colorPrimary"-->
+        <!--app:itemIconTint="@color/white"-->
+        <!--app:itemTextColor="@color/white"-->
+        <!--app:menu="@menu/show_barbershop_remove_bookmark" />-->
 
 </RelativeLayout>

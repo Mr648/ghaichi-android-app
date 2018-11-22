@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class FAQ {
 
+
     @SerializedName("faq_title")
     private String t;
     @SerializedName("faq_answer")

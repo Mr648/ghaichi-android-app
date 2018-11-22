@@ -48,14 +48,19 @@ public class FaqActivity extends AppCompatActivity {
         mTitle.setText("سوالات متداول");
 
         recFaq = (RecyclerView) findViewById(R.id.recFaq);
-        fabSupport = (FloatingActionButton) findViewById(R.id.fabSupport);
-        fabSupport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(FaqActivity.this, SendSupportTicketActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
+        // TODO Enable Chat here!
+//        fabSupport = (FloatingActionButton) findViewById(R.id.fabSupport);
+//        fabSupport.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(FaqActivity.this, SendSupportTicketActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
+
         recFaq.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
         fetchFAQs();

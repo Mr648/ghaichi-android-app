@@ -53,6 +53,7 @@ import retrofit2.Retrofit;
 
 //import de.hdodenhof.circleimageview.CircleImageView;
 
+
 /**
  * Created by mr-code on 6/17/2018.
  */
@@ -63,8 +64,10 @@ public class BarberShopActivity extends AppCompatActivity {
     private ViewPager mPager;
     private ScrollView scrViewRoot;
     private CircleIndicator indicator;
+
     //    private CircleImageView imgLogo;
     //    private AppCompatImageView imgComment;
+
     private CircleImageView imgLogo;
     private TextView txtAddress;
     private TextView txtRating;
@@ -89,7 +92,7 @@ public class BarberShopActivity extends AppCompatActivity {
         initializeImageSlider(barbershop.getBanners());
         initServices(barbershop.getServices());
         try {
-            Picasso.with(getApplicationContext())
+            API.getPicasso(getApplicationContext())
                     .load(API.BASE_URL
                             + URLDecoder.decode(barbershop.getIcon(), "UTF-8"))
                     .fit()
@@ -169,7 +172,8 @@ public class BarberShopActivity extends AppCompatActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         indicator = (CircleIndicator) findViewById(R.id.indicator);
         imgLogo = (CircleImageView) findViewById(R.id.imgLogo);
-//        imgComment = (AppCompatImageView) findViewById(R.id.imgComment);
+
+        //        imgComment = (AppCompatImageView) findViewById(R.id.imgComment);
 
         txtAddress = (TextView) findViewById(R.id.txtAddress);
         txtRating = (TextView) findViewById(R.id.txtRating);
@@ -277,26 +281,18 @@ public class BarberShopActivity extends AppCompatActivity {
 
             }
         });
-        adapter.setImageOnCLickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!show) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showToolbar();
-                        }
-                    });
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            hideToolbar();
-                        }
-                    });
-                }
-                show = !show;
+        adapter.setImageOnCLickListener(view -> {
+            if (!show) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showToolbar();
+                    }
+                });
+            } else {
+                runOnUiThread(() -> hideToolbar());
             }
+            show = !show;
         });
 
         Timer swipeTimer = new Timer();

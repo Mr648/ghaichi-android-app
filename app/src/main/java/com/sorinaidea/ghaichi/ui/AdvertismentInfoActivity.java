@@ -24,6 +24,7 @@ import com.sorinaidea.ghaichi.util.Util;
 public class AdvertismentInfoActivity extends AppCompatActivity {
 
 
+
     private Typeface fontIranSans;
     private DecoView arcView;
 

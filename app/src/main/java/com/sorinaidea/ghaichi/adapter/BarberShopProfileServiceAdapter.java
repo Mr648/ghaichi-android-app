@@ -85,7 +85,7 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
         viewHolder.getTxtTitle().setText(service.getName());
 
         try {
-            Picasso.with(mContext)
+            API.getPicasso(mContext)
                     .load(API.BASE_URL
                             + URLDecoder.decode(service.getPhotos().get(0).getPath(), "UTF-8"))
                     .fit()

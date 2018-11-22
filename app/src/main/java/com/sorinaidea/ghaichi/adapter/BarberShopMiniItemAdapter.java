@@ -101,7 +101,7 @@ public class BarberShopMiniItemAdapter extends RecyclerView.Adapter<BarberShopMi
         final BarbershopCard barberShop = mItems.get(position);
         try {
 
-            Picasso.with(mContext)
+            API.getPicasso(mContext)
                     .load(API.BASE_URL
                             + URLDecoder.decode(barberShop.getIcon(), "UTF-8"))
                     .into(holder.imgProduct);

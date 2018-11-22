@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -21,6 +23,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -58,6 +61,7 @@ import net.sharewire.googlemapsclustering.IconStyle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,6 +88,8 @@ public class MapsActivity
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(35.3219, 46.9862);
     private static final int DEFAULT_ZOOM = 20;
+    private static final float MIN_ZOOM = 5.0f;
+    private static final float MAX_ZOOM = 20.0f;
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
@@ -199,9 +205,9 @@ public class MapsActivity
                     return bitmapDescriptorFromVector(MapsActivity.this, R.drawable.ic_cluster_norm, Integer.toString(cluster.getItems().size()));
                 } else if (size > 50 && size <= 100) {
                     return bitmapDescriptorFromVector(MapsActivity.this, R.drawable.ic_cluster_much, Integer.toString(cluster.getItems().size()));
-                } else if (size > 100  && size <= 500) {
+                } else if (size > 100 && size <= 500) {
                     return bitmapDescriptorFromVector(MapsActivity.this, R.drawable.ic_cluster_very_much, Integer.toString(cluster.getItems().size()));
-                } else if(size > 500){
+                } else if (size > 500) {
                     return bitmapDescriptorFromVector(MapsActivity.this, R.drawable.ic_cluster_too_much, Integer.toString(cluster.getItems().size()));
                 } else {
                     return bitmapDescriptorFromVector(MapsActivity.this, R.drawable.ic_cluster, Integer.toString(cluster.getItems().size()));
@@ -248,6 +254,30 @@ public class MapsActivity
 
     }
 
+    public void addMarkerAtLocation(LatLng location) {
+        mMap.addMarker(new MarkerOptions().title("MARKER").position(location));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM));
+        Toast.makeText(this, getInfo(location), Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    private String getInfo(LatLng location) {
+        String info = "";
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
+            List<Address> addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
+            info += addresses.get(0).getAddressLine(0);
+            info+="  --  ";
+            info += addresses.get(0).getAddressLine(1);
+            info+="  --  ";
+            info += addresses.get(0).getAddressLine(2);
+        } catch (Exception ex) {
+        }
+        return info;
+    }
 
     private void getBarbershopsLocations(ClusterManager<SampleClusterItem> clusterManager) {
 
@@ -280,7 +310,7 @@ public class MapsActivity
                                 marker.getId(),
                                 new LatLng(Double.parseDouble(marker.getLatitude()),
                                         Double.parseDouble(marker.getLongitude()))
-                                , marker.getName() +  "@" +marker.getId()
+                                , marker.getName() + "@" + marker.getId()
                                 , marker.getIcon()
                         );
 
@@ -320,19 +350,28 @@ public class MapsActivity
 
         mMap.setOnInfoWindowClickListener(this);
         mMap.setPadding(0, 0, 16, 16);
-        mMap.setMinZoomPreference(5.0f);
-        mMap.setMaxZoomPreference(20.0f);
+
+        mMap.setMinZoomPreference(MIN_ZOOM);
+        mMap.setMaxZoomPreference(MAX_ZOOM);
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
 
         CustomInfoWindowAdapter adapter = new CustomInfoWindowAdapter(MapsActivity.this);
         mMap.setInfoWindowAdapter(adapter);
+
+        mMap.setOnMapClickListener(latLng -> {
+            addMarkerAtLocation(latLng);
+
+
+        });
+
 
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
         Intent intent = new Intent(MapsActivity.this, BarberShopActivity.class);
-        intent.putExtra("BARBERSHOP_ID",  marker.getTitle().split("@")[1]);
+        intent.putExtra("BARBERSHOP_ID", marker.getTitle().split("@")[1]);
         startActivity(intent);
     }
 

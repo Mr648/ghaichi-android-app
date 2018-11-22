@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.util.FontManager;
@@ -288,6 +289,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.body() != null) {
                     if (!response.body().hasError()) {
+                        Toast.makeText(SmsVerificationActivity.this, "Sent to " + phone, Toast.LENGTH_SHORT).show();
                         GhaichiPrefrenceManager.putString(getApplicationContext(),
                                 Util.md5(Util.PREFRENCES_KEYS.USER_ROLE),
                                 Util.base64encode(response.body().getUserRole(), Util.PREFRENCES_KEYS.BASE_64_ENCODE_DECODE_COUNT)

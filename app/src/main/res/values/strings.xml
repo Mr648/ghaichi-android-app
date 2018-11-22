@@ -26,6 +26,9 @@
     <string name="m_icon_marker">&#xE0C8;</string>
 
 
+    <string name="app_avatar_image_behavior">com.sorinaidea.ghaichi.ui.behavior.AvatarImageBehavior</string>
+
+
 
 
     <string name="didnt_get_the_code">کد را دریافت نکردید؟</string>
@@ -107,14 +110,16 @@
     <string name="navigation_menu_open">باز کردن</string>
     <string name="navigation_menu_close">بستن</string>
     <string name="action_bookmark">نشان کردن</string>
-    <string name="action_remove_bookmark">حذف از نشان شده‌ها</string>
+    <string name="action_remove_bookmark">حذف نشان</string>
     <string name="action_share">به اشتراک‌ گزاری</string>
-    <string name="action_route">مسیر</string>
+    <string name="action_route">مسیریابی</string>
     <string name="action_reserve">رزرو</string>
     <string name="action_filter">فیلتر</string>
     <string name="action_single_category">انتخاب دسته‌بندی</string>
     <string name="action_all_categories">نمایش همه خدمات</string>
     <string name="action_comment">نظردهی</string>
+    <string name="empty_string"></string>
+    <string name="action_component_factory">ghaichi</string>
 
 
     <string name="_hint_name">نام</string>
@@ -128,5 +133,7 @@
     <string name="_txt_gender_female">خانم</string>
     <string name="_txt_service_name">نام سرویس</string>
     <string name="_txt_service_price">قیمت سرویس</string>
+    <string name="user_phone_number">شماره تلفن</string>
+    <string name="lbl_more">بیشتر</string>
 
 </resources>

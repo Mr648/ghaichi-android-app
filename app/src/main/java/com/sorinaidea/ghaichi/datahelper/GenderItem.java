@@ -5,6 +5,7 @@ package com.sorinaidea.ghaichi.datahelper;
  */
 
 public class GenderItem {
+
     private int imgIconResource;
     private String title;
 
@@ -15,6 +16,7 @@ public class GenderItem {
         this.setTitle(title);
     }
     public int getImgIconResource() {
+
         return imgIconResource;
     }
 

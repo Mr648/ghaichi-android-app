@@ -1,10 +1,14 @@
 package com.sorinaidea.ghaichi.ui;
 
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
@@ -41,6 +45,10 @@ public class AboutUsActivity extends AppCompatActivity {
         TextView txtRules = (TextView) findViewById(R.id.txtRules);
         TextView txtVersion = (TextView) findViewById(R.id.txtVersion);
 
+        AppCompatImageView imgResaneh = (AppCompatImageView) findViewById(R.id.imgResaneh);
+        AppCompatImageView imgEnamad = (AppCompatImageView) findViewById(R.id.imgEnamad);
+        AppCompatImageView imgBehparpdakht = (AppCompatImageView) findViewById(R.id.imgBehparpdakht);
+
         // getting fonts
         Typeface fontIransans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
@@ -51,6 +59,12 @@ public class AboutUsActivity extends AppCompatActivity {
         FontManager.setFont(txtRules, fontIransans);
         FontManager.setFont(mTitle, fontIransans);
 
+        txtRules.setOnClickListener((view) -> {
+            String url = "http://ghaichi.com/rules";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        });
 
         Call<About> about = API.getRetrofit().create(SystemServices.class).about(Util.getAccessKey(getApplicationContext()));
         about.enqueue(new Callback<About>() {
@@ -67,6 +81,17 @@ public class AboutUsActivity extends AppCompatActivity {
 
             }
         });
+
+        View.OnClickListener onClickListener = (view) -> {
+            String url = "https://ghaichi.com";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        };
+        imgEnamad.setOnClickListener(onClickListener);
+        imgResaneh.setOnClickListener(onClickListener);
+        imgBehparpdakht.setOnClickListener(onClickListener);
+
     }
 
     @Override

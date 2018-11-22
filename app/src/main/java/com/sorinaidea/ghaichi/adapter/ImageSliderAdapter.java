@@ -78,7 +78,7 @@ public class ImageSliderAdapter extends PagerAdapter {
         }
 
 
-        Picasso.with(context).load(getUrl(position)).centerCrop().fit().into(myImage, new Callback() {
+        API.getPicasso(context).load(getUrl(position)).centerCrop().fit().into(myImage, new Callback() {
             @Override
             public void onSuccess() {
                 prgLoad.setVisibility(View.GONE);

@@ -42,6 +42,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/_12dp"
-        app:fabSize="normal"
-        android:src="@drawable/fab_add" />
+        android:src="@drawable/fab_add"
+        android:visibility="gone"
+        app:fabSize="normal" />
 </RelativeLayout>

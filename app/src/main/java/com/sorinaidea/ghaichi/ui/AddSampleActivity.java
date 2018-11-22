@@ -31,6 +31,7 @@ public class AddSampleActivity extends AppCompatActivity {
 
     private Spinner spnCategories;
     private Spinner spnServices;
+
     private Typeface fontIranSans;
 
     @Override

@@ -300,7 +300,7 @@
         app:civ_border_width="2dp"
         app:finalHeight="@dimen/image_final_width"
         app:finalYPosition="2dp"
-        app:layout_behavior="com.sorinaidea.arayeshgah.ui.behavior.AvatarImageBehavior"
+        app:layout_behavior="@string/app_avatar_image_behavior"
         app:startHeight="2dp"
         app:startToolbarPosition="2dp"
         app:startXPosition="2dp" />

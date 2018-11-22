@@ -26,6 +26,8 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by mr-code on 3/10/2018.
  */
@@ -38,7 +40,7 @@ public class GridItemsAdabper extends RecyclerView.Adapter<GridItemsAdabper.View
     private Typeface fontIranSans;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final AppCompatImageView imgLogo;
+        private final CircleImageView imgLogo;
         private final AppCompatTextView txtName;
 
         public ViewHolder(View v) {
@@ -49,7 +51,7 @@ public class GridItemsAdabper extends RecyclerView.Adapter<GridItemsAdabper.View
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            imgLogo = (AppCompatImageView) v.findViewById(R.id.imgLogo);
+            imgLogo = (CircleImageView) v.findViewById(R.id.imgLogo);
             txtName = (AppCompatTextView) v.findViewById(R.id.txtUsername);
         }
 
@@ -57,7 +59,7 @@ public class GridItemsAdabper extends RecyclerView.Adapter<GridItemsAdabper.View
             return txtName;
         }
 
-        public AppCompatImageView getImgLogo() {
+        public CircleImageView getImgLogo() {
             return imgLogo;
         }
     }
@@ -86,7 +88,7 @@ public class GridItemsAdabper extends RecyclerView.Adapter<GridItemsAdabper.View
 
         viewHolder.getTxtName().setText(barbershop.getName());
         try {
-            Picasso.with(mContext)
+            API.getPicasso(mContext)
                     .load(API.BASE_URL
                             + URLDecoder.decode(barbershop.getIcon(), "UTF-8")).into(viewHolder.imgLogo);
         } catch (IOException e) {

@@ -40,13 +40,14 @@ public class BarberShopGridActivity extends AppCompatActivity {
 //    private FloatingActionButton fabRefresh;
     private GridItemsAdabper adapter;
     private ArrayList<BarbershopCard> dataset;
-    private static final int NUM_COLUMNS = 2;
+    private static final int NUM_COLUMNS = 3;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_items);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

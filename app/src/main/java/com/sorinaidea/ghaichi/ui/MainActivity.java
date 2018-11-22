@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements
                     UserShortInfo info = response.body();
                     if (info.getImage() != null) {
                         try {
-                            Picasso.with(getApplicationContext())
+                            API.getPicasso(getApplicationContext())
                                     .load(API.BASE_URL
                                             + URLDecoder.decode(info.getImage(), "UTF-8"))
                                     .centerCrop()
