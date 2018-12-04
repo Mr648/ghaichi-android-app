@@ -57,7 +57,7 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
 
         private final LinearLayout btnMore;
         private final TextView txtBarberShopCategory;
-        private final TextView txtAll;
+
         private final RecyclerView recBarberShop;
 
 
@@ -66,13 +66,10 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
             this.view = view;
             btnMore = (LinearLayout) view.findViewById(R.id.btnMore);
             txtBarberShopCategory = (TextView) view.findViewById(R.id.txtBarberShopCategory);
-            txtAll = (TextView) view.findViewById(R.id.txtAll);
+
             recBarberShop = (RecyclerView) view.findViewById(R.id.recBarberShop);
         }
 
-        public TextView getTxtAll() {
-            return txtAll;
-        }
 
         public View getView() {
             return view;
@@ -128,7 +125,7 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
         });
 
         FontManager.setFont(holder.getTxtBarberShopCategory(), fontIransans);
-        FontManager.setFont(holder.getTxtAll(), fontIransans);
+
 
 
     }

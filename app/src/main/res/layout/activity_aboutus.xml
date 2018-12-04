@@ -79,43 +79,39 @@
                 android:text="قوانین و شرایط استفاده"
                 android:textColor="@color/colorPrimary" />
 
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/_144dp"
+                android:weightSum="3"
+                android:gravity="center_vertical|center_horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/imgResaneh"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_margin="@dimen/_16dp"
+
                     app:srcCompat="@drawable/logo_resaneh" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/imgEnamad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/imgResaneh"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/_16dp"
-                    android:layout_marginEnd="@dimen/_16dp"
-                    android:layout_marginLeft="@dimen/_16dp"
-                    android:layout_marginRight="@dimen/_16dp"
-                    android:layout_marginStart="@dimen/_16dp"
-                    android:layout_marginTop="@dimen/_16dp"
-                    app:srcCompat="@drawable/logo_e_namad" />
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/logo_e_namad"
+                     />
 
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/imgBehparpdakht"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/imgEnamad"
-                    android:layout_centerHorizontal="true"
-                    android:layout_margin="@dimen/_16dp"
-                    app:srcCompat="@drawable/logo_beh_pardakht" />
-            </RelativeLayout>
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/_128dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/behpardakht_logo"
+                 />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

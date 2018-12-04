@@ -249,7 +249,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
                                 startActivity(new Intent(SmsVerificationActivity.this, BarberMainActivity.class));
                                 finish();
                             } else if (userType.equals(Util.CONSTANTS.ROLE_NORMAL_USER)) {
-                                startActivity(new Intent(SmsVerificationActivity.this, MainActivity.class));
+                                startActivity(new Intent(SmsVerificationActivity.this, NewMainActivity.class));
                                 finish();
                             }
                         }
