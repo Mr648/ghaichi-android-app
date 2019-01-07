@@ -28,8 +28,7 @@ import android.widget.Toast;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
-import com.sorinaidea.ghaichi.util.SmsListener;
-import com.sorinaidea.ghaichi.util.SmsReciver;
+import com.sorinaidea.ghaichi.util.SmsReceiver;
 import com.sorinaidea.ghaichi.util.SorinaApplication;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
@@ -38,8 +37,6 @@ import com.sorinaidea.ghaichi.webservice.model.requests.LoginRequest;
 import com.sorinaidea.ghaichi.webservice.model.requests.VerificationRequest;
 import com.sorinaidea.ghaichi.webservice.model.responses.LoginResponse;
 import com.sorinaidea.ghaichi.webservice.model.responses.VerificationResponse;
-
-import org.w3c.dom.Text;
 
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -179,7 +176,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
         FontManager.setFont(edtVerificationCode, iranSans);
         FontManager.setFont(mTitle, iranSans);
 
-        SmsReciver.bindListener(messageText -> {
+        SmsReceiver.bindListener(messageText -> {
             edtVerificationCode.setText(messageText);
             action();
         });

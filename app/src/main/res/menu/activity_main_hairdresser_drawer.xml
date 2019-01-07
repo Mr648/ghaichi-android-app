@@ -14,6 +14,14 @@
         android:id="@+id/action_advertise"
         android:icon="@drawable/advertising"
         android:title="@string/label_advertise" />
+    <item
+        android:id="@+id/action_reservations"
+        android:icon="@drawable/ic_timer_white_18dp"
+        android:title="رزروها" />
+    <item
+        android:id="@+id/action_banners"
+        android:icon="@drawable/ic_photo_white_18dp"
+        android:title="بنرها" />
 
     <item android:title="سایر">
         <menu>

@@ -2,8 +2,6 @@ package com.sorinaidea.ghaichi.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +10,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.fast.BarbershopCard;
 import com.sorinaidea.ghaichi.fast.Comment;
-import com.sorinaidea.ghaichi.model.Empty;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.webservice.API;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -49,7 +44,7 @@ public class CommentsAdabper extends RecyclerView.Adapter<CommentsAdabper.ViewHo
             super(v);
 
             imgProfile = (CircleImageView) v.findViewById(R.id.imgProfile);
-            txtUsername = (TextView) v.findViewById(R.id.txtUsername);
+            txtUsername = (TextView) v.findViewById(R.id.txtTime);
             txtMessage = (TextView) v.findViewById(R.id.txtMessage);
             txtDate = (TextView) v.findViewById(R.id.txtDate);
             ratingBar = (RatingBar) v.findViewById(R.id.ratingBar);

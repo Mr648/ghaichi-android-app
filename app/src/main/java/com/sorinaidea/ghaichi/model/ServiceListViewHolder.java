@@ -22,7 +22,7 @@ public class ServiceListViewHolder extends GroupViewHolder {
 
     public ServiceListViewHolder(View itemView) {
         super(itemView);
-        serviceListTitle = (TextView) itemView.findViewById(R.id.txtUsername);
+        serviceListTitle = (TextView) itemView.findViewById(R.id.txtTime);
         imgArrow = (AppCompatImageView) itemView.findViewById(R.id.imgArrow);
     }
 

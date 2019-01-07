@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -57,7 +56,7 @@ public class ReservationV2Adabper extends RecyclerView.Adapter<ReservationV2Adab
             });
 
             imgIcon = (CircleImageView) v.findViewById(R.id.imgIcon);
-            txtUsername = (TextView) v.findViewById(R.id.txtUsername);
+            txtUsername = (TextView) v.findViewById(R.id.txtTime);
             txtDate = (TextView) v.findViewById(R.id.txtDate);
             txtTime = (TextView) v.findViewById(R.id.txtTime);
             txtServices = (TextView) v.findViewById(R.id.txtServices);

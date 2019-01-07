@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    tools:context=".ui.BarberMainActivity"
+    tools:openDrawer="start">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            app:theme="@style/ToolbarStyle.Primary">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/_16dp"
+                android:text="Title"
+                android:textColor="@color/colorWhite" />
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrViewRoot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/relSlideShow"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200dp">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true" />
+
+                    <me.relex.circleindicator.CircleIndicator
+                        android:id="@+id/indicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_36dp"
+                        android:layout_alignParentBottom="true"
+                        app:ci_drawable="@drawable/indicator" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/relStatistics"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_144dp"
+                    android:layout_below="@id/relSlideShow"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_8dp"
+                    android:weightSum="5">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_4dp"
+                        android:layout_weight="3"
+                        app:cardBackgroundColor="@color/colorPurple"
+                        app:cardCornerRadius="@dimen/_8dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_margin="@dimen/_16dp"
+                                android:text="کل رزروهای امرزو"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/colorWhite" />
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/img1"
+                                android:layout_width="@dimen/_48dp"
+                                android:layout_height="@dimen/_48dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_margin="@dimen/_16dp"
+                                android:scaleType="centerInside"
+                                android:tint="@color/colorWhite"
+                                app:srcCompat="@drawable/ic_pie_chart" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginBottom="@dimen/_16dp"
+                                android:layout_toStartOf="@id/img1"
+                                android:text="14"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/_32sp" />
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_56dp"
+                            android:layout_margin="@dimen/_4dp"
+                            app:cardBackgroundColor="@color/ic_twitter"
+
+                            app:cardCornerRadius="@dimen/_8dp"
+                            app:contentPadding="@dimen/_4dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginStart="@dimen/_4dp"
+                                    android:layout_marginTop="@dimen/_2dp"
+                                    android:text="تعداد رزرو صبح"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="@dimen/_8sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_marginStart="@dimen/_4dp"
+                                    android:layout_toStartOf="@+id/img2"
+                                    android:text="5"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                    android:textColor="@color/colorWhite" />
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/img2"
+                                    android:layout_width="@dimen/_48dp"
+                                    android:layout_height="@dimen/_48dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:scaleType="centerInside"
+                                    android:tint="@color/colorWhite"
+                                    app:srcCompat="@drawable/ic_sun_morning" />
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_56dp"
+                            android:layout_margin="@dimen/_4dp"
+                            app:cardBackgroundColor="@color/colorOrange"
+
+                            app:cardCornerRadius="@dimen/_8dp"
+                            app:contentPadding="@dimen/_4dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginStart="@dimen/_4dp"
+                                    android:layout_marginTop="@dimen/_2dp"
+                                    android:text="تعداد رزرو عصر"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="@dimen/_8sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_marginStart="@dimen/_4dp"
+                                    android:layout_toStartOf="@+id/img3"
+                                    android:text="9"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                    android:textColor="@color/colorWhite" />
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/img3"
+                                    android:layout_width="@dimen/_48dp"
+                                    android:layout_height="@dimen/_48dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:scaleType="centerInside"
+                                    android:tint="@color/colorWhite"
+                                    app:srcCompat="@drawable/ic_sun_evening" />
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lnrActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/relStatistics"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:paddingTop="@dimen/_4dp">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardCategory"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_margin="@dimen/_8dp"
+                        app:cardCornerRadius="@dimen/_4dp"
+                        app:contentPadding="@dimen/_4dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/imgIcon1"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="@dimen/_8dp"
+                                android:padding="@dimen/_4dp"
+                                android:scaleType="centerInside"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/ic_add_category" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginBottom="@dimen/_4dp"
+                                android:text="@string/categories"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textSize="10sp" />
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardServices"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_margin="@dimen/_8dp"
+                        app:cardCornerRadius="@dimen/_4dp"
+                        app:contentPadding="@dimen/_4dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/imgIcon2"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="@dimen/_8dp"
+                                android:scaleType="centerInside"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/ic_add_service" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginBottom="@dimen/_4dp"
+                                android:text="@string/services"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textSize="10sp" />
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardSample"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_margin="@dimen/_8dp"
+                        app:cardCornerRadius="@dimen/_4dp"
+                        app:contentPadding="@dimen/_4dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/imgIcon3"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="@dimen/_8dp"
+                                android:scaleType="centerInside"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/ic_add_sample" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginBottom="@dimen/_4dp"
+                                android:text="@string/samples"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textSize="10sp" />
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardCategorsy"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_margin="@dimen/_8dp"
+                        app:cardCornerRadius="@dimen/_4dp"
+                        app:contentPadding="@dimen/_4dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/imgIcosn1"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="@dimen/_8dp"
+                                android:padding="@dimen/_4dp"
+                                android:scaleType="centerInside"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/ic_add_category" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginBottom="@dimen/_4dp"
+                                android:text="@string/categories"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textSize="10sp" />
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/nothing"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_56dp"
+                    android:layout_below="@id/lnrActions"
+                    app:cardCornerRadius="@dimen/_8dp"
+                    android:layout_margin="@dimen/_8dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txtListOfReservations"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Large"
+                            android:layout_centerInParent="true"
+                            android:text="@string/list_of_reservations" />
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recReservations"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/nothing" />
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:scrollbars="none"
+        android:visibility="visible"
+        app:headerLayout="@layout/nav_header_main"
+        app:itemIconTint="@color/colorPrimary"
+        app:menu="@menu/activity_main_hairdresser_drawer" />
+
+</android.support.v4.widget.DrawerLayout>

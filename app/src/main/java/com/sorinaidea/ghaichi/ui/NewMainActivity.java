@@ -30,6 +30,7 @@ import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.BarberShopCategoryAdapter;
 import com.sorinaidea.ghaichi.adapter.BarberShopMiniItemAdapter;
 import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
+import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
 import com.sorinaidea.ghaichi.adapter.main.DiscountBarbershopsAdapter;
 import com.sorinaidea.ghaichi.adapter.main.FeaturedBarbershopsAdapter;
 import com.sorinaidea.ghaichi.adapter.main.NearestBarbershopsAdapter;
@@ -343,11 +344,11 @@ public class NewMainActivity extends AppCompatActivity implements
         recNearest.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
 
 
-        scrTop = Skeleton.bind(recTop).adapter(recTopAdapter).load(R.layout.bshops_top).show();
-        scrFeatured = Skeleton.bind(recFeatured).adapter(recFeaturedAdapter).load(R.layout.bshops_featured).show();
-        scrDiscount = Skeleton.bind(recDiscount).adapter(recDiscountAdapter).load(R.layout.bshops_discount).show();
-        scrNew = Skeleton.bind(recNew).adapter(recNewAdapter).load(R.layout.bshops_new).show();
-        scrNearest = Skeleton.bind(recNearest).adapter(recNearestAdapter).load(R.layout.bshops_nearest).show();
+//        scrTop = Skeleton.bind(recTop).adapter(recTopAdapter).load(R.layout.bshops_top).show();
+//        scrFeatured = Skeleton.bind(recFeatured).adapter(recFeaturedAdapter).load(R.layout.bshops_featured).show();
+//        scrDiscount = Skeleton.bind(recDiscount).adapter(recDiscountAdapter).load(R.layout.bshops_discount).show();
+//        scrNew = Skeleton.bind(recNew).adapter(recNewAdapter).load(R.layout.bshops_new).show();
+//        scrNearest = Skeleton.bind(recNearest).adapter(recNearestAdapter).load(R.layout.bshops_nearest).show();
 
 
 //        BarberShopCategoryAdapter adapter = new BarberShopCategoryAdapter(getApplicationContext(), initProductItems());
@@ -360,6 +361,18 @@ public class NewMainActivity extends AppCompatActivity implements
 
         FontManager.setFont(txtCity, fontIranSans);
         FontManager.setFont(txtUserInfo, fontIranSans);
+        barbershops = new ArrayList<>();
+        recTopAdapter = new TopBarbershopsAdapter(getApplicationContext(), barbershops);
+        recFeaturedAdapter = new FeaturedBarbershopsAdapter(getApplicationContext(), barbershops);
+        recDiscountAdapter = new DiscountBarbershopsAdapter(getApplicationContext(), barbershops);
+        recNewAdapter = new NewBarbershopsAdapter(getApplicationContext(), barbershops);
+        recNearestAdapter = new NearestBarbershopsAdapter(getApplicationContext(), barbershops);
+        recTop.setAdapter(recTopAdapter);
+        recFeatured.setAdapter(recFeaturedAdapter);
+        recFeatured.addItemDecoration(new ItemOffsetDecoration(getApplicationContext(), R.dimen._16dp));
+        recDiscount.setAdapter(recDiscountAdapter);
+        recNew.setAdapter(recNewAdapter);
+        recNearest.setAdapter(recNearestAdapter);
         loadData();
     }
 
@@ -370,11 +383,7 @@ public class NewMainActivity extends AppCompatActivity implements
     SkeletonScreen scrNearest;
 
     private void reload() {
-        recTopAdapter = new TopBarbershopsAdapter(getApplicationContext(), barbershops);
-        recFeaturedAdapter = new FeaturedBarbershopsAdapter(getApplicationContext(), barbershops);
-        recDiscountAdapter = new DiscountBarbershopsAdapter(getApplicationContext(), barbershops);
-        recNewAdapter = new NewBarbershopsAdapter(getApplicationContext(), barbershops);
-        recNearestAdapter = new NearestBarbershopsAdapter(getApplicationContext(), barbershops);
+
 
 //
 //
@@ -385,11 +394,7 @@ public class NewMainActivity extends AppCompatActivity implements
 //        scrNew.hide();
 //        scrNearest.hide();
 //
-        recTop.setAdapter(recTopAdapter);
-        recFeatured.setAdapter(recFeaturedAdapter);
-        recDiscount.setAdapter(recDiscountAdapter);
-        recNew.setAdapter(recNewAdapter);
-        recNearest.setAdapter(recNearestAdapter);
+
 
 
         recTopAdapter.notifyDataSetChanged();
@@ -414,7 +419,7 @@ public class NewMainActivity extends AppCompatActivity implements
             @Override
             public void onResponse(Call<List<BarbershopCard>> call, Response<List<BarbershopCard>> response) {
                 if (response.body() != null) {
-                    barbershops = new ArrayList<>();
+
                     barbershops.addAll(response.body());
                     reload();
                 }

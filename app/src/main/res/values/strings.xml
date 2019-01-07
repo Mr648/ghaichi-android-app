@@ -99,8 +99,8 @@
 
     <string name="label_pick_photo">انتخاب تصویر</string>
     <string name="label_profile">پروفایل</string>
-    <string name="label_advertise">درخواست تبلیغات</string>
-    <string name="label_credit">اعتبار</string>
+    <string name="label_advertise">تبلیغات</string>
+    <string name="label_credit">پرداخت‌ها</string>
     <string name="label_faq">سوالات متداول</string>
     <string name="label_favorites">علاقه مندی ها</string>
     <string name="label_free_reservation">رزرو رایگان</string>

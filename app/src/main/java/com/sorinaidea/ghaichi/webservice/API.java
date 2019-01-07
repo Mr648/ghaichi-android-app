@@ -24,6 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class API {
 
 
+//    public static final String BASE_URL = "http://192.168.1.10/";
 //    public static final String BASE_URL = "http://192.168.43.85/";
     public static final String BASE_URL = "https://ghaichi.com/";
 
@@ -83,6 +84,7 @@ public class API {
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
+
         } else {
             client = new OkHttpClient.Builder()
                     .readTimeout(20, TimeUnit.SECONDS)

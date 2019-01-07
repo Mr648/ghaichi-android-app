@@ -182,9 +182,7 @@ public class Util {
 
         String accessKey = GhaichiPrefrenceManager.getString(context,
                 Util.md5(Util.PREFRENCES_KEYS.USER_ACCESS_KEY), null);
-
         accessKey = Util.base64decode(accessKey, Util.PREFRENCES_KEYS.BASE_64_ENCODE_DECODE_COUNT);
-
         return accessKey;
     }
 

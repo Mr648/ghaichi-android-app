@@ -15,6 +15,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -27,9 +28,13 @@ import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
+import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
 import com.sorinaidea.ghaichi.adapter.ReservationV2Adabper;
+import com.sorinaidea.ghaichi.adapter.barbershop.BarbershopReservationsAdabper;
 import com.sorinaidea.ghaichi.model.Reservation;
+import com.sorinaidea.ghaichi.ui.barbershop.activity.AddServiceActivity;
 import com.sorinaidea.ghaichi.util.FontManager;
+import com.sorinaidea.ghaichi.util.Util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,15 +79,13 @@ public class BarberMainActivity extends AppCompatActivity implements
             Intent intent = new Intent(BarberMainActivity.this, UserProfileActivity.class);
             startActivity(intent);
         }
-
-
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
 
     private DrawerLayout drawer;
-    //    FloatingActionButton fabAddServiceCategory;
+//    FloatingActionButton fabAddServiceCategory;
 //    FloatingActionButton fabAddService;
     RecyclerView recReservations;
     private ViewPager mPager;
@@ -137,18 +140,15 @@ public class BarberMainActivity extends AppCompatActivity implements
 //        });
 
 
-//        fabAddService.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(BarberMainActivity.this, AddServiceActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
 
         recReservations = (RecyclerView) findViewById(R.id.recReservations);
-        recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        recReservations.setAdapter(new ReservationV2Adabper(initDataset(), getApplicationContext()));
+        recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false));
+        recReservations.addItemDecoration(new ItemOffsetDecoration(Util.dp(8,this)));
+        recReservations.setAdapter(new BarbershopReservationsAdabper(getApplicationContext()));
+
+//        recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+//        recReservations.setAdapter(new ReservationV2Adabper(initDataset(), getApplicationContext()));
+
         recReservations.setNestedScrollingEnabled(false);
 
 

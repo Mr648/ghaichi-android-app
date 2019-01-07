@@ -10,7 +10,9 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 /**
@@ -45,6 +47,10 @@ public class FontManager {
             ((TextInputEditText)view).setTypeface(typeface);
         }else if (view instanceof SwitchCompat) {
             ((SwitchCompat)view).setTypeface(typeface);
+        }else if (view instanceof RadioButton) {
+            ((RadioButton)view).setTypeface(typeface);
+        }else if (view instanceof CheckBox) {
+            ((CheckBox)view).setTypeface(typeface);
         }
     }
     public static void markAsContainer(final View view, final Typeface typeface) {

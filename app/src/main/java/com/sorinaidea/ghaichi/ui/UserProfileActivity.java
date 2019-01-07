@@ -27,7 +27,6 @@ import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.UploadImagesAsyncTask;
 import com.sorinaidea.ghaichi.webservice.UserProfileService;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -148,7 +147,7 @@ public class UserProfileActivity extends AppCompatActivity
 
 
         txtLb1 = (TextView) findViewById(R.id.txtLb1);
-        txtName = (TextView) findViewById(R.id.txtUsername);
+        txtName = (TextView) findViewById(R.id.txtTime);
         txtLb2 = (TextView) findViewById(R.id.txtLb2);
         txtFamily = (TextView) findViewById(R.id.txtFamily);
         txtLb3 = (TextView) findViewById(R.id.txtLb3);

@@ -3,7 +3,6 @@ package com.sorinaidea.ghaichi.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,16 +13,13 @@ import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.fast.BarbershopCard;
-import com.sorinaidea.ghaichi.model.BarberShop;
 import com.sorinaidea.ghaichi.ui.BarberShopActivity;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -52,7 +48,7 @@ public class GridItemsAdabper extends RecyclerView.Adapter<GridItemsAdabper.View
                 }
             });
             imgLogo = (CircleImageView) v.findViewById(R.id.imgLogo);
-            txtName = (AppCompatTextView) v.findViewById(R.id.txtUsername);
+            txtName = (AppCompatTextView) v.findViewById(R.id.txtTime);
         }
 
         public TextView getTxtName() {

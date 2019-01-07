@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layoutDirection="rtl">
+
+    <TextView
+        android:id="@+id/txtBarber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/_16dp"
+        android:layout_centerVertical="true"/>
+
+    <CheckBox
+        android:id="@+id/chkSelected"
+        android:layout_marginEnd="@dimen/_16dp"
+        android:layout_alignParentEnd="true"
+        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:checked="false" />
+</RelativeLayout>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_4dp"
+    android:layoutDirection="rtl">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/relBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/_4dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgDelete"
+                android:layout_width="@dimen/_36dp"
+                android:layout_height="@dimen/_36dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_16dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_delete_white_24dp" />
+
+            <TextView
+                android:id="@+id/txtDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_toEndOf="@id/imgDelete"
+                android:text="حذف آیتم"
+                android:textColor="@color/colorWhite" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relForeground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgIcon"
+                    android:layout_width="@dimen/_48dp"
+                    android:layout_height="@dimen/_48dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:src="@drawable/preview_small"
+                    app:civ_border_color="@color/colorPrimaryLight"
+                    app:civ_border_width="@dimen/_2dp" />
+
+                <TextView
+                    android:id="@+id/txtTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_8dp"
+                    android:layout_toEndOf="@id/imgIcon"
+                    android:text="محمد کریمی"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/colorGrayDark" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_8dp"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_4dp"
+                        android:layout_marginTop="@dimen/margin_4dp"
+                        android:gravity="left"
+                        android:text="18:20 ب.ظ"
+                        android:textColor="@color/textColorDarker"
+                        android:textSize="@dimen/_10sp" />
+
+                    <TextView
+                        android:id="@+id/txtDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="1397/04/15"
+                        android:textColor="@color/textColorLighter"
+                        android:textSize="@dimen/_10sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txtServices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayout"
+                android:layout_marginStart="@dimen/_16dp"
+                android:padding="@dimen/_8dp"
+                android:text="خدمت نمونه، خدمت نمونه، خدمت نمونه، خدمت نمونه، خدمت نمونه، خدمت نمونه، خدمت نمونه، خدمت نمونه، خدمت نمونه، خدمت نمونه، خدمت نمونه، خدمت نمونه، خدمت نمونه، "
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</android.support.v7.widget.CardView>

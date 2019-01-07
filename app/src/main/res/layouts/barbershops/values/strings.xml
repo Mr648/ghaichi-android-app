@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="barbers">آرایشگران</string>
+    <string name="samples">نمونه کارها</string>
+    <string name="services">خدمات</string>
+    <string name="categories">دسته‌بندی‌ها</string>
+    <string name="list_of_reservations">لیست رزروها</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="special_advertises">تبلیغات ویژه</string>
+    <string name="banner_advertises">تبلیغات بنری</string>
+    <string name="description">توضیحات</string>
+    <string name="list_of_photos">لیست تصاویر</string>
+    <string name="service_title">عنوان خدمت</string>
+    <string name="service_price">هزینه ارائه خدمت</string>
+    <string name="service_duration">مدت زمان لازم برای انجام(برحسب دقیقه)</string>
+    <string name="service_discount">درصد تخفیف(اگر این فیلد پر نشود، 0 در نظر گرفته می‌شود</string>
+    <string name="list_of_barbers">لیست آرایشگران</string>
+    <string name="toolbar_add_service">افزودن خدمت</string>
+    <string name="toolbar_request_advertise">درخواست تبلیغات</string>
+    <string name="request_advertise">ارسال درخواست</string>
+    <string name="barber_name">نام آرایشگر</string>
+    <string name="barber_family">نام‌خانوادگی آرایشگر</string>
+    <string name="barber_mobile">شماره موبایل</string>
+    <string name="toolbar_manage_barbers">مدیریت آرایشگران</string>
+    <string name="toolbar_add_barber">افزودن آرایشگر</string>
+    <string name="account_activation_payment">پرداخت حق اشتراک</string>
+    <string name="toolbar_payments">پرداخت‌ها</string>
+    <string name="advertise_payment">تبلیغات</string>
+    <string name="account_payments">حساب کاربری</string>
+    <string name="label_choose_city">انتخاب شهر</string>
+    <string name="toolbar_choose_city">انتخاب شهر</string>
+    <string name="next_step">مرحله بعدی</string>
+</resources>

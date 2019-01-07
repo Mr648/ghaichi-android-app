@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.sorinaidea.ghaichi">
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
-    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -22,7 +16,6 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
-
     <application
         android:name=".util.SorinaApplication"
         android:allowBackup="false"
@@ -31,192 +24,124 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--tools:replace="android:appComponentFactory"-->
-        <!--android:appComponentFactory="@string/action_component_factory"-->
-        <!-- android:allowBackup="false" means app data will be removed when uninstall -->
-
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
-        <receiver android:name=".util.SmsReciver">
+        <receiver
+            android:name=".util.SmsReceiver"
+            android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+
             </intent-filter>
         </receiver>
 
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:name=".ui.MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".ui.CityChooserActivity"
+            android:label="@string/label_choose_city"
+            android:theme="@style/AppTheme.NoActionBar" >
 
         </activity>
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.CommentsActivity"
+            android:name=".ui.CommentsActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.ReservationActivity"
+            android:name=".ui.ReservationActivity"
             android:label="@string/title_activity_maps"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.AddServiceCategoryActivity"
+            android:name=".ui.AddServiceCategoryActivity"
             android:label="@string/label_aboutus"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.ShowDirectionActivity"
+            android:name=".ui.ShowDirectionActivity"
             android:label="@string/label_aboutus"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.ReserveActivity"
+            android:name=".ui.ReserveActivity"
             android:label="@string/label_aboutus"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.ReserveStep1Activity"
+            android:label="@string/label_aboutus"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.SettingActivity"
             android:label="@string/label_setting"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.ImageSliderActivity"
             android:label="@string/label_setting"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.UserProfileActivity"
             android:label="@string/label_setting"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.BarberShopGridActivity"
             android:label="@string/label_setting"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.barbershop.activity.AddServiceActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.barbershop.activity.AdvertisementActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.AddServiceActivity"
-            android:label="@string/label_aboutus"
+            android:name=".ui.barbershop.activity.PaymentActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.ManageSampleActivity"
+            android:name=".ui.ManageSampleActivity"
             android:label="@string/label_aboutus"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.FaqActivity"
             android:label="@string/label_aboutus"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.AboutUsActivity"
+            android:name=".ui.AboutUsActivity"
             android:label="@string/label_aboutus"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.BarberChooseLocationActivity"
+            android:name=".ui.BarberChooseLocationActivity"
             android:label="@string/label_aboutus"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.NewMainActivity"
+            android:name=".ui.NewMainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.BookmarksActivity"
+            android:name=".ui.BookmarksActivity"
             android:label="@string/lable_activity_bookmarks"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.BarberShopActivity"
+            android:name=".ui.BarberShopActivity"
             android:label="BARBERSHOP"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.CreditActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:name=".ui.CreditActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.GetGiftActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:name=".ui.GetGiftActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:name=".ui.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.BarberMainActivity"
+            android:name=".ui.BarberMainActivity"
             android:label="BARBER"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-
-        <activity
-            android:name="com.sorinaidea.ghaichi.ui.AdvertismentActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity
-            android:name="com.sorinaidea.ghaichi.ui.AdvertismentInfoActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-        <activity
-            android:name="com.sorinaidea.ghaichi.ui.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -224,36 +149,41 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.SmsVerificationActivity"
+            android:name=".ui.AdvertismentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.AdvertismentInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.PersonalInfoActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".ui.SmsVerificationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        </activity>
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.SendSupportTicketActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:name=".ui.PersonalInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.sorinaidea.ghaichi.ui.PaymentCallBack"
+            android:name=".ui.SendSupportTicketActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.PaymentCallBack"
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
                     android:host="start"
                     android:scheme="sorina" />
             </intent-filter>
-
         </activity>
     </application>
+
 </manifest>

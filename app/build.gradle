@@ -34,6 +34,16 @@ android {
     }
     productFlavors {
     }
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layouts/barbershops',
+                    'src/main/res/layouts/users',
+                    'src/main/res/layouts',
+                    'src/main/res'
+            ]
+        }
+    }
 }
 
 dependencies {
@@ -68,28 +78,6 @@ dependencies {
     implementation 'com.ethanhua:skeleton:1.1.1'
     implementation 'io.supercharge:shimmerlayout:2.1.0'
     androidTestImplementation 'junit:junit:4.12'
+
+    implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
 }
-
-//
-//release {
-//    debuggable false
-//    minifyEnabled false
-//    useProguard false
-//    shrinkResources false
-//    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//    signingConfig signingConfigs.config
-//    proguardFile 'R:/projects/sorinaidea/MapMarkers/app/proguard-rules.pro'
-//}
-//    implementation files('jars/bcprov-jdk15on-160.jar')
-//    implementation files('jars/commons-codec-1.11.jar')
-//    implementation 'com.google.maps.android:android-maps-utils:0.5+'
-// glide dependencies
-//    compile 'com.github.bumptech.glide:glide:4.6.1'
-//    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
-
-//    compile 'org.springframework.android:spring-android-core:1.0.1.RELEASE'
-//    compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
-
-// app intro
-//    compile 'com.github.apl-devs:appintro:v4.2.3'
-//    implementation 'com.google.android.material:material:1.0.0-alpha1'

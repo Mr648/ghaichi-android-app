@@ -39,7 +39,7 @@ public class ServiceViewHolder extends ChildViewHolder {
         rotateAnimation.setRepeatMode(Animation.REVERSE);
         rotateAnimation.setRepeatCount(RotateAnimation.INFINITE);
         rotateAnimation.setDuration(2500);
-        txtName = (TextView) itemView.findViewById(R.id.txtUsername);
+        txtName = (TextView) itemView.findViewById(R.id.txtTime);
         txtPrice = (TextView) itemView.findViewById(R.id.txtPrice);
         txtPercent = (TextView) itemView.findViewById(R.id.txtPercent);
         imgIcon = (AppCompatImageView) itemView.findViewById(R.id.imgIcon);

@@ -91,7 +91,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
                                         if (userType.equals(Util.CONSTANTS.ROLE_BARBERSHOP)) {
-                                            startActivity(new Intent(SplashActivity.this, BarberMainActivity.class));
+                                            startActivity(new Intent(SplashActivity.this, NewMainActivity.class));
                                             finish();
                                         } else if (userType.equals(Util.CONSTANTS.ROLE_NORMAL_USER)) {
                                             startActivity(new Intent(SplashActivity.this, NewMainActivity.class));

@@ -41,7 +41,7 @@ public class TopBarberShopAdabper extends RecyclerView.Adapter<TopBarberShopAdab
             });
 
             imgLogo = (ImageView) v.findViewById(R.id.imgLogo);
-            txtName = (TextView) v.findViewById(R.id.txtUsername);
+            txtName = (TextView) v.findViewById(R.id.txtTime);
         }
 
         public TextView getTxtName() {

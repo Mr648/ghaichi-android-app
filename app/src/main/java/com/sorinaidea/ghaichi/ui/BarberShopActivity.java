@@ -35,7 +35,6 @@ import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
 import com.sorinaidea.ghaichi.webservice.UserProfileService;
 import com.sorinaidea.ghaichi.webservice.model.responses.IsBookmarked;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -177,7 +176,7 @@ public class BarberShopActivity extends AppCompatActivity {
 
         txtAddress = (TextView) findViewById(R.id.txtAddress);
         txtRating = (TextView) findViewById(R.id.txtRating);
-        txtName = (TextView) findViewById(R.id.txtUsername);
+        txtName = (TextView) findViewById(R.id.txtTime);
         txtDescription = (TextView) findViewById(R.id.txtDescription);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
@@ -327,7 +326,7 @@ public class BarberShopActivity extends AppCompatActivity {
 //            bookmark(Util.getAccessKey(getApplicationContext()), String.valueOf(barbershopId));
 
         } else if (id == R.id.action_reserve) {
-            Intent intent = new Intent(BarberShopActivity.this, ReserveActivity.class);
+            Intent intent = new Intent(BarberShopActivity.this, ReserveStep1Activity.class);
             intent.putExtra("BARBERSHOP_ID", Integer.toString(barbershopId));
             startActivity(intent);
         } else if (id == R.id.action_route) {
