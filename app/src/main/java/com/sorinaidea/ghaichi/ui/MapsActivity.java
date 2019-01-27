@@ -225,19 +225,19 @@ public class MapsActivity
         clusterManager.setCallbacks(new ClusterManager.Callbacks<SampleClusterItem>() {
             @Override
             public boolean onClusterClick(@NonNull Cluster<SampleClusterItem> cluster) {
-                LatLngBounds.Builder builder = LatLngBounds.builder();
-                for (SampleClusterItem item : cluster.getItems()) {
-                    builder.include(item.getLocation());
-                }
-                // Get the LatLngBounds
-                final LatLngBounds bounds = builder.build();
-
-                // Animate camera to the bounds
-                try {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                LatLngBounds.Builder builder = LatLngBounds.builder();
+//                for (SampleClusterItem item : cluster.getItems()) {
+//                    builder.include(item.getLocation());
+//                }
+//                // Get the LatLngBounds
+//                final LatLngBounds bounds = builder.build();
+//
+//                // Animate camera to the bounds
+//                try {
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
                 return true;
             }
 
@@ -255,10 +255,10 @@ public class MapsActivity
     }
 
     public void addMarkerAtLocation(LatLng location) {
-        mMap.addMarker(new MarkerOptions().title("MARKER").position(location));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM));
-        Toast.makeText(this, getInfo(location), Toast.LENGTH_SHORT).show();
+//        mMap.addMarker(new MarkerOptions().title("MARKER").position(location));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM));
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM));
+//        Toast.makeText(this, getInfo(location), Toast.LENGTH_SHORT).show();
 
     }
 

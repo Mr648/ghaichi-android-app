@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * Created by mr-code on 5/15/2018.
  */
 
-public class AddServiceCategoryActivity extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+public class CategoriesActivity extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
 
     private RecyclerView recServiceCategories;

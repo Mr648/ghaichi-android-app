@@ -102,8 +102,6 @@ public class LoginActivity extends AppCompatActivity {
             submitForm();
         });
 
-//
-
 
 
 
@@ -140,43 +138,35 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Access(validate = "")
     private void submitForm() {
 
         if (!validateUserPhone()) {
             return;
         }
-
         Intent intent = new Intent(LoginActivity.this, SmsVerificationActivity.class);
         intent.putExtra("phone", edtPhoneNumber.getText().toString());
         startActivity(intent);
         finish();
     }
 
-
     private boolean validateUserPhone() {
         if (edtPhoneNumber.getText().toString().trim().isEmpty()) {
             inputLayoutPhoneNumber.setError(getString(R.string.err__empty__phone));
             requestFocus(edtPhoneNumber);
             return false;
-
         } else if (!Pattern.matches(Util.CONSTANTS.REGEX_PHONE, edtPhoneNumber.getText().toString())) {
             inputLayoutPhoneNumber.setError(getString((R.string.err__invalid__phone)));
             requestFocus(edtPhoneNumber);
             return false;
-
         } else {
             inputLayoutPhoneNumber.setErrorEnabled(false);
-
         }
         return true;
     }
 
     private void requestFocus(View view) {
-
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
-
     }
 }

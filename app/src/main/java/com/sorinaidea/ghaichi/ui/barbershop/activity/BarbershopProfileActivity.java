@@ -1,4 +1,4 @@
-package com.sorinaidea.ghaichi.ui;
+package com.sorinaidea.ghaichi.ui.barbershop.activity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -42,7 +42,7 @@ import retrofit2.Retrofit;
  * Created by mr-code on 6/17/2018.
  */
 
-public class UserProfileActivity extends AppCompatActivity
+public class BarbershopProfileActivity extends AppCompatActivity
         implements AppBarLayout.OnOffsetChangedListener {
 
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
@@ -122,13 +122,13 @@ public class UserProfileActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_userprofile);
+        setContentView(R.layout.activity_barbershop_profile);
 
         bindActivity();
 
         mAppBarLayout.addOnOffsetChangedListener(this);
 
-        mToolbar.inflateMenu(R.menu.activity_user_profile);
+        mToolbar.inflateMenu(R.menu.activity_barbershop_profile);
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -140,10 +140,10 @@ public class UserProfileActivity extends AppCompatActivity
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 return true;
             }
         });
+
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
 
 
@@ -287,12 +287,12 @@ public class UserProfileActivity extends AppCompatActivity
                 Bitmap thePic = (Bitmap) extras.get("data");
                 //display the returned cropped image
 
-                File f = saveImage(thePic, UserProfileActivity.this);
+                File f = saveImage(thePic, BarbershopProfileActivity.this);
                 try {
                     new UploadImagesAsyncTask(() -> {
-                        Toast.makeText(UserProfileActivity.this, "عملیات موفق آمیز.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BarbershopProfileActivity.this, "عملیات موفق آمیز.", Toast.LENGTH_SHORT).show();
                         update();
-                    }, UserProfileActivity.this).execute(f);
+                    }, BarbershopProfileActivity.this).execute(f);
 
                 } catch (Exception ex) {
                 }

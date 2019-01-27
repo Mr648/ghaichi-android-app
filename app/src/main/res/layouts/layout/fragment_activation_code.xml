@@ -65,7 +65,7 @@
                 android:ems="@integer/phone_edit_text_length"
                 android:gravity="center"
                 android:imeOptions="actionGo"
-                android:inputType="phone"
+                android:inputType="number"
                 android:maxLength="@integer/phone_edit_text_length"
                 android:maxLines="1"
                 android:text="+98"

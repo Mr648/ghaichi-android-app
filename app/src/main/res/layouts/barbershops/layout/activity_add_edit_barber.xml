@@ -42,26 +42,26 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_256dp"
-                android:gravity="center_vertical|center_horizontal">
+                 >
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgBarber"
                     android:layout_width="@dimen/_180dp"
                     android:layout_height="@dimen/_180dp"
-                    android:layout_marginTop="@dimen/_32dp"
-                    app:civ_border_color="@color/colorPrimary"
+                    android:layout_centerInParent="true"
                     android:src="@color/white"
-                    android:layout_gravity="center"
+                    app:civ_border_color="@color/colorPrimary"
                     app:civ_border_width="@dimen/_2dp" />
+
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fabSelectBarberImageProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_24dp"
-                    android:layout_marginTop="@dimen/_24dp"
+                    android:layout_alignStart="@+id/imgBarber"
+                    android:layout_alignTop="@+id/imgBarber"
+                    android:tint="@color/colorWhite"
                     app:elevation="@dimen/_2dp"
-                    app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
-                    android:tint="@color/colorWhite"/>
+                    app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
             </RelativeLayout>
 
 

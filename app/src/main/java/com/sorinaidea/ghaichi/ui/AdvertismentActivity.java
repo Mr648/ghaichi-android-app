@@ -1,5 +1,6 @@
 package com.sorinaidea.ghaichi.ui;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,13 +9,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.AdvertisementAdabper;
 import com.sorinaidea.ghaichi.model.Advertise;
-import com.sorinaidea.ghaichi.ui.dialog.AddCreditDialog;
+import com.sorinaidea.ghaichi.ui.barbershop.activity.RequestAdvertisementActivity;
 import com.sorinaidea.ghaichi.util.FontManager;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class AdvertismentActivity extends AppCompatActivity {
 
     private RecyclerView recAdvertises;
 
-    private FloatingActionButton fab;
+    private FloatingActionButton fabAddAdvertise;
 
     private Typeface fontIranSans;
 
@@ -41,7 +41,7 @@ public class AdvertismentActivity extends AppCompatActivity {
 
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
 
-        mTitle.setText("تبلیغات");
+        mTitle.setText(R.string.toobar_advertises);
 
         fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
@@ -50,7 +50,7 @@ public class AdvertismentActivity extends AppCompatActivity {
         recAdvertises.setNestedScrollingEnabled(false);
 
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fabAddAdvertise = (FloatingActionButton) findViewById(R.id.fabAddAdvertise);
 
 
         recAdvertises.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
@@ -58,17 +58,12 @@ public class AdvertismentActivity extends AppCompatActivity {
         recAdvertises.setAdapter(new AdvertisementAdabper(dataset, getApplicationContext()));
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddCreditDialog dialog = new AddCreditDialog(AdvertismentActivity.this);
-                dialog.show();
-            }
+        fabAddAdvertise.setOnClickListener(view -> {
+            Intent intent = new Intent(AdvertismentActivity.this, RequestAdvertisementActivity.class);
+            startActivity(intent);
         });
 
         FontManager.setFont(mTitle, fontIranSans);
-
-
     }
 
     @Override

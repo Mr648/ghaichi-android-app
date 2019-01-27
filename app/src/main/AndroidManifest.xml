@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.sorinaidea.ghaichi">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -12,9 +13,24 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+    <uses-sdk
+        tools:overrideLibrary="co.ronash.pushe" />
+    <permission
+        android:name="com.sorinaidea.ghaichi.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission
+        android:name="com.sorinaidea.ghaichi.permission.C2D_MESSAGE" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!-- Optional permissions -->
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
 
     <application
         android:name=".util.SorinaApplication"
@@ -24,6 +40,31 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data
+                    android:path="com.sorinaidea.ghaichi"
+                    android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="com.sorinaidea.ghaichi" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data android:name="co.ronash.pushe.token" android:value="PUSHE_368127776897"/>
+        <meta-data android:name="co.ronash.pushe.cr" android:value="Tm9uZQ=="/>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -32,9 +73,14 @@
             android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-
             </intent-filter>
         </receiver>
+
+        <!-- ACTIVITIES -->
+
+        <!-- User Activities -->
+
+        <!-- Barbershop Activities -->
 
         <activity
             android:name=".ui.MapsActivity"
@@ -42,7 +88,7 @@
         <activity
             android:name=".ui.CityChooserActivity"
             android:label="@string/label_choose_city"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
@@ -54,7 +100,7 @@
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.AddServiceCategoryActivity"
+            android:name=".ui.CategoriesActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -74,6 +120,12 @@
             android:label="@string/label_setting"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ui.barbershop.activity.BarbershopProfileActivity"
+            android:label="@string/label_setting"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
             android:name=".ui.ImageSliderActivity"
             android:label="@string/label_setting"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -89,9 +141,11 @@
             android:name=".ui.barbershop.activity.AddServiceActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.barbershop.activity.AdvertisementActivity"
+            android:name=".ui.barbershop.activity.RequestAdvertisementActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.barbershop.activity.AddBarberActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
         <activity
             android:name=".ui.barbershop.activity.PaymentActivity"
@@ -134,19 +188,31 @@
             android:name=".ui.CreditActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ui.barbershop.activity.SamplesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.barbershop.activity.BannersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.barbershop.activity.BarbersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".ui.GetGiftActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".ui.barbershop.activity.ServicesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.BarberMainActivity"
-            android:label="BARBER"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".ui.AdvertismentActivity"
@@ -157,7 +223,10 @@
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.SmsVerificationActivity"
@@ -176,7 +245,8 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data

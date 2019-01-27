@@ -45,25 +45,22 @@ public class FaqActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText("سوالات متداول");
+        mTitle.setText(R.string.toolbar_faq);
 
         recFaq = (RecyclerView) findViewById(R.id.recFaq);
 
 
         // TODO Enable Chat here!
-//        fabSupport = (FloatingActionButton) findViewById(R.id.fabSupport);
-//        fabSupport.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(FaqActivity.this, SendSupportTicketActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        fabSupport = (FloatingActionButton) findViewById(R.id.fabSupport);
+        fabSupport.setOnClickListener(view -> {
+            Intent intent = new Intent(FaqActivity.this, SendSupportTicketActivity.class);
+            startActivity(intent);
+        });
 
 
         recFaq.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
-        fetchFAQs();
+//        fetchFAQs();
 
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
         FontManager.setFont(mTitle, iranSans);

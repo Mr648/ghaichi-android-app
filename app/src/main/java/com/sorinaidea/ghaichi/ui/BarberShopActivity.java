@@ -157,7 +157,7 @@ public class BarberShopActivity extends AppCompatActivity {
 
 
         scrViewRoot = (ScrollView) findViewById(R.id.scrViewRoot);
-        recServices = (RecyclerView) findViewById(R.id.recServices);
+        recServices = (RecyclerView) findViewById(R.id.recBanners);
 
         recServices.setFocusable(false);
 

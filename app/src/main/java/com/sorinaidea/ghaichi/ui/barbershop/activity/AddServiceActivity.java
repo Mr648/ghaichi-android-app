@@ -3,17 +3,13 @@ package com.sorinaidea.ghaichi.ui.barbershop.activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -21,12 +17,7 @@ import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.barbershop.BarberAdabper;
-import com.sorinaidea.ghaichi.ui.barbershop.fragment.BannerAdvertiseFragment;
-import com.sorinaidea.ghaichi.ui.barbershop.fragment.SpecialAdvertiseFragment;
 import com.sorinaidea.ghaichi.util.FontManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AddServiceActivity extends AppCompatActivity {
 
@@ -71,7 +62,7 @@ public class AddServiceActivity extends AppCompatActivity {
     }
 
     private void setupLists() {
-        recBarbers = (RecyclerView) findViewById(R.id.recBarbers);
+        recBarbers = (RecyclerView) findViewById(R.id.recBanners);
         recPhotos = (RecyclerView) findViewById(R.id.recPhotos);
         spnCategories = (Spinner) findViewById(R.id.spnCategories);
 
@@ -132,10 +123,20 @@ public class AddServiceActivity extends AppCompatActivity {
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_save, menu);
+        return true;
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.action_save:
                 onBackPressed();
                 break;
         }

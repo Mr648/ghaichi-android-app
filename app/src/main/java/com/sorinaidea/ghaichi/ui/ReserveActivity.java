@@ -14,14 +14,10 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.adapter.CommentsAdabper;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
-import com.sorinaidea.ghaichi.adapter.ServiceCategoryAdapter;
 import com.sorinaidea.ghaichi.adapter.ServiceSelectionAdabper;
 import com.sorinaidea.ghaichi.fast.Category;
-import com.sorinaidea.ghaichi.fast.Comment;
 import com.sorinaidea.ghaichi.model.Service;
 import com.sorinaidea.ghaichi.model.ServiceList;
 import com.sorinaidea.ghaichi.ui.dialog.TransactionDialog;
@@ -30,8 +26,6 @@ import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -70,7 +64,7 @@ public class ReserveActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("رزرو خدمات");
 
 
-        recServices = (RecyclerView) findViewById(R.id.recServices);
+        recServices = (RecyclerView) findViewById(R.id.recBanners);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         parentLayout = findViewById(android.R.id.content);

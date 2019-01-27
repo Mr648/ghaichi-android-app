@@ -1,24 +1,24 @@
 package com.sorinaidea.ghaichi.ui.barbershop.activity;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.ui.barbershop.fragment.AccountActivatedFragment;
-import com.sorinaidea.ghaichi.ui.barbershop.fragment.AccountActivationFragment;
+import com.sorinaidea.ghaichi.ui.barbershop.fragment.BannerAdvertiseFragment;
+import com.sorinaidea.ghaichi.ui.barbershop.fragment.SpecialAdvertiseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentActivity extends AppCompatActivity {
+public class RequestAdvertisementActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -28,14 +28,14 @@ public class PaymentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.activity_advertise);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText(R.string.toolbar_payments);
+        mTitle.setText(R.string.toolbar_request_advertise);
 
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -48,14 +48,14 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AccountActivationFragment(), getString(R.string.activate_account));
-        adapter.addFragment(new AccountActivatedFragment(), getString(R.string.account_payments));
+        adapter.addFragment(new BannerAdvertiseFragment(), getString(R.string.banner_advertises));
+        adapter.addFragment(new SpecialAdvertiseFragment(), getString(R.string.special_advertises));
         viewPager.setAdapter(adapter);
     }
 
     private int[] tabIcons = {
-            R.drawable.ic_star_border_white_24dp,
-            R.drawable.ic_account_circle_white_24dp
+            R.drawable.ic_photo_white_18dp,
+            R.drawable.ic_star_white_24dp
     };
 
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/txtSample"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
@@ -24,7 +23,7 @@
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recBarbers"
+        android:id="@+id/recBanners"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
@@ -32,7 +31,7 @@
     </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabAddBarber"
+        android:id="@+id/fabAddBanner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/recFaq"
@@ -40,6 +39,5 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/_12dp"
         android:src="@drawable/fab_add"
-        android:visibility="gone"
         app:fabSize="normal" />
 </RelativeLayout>

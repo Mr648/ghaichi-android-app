@@ -19,7 +19,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\mr-code\Desktop\ghaichi.png" />
+                                      <entry key="iconShape" value="NONE" />
+                                      <entry key="imageAsset" value="C:\Users\mr-code\Desktop\logo.png" />
                                     </map>
                                   </option>
                                 </PersistentState>

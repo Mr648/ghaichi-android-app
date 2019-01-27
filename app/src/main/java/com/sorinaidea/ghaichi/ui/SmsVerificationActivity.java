@@ -14,7 +14,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -53,9 +52,6 @@ import retrofit2.Retrofit;
 public class SmsVerificationActivity extends AppCompatActivity {
     private String TAG = "SmsVerificationActivity";
 
-    private final static int TIMEOUT_DURATION_MILLIS = 61000;
-    private final static int COUNTDOWN_INTERVAL = 1000;
-
     private String phone;
     private Toolbar toolbar;
 
@@ -68,8 +64,8 @@ public class SmsVerificationActivity extends AppCompatActivity {
     private TextInputEditText edtVerificationCode;
     private AlphaAnimation alphaAnimation = new AlphaAnimation(1F, 0.8F);
 
-
     private Handler handler;
+    private Call<LoginResponse> callWebservice;
 
     @Override
     protected void onRestart() {
@@ -103,32 +99,14 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
         handler = new Handler();
 
-        timer = new CountDownTimer(TIMEOUT_DURATION_MILLIS, COUNTDOWN_INTERVAL) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                isTimerRunning = true;
-                handler.post(() -> {
-                    txtProgress.setText(Long.toString((millisUntilFinished / COUNTDOWN_INTERVAL) - 1));
-                });
-            }
-
-            @Override
-            public void onFinish() {
-//                btnVerify.setEnabled(true);
-                isTimerRunning = false;
-            }
-        };
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         prgTimer = (ProgressBar) findViewById(R.id.prgTimer);
         relProgress = (RelativeLayout) findViewById(R.id.relProgress);
         txtProgress = (TextView) findViewById(R.id.txtProgress);
 
-
         Drawable progressDrawable = prgTimer.getIndeterminateDrawable().mutate();
         progressDrawable.setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN);
         prgTimer.setProgressDrawable(progressDrawable);
-
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -143,7 +121,13 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
         if (extras != null && !extras.isEmpty()) {
             phone = extras.getString("phone");
-            sendSms(phone);
+            if (callWebservice != null) {
+                if (!callWebservice.isExecuted() | callWebservice.isCanceled()) {
+                    sendSms(phone);
+                }
+            } else {
+                sendSms(phone);
+            }
         } else {
             finish();
         }
@@ -155,21 +139,11 @@ public class SmsVerificationActivity extends AppCompatActivity {
         inputLayoutVerificationCode = (TextInputLayout) findViewById(R.id.inputLayoutVerificationCode);
         edtVerificationCode = (TextInputEditText) findViewById(R.id.edtVerificationCode);
 
-        edtVerificationCode.setOnKeyListener((view, i, keyEvent) -> {
-            if (btnVerify.isEnabled() && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                action();
-            }
-            return false;
-        });
-
-
         btnVerify.setOnClickListener(view -> {
             action();
         });
 
-
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
-
 
         FontManager.setFont(btnVerify, iranSans);
         FontManager.setFont(inputLayoutVerificationCode, iranSans);
@@ -180,24 +154,10 @@ public class SmsVerificationActivity extends AppCompatActivity {
             edtVerificationCode.setText(messageText);
             action();
         });
-
     }
 
-    private CountDownTimer timer;
-    private boolean isTimerRunning = false;
-
     public void action() {
-            submitForm(phone);
-//        if (timer == null) {
-////            btnVerify.setEnabled(true);
-//            btnVerify.startAnimation(alphaAnimation);
-//
-//        } else if (timer != null) {
-//            if (!isTimerRunning) {
-//                timer.cancel();
-//                timer = null;
-//            }
-//        }
+        submitForm(phone);
     }
 
     private void sendVerificationCode(final String phone, final String verificationCode) {
@@ -207,21 +167,10 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
         LoginService webService = retrofit.create(LoginService.class);
 
+        Call<VerificationResponse> callVerification =
+                webService.verify(new VerificationRequest(phone, verificationCode));
 
-        final String userType = "29c1cab0898b664bee9dd17ed48bbed0";
-
-//                Util.base64decode(
-//                GhaichiPrefrenceManager.getString(getApplicationContext(),
-//                        Util.md5(Util.PREFRENCES_KEYS.USER_ROLE),
-//                        Util.base64encode("29c1cab0898b664bee9dd17ed48bbed0", Util.PREFRENCES_KEYS.BASE_64_ENCODE_DECODE_COUNT)
-//                ),
-//                Util.PREFRENCES_KEYS.BASE_64_ENCODE_DECODE_COUNT
-//        );
-
-        Call<VerificationResponse> callWebservice =
-                webService.verify(new VerificationRequest(phone, verificationCode, userType));
-
-        callWebservice.enqueue(new Callback<VerificationResponse>() {
+        callVerification.enqueue(new Callback<VerificationResponse>() {
             @Override
             public void onResponse(Call<VerificationResponse> call, Response<VerificationResponse> response) {
                 if (response.body() != null) {
@@ -235,21 +184,15 @@ public class SmsVerificationActivity extends AppCompatActivity {
                         );
 
                         Log.i(TAG, "onResponse.SUCCESS: " + response.body().getMessage());
-                        if (!response.body().isProfileCompleted()) {
-                            Intent intent = new Intent(SmsVerificationActivity.this, PersonalInfoActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
+
+//                        if (userType.equals(Util.CONSTANTS.ROLE_BARBERSHOP)) {
 //                            startActivity(new Intent(SmsVerificationActivity.this, BarberMainActivity.class));
 //                            finish();
-                            if (userType.equals(Util.CONSTANTS.ROLE_BARBERSHOP)) {
-                                startActivity(new Intent(SmsVerificationActivity.this, BarberMainActivity.class));
-                                finish();
-                            } else if (userType.equals(Util.CONSTANTS.ROLE_NORMAL_USER)) {
-                                startActivity(new Intent(SmsVerificationActivity.this, NewMainActivity.class));
-                                finish();
-                            }
-                        }
+//                        } else if (userType.equals(Util.CONSTANTS.ROLE_NORMAL_USER)) {
+//                            startActivity(new Intent(SmsVerificationActivity.this, NewMainActivity.class));
+//                            finish();
+//                        }
+
                     } else {
                         Log.i(TAG, "onResponse.FAILURE: " + response.body().getMessage());
                         finish();
@@ -271,14 +214,11 @@ public class SmsVerificationActivity extends AppCompatActivity {
     private void sendSms(final String phone) {
 
         relProgress.setVisibility(View.VISIBLE);
-        timer.start();
 
         Retrofit retrofit = API.getRetrofit();
-
         LoginService webService = retrofit.create(LoginService.class);
 
-
-        Call<LoginResponse> callWebservice =
+        callWebservice =
                 webService.login(new LoginRequest(phone));
 
         callWebservice.enqueue(new Callback<LoginResponse>() {
@@ -312,12 +252,10 @@ public class SmsVerificationActivity extends AppCompatActivity {
             inputLayoutVerificationCode.setError(getString(R.string.err__empty__verfcode));
             requestFocus(edtVerificationCode);
             return false;
-
         } else if (!Pattern.matches(Util.CONSTANTS.REGEX_VERIFICATIONCODE, edtVerificationCode.getText().toString())) {
             inputLayoutVerificationCode.setError(getString((R.string.err__invalid__verfcode)));
             requestFocus(edtVerificationCode);
             return false;
-
         } else {
             inputLayoutVerificationCode.setErrorEnabled(false);
         }
@@ -326,18 +264,15 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
     private void submitForm(final String phone) {
         if (!validateVerificationCode()) {
-//            btnVerify.setEnabled(true);
             return;
         }
         sendVerificationCode(phone, edtVerificationCode.getText().toString());
     }
 
     private void requestFocus(View view) {
-
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
-
     }
 
     @Override

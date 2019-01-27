@@ -2,9 +2,7 @@ package com.sorinaidea.ghaichi.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,7 @@ import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.model.ServiceCategory;
-import com.sorinaidea.ghaichi.ui.AddServiceCategoryActivity;
+import com.sorinaidea.ghaichi.ui.CategoriesActivity;
 import com.sorinaidea.ghaichi.util.FontManager;
 
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategory
     private ArrayList<ServiceCategory> mDataSet;
     private Context mContext;
     private Typeface fontIranSans;
-    private AddServiceCategoryActivity mActivity;
+    private CategoriesActivity mActivity;
     private int lastPosition = -1;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView txtTitle;
@@ -59,7 +57,7 @@ public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategory
     }
 
 
-    public ServiceCategoryAdapter(ArrayList<ServiceCategory> serviceCategories, Context context, AddServiceCategoryActivity activity) {
+    public ServiceCategoryAdapter(ArrayList<ServiceCategory> serviceCategories, Context context, CategoriesActivity activity) {
         mDataSet = serviceCategories;
         mContext = context;
         mActivity = activity;

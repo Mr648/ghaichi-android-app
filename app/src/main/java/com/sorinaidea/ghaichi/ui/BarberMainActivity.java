@@ -15,7 +15,6 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -29,10 +28,13 @@ import android.widget.TextView;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
-import com.sorinaidea.ghaichi.adapter.ReservationV2Adabper;
 import com.sorinaidea.ghaichi.adapter.barbershop.BarbershopReservationsAdabper;
 import com.sorinaidea.ghaichi.model.Reservation;
-import com.sorinaidea.ghaichi.ui.barbershop.activity.AddServiceActivity;
+import com.sorinaidea.ghaichi.ui.barbershop.activity.BannersActivity;
+import com.sorinaidea.ghaichi.ui.barbershop.activity.BarbersActivity;
+import com.sorinaidea.ghaichi.ui.barbershop.activity.PaymentActivity;
+import com.sorinaidea.ghaichi.ui.barbershop.activity.SamplesActivity;
+import com.sorinaidea.ghaichi.ui.barbershop.activity.ServicesActivity;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.Util;
 
@@ -43,6 +45,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import co.ronash.pushe.Pushe;
 import me.relex.circleindicator.CircleIndicator;
 
 /**
@@ -57,36 +60,10 @@ public class BarberMainActivity extends AppCompatActivity implements
     private TextView txtCity;
     private Typeface fontIranSans;
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_setting) {
-            Intent intent = new Intent(BarberMainActivity.this, SettingActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.action_aboutus) {
-            Intent intent = new Intent(BarberMainActivity.this, AboutUsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.action_credit) {
-            Intent intent = new Intent(BarberMainActivity.this, CreditActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.action_advertise) {
-            Intent intent = new Intent(BarberMainActivity.this, AdvertismentActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.action_faq) {
-            Intent intent = new Intent(BarberMainActivity.this, FaqActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.action_profile) {
-            Intent intent = new Intent(BarberMainActivity.this, UserProfileActivity.class);
-            startActivity(intent);
-        }
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+
 
 
     private DrawerLayout drawer;
-//    FloatingActionButton fabAddServiceCategory;
-//    FloatingActionButton fabAddService;
     RecyclerView recReservations;
     private ViewPager mPager;
     private CircleIndicator indicator;
@@ -95,7 +72,8 @@ public class BarberMainActivity extends AppCompatActivity implements
 
     private CardView cardCategory;
     private CardView cardServices;
-    private CardView cardSample;
+    private CardView cardSamples;
+    private CardView cardBarbers;
 
     private ArrayList<Reservation> initDataset() {
         ArrayList<Reservation> mDataset = new ArrayList<>();
@@ -110,47 +88,40 @@ public class BarberMainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barbershop_admin);
-
+        Pushe.initialize(this,true);
 //        fabAddServiceCategory = (FloatingActionButton) findViewById(R.id.fabAddServiceCategory);
 //        fabAddService = (FloatingActionButton) findViewById(R.id.fabAddService);
         scrViewRoot = (NestedScrollView) findViewById(R.id.scrViewRoot);
+
         cardCategory = (CardView) findViewById(R.id.cardCategory);
         cardServices = (CardView) findViewById(R.id.cardServices);
-        cardSample = (CardView) findViewById(R.id.cardSample);
+        cardSamples = (CardView) findViewById(R.id.cardSamples);
+        cardBarbers = (CardView) findViewById(R.id.cardBarbers);
 
         cardCategory.setOnClickListener((view) -> {
-            Intent intent = new Intent(BarberMainActivity.this, AddServiceCategoryActivity.class);
+            Intent intent = new Intent(BarberMainActivity.this, CategoriesActivity.class);
             startActivity(intent);
         });
         cardServices.setOnClickListener((view) -> {
-            Intent intent = new Intent(BarberMainActivity.this, AddServiceActivity.class);
+            Intent intent = new Intent(BarberMainActivity.this, ServicesActivity.class);
             startActivity(intent);
         });
-        cardSample.setOnClickListener((view) -> {
-            Intent intent = new Intent(BarberMainActivity.this, ManageSampleActivity.class);
+        cardSamples.setOnClickListener((view) -> {
+            Intent intent = new Intent(BarberMainActivity.this, SamplesActivity.class);
             startActivity(intent);
         });
 
-//        fabAddServiceCategory.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(BarberMainActivity.this, AddServiceCategoryActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
+        cardBarbers.setOnClickListener((view) -> {
+            Intent intent = new Intent(BarberMainActivity.this, BarbersActivity.class);
+            startActivity(intent);
+        });
 
 
         recReservations = (RecyclerView) findViewById(R.id.recReservations);
-        recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false));
-        recReservations.addItemDecoration(new ItemOffsetDecoration(Util.dp(8,this)));
+        recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        recReservations.addItemDecoration(new ItemOffsetDecoration(Util.dp(8, this)));
         recReservations.setAdapter(new BarbershopReservationsAdabper(getApplicationContext()));
-
-//        recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-//        recReservations.setAdapter(new ReservationV2Adabper(initDataset(), getApplicationContext()));
-
         recReservations.setNestedScrollingEnabled(false);
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -169,20 +140,16 @@ public class BarberMainActivity extends AppCompatActivity implements
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_menu_open, R.string.navigation_menu_close);
 
-
         recReservations.setFocusable(false);
 
         scrViewRoot.fullScroll(ScrollView.FOCUS_UP);
         scrViewRoot.smoothScrollTo(0, 0);
 
-
         drawer.setDrawerListener(toggle);
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         toggle.syncState();
 
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.navView);
-
 
         txtUserInfo = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
         txtCity = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtCity);
@@ -190,9 +157,9 @@ public class BarberMainActivity extends AppCompatActivity implements
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             navigationView.setLayoutDirection(NavigationView.LAYOUT_DIRECTION_RTL);
         }
+
         navigationView.setNavigationItemSelectedListener(this);
         disableNavigationViewScrollbars(navigationView);
-
 
         txtUserInfo.setText("کاربر آرایشگر");
         txtCity.setText("سنندج");
@@ -290,5 +257,38 @@ public class BarberMainActivity extends AppCompatActivity implements
         super.onBackPressed();
     }
 
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_setting) {
+            Intent intent = new Intent(BarberMainActivity.this, SettingActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_aboutus) {
+            Intent intent = new Intent(BarberMainActivity.this, AboutUsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_credit) {
+            Intent intent = new Intent(BarberMainActivity.this, PaymentActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_advertise) {
+            Intent intent = new Intent(BarberMainActivity.this, AdvertismentActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_faq) {
+            Intent intent = new Intent(BarberMainActivity.this, FaqActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_profile) {
+            Intent intent = new Intent(BarberMainActivity.this, UserProfileActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.action_reservations) {
+//            Intent intent = new Intent(BarberMainActivity.this, REser.class);
+//            startActivity(intent);
+        }else if (id == R.id.action_banners) {
+            Intent intent = new Intent(BarberMainActivity.this, BannersActivity.class);
+            startActivity(intent);
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
 }

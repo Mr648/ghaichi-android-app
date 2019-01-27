@@ -55,6 +55,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import co.ronash.pushe.Pushe;
 import me.relex.circleindicator.CircleIndicator;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -262,6 +263,8 @@ public class NewMainActivity extends AppCompatActivity implements
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new_design);
+
+        Pushe.initialize(this,true);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawerLayout);

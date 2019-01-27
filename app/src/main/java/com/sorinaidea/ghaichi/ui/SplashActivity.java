@@ -20,6 +20,8 @@ import com.sorinaidea.ghaichi.webservice.model.responses.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
 
+import co.ronash.pushe.Pushe;
+
 /**
  * Created by mr-code on 6/17/2018.
  */
@@ -34,7 +36,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         txtTitle = (TextView) findViewById(R.id.txtTitle);
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
         FontManager.setFont(txtTitle, iranSans);

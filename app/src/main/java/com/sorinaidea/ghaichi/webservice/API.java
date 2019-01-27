@@ -24,9 +24,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class API {
 
 
-//    public static final String BASE_URL = "http://192.168.1.10/";
+    public static final String BASE_URL = "http://192.168.1.10/";
 //    public static final String BASE_URL = "http://192.168.43.85/";
-    public static final String BASE_URL = "https://ghaichi.com/";
+//    public static final String BASE_URL = "https://ghaichi.com/";
 
     private static Retrofit retrofit;
     private static Picasso picasso;
@@ -74,7 +74,6 @@ public class API {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
-
             try {
                 client = new OkHttpClient.Builder()
                         .sslSocketFactory(new TLSSocketFactory())
@@ -96,9 +95,6 @@ public class API {
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-
         return retrofit;
     }
-
-
 }

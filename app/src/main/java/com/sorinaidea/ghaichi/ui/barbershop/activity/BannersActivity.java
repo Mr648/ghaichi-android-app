@@ -1,6 +1,5 @@
 package com.sorinaidea.ghaichi.ui.barbershop.activity;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,20 +11,20 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.adapter.barbershop.BarberInfoAdabper;
+import com.sorinaidea.ghaichi.adapter.barbershop.BannersAdapter;
 import com.sorinaidea.ghaichi.util.FontManager;
 
-public class BarbersActivity extends AppCompatActivity {
+public class BannersActivity extends AppCompatActivity {
 
-    private RecyclerView recBarbers;
-    private FloatingActionButton fabAddBarber;
+    private RecyclerView recBanners;
+    private FloatingActionButton fabAddBanner;
     private Toolbar toolbar;
     private TextView mTitle;
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_barbers);
+        setContentView(R.layout.activity_banners);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,19 +33,17 @@ public class BarbersActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText(R.string.toolbar_manage_barbers);
+        mTitle.setText(R.string.toolbar_banners);
+        recBanners = (RecyclerView) findViewById(R.id.recBanners);
 
-        recBarbers = (RecyclerView) findViewById(R.id.recBanners);
-
-
-        // TODO Enable Chat here!
-        fabAddBarber = (FloatingActionButton) findViewById(R.id.fabAddBarber);
-        fabAddBarber.setOnClickListener((view) -> {
-            Intent intent = new Intent(BarbersActivity.this, AddBarberActivity.class);
-            startActivity(intent);
+        fabAddBanner = (FloatingActionButton) findViewById(R.id.fabAddBanner);
+        fabAddBanner.setOnClickListener((view) -> {
+             // GOTO ACTIVITY SELECT IMAGE
         });
-        recBarbers.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        recBarbers.setAdapter(new BarberInfoAdabper(this));
+
+
+        recBanners.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        recBanners.setAdapter(new BannersAdapter(this));
 
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
         FontManager.setFont(mTitle, iranSans);

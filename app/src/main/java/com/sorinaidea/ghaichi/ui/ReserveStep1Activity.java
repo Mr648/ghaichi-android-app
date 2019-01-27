@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
@@ -95,7 +94,7 @@ public class ReserveStep1Activity extends AppCompatActivity implements TimePicke
         getSupportActionBar().setTitle("رزرو خدمات");
 
 
-        recServices = (RecyclerView) findViewById(R.id.recServices);
+        recServices = (RecyclerView) findViewById(R.id.recBanners);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         parentLayout = findViewById(android.R.id.content);

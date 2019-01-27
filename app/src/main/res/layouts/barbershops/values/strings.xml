@@ -20,8 +20,8 @@
     <string name="toolbar_add_service">افزودن خدمت</string>
     <string name="toolbar_request_advertise">درخواست تبلیغات</string>
     <string name="request_advertise">ارسال درخواست</string>
-    <string name="barber_name">نام آرایشگر</string>
-    <string name="barber_family">نام‌خانوادگی آرایشگر</string>
+    <string name="barber_name">نام</string>
+    <string name="barber_family">نام‌خانوادگی</string>
     <string name="barber_mobile">شماره موبایل</string>
     <string name="toolbar_manage_barbers">مدیریت آرایشگران</string>
     <string name="toolbar_add_barber">افزودن آرایشگر</string>
@@ -32,4 +32,10 @@
     <string name="label_choose_city">انتخاب شهر</string>
     <string name="toolbar_choose_city">انتخاب شهر</string>
     <string name="next_step">مرحله بعدی</string>
+    <string name="toolbar_samples">مشاهده نمونه‌ کارها</string>
+    <string name="toolbar_manage_services">مدیریت خدمات</string>
+    <string name="toolbar_faq">سوالات متداول</string>
+    <string name="toolbar_banners">بنرهای پروفایل آرایشگاه</string>
+    <string name="toobar_advertises">تبلیغات</string>
+    <string name="activate_account">خرید اشتراک</string>
 </resources>

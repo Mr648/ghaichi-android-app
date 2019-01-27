@@ -12,19 +12,20 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.adapter.barbershop.ServiceAdabper;
 import com.sorinaidea.ghaichi.util.FontManager;
 
 public class ServicesActivity extends AppCompatActivity {
 
-    private RecyclerView recBarbers;
-    private FloatingActionButton fabAddBarber;
+    private RecyclerView recServices;
+    private FloatingActionButton fabAddService;
     private Toolbar toolbar;
     private TextView mTitle;
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_barbers);
+        setContentView(R.layout.activity_services);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -33,21 +34,18 @@ public class ServicesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText(R.string.toolbar_manage_barbers);
+        mTitle.setText(R.string.toolbar_manage_services);
+        recServices = (RecyclerView) findViewById(R.id.recBanners);
 
-        recBarbers = (RecyclerView) findViewById(R.id.recFaq);
-
-
-        fabAddBarber = (FloatingActionButton) findViewById(R.id.fabSupport);
-
-        fabAddBarber.setOnClickListener((view) -> {
-            Intent intent = new Intent(ServicesActivity.this, AddBarberActivity.class);
+        fabAddService = (FloatingActionButton) findViewById(R.id.fabAddService);
+        fabAddService.setOnClickListener((view) -> {
+            Intent intent = new Intent(ServicesActivity.this, AddServiceActivity.class);
             startActivity(intent);
         });
 
 
-        recBarbers.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-
+        recServices.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        recServices.setAdapter(new ServiceAdabper(this));
 
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
         FontManager.setFont(mTitle, iranSans);

@@ -6,17 +6,17 @@ package com.sorinaidea.ghaichi.webservice.model.requests;
 
 public class LoginRequest {
 
-    private String phone;
+    private String mobile;
 
-    public LoginRequest(String phone) {
-        this.setPhone(phone);
+    public LoginRequest(String mobile) {
+        this.setMobile(mobile);
     }
 
-    public String getPhone() {
-        return phone;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

@@ -19,7 +19,7 @@
             android:src="@color/colorOrange" />
 
         <TextView
-            android:id="@+id/txtUser"
+            android:id="@+id/txtName"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,6 +54,7 @@
                     app:srcCompat="@drawable/ic_access_time_black_18dp" />
 
                 <TextView
+                    android:id="@+id/txtTime"
                     style="@style/TextAppearance.AppCompat.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -77,6 +78,7 @@
                     app:srcCompat="@drawable/ic_attach_money_white_18dp" />
 
                 <TextView
+                    android:id="@+id/txtPrice"
                     style="@style/TextAppearance.AppCompat.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -100,6 +102,7 @@
                     app:srcCompat="@drawable/ic_photo_white_18dp" />
 
                 <TextView
+                    android:id="@+id/txtSamples"
                     style="@style/TextAppearance.AppCompat.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -123,6 +126,7 @@
                     app:srcCompat="@drawable/ic_group_white_18dp" />
 
                 <TextView
+                    android:id="@+id/txtBarbers"
                     style="@style/TextAppearance.AppCompat.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -140,7 +144,7 @@
             android:gravity="center_vertical|left">
 
             <TextView
-                android:id="@+id/txtStats"
+                android:id="@+id/txtDateCreated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
