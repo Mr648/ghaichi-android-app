@@ -1,4 +1,4 @@
-package com.sorinaidea.ghaichi.webservice.model.responses;
+package com.sorinaidea.ghaichi.models;
 
 public class Response {
 

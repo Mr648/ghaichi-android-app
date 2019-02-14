@@ -193,7 +193,6 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
                     if (!response.body().hasError()) {
 
-
                         GhaichiPrefrenceManager.putEncryptedString(getApplicationContext(),
                                 Util.PREFRENCES_KEYS.USER_ACCESS_KEY,
                                 response.body().getAccessKey()
@@ -204,28 +203,10 @@ public class SmsVerificationActivity extends AppCompatActivity {
                                 response.body().getUserRole()
                         );
 
-                        //9ed6e4ec89d8e923bd154329d3f395b0ffa8b69d2c69e081b934c75da24ffbb9
-                        //9ed6e4ec89d8e923bd154329d3f395b0ffa8b69d2c69e081b934c75da24ffbb9
                         GhaichiPrefrenceManager.putEncryptedString(getApplicationContext(),
                                 Util.PREFRENCES_KEYS.KEY_EXPIRATION,
                                 response.body().getExpiration()
                         );
-
-                        String str = response.body().getUserRole();
-                        Log.d("TAGGGGGGG", response.body().getUserRole());
-
-
-                        AesEncryptionData data = new Gson().fromJson(new String(Base64.decode(str, Base64.URL_SAFE)), AesEncryptionData.class);
-//
-                        try {
-//                            String result = AesEncryptDecrypt.decrypt( new String(Base64.decode(Base64.decode(response.body().getExpiration(), Base64.DEFAULT), Base64.DEFAULT)).getBytes("UTF-8"), data, str);
-                            String result = AesEncryptDecrypt.decrypt(new String(Base64.decode("rOSGWR1lsu8+yX1JkAaFlDa1/1YH+p4L0NkJ8dpfMGY=", Base64.DEFAULT)).getBytes("UTF-8"), data);
-                            Toast.makeText(SmsVerificationActivity.this, result, Toast.LENGTH_LONG).show();
-                            Log.d("TAG", result);
-                        } catch (NoSuchPaddingException | NoSuchAlgorithmException | DecoderException | UnsupportedEncodingException | InvalidKeyException | InvalidAlgorithmParameterException | BadPaddingException | IllegalBlockSizeException ex) {
-                            ex.printStackTrace();
-                            Log.d("EXCEPTION", ex.getMessage());
-                        }
 
 
                         // TODO Goto Other Part Of Program.
@@ -269,7 +250,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.body() != null) {
                     if (!response.body().hasError()) {
-                        Toast.makeText(SmsVerificationActivity.this, "Sent to " + phone, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SmsVerificationActivity.this, "کد فعالسازی به شماره  " + phone + " ارسال شد.", Toast.LENGTH_SHORT).show();
                     } else {
                         Log.i(TAG, "onResponse.FAILURE: " + response.body().getMessage());
                     }
@@ -332,3 +313,23 @@ public class SmsVerificationActivity extends AppCompatActivity {
         finish();
     }
 }
+
+/*
+*   String str = response.body().getUserRole();
+                        Log.d("TAGGGGGGG", response.body().getUserRole());
+*
+*
+                        AesEncryptionData data = new Gson().fromJson(new String(Base64.decode(str, Base64.URL_SAFE)), AesEncryptionData.class);
+//
+                        try {
+//                            String result = AesEncryptDecrypt.decrypt( new String(Base64.decode(Base64.decode(response.body().getExpiration(), Base64.DEFAULT), Base64.DEFAULT)).getBytes("UTF-8"), data, str);
+                            String result = AesEncryptDecrypt.decrypt(new String(Base64.decode("rOSGWR1lsu8+yX1JkAaFlDa1/1YH+p4L0NkJ8dpfMGY=", Base64.DEFAULT)).getBytes("UTF-8"), data);
+                            Toast.makeText(SmsVerificationActivity.this, result, Toast.LENGTH_LONG).show();
+                            Log.d("TAG", result);
+                        } catch (NoSuchPaddingException | NoSuchAlgorithmException | DecoderException | UnsupportedEncodingException | InvalidKeyException | InvalidAlgorithmParameterException | BadPaddingException | IllegalBlockSizeException ex) {
+                            ex.printStackTrace();
+                            Log.d("EXCEPTION", ex.getMessage());
+                        }
+
+*
+* */

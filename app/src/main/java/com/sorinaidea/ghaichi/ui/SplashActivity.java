@@ -29,12 +29,23 @@ public class SplashActivity extends AppCompatActivity {
     private static final int SPLASH_TIME = 1500;
     private static final int FINISH_DELAY = 3000;
     private TextView txtTitle;
+    private boolean isLoggedIn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && !extras.isEmpty()) {
+            isLoggedIn = extras.getBoolean("IS_LOGGED_IN");
+        } else {
+            finish();
+            return;
+        }
+
         txtTitle = (TextView) findViewById(R.id.txtTitle);
+
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
         FontManager.setFont(txtTitle, iranSans);
 
@@ -52,8 +63,18 @@ public class SplashActivity extends AppCompatActivity {
 
                 @Override
                 public void onFinish() {
-                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                    finish();
+                    if (isLoggedIn) {
+//                        if (userType.equals(Util.CONSTANTS.ROLE_BARBERSHOP)) {
+                        startActivity(new Intent(SplashActivity.this, BarberMainActivity.class));
+                        finish();
+//                        } else if (userType.equals(Util.CONSTANTS.ROLE_NORMAL_USER)) {
+//                            startActivity(new Intent(SmsVerificationActivity.this, NewMainActivity.class));
+//                            finish();
+//                        }
+                    } else {
+                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                        finish();
+                    }
                 }
             }.start();
         }

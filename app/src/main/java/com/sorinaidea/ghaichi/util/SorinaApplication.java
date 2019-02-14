@@ -37,7 +37,7 @@ public class SorinaApplication extends Application {
     }
 
     public static boolean hasAccessKey(Context context) {
-        String isLoggedIn = GhaichiPrefrenceManager.getString(context, Util.md5(Util.PREFRENCES_KEYS.USER_ACCESS_KEY), null);
+        String isLoggedIn = GhaichiPrefrenceManager.getDecryptedString(context,  Util.PREFRENCES_KEYS.USER_ACCESS_KEY, null);
         return isLoggedIn != null && !isLoggedIn.isEmpty();
     }
 

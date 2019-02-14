@@ -12,6 +12,7 @@ import android.util.Log;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.sorinaidea.ghaichi.model.Advertise;
+import com.sorinaidea.ghaichi.ui.CategoriesActivity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -180,11 +181,8 @@ public class Util {
     }
 
     public static String getAccessKey(Context context) {
-
-        String accessKey = GhaichiPrefrenceManager.getString(context,
-                Util.md5(Util.PREFRENCES_KEYS.USER_ACCESS_KEY), null);
-        accessKey = Util.base64decode(accessKey, Util.PREFRENCES_KEYS.BASE_64_ENCODE_DECODE_COUNT);
-        return accessKey;
+        String authToken = GhaichiPrefrenceManager.getDecryptedString(context, Util.PREFRENCES_KEYS.USER_ACCESS_KEY,null);
+        return authToken;
     }
 
 }

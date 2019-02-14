@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.model.ServiceCategory;
+import com.sorinaidea.ghaichi.models.Category;
 import com.sorinaidea.ghaichi.ui.CategoriesActivity;
 import com.sorinaidea.ghaichi.util.FontManager;
 
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategoryAdapter.ViewHolder> {
     private static final String TAG = "ServiceCategoryAdapter";
 
-    private ArrayList<ServiceCategory> mDataSet;
+    private ArrayList<Category> mDataSet;
     private Context mContext;
     private Typeface fontIranSans;
     private CategoriesActivity mActivity;
@@ -57,7 +58,7 @@ public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategory
     }
 
 
-    public ServiceCategoryAdapter(ArrayList<ServiceCategory> serviceCategories, Context context, CategoriesActivity activity) {
+    public ServiceCategoryAdapter(ArrayList<Category> serviceCategories, Context context, CategoriesActivity activity) {
         mDataSet = serviceCategories;
         mContext = context;
         mActivity = activity;
@@ -102,15 +103,11 @@ public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategory
 
     public void removeItem(int position) {
         mDataSet.remove(position);
-        // notify the item removed by position
-        // to perform recycler view delete animations
-        // NOTE: don't call notifyDataSetChanged()
         notifyItemRemoved(position);
     }
 
-    public void restoreItem(ServiceCategory item, int position) {
+    public void restoreItem(Category item, int position) {
         mDataSet.add(position, item);
-        // notify item added by position
         notifyItemInserted(position);
     }
 }

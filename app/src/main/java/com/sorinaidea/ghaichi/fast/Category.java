@@ -3,6 +3,7 @@ package com.sorinaidea.ghaichi.fast;
 import java.util.List;
 
 public class Category {
+
     private int id;
     private String name;
     private List<Service> services;

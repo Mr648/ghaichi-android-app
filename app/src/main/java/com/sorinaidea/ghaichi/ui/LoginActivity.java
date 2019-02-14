@@ -103,53 +103,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         btnSendCode.setOnClickListener(view -> {
-
-            try {
-
-                String fucked = new String(Base64.encode(RSA.encrypt(RSA.getPublic(), "adad"), Base64.DEFAULT));
-                String fuckedAgain = new String(RSA.decrypt(RSA.getPrivate(),
-                        Base64.decode(RSA.encrypt(RSA.getPublic(), fucked), Base64.DEFAULT)));
-
-                Log.d("ENCRYPTED", fucked);
-                Log.d("DECRYPTED", fuckedAgain);
-//Util.md5();
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("EXCEPTION-RSA", e.getMessage());
-            }
-            view.startAnimation(alphaAnimation);
-//            submitForm();
-            String str = "eyJpdiI6InVEY1hUTFZUQjI3bFBDN0RvXC9ETVR3PT0iLCJ2YWx1ZSI6IlZrbE5UeEhxeGlJOFNpMUVESzE4c1E9PSIsIm1hYyI6ImE1ZmMwOTNiZWRjYzJjYTJlYmY0MGEwZWJjZWEzMGFmODkyMTBiMGJjZTQwNDM4NGJlYTIxYzA4NDJkZmExZTAifQ";
-            AesEncryptionData data = new Gson().fromJson(
-                    new String(
-                            Base64.decode(
-                                    str
-                                    , Base64.DEFAULT
-                            )
-                    ),
-                    AesEncryptionData.class
-            );
-//
-            try {
-//                            String result = AesEncryptDecrypt.decrypt( new String(Base64.decode(Base64.decode(response.body().getExpiration(), Base64.DEFAULT), Base64.DEFAULT)).getBytes("UTF-8"), data, str);
-                String encr = AesEncryptDecrypt.encrypt("XtTIUs54bthRm2Pw5sbWWxL6zZeeBgAiNxOcCGj+g0g=".getBytes("UTF-8"), "user");
-                AesEncryptionData data2 = new Gson().fromJson(
-                        new String(
-                                Base64.decode(
-                                        encr
-                                        , Base64.DEFAULT
-                                )
-                        ),
-                        AesEncryptionData.class
-                );
-                String result = AesEncryptDecrypt.decrypt("XtTIUs54bthRm2Pw5sbWWxL6zZeeBgAiNxOcCGj+g0g=".getBytes("UTF-8"), data2);
-
-                Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-                Log.d("TAG", result);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                Log.d("EXCEPTION-CRYPT", ex.getMessage());
-            }
+            submitForm();
         });
 
 
@@ -218,3 +172,58 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
+
+
+/*
+
+//codes about rsa encryption
+
+
+
+            try {
+
+                String fucked = new String(Base64.encode(RSA.encrypt(RSA.getPublic(), "adad"), Base64.DEFAULT));
+                String fuckedAgain = new String(RSA.decrypt(RSA.getPrivate(),
+                        Base64.decode(RSA.encrypt(RSA.getPublic(), fucked), Base64.DEFAULT)));
+
+                Log.d("ENCRYPTED", fucked);
+                Log.d("DECRYPTED", fuckedAgain);
+//Util.md5();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("EXCEPTION-RSA", e.getMessage());
+            }
+            view.startAnimation(alphaAnimation);
+//            submitForm();
+            String str = "eyJpdiI6InVEY1hUTFZUQjI3bFBDN0RvXC9ETVR3PT0iLCJ2YWx1ZSI6IlZrbE5UeEhxeGlJOFNpMUVESzE4c1E9PSIsIm1hYyI6ImE1ZmMwOTNiZWRjYzJjYTJlYmY0MGEwZWJjZWEzMGFmODkyMTBiMGJjZTQwNDM4NGJlYTIxYzA4NDJkZmExZTAifQ";
+            AesEncryptionData data = new Gson().fromJson(
+                    new String(
+                            Base64.decode(
+                                    str
+                                    , Base64.DEFAULT
+                            )
+                    ),
+                    AesEncryptionData.class
+            );
+//
+            try {
+//                            String result = AesEncryptDecrypt.decrypt( new String(Base64.decode(Base64.decode(response.body().getExpiration(), Base64.DEFAULT), Base64.DEFAULT)).getBytes("UTF-8"), data, str);
+                String encr = AesEncryptDecrypt.encrypt("XtTIUs54bthRm2Pw5sbWWxL6zZeeBgAiNxOcCGj+g0g=".getBytes("UTF-8"), "user");
+                AesEncryptionData data2 = new Gson().fromJson(
+                        new String(
+                                Base64.decode(
+                                        encr
+                                        , Base64.DEFAULT
+                                )
+                        ),
+                        AesEncryptionData.class
+                );
+                String result = AesEncryptDecrypt.decrypt("XtTIUs54bthRm2Pw5sbWWxL6zZeeBgAiNxOcCGj+g0g=".getBytes("UTF-8"), data2);
+
+                Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+                Log.d("TAG", result);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                Log.d("EXCEPTION-CRYPT", ex.getMessage());
+            }
+* */
