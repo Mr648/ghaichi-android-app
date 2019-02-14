@@ -6,20 +6,20 @@ package com.sorinaidea.ghaichi.webservice.model.requests;
 
 public class VerificationRequest {
 
-    private String phone;
+    private String mobile;
     private String code;
 
     public VerificationRequest(String phone, String verificationCode) {
-        this.setPhone(phone);
+        this.setMobile(phone);
         this.setCode(verificationCode);
     }
 
-    public String getPhone() {
-        return phone;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getCode() {

@@ -25,10 +25,17 @@ public class GhaichiPrefrenceManager {
     private static SharedPreferences prefs;
 
     private static SharedPreferences getPreferences(Context context) {
+
         return prefs == null ? (prefs = PreferenceManager.getDefaultSharedPreferences(context)) : prefs;
     }
 
+    public static void putEncryptedString(Context context, String key, String value) {
+
+        getPreferencesEditor(context).putString(Security.encrypt(key, context), Security.encrypt(value, context)).apply();
+    }
+
     public static void putString(Context context, String key, String value) {
+
         getPreferencesEditor(context).putString(key, value).apply();
     }
 
@@ -60,6 +67,10 @@ public class GhaichiPrefrenceManager {
         getPreferencesEditor(context).putStringSet(key, stringSet).apply();
     }
 
+
+    public static String getDecryptedString(Context context, String key, String defaultValue) {
+        return Security.decrypt(getPreferences(context).getString(Security.encrypt(key, context), defaultValue), context);
+    }
 
     public static String getString(Context context, String key, String defaultValue) {
         return getPreferences(context).getString(key, defaultValue);

@@ -1,15 +1,22 @@
 package com.sorinaidea.ghaichi.webservice.model.responses;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by mr-code on 6/17/2018.
  */
 
 public class VerificationResponse extends Response {
 
-    private String accessKey;
-    private String userType;
-    private boolean isProfileCompleted;
 
+    @SerializedName("access_key")
+    private String accessKey;
+
+    @SerializedName("user_role")
+    private String userRole;
+
+    @SerializedName("expiration")
+    private String expiration;
 
     public String getAccessKey() {
         return accessKey;
@@ -19,19 +26,19 @@ public class VerificationResponse extends Response {
         this.accessKey = accessKey;
     }
 
-    public String getUserType() {
-        return userType;
+    public String getUserRole() {
+        return userRole;
     }
 
-    public boolean isProfileCompleted() {
-        return isProfileCompleted;
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
-    public void setProfileCompleted(boolean profileCompleted) {
-        isProfileCompleted = profileCompleted;
+    public void setExpiration(String expiration) {
+        this.expiration = expiration;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public String getExpiration() {
+        return expiration;
     }
 }

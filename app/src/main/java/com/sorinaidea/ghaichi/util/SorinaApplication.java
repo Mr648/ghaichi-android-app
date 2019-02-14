@@ -16,6 +16,7 @@ public class SorinaApplication extends Application {
 
 
     public AppCompatActivity currentActivity;
+
     public static LayoutInflater inflater;
     public static Handler handler;
 
@@ -31,6 +32,7 @@ public class SorinaApplication extends Application {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
@@ -38,4 +40,6 @@ public class SorinaApplication extends Application {
         String isLoggedIn = GhaichiPrefrenceManager.getString(context, Util.md5(Util.PREFRENCES_KEYS.USER_ACCESS_KEY), null);
         return isLoggedIn != null && !isLoggedIn.isEmpty();
     }
+
+
 }

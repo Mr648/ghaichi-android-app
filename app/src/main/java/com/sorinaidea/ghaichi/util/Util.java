@@ -33,6 +33,7 @@ public class Util {
         public static final int BASE_64_ENCODE_DECODE_KEYS_COUNT = 0x2;
         public static final String USER_ROLE = "user_role";
         public static final String USER_ACCESS_KEY = "access_key";
+        public static final String KEY_EXPIRATION = "expiration";
     }
 
 
@@ -43,8 +44,8 @@ public class Util {
         public static final String TAG = "GHAICHI_APPLICATION";
         public static final String NO_INTERNET_CONNECTION = "خطا در اتصال به اینترنت!";
         public static final String BASE_URL = "http://ghaichi.com";
-        public static final String ROLE_BARBERSHOP = "03b20058f47f15cc31cea6f089ec292a";
-        public static final String ROLE_NORMAL_USER = "29c1cab0898b664bee9dd17ed48bbed0";
+        public static final String ROLE_BARBERSHOP = "application_barbershop";
+        public static final String ROLE_NORMAL_USER = "application_user";
 
 
 //                        = "^(0|\\+98)?([ ]|,|-|[()]){0,2}9[1|2|3|4]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}$";

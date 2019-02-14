@@ -17,7 +17,13 @@ android {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
         }
+        externalNativeBuild {
+            cmake {
+                cppFlags "-frtti -fexceptions"
+            }
+        }
     }
+
     buildTypes {
         release {
             debuggable false
@@ -32,8 +38,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+        }
+    }
+
     productFlavors {
     }
+
     sourceSets {
         main {
             res.srcDirs = [
@@ -84,4 +97,12 @@ dependencies {
     implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
 
     implementation 'co.ronash.android:pushe-base:1.4.3'
+
+    implementation 'commons-codec:commons-codec:1.11'
+
+//    api 'io.jsonwebtoken:jjwt-api:0.10.5'
+//    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.5'
+//    runtimeOnly ('io.jsonwebtoken:jjwt-orgjson:0.10.5') {
+//        exclude group: 'org.json', module: 'json' //provided by Android natively
+//    }
 }
