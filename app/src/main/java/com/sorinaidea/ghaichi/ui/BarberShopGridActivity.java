@@ -19,6 +19,7 @@ import com.sorinaidea.ghaichi.adapter.BarberShopMiniItemAdapter;
 import com.sorinaidea.ghaichi.adapter.FAQAdabper;
 import com.sorinaidea.ghaichi.adapter.GridItemsAdabper;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.BarbershopCard;
 import com.sorinaidea.ghaichi.model.BarberShop;
 import com.sorinaidea.ghaichi.model.FAQ;
@@ -75,7 +76,7 @@ public class BarberShopGridActivity extends AppCompatActivity {
 
 
     private void initDataset() {
-        Call<List<BarbershopCard>> barbershopCall = API.getRetrofit().create(BarbershopServices.class).barbershopsCards(Util.getAccessKey(getApplicationContext()));
+        Call<List<BarbershopCard>> barbershopCall = API.getRetrofit().create(BarbershopServices.class).barbershopsCards(Auth.getAccessKey(getApplicationContext()));
 
         barbershopCall.enqueue(new Callback<List<BarbershopCard>>() {
             @Override

@@ -43,6 +43,13 @@ public class GhaichiPrefrenceManager {
         getPreferencesEditor(context).remove(key).apply();
     }
 
+    public static void removeKeys(Context context, @NonNull String... keys) {
+        for (String key :
+                keys) {
+            removeKey(context, key);
+        }
+    }
+
     public static void putFloat(Context context, String key, Float value) {
         getPreferencesEditor(context).putFloat(key, value).apply();
     }

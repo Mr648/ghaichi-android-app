@@ -113,7 +113,7 @@
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.CategoriesActivity"
+            android:name=".ui.barbershop.activity.CategoriesActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

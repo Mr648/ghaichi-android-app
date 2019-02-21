@@ -12,7 +12,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,10 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.util.AesEncryptDecrypt;
-import com.sorinaidea.ghaichi.util.AesEncryptionData;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
 import com.sorinaidea.ghaichi.util.SmsReceiver;
@@ -40,18 +36,8 @@ import com.sorinaidea.ghaichi.webservice.model.requests.VerificationRequest;
 import com.sorinaidea.ghaichi.webservice.model.responses.LoginResponse;
 import com.sorinaidea.ghaichi.webservice.model.responses.VerificationResponse;
 
-import org.apache.commons.codec.DecoderException;
-
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -165,7 +151,6 @@ public class SmsVerificationActivity extends AppCompatActivity {
         FontManager.setFont(edtVerificationCode, iranSans);
         FontManager.setFont(mTitle, iranSans);
 
-//        if (Permi)
         SmsReceiver.bindListener(messageText -> {
             edtVerificationCode.setText(messageText);
             action();
@@ -272,7 +257,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
             inputLayoutVerificationCode.setError(getString(R.string.err__empty__verfcode));
             requestFocus(edtVerificationCode);
             return false;
-        } else if (!Pattern.matches(Util.CONSTANTS.REGEX_VERIFICATIONCODE, edtVerificationCode.getText().toString())) {
+        } else if (!Pattern.matches(Util.CONSTANTS.REGEX_VERIFICATION_CODE, edtVerificationCode.getText().toString())) {
             inputLayoutVerificationCode.setError(getString((R.string.err__invalid__verfcode)));
             requestFocus(edtVerificationCode);
             return false;

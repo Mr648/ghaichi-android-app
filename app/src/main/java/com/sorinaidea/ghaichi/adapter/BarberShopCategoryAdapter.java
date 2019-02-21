@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.Barbershop;
 import com.sorinaidea.ghaichi.fast.BarbershopCard;
 import com.sorinaidea.ghaichi.model.BarberShop;
@@ -136,7 +137,7 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
 
         BarbershopServices service = retrofit.create(BarbershopServices.class);
 
-        Call<List<BarbershopCard>> barbershopCall = service.barbershopsCards(Util.getAccessKey(mContext));
+        Call<List<BarbershopCard>> barbershopCall = service.barbershopsCards(Auth.getAccessKey(mContext));
 
         barbershopCall.enqueue(new Callback<List<BarbershopCard>>() {
             @Override

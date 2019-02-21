@@ -6,16 +6,11 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.util.Base64;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.sorinaidea.ghaichi.model.Advertise;
-import com.sorinaidea.ghaichi.ui.CategoriesActivity;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by mr-code on 1/30/2018.
@@ -48,12 +43,10 @@ public class Util {
         public static final String ROLE_BARBERSHOP = "application_barbershop";
         public static final String ROLE_NORMAL_USER = "application_user";
 
-
-//                        = "^(0|\\+98)?([ ]|,|-|[()]){0,2}9[1|2|3|4]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}$";
-
         public static final String REGEX_PHONE
                 = "^(0|\\+98)?([ ]|,|-|[()]){0,2}9[0|1|2|3|4|5]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}$";
-        public static final String REGEX_VERIFICATIONCODE
+
+        public static final String REGEX_VERIFICATION_CODE
                 = "[0-9]{5}";
 
 
@@ -139,50 +132,4 @@ public class Util {
             return colors[Colors.TEAL.ordinal()];
         }
     }
-
-
-    public static String base64encode(String str, int count) {
-        String output = "";
-        for (int i = 0; i < count; i++) {
-            output = new String(Base64.encode(str.getBytes(), Base64.URL_SAFE));
-        }
-        return output;
-    }
-
-    public static String base64decode(String str, int count) {
-        String output = "";
-
-        for (int i = 0; i < count; i++) {
-            output = new String(Base64.decode(str.getBytes(), Base64.URL_SAFE));
-        }
-
-        return output;
-    }
-
-    public static String md5(String input) {
-        try {
-            MessageDigest md5 = MessageDigest.getInstance("md5");
-            return bytesToHex(md5.digest(input.getBytes()));
-        } catch (NoSuchAlgorithmException ex) {
-            return input;
-        }
-    }
-
-    private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
-
-    private static String bytesToHex(byte[] bytes) {
-        char[] hexChars = new char[bytes.length * 2];
-        for (int j = 0; j < bytes.length; j++) {
-            int v = bytes[j] & 0xFF;
-            hexChars[j * 2] = hexArray[v >>> 4];
-            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
-        }
-        return new String(hexChars);
-    }
-
-    public static String getAccessKey(Context context) {
-        String authToken = GhaichiPrefrenceManager.getDecryptedString(context, Util.PREFRENCES_KEYS.USER_ACCESS_KEY,null);
-        return authToken;
-    }
-
 }

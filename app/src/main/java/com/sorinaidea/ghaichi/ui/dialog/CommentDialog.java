@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
@@ -122,7 +123,7 @@ public class CommentDialog extends Dialog implements View.OnClickListener {
         // TODO write payment request here!
 
         AddCommentRequest commentRequest = new AddCommentRequest(
-                Util.getAccessKey(activity),
+                Auth.getAccessKey(activity),
                 barbershopId,
                 comment,
                 rating

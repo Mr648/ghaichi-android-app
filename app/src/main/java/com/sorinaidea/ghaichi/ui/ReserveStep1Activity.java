@@ -21,6 +21,7 @@ import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
 import com.sorinaidea.ghaichi.adapter.ServiceSelectionAdabper;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.Category;
 import com.sorinaidea.ghaichi.model.Service;
 import com.sorinaidea.ghaichi.model.ServiceList;
@@ -124,7 +125,7 @@ public class ReserveStep1Activity extends AppCompatActivity implements TimePicke
 
         BarbershopServices service = retrofit.create(BarbershopServices.class);
 
-        Call<List<Category>> commentsCall = service.services(barbershopId, Util.getAccessKey(getApplicationContext()));
+        Call<List<Category>> commentsCall = service.services(barbershopId, Auth.getAccessKey(getApplicationContext()));
 
         commentsCall.enqueue(new Callback<List<Category>>() {
             @Override

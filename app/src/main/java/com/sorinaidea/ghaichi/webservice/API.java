@@ -24,8 +24,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class API {
 
 
-    public static final String BASE_URL = "http://192.168.1.13/";
-//    public static final String BASE_URL = "http://192.168.43.85/";
+//    public static final String BASE_URL = "http://192.168.1.11/";
+//    public static final String BASE_URL = "http://192.168.1.15/";
+//    public static final String BASE_URL = "http://127.0.0.1/";
+    public static final String BASE_URL = "http://192.168.43.85/";
 //    public static final String BASE_URL = "https://ghaichi.com/";
 
     private static Retrofit retrofit;
@@ -90,11 +92,14 @@ public class API {
                     .connectTimeout(20, TimeUnit.SECONDS)
                     .build();
         }
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(API.BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
+
+
         return retrofit;
     }
 }

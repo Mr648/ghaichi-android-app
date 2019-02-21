@@ -14,6 +14,7 @@ import android.view.View;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.CommentsAdabper;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.Comment;
 import com.sorinaidea.ghaichi.ui.dialog.CommentDialog;
 import com.sorinaidea.ghaichi.util.Util;
@@ -81,7 +82,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         BarbershopServices service = retrofit.create(BarbershopServices.class);
 
-        Call<List<Comment>> commentsCall = service.comments(barbershopId, Util.getAccessKey(getApplicationContext()));
+        Call<List<Comment>> commentsCall = service.comments(barbershopId, Auth.getAccessKey(getApplicationContext()));
 
         commentsCall.enqueue(new Callback<List<Comment>>() {
             @Override

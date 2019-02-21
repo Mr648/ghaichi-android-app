@@ -286,7 +286,7 @@ public class MapsActivity
 
         BarbershopServices service = retrofit.create(BarbershopServices.class);
 
-        String accessKey = Util.getAccessKey(getApplicationContext());
+        String accessKey = com.sorinaidea.ghaichi.auth.Auth.getAccessKey(getApplicationContext());
 
         Call<List<com.sorinaidea.ghaichi.fast.Location>> repos = service.locations(accessKey);
 

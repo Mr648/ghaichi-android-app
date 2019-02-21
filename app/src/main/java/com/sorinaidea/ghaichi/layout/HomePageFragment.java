@@ -18,6 +18,7 @@ import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.BarberShopCategoryAdapter;
 import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
 import com.sorinaidea.ghaichi.adapter.TopBarberShopUserAdabper;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.Advertise;
 import com.sorinaidea.ghaichi.model.FAQ;
 import com.sorinaidea.ghaichi.ui.MapsActivity;
@@ -78,7 +79,7 @@ public class HomePageFragment extends Fragment {
         Retrofit retrofit = API.getRetrofit();
         AdvertisesService advertises = retrofit.create(AdvertisesService.class);
 
-        String accessKey = Util.getAccessKey(getContext());
+        String accessKey = Auth.getAccessKey(getContext());
 
         ImageSliderAdapter adapter = new ImageSliderAdapter(getContext(), imageList);
         mPager.setAdapter(adapter);

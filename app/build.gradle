@@ -103,6 +103,12 @@ dependencies {
 
     implementation 'commons-codec:commons-codec:1.11'
 
+    //    Lovely Dialogs
+    implementation 'com.yarolegovich:lovely-dialog:1.1.0'
+
+//    // Photo Editor
+//    implementation 'ja.burhanrashid52:photoeditor:0.3.3'
+
 //    api 'io.jsonwebtoken:jjwt-api:0.10.5'
 //    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.5'
 //    runtimeOnly ('io.jsonwebtoken:jjwt-orgjson:0.10.5') {

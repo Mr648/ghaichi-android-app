@@ -12,6 +12,7 @@ import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
 import com.sorinaidea.ghaichi.adapter.GridItemsAdabper;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.BarbershopCard;
 import com.sorinaidea.ghaichi.model.BarberShop;
 import com.sorinaidea.ghaichi.util.Util;
@@ -64,7 +65,7 @@ public class BookmarksActivity extends AppCompatActivity {
     private void initDataset() {
         Call<List<BarbershopCard>> bookmarks =
                 API.getRetrofit().create(UserProfileService.class)
-                        .bookmarks(Util.getAccessKey(getApplicationContext()));
+                        .bookmarks(Auth.getAccessKey(getApplicationContext()));
 
         bookmarks.enqueue(new Callback<List<BarbershopCard>>() {
             @Override

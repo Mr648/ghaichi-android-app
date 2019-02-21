@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.AuthService;
@@ -25,7 +26,7 @@ public class LoginCheckActivity extends Activity {
         super.onCreate(savedInstanceState);
 
 
-        String authToken = Util.getAccessKey(LoginCheckActivity.this);
+        String authToken = Auth.getAccessKey(LoginCheckActivity.this);
 
         if (authToken == null) {
             Intent intent = new Intent(LoginCheckActivity.this, SplashActivity.class);

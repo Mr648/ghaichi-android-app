@@ -2,19 +2,15 @@ package com.sorinaidea.ghaichi.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.model.ServiceCategory;
 import com.sorinaidea.ghaichi.models.Category;
-import com.sorinaidea.ghaichi.ui.CategoriesActivity;
 import com.sorinaidea.ghaichi.util.FontManager;
 
 import java.util.ArrayList;
@@ -24,62 +20,82 @@ import java.util.ArrayList;
  */
 
 public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategoryAdapter.ViewHolder> {
-    private static final String TAG = "ServiceCategoryAdapter";
 
     private ArrayList<Category> mDataSet;
     private Context mContext;
     private Typeface fontIranSans;
-    private CategoriesActivity mActivity;
-    private int lastPosition = -1;
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+
+        void deleteItem(Category category);
+
+        void updateItem(Category category);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView txtTitle;
-        private RelativeLayout relBackground,
-                relForeground;
+        private final TextView txtDescription;
+        private final AppCompatImageView imgDelete;
+        private final AppCompatImageView imgEdit;
 
-        public ViewHolder(View v) {
+
+        public ViewHolder(View v ) {
             super(v);
-            txtTitle = (TextView) v.findViewById(R.id.txtTitle);
-            relBackground = (RelativeLayout) v.findViewById(R.id.relBackground);
-            relForeground = (RelativeLayout) v.findViewById(R.id.relForeground);
+            this.txtTitle = v.findViewById(R.id.txtTitle);
+            this.txtDescription = v.findViewById(R.id.txtDescription);
+            this.imgDelete = v.findViewById(R.id.imgDelete);
+            this.imgEdit = v.findViewById(R.id.imgEdit);
         }
 
-
-        public RelativeLayout getRelBackground() {
-            return relBackground;
+        public AppCompatImageView getImgDelete() {
+            return imgDelete;
         }
 
-        public RelativeLayout getRelForeground() {
-            return relForeground;
+        public AppCompatImageView getImgEdit() {
+            return imgEdit;
         }
 
         public TextView getTxtTitle() {
             return txtTitle;
         }
+
+        public TextView getTxtDescription() {
+            return txtDescription;
+        }
     }
 
 
-    public ServiceCategoryAdapter(ArrayList<Category> serviceCategories, Context context, CategoriesActivity activity) {
+    public ServiceCategoryAdapter(ArrayList<Category> serviceCategories, Context context, OnItemClickListener editListener) {
         mDataSet = serviceCategories;
         mContext = context;
-        mActivity = activity;
         fontIranSans = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
+        this.onItemClickListener = editListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.barbershop_service_category_item, viewGroup, false);
-
+                .inflate(R.layout.item_category, viewGroup, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        Category category = mDataSet.get(position);
+        viewHolder.getTxtTitle().setText(category.getName());
+        viewHolder.getTxtDescription().setText(category.getDescription());
 
-        viewHolder.getTxtTitle().setText(mDataSet.get(position).getName());
+        viewHolder.getImgDelete().setOnClickListener(view -> {
+            onItemClickListener.deleteItem(category);
+        });
+
+        viewHolder.getImgEdit().setOnClickListener(view -> {
+            onItemClickListener.updateItem(category);
+        });
 
         FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
-        setAnimation(viewHolder.itemView, position);
+        FontManager.setFont(viewHolder.getTxtDescription(), fontIranSans);
     }
 
     @Override
@@ -87,27 +103,32 @@ public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategory
         return mDataSet.size();
     }
 
-    /**
-     * Here is the key method to apply the animation
-     */
-    private void setAnimation(View viewToAnimate, int position)
-    {
-        // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
-            Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.slide_in_left);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
-        }
-    }
 
-    public void removeItem(int position) {
-        mDataSet.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    public void restoreItem(Category item, int position) {
-        mDataSet.add(position, item);
-        notifyItemInserted(position);
-    }
 }
+
+
+//        setAnimation(viewHolder.itemView, position);
+
+//    /**
+//     * Here is the key method to apply the animation
+//     */
+//    private void setAnimation(View viewToAnimate, int position)
+//    {
+//        // If the bound view wasn't previously displayed on screen, it's animated
+//        if (position > lastPosition)
+//        {
+//            Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.slide_in_left);
+//            viewToAnimate.startAnimation(animation);
+//            lastPosition = position;
+//        }
+//    }
+//
+//    public void removeItem(int position) {
+//        mDataSet.remove(position);
+//        notifyItemRemoved(position);
+//    }
+//
+//    public void restoreItem(Category item, int position) {
+//        mDataSet.add(position, item);
+//        notifyItemInserted(position);
+//    }

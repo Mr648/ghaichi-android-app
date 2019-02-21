@@ -1,27 +1,38 @@
 package com.sorinaidea.ghaichi.ui.barbershop.activity;
 
-import android.graphics.Typeface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatButton;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.view.View;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.adapter.barbershop.BarberAdabper;
-import com.sorinaidea.ghaichi.util.FontManager;
+import com.sorinaidea.ghaichi.auth.Auth;
+import com.sorinaidea.ghaichi.models.Barber;
+import com.sorinaidea.ghaichi.models.Category;
+import com.sorinaidea.ghaichi.models.Service;
+import com.sorinaidea.ghaichi.ui.ToolbarActivity;
+import com.sorinaidea.ghaichi.webservice.API;
+import com.sorinaidea.ghaichi.webservice.barbershop.BarberServices;
+import com.sorinaidea.ghaichi.webservice.barbershop.CategoryServices;
+import com.sorinaidea.ghaichi.webservice.barbershop.ServiceServices;
 
-public class AddServiceActivity extends AppCompatActivity {
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    private Toolbar toolbar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class AddServiceActivity extends ToolbarActivity {
+
     private TextInputLayout inputLayoutName;
     private TextInputLayout inputLayoutPrice;
     private TextInputLayout inputLayoutDuration;
@@ -34,94 +45,195 @@ public class AddServiceActivity extends AppCompatActivity {
     private TextInputEditText txtDiscount;
     private TextInputEditText txtDescription;
 
-    private TextView txtListOfBarbers;
-    private TextView txtListOfReservations;
-    private TextView mTitle;
+    private AppCompatButton btnSelectBarber;
+    private AppCompatButton btnSelectCategory;
 
-    private RecyclerView recBarbers;
-    private RecyclerView recPhotos;
+    List<Category> categories;
+    List<Barber> barbers;
+    List<Barber> selectedBarbers;
 
-    private Spinner spnCategories;
-
-    private FloatingActionButton fabAddPhoto;
-
-    private Typeface fontIranSans;
-
-    private void setupInputs() {
-        inputLayoutName = (TextInputLayout) findViewById(R.id.inputLayoutName);
-        inputLayoutPrice = (TextInputLayout) findViewById(R.id.inputLayoutPrice);
-        inputLayoutDuration = (TextInputLayout) findViewById(R.id.inputLayoutDuration);
-        inputLayoutDiscount = (TextInputLayout) findViewById(R.id.inputLayoutDiscount);
-        inputLayoutDescription = (TextInputLayout) findViewById(R.id.inputLayoutDescription);
-
-        txtName = (TextInputEditText) findViewById(R.id.txtName);
-        txtPrice = (TextInputEditText) findViewById(R.id.txtPrice);
-        txtDuration = (TextInputEditText) findViewById(R.id.txtDuration);
-        txtDiscount = (TextInputEditText) findViewById(R.id.txtDiscount);
-        txtDescription = (TextInputEditText) findViewById(R.id.txtDescription);
-    }
-
-    private void setupLists() {
-        recBarbers = (RecyclerView) findViewById(R.id.recBanners);
-        recPhotos = (RecyclerView) findViewById(R.id.recPhotos);
-        spnCategories = (Spinner) findViewById(R.id.spnCategories);
-
-        recBarbers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recBarbers.setAdapter(new BarberAdabper(this));
-
-        String[] ITEMS = {"انتخاب تعداد بازدید",
-                "دسته 1", "دسته 2", "دسته 3", "دسته 4", "دسته 5", "دسته 6"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ITEMS);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnCategories.setAdapter(adapter);
-        spnCategories.setSelection(0);
-
-    }
-
-    private void setFonts() {
-        fontIranSans = FontManager.getTypeface(this, FontManager.IRANSANS_TEXTS);
+    private int selectedCategory = -1;
 
 
-        FontManager.setFont(inputLayoutName, fontIranSans);
-        FontManager.setFont(inputLayoutPrice, fontIranSans);
-        FontManager.setFont(inputLayoutDuration, fontIranSans);
-        FontManager.setFont(inputLayoutDiscount, fontIranSans);
-        FontManager.setFont(inputLayoutDescription, fontIranSans);
+    public static final int ADD_SERVICE_REQUEST = 0x3000;
 
-        FontManager.setFont(txtName, fontIranSans);
-        FontManager.setFont(txtPrice, fontIranSans);
-        FontManager.setFont(txtDuration, fontIranSans);
-        FontManager.setFont(txtDiscount, fontIranSans);
-        FontManager.setFont(txtDescription, fontIranSans);
 
-        FontManager.setFont(txtListOfBarbers, fontIranSans);
-        FontManager.setFont(txtListOfReservations, fontIranSans);
-
-        FontManager.setFont(mTitle, fontIranSans);
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_service);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText(R.string.toolbar_add_service);
-
-
+        initToolbar(R.string.toolbar_add_service, true, false);
         setupInputs();
-        setupLists();
+        getCategoriesAndBarbers();
         setFonts();
+
+    }
+
+    private void getCategoriesAndBarbers() {
+        CategoryServices categoriesService = API.getRetrofit().create(CategoryServices.class);
+        categoriesService.categories(Auth.getAccessKey(AddServiceActivity.this)).enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                if (response.isSuccessful()) {
+                    categories = response.body();
+                    addClickListenerToCategory();
+                } else {
+                    categories = new ArrayList<>();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                if (t instanceof IOException) {
+                    toast(R.string.err_unable_to_connect_to_server);
+                }
+                categories = new ArrayList<>();
+            }
+        });
+
+        BarberServices barbersService = API.getRetrofit().create(BarberServices.class);
+        barbersService.barbers(Auth.getAccessKey(AddServiceActivity.this)).enqueue(new Callback<List<Barber>>() {
+            @Override
+            public void onResponse(Call<List<Barber>> call, Response<List<Barber>> response) {
+                if (response.isSuccessful()) {
+                    barbers = response.body();
+                    addClickListenerToBarbers();
+                } else {
+                    barbers = new ArrayList<>();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Barber>> call, Throwable t) {
+                if (t instanceof IOException) {
+                    toast(R.string.err_unable_to_connect_to_server);
+                }
+                barbers = new ArrayList<>();
+            }
+        });
+
     }
 
 
+    private void addClickListenerToCategory() {
+        btnSelectCategory.setOnClickListener(new View.OnClickListener() {
+            private int choice = -1;
+
+            private CharSequence[] getCategories() {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    categories.stream().map((Function<Category, CharSequence>) Category::getName);
+//                }
+                CharSequence[] names = new CharSequence[categories.size()];
+                int index = 0;
+                for (Category c :
+                        categories) {
+                    names[index++] = c.getName();
+                }
+                return names;
+            }
+
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog selectCategoryDialog = new AlertDialog.Builder(AddServiceActivity.this)
+                        .setTitle(R.string.action_single_category)
+                        .setSingleChoiceItems(getCategories(), choice, (dialog, which) -> selectedCategory = which)
+                        .setPositiveButton("انتخاب", (dialog, which) -> {
+                            if (selectedCategory != -1)
+                                btnSelectCategory.setText(String.format("%s %s", "دسته‌بندی: ", categories.get(selectedCategory).getName()));
+                            dialog.dismiss();
+                        }).create();
+
+                selectCategoryDialog.show();
+            }
+        });
+    }
+
+    private void addClickListenerToBarbers() {
+        selectedBarbers = new ArrayList<>();
+        btnSelectBarber.setOnClickListener(new View.OnClickListener() {
+
+            private CharSequence[] names = new CharSequence[barbers.size()];
+            private boolean[] selects = new boolean[barbers.size()];
+
+            private CharSequence[] getBarbers() {
+                int index = 0;
+                for (Barber c :
+                        barbers) {
+                    names[index++] = c.getName();
+                }
+                return names;
+            }
+
+            private ArrayList<CharSequence> getSelectedBarbers() {
+                ArrayList<CharSequence> list = new ArrayList<>();
+                for (int i = 0; i < selects.length; i++) {
+                    if (selects[i]) list.add(names[i]);
+                    selectedBarbers.add(barbers.get(i));
+                }
+                return list;
+            }
+
+
+            @Override
+            public void onClick(View v) {
+                AlertDialog selectBarbersDialog = new
+                        AlertDialog.Builder(AddServiceActivity.this)
+                        .setIcon(R.drawable.ic_group_add_black_24dp)
+                        .setTitle(R.string.action_choose_barbers)
+                        .setMultiChoiceItems(
+                                getBarbers()
+                                , selects
+                                , (dialog, which, isChecked) -> {
+                                    selects[which] = isChecked;
+                                }
+                        )
+                        .setPositiveButton("انتخاب", (dialog, which) -> {
+                            btnSelectBarber.setText(String.format("%s %s", "آرایشگران: ", Arrays.toString(getSelectedBarbers().toArray())));
+                            dialog.dismiss();
+                        }).create();
+                selectBarbersDialog.show();
+            }
+        });
+    }
+
+
+    private void setupInputs() {
+
+        btnSelectBarber = findViewById(R.id.btnSelectBarber);
+        btnSelectCategory = findViewById(R.id.btnSelectCategory);
+
+        inputLayoutName = findViewById(R.id.inputLayoutName);
+        inputLayoutPrice = findViewById(R.id.inputLayoutPrice);
+        inputLayoutDuration = findViewById(R.id.inputLayoutDuration);
+        inputLayoutDiscount = findViewById(R.id.inputLayoutDiscount);
+        inputLayoutDescription = findViewById(R.id.inputLayoutDescription);
+
+        txtName = findViewById(R.id.txtName);
+        txtPrice = findViewById(R.id.txtPrice);
+        txtDuration = findViewById(R.id.txtDuration);
+        txtDiscount = findViewById(R.id.txtDiscount);
+        txtDescription = findViewById(R.id.txtDescription);
+    }
+
+
+    private void setFonts() {
+        applyTextFont(
+                inputLayoutName,
+                inputLayoutPrice,
+                inputLayoutDuration,
+                inputLayoutDiscount,
+                inputLayoutDescription,
+                txtName,
+                txtPrice,
+                txtDuration,
+                txtDiscount,
+                txtDescription,
+                btnSelectCategory,
+                btnSelectBarber
+        );
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_save, menu);
@@ -137,7 +249,7 @@ public class AddServiceActivity extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.action_save:
-                onBackPressed();
+                submitForm();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -147,5 +259,157 @@ public class AddServiceActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+    void selectServiceImages(Service service) {
+        Intent intent = new Intent(AddServiceActivity.this, SamplesActivity.class);
+        intent.putExtra("SERVICE", service);
+        startActivityForResult(intent, ADD_SERVICE_REQUEST);
+    }
+
+    /* Intent intent=new Intent();
+                     intent.putExtra("MESSAGE",message);
+     setResult(2,intent);
+     finish();//finishing activity  */
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ADD_SERVICE_REQUEST) {
+                Service service = data.getParcelableExtra("SERVICE");
+
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void addService(Service service) {
+        ServiceServices serviceServices = API.getRetrofit().create(ServiceServices.class);
+        serviceServices.create(Auth.getAccessKey(AddServiceActivity.this), service).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+            @Override
+            public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
+                if (response.isSuccessful()) {
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void submitForm() {
+
+        if (!validateName()) {
+            return;
+        }
+        if (!validatePrice()) {
+            return;
+        }
+        if (!validateDuration()) {
+            return;
+        }
+        if (!validateDescription()) {
+            return;
+        }
+        if (!validateCategory()) {
+            return;
+        }
+        if (!validateBarbers()) {
+            return;
+        }
+
+        Service service = new Service();
+
+        service.setName(txtName.getText().toString());
+        service.setPrice(txtPrice.getText().toString());
+        service.setDescription(txtDescription.getText().toString());
+        service.setTime(txtDuration.getText().toString());
+        service.setDescription(txtDescription.getText().toString());
+
+        if (txtDiscount.getText().toString().trim().isEmpty()) {
+            service.setDiscount("0");
+        } else {
+            service.setDiscount(txtDiscount.getText().toString());
+        }
+
+        service.setCategory(categories.get(selectedCategory));
+        service.setBarbers(selectedBarbers);
+
+        selectServiceImages(service);
+    }
+
+    private boolean validateName() {
+        if (txtName.getText().toString().trim().isEmpty()) {
+            inputLayoutName.setError(getString(R.string.err__empty__name));
+            requestFocus(txtName);
+            return false;
+        } else {
+            inputLayoutName.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private boolean validatePrice() {
+        if (txtPrice.getText().toString().trim().isEmpty()) {
+            inputLayoutPrice.setError(getString(R.string.err__empty__price));
+            requestFocus(txtPrice);
+            return false;
+        } else {
+            inputLayoutPrice.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private boolean validateDuration() {
+        if (txtDuration.getText().toString().trim().isEmpty()) {
+            inputLayoutDuration.setError(getString(R.string.err__empty__name));
+            requestFocus(txtDuration);
+            return false;
+        } else {
+            inputLayoutDuration.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private boolean validateCategory() {
+        if (selectedCategory < 0) {
+            btnSelectCategory.setTextColor(getResources().getColor(R.color.colorRed));
+            btnSelectCategory.setText("ابتدا دسته‌بندی را مشخص کنید.");
+            return false;
+        } else {
+            btnSelectCategory.setTextColor(getResources().getColor(R.color.colorBlack));
+        }
+        return true;
+    }
+
+
+    private boolean validateBarbers() {
+        if (selectedBarbers == null || selectedBarbers.isEmpty()) {
+            btnSelectBarber.setTextColor(getResources().getColor(R.color.colorRed));
+            btnSelectBarber.setText("ابتدا آرایشگر(ان) را انتخاب کنید.");
+            return false;
+        } else {
+            btnSelectBarber.setTextColor(getResources().getColor(R.color.colorBlack));
+        }
+        return true;
+    }
+
+
+    private boolean validateDescription() {
+        if (txtDescription.getText().toString().trim().isEmpty()) {
+            inputLayoutDescription.setError(getString(R.string.err__empty__name));
+            requestFocus(txtDescription);
+            return false;
+        } else {
+            inputLayoutDescription.setErrorEnabled(false);
+        }
+        return true;
+    }
+
 
 }

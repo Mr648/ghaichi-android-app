@@ -77,6 +77,8 @@
     <string name="_lbl_duration">مدت زمان (دقیقه)</string>
     <string name="_lbl_all">همه</string>
     <string name="_lbl_confirm">تایید</string>
+    <string name="_lbl_ok">تایید</string>
+    <string name="_lbl_add">افزودن</string>
     <string name="_lbl_manage_sample_work">مدیریت نمونه کارها</string>
     <string name="_lbl_manage_service">مدیریت خدمات</string>
     <string name="_lbl_service_category">دسته‌بندی خدمات</string>
@@ -92,6 +94,8 @@
     <string name="err__invalid__phone">شماره تلفن وارد شده معتبر نمی‌باشد</string>
     <string name="err__empty__verfcode">کد فعالسازی خالی است</string>
     <string name="err__empty__name">فیلد نام خالی است</string>
+    <string name="err__empty__description">فیلد توضیحات خالی است</string>
+    <string name="err__empty__price">فیلد هزینه انجام خدمت خالی است</string>
     <string name="err__empty__family">فیلد نام‌خانوادگی خالی است</string>
     <string name="err__invalid__verfcode">کد فعالسازی نادرست</string>
     <string name="err__load_image_failed">خطا در بارگزاری تصویر</string>
@@ -115,7 +119,10 @@
     <string name="action_route">مسیریابی</string>
     <string name="action_reserve">رزرو</string>
     <string name="action_filter">فیلتر</string>
+    <string name="action_next">بعدی</string>
+    <string name="action_choose_photos">انتخاب تصاویر</string>
     <string name="action_single_category">انتخاب دسته‌بندی</string>
+    <string name="action_choose_barbers">انتخاب آرایشگران</string>
     <string name="action_all_categories">نمایش همه خدمات</string>
     <string name="action_comment">نظردهی</string>
     <string name="empty_string"></string>
@@ -123,6 +130,7 @@
 
 
     <string name="_hint_name">نام</string>
+    <string name="_hint_desc">توضیحات</string>
     <string name="_hint_empty_content">هنوز هیچ آیتمی به این لیست اضافه نشده است.</string>
     <string name="_hint_family">نام خانوادکی</string>
     <string name="_hint_phone">شماره موبایل</string>
@@ -135,5 +143,8 @@
     <string name="_txt_service_price">قیمت سرویس</string>
     <string name="user_phone_number">شماره تلفن</string>
     <string name="lbl_more">بیشتر</string>
+
+
+    <string name="err_unable_to_connect_to_server">خطا در ارتباط با سرور، بعدا مجددا تلاش کنید.</string>
 
 </resources>

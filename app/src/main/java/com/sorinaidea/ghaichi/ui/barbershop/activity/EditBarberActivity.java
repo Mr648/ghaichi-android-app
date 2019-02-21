@@ -62,7 +62,6 @@ public class EditBarberActivity extends AppCompatActivity {
 
     private void setupLists() {
         recBarbers = (RecyclerView) findViewById(R.id.recBanners);
-        recPhotos = (RecyclerView) findViewById(R.id.recPhotos);
         spnCategories = (Spinner) findViewById(R.id.spnCategories);
 
         recBarbers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

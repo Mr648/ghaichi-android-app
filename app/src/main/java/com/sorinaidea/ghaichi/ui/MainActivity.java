@@ -27,10 +27,12 @@ import android.widget.TextView;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.BarberShopCategoryAdapter;
 import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.Advertise;
 import com.sorinaidea.ghaichi.fast.UserShortInfo;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
+import com.sorinaidea.ghaichi.util.Security;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.AdvertisesService;
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements
         Retrofit retrofit = API.getRetrofit();
         AdvertisesService advertises = retrofit.create(AdvertisesService.class);
 
-        String accessKey = Util.getAccessKey(getApplicationContext());
+        String accessKey = Auth.getAccessKey(getApplicationContext());
 
         ImageSliderAdapter adapter = new ImageSliderAdapter(getApplicationContext(), imageList);
         mPager.setAdapter(adapter);
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements
         } else if (id == R.id.action_logout) {
 
             Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> info =
-                    API.getRetrofit().create(UserProfileService.class).logout(Util.getAccessKey(getApplicationContext()));
+                    API.getRetrofit().create(UserProfileService.class).logout(Auth.getAccessKey(getApplicationContext()));
 
             info.enqueue(new Callback<com.sorinaidea.ghaichi.webservice.model.responses.Response>() {
                 @Override
@@ -156,8 +158,8 @@ public class MainActivity extends AppCompatActivity implements
                     if (response.isSuccessful()){
                         if (!response.body().hasError()){
                             // Remove Keys
-                            GhaichiPrefrenceManager.removeKey(getApplicationContext(), Util.md5(Util.PREFRENCES_KEYS.USER_ACCESS_KEY));
-                            GhaichiPrefrenceManager.removeKey(getApplicationContext(), Util.md5(Util.PREFRENCES_KEYS.USER_ROLE));
+                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),   Security.encrypt(Util.PREFRENCES_KEYS.USER_ACCESS_KEY, getApplicationContext()) );
+                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),  Security.encrypt(Util.PREFRENCES_KEYS.USER_ROLE, getApplicationContext()));
 
                             // Exit From Application
                             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
@@ -185,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void updateNavigationHeader() {
-        Call<UserShortInfo> info = API.getRetrofit().create(UserProfileService.class).shortInfo(Util.getAccessKey(getApplicationContext()));
+        Call<UserShortInfo> info = API.getRetrofit().create(UserProfileService.class).shortInfo(Auth.getAccessKey(getApplicationContext()));
 
         info.enqueue(new Callback<UserShortInfo>() {
             @Override

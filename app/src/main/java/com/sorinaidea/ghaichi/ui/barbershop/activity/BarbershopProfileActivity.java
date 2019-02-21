@@ -21,11 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.UserInfo;
 import com.sorinaidea.ghaichi.util.FontManager;
-import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
-import com.sorinaidea.ghaichi.webservice.UploadImagesAsyncTask;
+import com.sorinaidea.ghaichi.webservice.image.ImageUploadTask;
 import com.sorinaidea.ghaichi.webservice.UserProfileService;
 
 import java.io.File;
@@ -77,7 +77,7 @@ public class BarbershopProfileActivity extends AppCompatActivity
 
         UserProfileService service = retrofit.create(UserProfileService.class);
 
-        Call<UserInfo> info = service.info(Util.getAccessKey(getApplicationContext()));
+        Call<UserInfo> info = service.info(Auth.getAccessKey(getApplicationContext()));
 
         info.enqueue(new Callback<UserInfo>() {
             @Override
@@ -288,14 +288,14 @@ public class BarbershopProfileActivity extends AppCompatActivity
                 //display the returned cropped image
 
                 File f = saveImage(thePic, BarbershopProfileActivity.this);
-                try {
-                    new UploadImagesAsyncTask(() -> {
-                        Toast.makeText(BarbershopProfileActivity.this, "عملیات موفق آمیز.", Toast.LENGTH_SHORT).show();
-                        update();
-                    }, BarbershopProfileActivity.this).execute(f);
-
-                } catch (Exception ex) {
-                }
+//                try {
+//                    new ImageUploadTask(() -> {
+//                        Toast.makeText(BarbershopProfileActivity.this, "عملیات موفق آمیز.", Toast.LENGTH_SHORT).show();
+//                        update();
+//                    }, BarbershopProfileActivity.this).execute(f);
+//
+//                } catch (Exception ex) {
+//                }
 
             }
         }

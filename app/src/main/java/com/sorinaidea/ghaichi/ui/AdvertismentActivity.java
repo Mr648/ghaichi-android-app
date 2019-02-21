@@ -41,7 +41,7 @@ public class AdvertismentActivity extends AppCompatActivity {
 
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
 
-        mTitle.setText(R.string.toobar_advertises);
+        mTitle.setText(R.string.toolbar_advertises);
 
         fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 

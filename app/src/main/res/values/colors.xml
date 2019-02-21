@@ -10,6 +10,7 @@
     <color name="colorPrimaryDarkRipple">#c62828</color>
     <color name="colorAccent">#fe4b5e</color>
     <color name="colorRed">#f44336</color>
+    <color name="colorRedAccent900">#d50000</color>
     <color name="colorGreen">#10B491</color>
     <color name="colorGreen900">#1B5E20</color>
     <color name="colorGreenAccent200">#69F0AE</color>
@@ -32,6 +33,8 @@
     <color name="colorGrayDark">#212121</color>
     <color name="colorPurple">#5a2285</color>
     <color name="colorBlueDark">#040138</color>
+    <color name="colorBlue">#1976d2</color>
+    <color name="colorAmberAccent900">#ffab00</color>
 
     <color name="credit_remaining">#10B491</color>
     <color name="credit_reservations">#FF2265</color>

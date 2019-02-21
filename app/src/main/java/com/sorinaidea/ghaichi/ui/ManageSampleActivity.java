@@ -3,7 +3,6 @@ package com.sorinaidea.ghaichi.ui;
 import android.content.ClipData;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -16,15 +15,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.AddSampleWorkAdapter;
-import com.sorinaidea.ghaichi.adapter.ImagePreviewAdapter;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
 import com.sorinaidea.ghaichi.ui.dialog.AddSampleDialog;
-import com.sorinaidea.ghaichi.util.ImagePicker;
 
 import java.util.ArrayList;
 import java.util.Arrays;

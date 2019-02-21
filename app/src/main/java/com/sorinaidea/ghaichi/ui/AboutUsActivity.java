@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.About;
 import com.sorinaidea.ghaichi.model.AboutUs;
 import com.sorinaidea.ghaichi.util.FontManager;
@@ -66,7 +67,7 @@ public class AboutUsActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        Call<About> about = API.getRetrofit().create(SystemServices.class).about(Util.getAccessKey(getApplicationContext()));
+        Call<About> about = API.getRetrofit().create(SystemServices.class).about(Auth.getAccessKey(getApplicationContext()));
         about.enqueue(new Callback<About>() {
             @Override
             public void onResponse(Call<About> call, Response<About> response) {

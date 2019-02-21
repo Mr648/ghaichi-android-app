@@ -26,6 +26,7 @@ import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.BarberShopProfileServiceAdapter;
 import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.Barbershop;
 import com.sorinaidea.ghaichi.fast.Photo;
 import com.sorinaidea.ghaichi.fast.Service;
@@ -111,7 +112,7 @@ public class BarberShopActivity extends AppCompatActivity {
 
         BarbershopServices service = retrofit.create(BarbershopServices.class);
 
-        Call<Barbershop> barbershopCall = service.barbershop(barbershopId, Util.getAccessKey(getApplicationContext()));
+        Call<Barbershop> barbershopCall = service.barbershop(barbershopId, Auth.getAccessKey(getApplicationContext()));
 
         barbershopCall.enqueue(new Callback<Barbershop>() {
             @Override
@@ -341,7 +342,7 @@ public class BarberShopActivity extends AppCompatActivity {
     public void bookmark(String accessKey, String barbershopId) {
         Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> bookmark =
                 API.getRetrofit().create(UserProfileService.class)
-                        .createOrRemove(Util.getAccessKey(getApplicationContext()), String.valueOf(barbershopId));
+                        .createOrRemove(Auth.getAccessKey(getApplicationContext()), String.valueOf(barbershopId));
 
         bookmark.enqueue(new Callback<com.sorinaidea.ghaichi.webservice.model.responses.Response>() {
             @Override
@@ -361,20 +362,13 @@ public class BarberShopActivity extends AppCompatActivity {
     }
 
 
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        menu.clear();
-//        return super.onPrepareOptionsMenu(menu);
-//    }
-
-
     boolean isBookmarked = false;
 
     public boolean isBookmarked() {
 
         Call<IsBookmarked> bookmarkExists =
                 API.getRetrofit().create(UserProfileService.class)
-                        .bookmarkExists(Util.getAccessKey(getApplicationContext()), String.valueOf(barbershopId));
+                        .bookmarkExists(Auth.getAccessKey(getApplicationContext()), String.valueOf(barbershopId));
 
         bookmarkExists.enqueue(new Callback<IsBookmarked>() {
             @Override

@@ -32,6 +32,7 @@ import com.sorinaidea.ghaichi.adapter.barbershop.BarbershopReservationsAdabper;
 import com.sorinaidea.ghaichi.model.Reservation;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.BannersActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.BarbersActivity;
+import com.sorinaidea.ghaichi.ui.barbershop.activity.CategoriesActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.PaymentActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.SamplesActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.ServicesActivity;
@@ -107,7 +108,7 @@ public class BarberMainActivity extends AppCompatActivity implements
             startActivity(intent);
         });
         cardSamples.setOnClickListener((view) -> {
-            Intent intent = new Intent(BarberMainActivity.this, SamplesActivity.class);
+            Intent intent = new Intent(BarberMainActivity.this, ManageSampleActivity.class);
             startActivity(intent);
         });
 

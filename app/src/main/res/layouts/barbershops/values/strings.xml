@@ -14,9 +14,10 @@
     <string name="list_of_photos">لیست تصاویر</string>
     <string name="service_title">عنوان خدمت</string>
     <string name="service_price">هزینه ارائه خدمت</string>
-    <string name="service_duration">مدت زمان لازم برای انجام(برحسب دقیقه)</string>
-    <string name="service_discount">درصد تخفیف(اگر این فیلد پر نشود، 0 در نظر گرفته می‌شود</string>
+    <string name="service_duration">مدت انجام (برحسب دقیقه)</string>
+    <string name="service_discount">درصد تخفیف</string>
     <string name="list_of_barbers">لیست آرایشگران</string>
+    <string name="toolbar_upload_image">آپلود تصویر</string>
     <string name="toolbar_add_service">افزودن خدمت</string>
     <string name="toolbar_request_advertise">درخواست تبلیغات</string>
     <string name="request_advertise">ارسال درخواست</string>
@@ -36,6 +37,10 @@
     <string name="toolbar_manage_services">مدیریت خدمات</string>
     <string name="toolbar_faq">سوالات متداول</string>
     <string name="toolbar_banners">بنرهای پروفایل آرایشگاه</string>
-    <string name="toobar_advertises">تبلیغات</string>
+    <string name="toolbar_advertises">تبلیغات</string>
     <string name="activate_account">خرید اشتراک</string>
+
+    <string name="upload_title">بارگزاری تصاویر</string>
+    <string name="upload_progress">در حال بارگزاری تصاویر، لطفا صبر کنید!</string>
+
 </resources>

@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
  * Created by mr-code on 6/17/2018.
  */
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends ToolbarActivity {
 
 
     private String TAG = LoginActivity.class.getSimpleName();
@@ -166,11 +166,7 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
+
 }
 
 

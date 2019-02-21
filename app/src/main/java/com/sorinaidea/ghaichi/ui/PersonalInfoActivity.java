@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.datahelper.Gender;
 import com.sorinaidea.ghaichi.ui.dialog.GenderDialog;
 import com.sorinaidea.ghaichi.util.FontManager;
@@ -144,7 +145,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
 
         Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> callWebservice =
 
-                webService.update(new EditProfileRequest(Util.getAccessKey(getApplicationContext()), name, family, gender ? "men" : "women"));
+                webService.update(new EditProfileRequest(Auth.getAccessKey(getApplicationContext()), name, family, gender ? "men" : "women"));
 
         callWebservice.enqueue(new Callback<Response>() {
             @Override

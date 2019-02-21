@@ -5,7 +5,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Category extends Model implements Parcelable {
+import java.io.Serializable;
+
+public class Category extends Model implements Parcelable   {
 
     @SerializedName("name")
     private String name;
@@ -30,6 +32,7 @@ public class Category extends Model implements Parcelable {
     }
 
 
+    public Category(){}
 
     private Category(Parcel in){
         id = in.readInt();

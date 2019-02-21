@@ -13,6 +13,7 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.PhotoSliderAdapter;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.Photo;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
@@ -72,7 +73,7 @@ public class ImageSliderActivity extends AppCompatActivity {
         Call<List<Photo>> serviceImages =
                 API.getRetrofit()
                         .create(BarbershopServices.class)
-                        .serviceImages(barbershopId, serviceId, Util.getAccessKey(getApplicationContext()));
+                        .serviceImages(barbershopId, serviceId, Auth.getAccessKey(getApplicationContext()));
 
         serviceImages.enqueue(new Callback<List<Photo>>() {
             @Override

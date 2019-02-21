@@ -36,11 +36,13 @@ import com.sorinaidea.ghaichi.adapter.main.FeaturedBarbershopsAdapter;
 import com.sorinaidea.ghaichi.adapter.main.NearestBarbershopsAdapter;
 import com.sorinaidea.ghaichi.adapter.main.NewBarbershopsAdapter;
 import com.sorinaidea.ghaichi.adapter.main.TopBarbershopsAdapter;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.Advertise;
 import com.sorinaidea.ghaichi.fast.BarbershopCard;
 import com.sorinaidea.ghaichi.fast.UserShortInfo;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
+import com.sorinaidea.ghaichi.util.Security;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.AdvertisesService;
@@ -118,7 +120,7 @@ public class NewMainActivity extends AppCompatActivity implements
         Retrofit retrofit = API.getRetrofit();
         AdvertisesService advertises = retrofit.create(AdvertisesService.class);
 
-        String accessKey = Util.getAccessKey(getApplicationContext());
+        String accessKey = Auth.getAccessKey(getApplicationContext());
 
         ImageSliderAdapter adapter = new ImageSliderAdapter(getApplicationContext(), imageList);
         mPager.setAdapter(adapter);
@@ -187,7 +189,7 @@ public class NewMainActivity extends AppCompatActivity implements
         } else if (id == R.id.action_logout) {
 
             Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> info =
-                    API.getRetrofit().create(UserProfileService.class).logout(Util.getAccessKey(getApplicationContext()));
+                    API.getRetrofit().create(UserProfileService.class).logout(Auth.getAccessKey(getApplicationContext()));
 
             info.enqueue(new Callback<com.sorinaidea.ghaichi.webservice.model.responses.Response>() {
                 @Override
@@ -195,8 +197,8 @@ public class NewMainActivity extends AppCompatActivity implements
                     if (response.isSuccessful()) {
                         if (!response.body().hasError()) {
                             // Remove Keys
-                            GhaichiPrefrenceManager.removeKey(getApplicationContext(), Util.md5(Util.PREFRENCES_KEYS.USER_ACCESS_KEY));
-                            GhaichiPrefrenceManager.removeKey(getApplicationContext(), Util.md5(Util.PREFRENCES_KEYS.USER_ROLE));
+                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),   Security.encrypt(Util.PREFRENCES_KEYS.USER_ACCESS_KEY, getApplicationContext()) );
+                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),  Security.encrypt(Util.PREFRENCES_KEYS.USER_ROLE, getApplicationContext()));
 
                             // Exit From Application
                             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
@@ -224,7 +226,7 @@ public class NewMainActivity extends AppCompatActivity implements
     }
 
     private void updateNavigationHeader() {
-        Call<UserShortInfo> info = API.getRetrofit().create(UserProfileService.class).shortInfo(Util.getAccessKey(getApplicationContext()));
+        Call<UserShortInfo> info = API.getRetrofit().create(UserProfileService.class).shortInfo(Auth.getAccessKey(getApplicationContext()));
 
         info.enqueue(new Callback<UserShortInfo>() {
             @Override
@@ -416,7 +418,7 @@ public class NewMainActivity extends AppCompatActivity implements
 
         BarbershopServices service = retrofit.create(BarbershopServices.class);
 
-        Call<List<BarbershopCard>> barbershopCall = service.barbershopsCards(Util.getAccessKey(NewMainActivity.this));
+        Call<List<BarbershopCard>> barbershopCall = service.barbershopsCards(Auth.getAccessKey(NewMainActivity.this));
 
         barbershopCall.enqueue(new Callback<List<BarbershopCard>>() {
             @Override

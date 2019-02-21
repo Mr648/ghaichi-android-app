@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.ReagentCode;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.Util;
@@ -66,7 +67,7 @@ public class GetGiftActivity extends AppCompatActivity {
 
         UserProfileService service = retrofit.create(UserProfileService.class);
 
-        Call<ReagentCode> call = service.codes(Util.getAccessKey(getApplicationContext()));
+        Call<ReagentCode> call = service.codes(Auth.getAccessKey(getApplicationContext()));
 
         call.enqueue(new Callback<ReagentCode>() {
             @Override
