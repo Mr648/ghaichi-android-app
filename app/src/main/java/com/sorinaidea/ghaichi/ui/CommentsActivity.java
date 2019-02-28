@@ -44,7 +44,7 @@ public class CommentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
 
-        recComments = (RecyclerView) findViewById(R.id.recComments);
+        recComments = findViewById(R.id.recComments);
 
 
         Bundle extras = getIntent().getExtras();
@@ -55,8 +55,8 @@ public class CommentsActivity extends AppCompatActivity {
             finish();
         }
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        fabComment = (FloatingActionButton) findViewById(R.id.fabComment);
+        toolbar = findViewById(R.id.toolbar);
+        fabComment = findViewById(R.id.fabComment);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

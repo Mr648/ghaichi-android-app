@@ -61,11 +61,11 @@ public class SendSupportTicketActivity extends AppCompatActivity {
 
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 //        inputLayoutMessage = (TextInputLayout) findViewById(R.id.inputLayoutMessage);
-        txtMessage = (EditText) findViewById(R.id.txtMessage);
-        imgSend = (AppCompatImageView) findViewById(R.id.imgSend);
-        recSupportChat = (RecyclerView) findViewById(R.id.recSupportChat);
+        txtMessage = findViewById(R.id.txtMessage);
+        imgSend = findViewById(R.id.imgSend);
+        recSupportChat = findViewById(R.id.recSupportChat);
 
         recSupportChat.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recSupportChat.setAdapter(new SupportChatAdapter(chatItems(), getApplicationContext()));

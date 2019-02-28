@@ -51,9 +51,9 @@ public class NearestBarbershopsAdapter extends RecyclerView.Adapter<NearestBarbe
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            imgLogo = (ImageView) view.findViewById(R.id.imgLogo);
-            txtName = (TextView) view.findViewById(R.id.txtName);
-            txtDistance = (TextView) view.findViewById(R.id.txtDistance);
+            imgLogo = view.findViewById(R.id.imgLogo);
+            txtName = view.findViewById(R.id.txtName);
+            txtDistance = view.findViewById(R.id.txtDistance);
 
         }
 

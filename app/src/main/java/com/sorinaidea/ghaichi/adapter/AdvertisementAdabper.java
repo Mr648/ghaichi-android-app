@@ -22,6 +22,7 @@ import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.Util;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by mr-code on 3/10/2018.
@@ -49,10 +50,10 @@ public class AdvertisementAdabper extends RecyclerView.Adapter<AdvertisementAdab
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            cardAdvertise = (CardView) v.findViewById(R.id.cardAdvertise);
-            txtAmount = (TextView) v.findViewById(R.id.txtAmount);
-            txtPrice = (TextView) v.findViewById(R.id.txtPrice);
-            imgIsDone = (AppCompatImageView) v.findViewById(R.id.imgIsDone);
+            cardAdvertise = v.findViewById(R.id.cardAdvertise);
+            txtAmount = v.findViewById(R.id.txtAmount);
+            txtPrice = v.findViewById(R.id.txtPrice);
+            imgIsDone = v.findViewById(R.id.imgIsDone);
 
         }
 
@@ -102,8 +103,8 @@ public class AdvertisementAdabper extends RecyclerView.Adapter<AdvertisementAdab
         FontManager.setFont(viewHolder.getTxtPrice(), fontIranSans);
 
         Advertise currentAd = mDataSet.get(position);
-        viewHolder.getTxtAmount().setText(String.format("تعداد: %d", currentAd.getAmount()));
-        viewHolder.getTxtPrice().setText(String.format("%.2f تومان", currentAd.getPrice()));
+        viewHolder.getTxtAmount().setText(String.format(new Locale("fa"),"تعداد: %d", currentAd.getAmount()));
+        viewHolder.getTxtPrice().setText(String.format(new Locale("fa"),"%.2f تومان", currentAd.getPrice()));
         viewHolder.getImgIsDone().setColorFilter(Util.getSuitableColor(currentAd));
         viewHolder.getCardAdvertise().setOnClickListener((view)->{
             Intent intent = new Intent(mContext, AdvertismentInfoActivity.class);

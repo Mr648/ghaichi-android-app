@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.FloatingActionButton;
@@ -18,7 +17,6 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,32 +24,24 @@ import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.BarberShopCategoryAdapter;
-import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
-import com.sorinaidea.ghaichi.fast.Advertise;
 import com.sorinaidea.ghaichi.fast.UserShortInfo;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
 import com.sorinaidea.ghaichi.util.Security;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
-import com.sorinaidea.ghaichi.webservice.AdvertisesService;
 import com.sorinaidea.ghaichi.webservice.UserProfileService;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Created by mr-code on 4/8/2018.
@@ -76,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements
     private ArrayList<String> imageList = new ArrayList<>();
 
     private void initializeImageSlider() {
-
+/*
 
         Retrofit retrofit = API.getRetrofit();
         AdvertisesService advertises = retrofit.create(AdvertisesService.class);
@@ -120,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements
             public void run() {
                 handler.post(Update);
             }
-        }, 1000, 3000);
+        }, 1000, 3000);*/
     }
 
     @Override
@@ -227,8 +217,8 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
+        toolbar = findViewById(R.id.toolbar);
+        drawer = findViewById(R.id.drawerLayout);
         fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         setSupportActionBar(toolbar);
@@ -242,12 +232,12 @@ public class MainActivity extends AppCompatActivity implements
         toggle.syncState();
 
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navView);
+        NavigationView navigationView = findViewById(R.id.navView);
 
 
-        txtUserInfo = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
-        imgProfileImage = (AppCompatImageView) navigationView.getHeaderView(0).findViewById(R.id.imgProfileImage);
-        txtCity = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtCity);
+        txtUserInfo = navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
+        imgProfileImage = navigationView.getHeaderView(0).findViewById(R.id.imgProfileImage);
+        txtCity = navigationView.getHeaderView(0).findViewById(R.id.txtCity);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             navigationView.setLayoutDirection(NavigationView.LAYOUT_DIRECTION_RTL);
@@ -259,10 +249,10 @@ public class MainActivity extends AppCompatActivity implements
         txtUserInfo.setText("کاربر مهمان");
         txtCity.setText("سنندج");
 
-        mPager = (ViewPager) findViewById(R.id.pager);
-        indicator = (CircleIndicator) findViewById(R.id.indicator);
-        recCategories = (RecyclerView) findViewById(R.id.recCategories);
-        fabMap = (FloatingActionButton) findViewById(R.id.fabMap);
+        mPager = findViewById(R.id.pager);
+        indicator = findViewById(R.id.indicator);
+        recCategories = findViewById(R.id.recCategories);
+        fabMap = findViewById(R.id.fabMap);
 
 
         fabMap.setOnClickListener(new View.OnClickListener() {

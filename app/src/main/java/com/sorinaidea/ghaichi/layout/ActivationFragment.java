@@ -79,11 +79,11 @@ public class ActivationFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
 
-        btnNextStep = (Button) view.findViewById(R.id.btnNextStep);
-        txtIconActivationCode = (TextView) view.findViewById(R.id.txtIconActivationCode);
-        txtSendAgain = (TextView) view.findViewById(R.id.txtSendAgain);
-        edtActivationCode = (TextInputEditText) view.findViewById(R.id.edtActivationCode);
-        inputLayoutActivationCode = (TextInputLayout) view.findViewById(R.id.inputLayoutActivationCode);
+        btnNextStep = view.findViewById(R.id.btnNextStep);
+        txtIconActivationCode = view.findViewById(R.id.txtIconActivationCode);
+        txtSendAgain = view.findViewById(R.id.txtSendAgain);
+        edtActivationCode = view.findViewById(R.id.edtActivationCode);
+        inputLayoutActivationCode = view.findViewById(R.id.inputLayoutActivationCode);
 
 
         btnNextStep.setOnClickListener(new View.OnClickListener() {

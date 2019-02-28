@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -21,15 +19,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import com.ethanhua.skeleton.Skeleton;
-import com.ethanhua.skeleton.SkeletonScreen;
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.adapter.BarberShopCategoryAdapter;
-import com.sorinaidea.ghaichi.adapter.BarberShopMiniItemAdapter;
-import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
 import com.sorinaidea.ghaichi.adapter.main.DiscountBarbershopsAdapter;
 import com.sorinaidea.ghaichi.adapter.main.FeaturedBarbershopsAdapter;
@@ -37,7 +29,6 @@ import com.sorinaidea.ghaichi.adapter.main.NearestBarbershopsAdapter;
 import com.sorinaidea.ghaichi.adapter.main.NewBarbershopsAdapter;
 import com.sorinaidea.ghaichi.adapter.main.TopBarbershopsAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
-import com.sorinaidea.ghaichi.fast.Advertise;
 import com.sorinaidea.ghaichi.fast.BarbershopCard;
 import com.sorinaidea.ghaichi.fast.UserShortInfo;
 import com.sorinaidea.ghaichi.util.FontManager;
@@ -45,17 +36,13 @@ import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
 import com.sorinaidea.ghaichi.util.Security;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
-import com.sorinaidea.ghaichi.webservice.AdvertisesService;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
 import com.sorinaidea.ghaichi.webservice.UserProfileService;
 
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import co.ronash.pushe.Pushe;
 import me.relex.circleindicator.CircleIndicator;
@@ -115,7 +102,7 @@ public class NewMainActivity extends AppCompatActivity implements
     private ArrayList<String> imageList = new ArrayList<>();
 
     private void initializeImageSlider() {
-
+/*
 
         Retrofit retrofit = API.getRetrofit();
         AdvertisesService advertises = retrofit.create(AdvertisesService.class);
@@ -159,7 +146,7 @@ public class NewMainActivity extends AppCompatActivity implements
             public void run() {
                 handler.post(Update);
             }
-        }, 1000, 3000);
+        }, 1000, 3000);*/
     }
 
     @Override
@@ -268,8 +255,8 @@ public class NewMainActivity extends AppCompatActivity implements
 
         Pushe.initialize(this,true);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
+        toolbar = findViewById(R.id.toolbar);
+        drawer = findViewById(R.id.drawerLayout);
         fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         setSupportActionBar(toolbar);
@@ -283,12 +270,12 @@ public class NewMainActivity extends AppCompatActivity implements
         toggle.syncState();
 
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navView);
+        NavigationView navigationView = findViewById(R.id.navView);
 
 
-        txtUserInfo = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
-        imgProfileImage = (AppCompatImageView) navigationView.getHeaderView(0).findViewById(R.id.imgProfileImage);
-        txtCity = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtCity);
+        txtUserInfo = navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
+        imgProfileImage = navigationView.getHeaderView(0).findViewById(R.id.imgProfileImage);
+        txtCity = navigationView.getHeaderView(0).findViewById(R.id.txtCity);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             navigationView.setLayoutDirection(NavigationView.LAYOUT_DIRECTION_RTL);
@@ -296,11 +283,11 @@ public class NewMainActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
         disableNavigationViewScrollbars(navigationView);
 
-        btnMoreFeatured = (TextView) findViewById(R.id.btnMoreFeatured);
-        btnMoreDiscount = (TextView) findViewById(R.id.btnMoreDiscount);
-        btnMoreNew = (TextView) findViewById(R.id.btnMoreNew);
-        btnMoreNearest = (TextView) findViewById(R.id.btnMoreNearest);
-        btnMoreTop = (TextView) findViewById(R.id.btnMoreTop);
+        btnMoreFeatured = findViewById(R.id.btnMoreFeatured);
+        btnMoreDiscount = findViewById(R.id.btnMoreDiscount);
+        btnMoreNew = findViewById(R.id.btnMoreNew);
+        btnMoreNearest = findViewById(R.id.btnMoreNearest);
+        btnMoreTop = findViewById(R.id.btnMoreTop);
 
 
         btnMoreFeatured.setOnClickListener((view) -> {
@@ -332,15 +319,15 @@ public class NewMainActivity extends AppCompatActivity implements
         txtUserInfo.setText("کاربر مهمان");
         txtCity.setText("سنندج");
 
-        mPager = (ViewPager) findViewById(R.id.pager);
-        indicator = (CircleIndicator) findViewById(R.id.indicator);
+        mPager = findViewById(R.id.pager);
+        indicator = findViewById(R.id.indicator);
 
 
-        recTop = (RecyclerView) findViewById(R.id.recTop);
-        recFeatured = (RecyclerView) findViewById(R.id.recFeatured);
-        recDiscount = (RecyclerView) findViewById(R.id.recDiscount);
-        recNew = (RecyclerView) findViewById(R.id.recNew);
-        recNearest = (RecyclerView) findViewById(R.id.recNearest);
+        recTop = findViewById(R.id.recTop);
+        recFeatured = findViewById(R.id.recFeatured);
+        recDiscount = findViewById(R.id.recDiscount);
+        recNew = findViewById(R.id.recNew);
+        recNearest = findViewById(R.id.recNearest);
 
         recTop.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         recFeatured.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -381,34 +368,15 @@ public class NewMainActivity extends AppCompatActivity implements
         loadData();
     }
 
-    SkeletonScreen scrTop;
-    SkeletonScreen scrFeatured;
-    SkeletonScreen scrDiscount;
-    SkeletonScreen scrNew;
-    SkeletonScreen scrNearest;
+
 
     private void reload() {
-
-
-//
-//
-//
-//        scrTop.hide();
-//        scrFeatured.hide();
-//        scrDiscount.hide();
-//        scrNew.hide();
-//        scrNearest.hide();
-//
-
-
 
         recTopAdapter.notifyDataSetChanged();
         recFeaturedAdapter.notifyDataSetChanged();
         recDiscountAdapter.notifyDataSetChanged();
         recNewAdapter.notifyDataSetChanged();
         recNearestAdapter.notifyDataSetChanged();
-
-
     }
 
     private ArrayList<BarbershopCard> barbershops;

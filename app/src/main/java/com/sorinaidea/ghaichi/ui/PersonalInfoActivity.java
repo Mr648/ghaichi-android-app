@@ -55,23 +55,23 @@ public class PersonalInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_personal_info);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ViewCompat.setElevation(toolbar, Util.dp(5, PersonalInfoActivity.this));
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("اطلاعات شخصی");
 
 
-        btnNextStep = (Button) findViewById(R.id.btnNextStep);
-        btnSelectGender = (AppCompatButton) findViewById(R.id.btnSelectGender);
+        btnNextStep = findViewById(R.id.btnNextStep);
+        btnSelectGender = findViewById(R.id.btnSelectGender);
 
 
-        edtName = (TextInputEditText) findViewById(R.id.edtName);
-        edtFamily = (TextInputEditText) findViewById(R.id.edtFamily);
-        inputLayoutName = (TextInputLayout) findViewById(R.id.inputLayoutName);
-        inputLayoutFamily = (TextInputLayout) findViewById(R.id.inputLayoutFamily);
+        edtName = findViewById(R.id.edtName);
+        edtFamily = findViewById(R.id.edtFamily);
+        inputLayoutName = findViewById(R.id.inputLayoutName);
+        inputLayoutFamily = findViewById(R.id.inputLayoutFamily);
 
 
         btnNextStep.setOnClickListener((view) -> {

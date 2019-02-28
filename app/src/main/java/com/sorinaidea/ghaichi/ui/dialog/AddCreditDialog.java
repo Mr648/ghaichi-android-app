@@ -60,11 +60,11 @@ public class AddCreditDialog extends Dialog implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_add_credit);
 
-        btnCancel = (AppCompatButton) findViewById(R.id.btnCancel);
-        btnPay = (AppCompatButton) findViewById(R.id.btnPay);
-        txtCashValue = (TextInputEditText) findViewById(R.id.txtCashValue);
-        inputLayoutCashValue = (TextInputLayout) findViewById(R.id.inputLayoutCashValue);
-        txtTitle = (AppCompatTextView) findViewById(R.id.txtTitle);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnPay = findViewById(R.id.btnPay);
+        txtCashValue = findViewById(R.id.txtCashValue);
+        inputLayoutCashValue = findViewById(R.id.inputLayoutCashValue);
+        txtTitle = findViewById(R.id.txtTitle);
 
         btnCancel.setOnClickListener(this);
         btnPay.setOnClickListener(this);

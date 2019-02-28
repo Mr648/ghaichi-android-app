@@ -44,9 +44,9 @@ public class SupportChatAdapter extends RecyclerView.Adapter<SupportChatAdapter.
         public ViewHolder(View v) {
             super(v);
 
-            imgProfile = (CircleImageView) v.findViewById(R.id.imgIcon);
-            txtMessage = (TextView) v.findViewById(R.id.txtMessage);
-            txtDate = (TextView) v.findViewById(R.id.txtDate);
+            imgProfile = v.findViewById(R.id.imgIcon);
+            txtMessage = v.findViewById(R.id.txtMessage);
+            txtDate = v.findViewById(R.id.txtDate);
         }
 
         public ImageView getImgProfile() {

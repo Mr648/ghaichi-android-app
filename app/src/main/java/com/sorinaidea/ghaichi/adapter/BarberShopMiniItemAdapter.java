@@ -55,9 +55,9 @@ public class BarberShopMiniItemAdapter extends RecyclerView.Adapter<BarberShopMi
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            imgProduct = (ImageView) view.findViewById(R.id.imgProduct);
-            txtProductName = (TextView) view.findViewById(R.id.txtProductCategory);
-            productItem = (CardView) view.findViewById(R.id.productItem);
+            imgProduct = view.findViewById(R.id.imgProduct);
+            txtProductName = view.findViewById(R.id.txtProductCategory);
+            productItem = view.findViewById(R.id.productItem);
         }
 
         public CardView getProductItem() {

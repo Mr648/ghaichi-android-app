@@ -35,19 +35,19 @@ public class GetGiftActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_tell_friends);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("معرفی به دوستان");
 
-        txtGetGiftMsg = (TextView) findViewById(R.id.txtGetGiftMsg);
-        txtGiftCode = (TextView) findViewById(R.id.txtGiftCode);
-        txtIconShare = (TextView) findViewById(R.id.txtIconShare);
-        txtGetGift = (TextView) findViewById(R.id.txtGetGift);
-        txtShare = (TextView) findViewById(R.id.txtShare);
+        txtGetGiftMsg = findViewById(R.id.txtGetGiftMsg);
+        txtGiftCode = findViewById(R.id.txtGiftCode);
+        txtIconShare = findViewById(R.id.txtIconShare);
+        txtGetGift = findViewById(R.id.txtGetGift);
+        txtShare = findViewById(R.id.txtShare);
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
         Typeface irsansFont = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);

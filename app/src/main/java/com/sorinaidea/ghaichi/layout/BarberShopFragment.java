@@ -85,10 +85,10 @@ public class BarberShopFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
 
-        btnSendCode = (Button) view.findViewById(R.id.btnSendCode);
-        txtIconCall = (TextView) view.findViewById(R.id.txtIconCall);
-        edtPhoneNumber = (TextInputEditText) view.findViewById(R.id.edtPhoneNumber);
-        inputLayoutPhoneNumber = (TextInputLayout) view.findViewById(R.id.inputLayoutPhoneNumber);
+        btnSendCode = view.findViewById(R.id.btnSendCode);
+        txtIconCall = view.findViewById(R.id.txtIconCall);
+        edtPhoneNumber = view.findViewById(R.id.edtPhoneNumber);
+        inputLayoutPhoneNumber = view.findViewById(R.id.inputLayoutPhoneNumber);
 
 
         btnSendCode.setOnClickListener(new View.OnClickListener() {

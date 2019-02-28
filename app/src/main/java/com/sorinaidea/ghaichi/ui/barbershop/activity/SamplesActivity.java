@@ -1,41 +1,33 @@
 package com.sorinaidea.ghaichi.ui.barbershop.activity;
 
-import android.content.Intent;
-import android.graphics.Typeface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
+import com.esafirm.imagepicker.features.ImagePicker;
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.adapter.AddSampleWorkAdapter;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
 import com.sorinaidea.ghaichi.adapter.barbershop.SamplesAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
-import com.sorinaidea.ghaichi.models.UploadImageResponse;
 import com.sorinaidea.ghaichi.models.Service;
+import com.sorinaidea.ghaichi.models.UploadImageResponse;
 import com.sorinaidea.ghaichi.ui.ImageUploaderActivity;
-import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.barbershop.ServiceServices;
-import com.sorinaidea.ghaichi.webservice.image.ImageUploadTask;
 import com.sorinaidea.ghaichi.webservice.image.MultipleImageUploader;
 import com.sorinaidea.ghaichi.webservice.image.SingleImageUploader;
-import com.sorinaidea.ghaichi.webservice.image.UploadCallback;
 import com.sorinaidea.ghaichi.webservice.image.UploadTask;
-import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
 import java.io.File;
 import java.io.IOException;
 
-import okhttp3.MultipartBody;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,11 +58,23 @@ public class SamplesActivity extends ImageUploaderActivity {
         fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_PICK);
+           /* Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "انتخاب تصاویر"), PICK_IMAGE_MULTIPLE);
+            startActivityForResult(Intent.createChooser(intent, "انتخاب تصاویر"), PICK_IMAGE_MULTIPLE);*/
+
+            ImagePicker.create(this)
+                    .folderMode(true) // folder mode (false by default)
+                    .toolbarFolderTitle("پوشه") // folder selection title
+                    .toolbarImageTitle("برای انتخاب لمس کنید") // image selection title
+                    .toolbarArrowColor(Color.WHITE) // Toolbar 'up' arrow color
+                    .multi() // multi mode (default mode)
+                    .limit(10) // max images can be selected (99 by default)
+                    .showCamera(true) // show camera or not (true by default)
+                    .imageDirectory("دوربین") // directory name for captured image  ("Camera" folder by default)
+                    .enableLog(false) // disabling log
+                    .start(); // start image picker activity with request code
         });
 
         recImages = findViewById(R.id.recImages);
@@ -152,7 +156,7 @@ public class SamplesActivity extends ImageUploaderActivity {
             });
 
         } else {
-            MultipartBody.Part image = MultipartBody.Part.createFormData("images", files[0].getName(),
+            MultipartBody.Part image = MultipartBody.Part.createFormData("images[0]", files[0].getName(),
                     RequestBody.create(MediaType.parse("image/*"), files[0]));
 
             task = new UploadTask(new SingleImageUploader(image) {

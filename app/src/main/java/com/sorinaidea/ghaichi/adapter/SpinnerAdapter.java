@@ -31,7 +31,7 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
 
         View view = flater.inflate(R.layout.item_spinner, parent, false);
 
-        TextView txtTitle = (TextView) view.findViewById(R.id.txtTitle);
+        TextView txtTitle = view.findViewById(R.id.txtTitle);
         txtTitle.setText(item);
 
 

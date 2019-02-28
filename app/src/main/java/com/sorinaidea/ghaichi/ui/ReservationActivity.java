@@ -32,20 +32,20 @@ public class ReservationActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_reservation);
 
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        container = (NestedScrollView) findViewById(R.id.container);
+        toolbar = findViewById(R.id.toolbar);
+        container = findViewById(R.id.container);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("رزروها");
 
         fontMaterialIcons = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
         fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         container.setFillViewport(true);
-        recReservations = (RecyclerView) findViewById(R.id.recReservations);
+        recReservations = findViewById(R.id.recReservations);
         recReservations.setNestedScrollingEnabled(false);
         recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 //        recReservations.setAdapter(new ReservationAdabper(initDataset(), getApplicationContext()));

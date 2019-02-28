@@ -63,11 +63,11 @@ public class TransactionDialog extends Dialog implements View.OnClickListener, D
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.transaction_dialog);
 
-        btnCancel = (AppCompatButton) findViewById(R.id.btnCancel);
-        btnOk = (AppCompatButton) findViewById(R.id.btnOk);
-        btnDate = (AppCompatButton) findViewById(R.id.btnDate);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnOk = findViewById(R.id.btnOk);
+        btnDate = findViewById(R.id.btnDate);
 
-        txtMessage = (AppCompatTextView) findViewById(R.id.txtMessage);
+        txtMessage = findViewById(R.id.txtMessage);
 
         btnDate.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
@@ -94,7 +94,6 @@ public class TransactionDialog extends Dialog implements View.OnClickListener, D
                         R.style.DialogTheme;
                 Date mStartDate = new Date(System.currentTimeMillis());
                 int id = 0x1010101;
-                ;
                 new DatePicker.Builder()
                         .id(id)
                         .theme(theme)
@@ -108,7 +107,7 @@ public class TransactionDialog extends Dialog implements View.OnClickListener, D
     @Override
     public void onDateSet(int id, @Nullable Calendar calendar, int day, int month, int year) {
         if (id == 0x1010101) {
-            btnDate.setText(String.format("%d/%d/%d", year, month, day));
+            btnDate.setText(String.format(new Locale("fa"),"%d/%d/%d", year, month, day));
         }
     }
 

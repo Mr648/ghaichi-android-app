@@ -31,12 +31,12 @@ public class CityChooserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_citychooser);
 
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText(R.string.toolbar_choose_city);
         setup();
     }
@@ -50,9 +50,9 @@ public class CityChooserActivity extends AppCompatActivity {
     }
 
     private void setup() {
-        spnProvinces = (Spinner) findViewById(R.id.spnProvinces);
-        spnCities = (Spinner) findViewById(R.id.spnCities);
-        btnNextStep = (Button) findViewById(R.id.btnNextStep);
+        spnProvinces = findViewById(R.id.spnProvinces);
+        spnCities = findViewById(R.id.spnCities);
+        btnNextStep = findViewById(R.id.btnNextStep);
 
 
         String[] provinces = {

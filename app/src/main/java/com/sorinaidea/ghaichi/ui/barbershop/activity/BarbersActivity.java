@@ -27,20 +27,20 @@ public class BarbersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barbers);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText(R.string.toolbar_manage_barbers);
 
-        recBarbers = (RecyclerView) findViewById(R.id.recBanners);
+        recBarbers = findViewById(R.id.recBanners);
 
 
         // TODO Enable Chat here!
-        fabAddBarber = (FloatingActionButton) findViewById(R.id.fabAddBarber);
+        fabAddBarber = findViewById(R.id.fabAddBarber);
         fabAddBarber.setOnClickListener((view) -> {
             Intent intent = new Intent(BarbersActivity.this, AddBarberActivity.class);
             startActivity(intent);

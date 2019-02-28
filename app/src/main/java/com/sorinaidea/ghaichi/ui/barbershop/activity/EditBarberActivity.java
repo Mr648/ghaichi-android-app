@@ -47,22 +47,22 @@ public class EditBarberActivity extends AppCompatActivity {
     private Typeface fontIranSans;
 
     private void setupInputs() {
-        inputLayoutName = (TextInputLayout) findViewById(R.id.inputLayoutName);
-        inputLayoutPrice = (TextInputLayout) findViewById(R.id.inputLayoutPrice);
-        inputLayoutDuration = (TextInputLayout) findViewById(R.id.inputLayoutDuration);
-        inputLayoutDiscount = (TextInputLayout) findViewById(R.id.inputLayoutDiscount);
-        inputLayoutDescription = (TextInputLayout) findViewById(R.id.inputLayoutDescription);
+        inputLayoutName = findViewById(R.id.inputLayoutName);
+        inputLayoutPrice = findViewById(R.id.inputLayoutPrice);
+        inputLayoutDuration = findViewById(R.id.inputLayoutDuration);
+        inputLayoutDiscount = findViewById(R.id.inputLayoutDiscount);
+        inputLayoutDescription = findViewById(R.id.inputLayoutDescription);
 
-        txtName = (TextInputEditText) findViewById(R.id.txtName);
-        txtPrice = (TextInputEditText) findViewById(R.id.txtPrice);
-        txtDuration = (TextInputEditText) findViewById(R.id.txtDuration);
-        txtDiscount = (TextInputEditText) findViewById(R.id.txtDiscount);
-        txtDescription = (TextInputEditText) findViewById(R.id.txtDescription);
+        txtName = findViewById(R.id.txtName);
+        txtPrice = findViewById(R.id.txtPrice);
+        txtDuration = findViewById(R.id.txtDuration);
+        txtDiscount = findViewById(R.id.txtDiscount);
+        txtDescription = findViewById(R.id.txtDescription);
     }
 
     private void setupLists() {
-        recBarbers = (RecyclerView) findViewById(R.id.recBanners);
-        spnCategories = (Spinner) findViewById(R.id.spnCategories);
+        recBarbers = findViewById(R.id.recBanners);
+        spnCategories = findViewById(R.id.spnCategories);
 
         recBarbers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recBarbers.setAdapter(new BarberAdabper(this));
@@ -104,13 +104,13 @@ public class EditBarberActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_service);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText(R.string.toolbar_add_service);
 
 

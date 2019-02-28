@@ -45,8 +45,8 @@ public class ImageSliderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_slider);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mPager = (ViewPager) findViewById(R.id.pager);
+        toolbar = findViewById(R.id.toolbar);
+        mPager = findViewById(R.id.pager);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

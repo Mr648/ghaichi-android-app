@@ -165,14 +165,15 @@
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img_advertise" />
+                    android:src="@drawable/img_advertise"
+                    android:contentDescription="TODO" />
 
                 <ProgressBar
                     android:id="@+id/prgLoad"
                     android:layout_width="@dimen/_56dp"
                     android:layout_height="@dimen/_56dp"
                     android:layout_gravity="center"
-                    android:background="@color/transparent"
+                    android:background="@color/colorTransparent"
                     android:indeterminate="true"
                     android:visibility="gone" />
 
@@ -182,7 +183,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_56dp"
                     android:layout_gravity="center"
-                    android:background="@color/transparent"
+                    android:background="@color/colorTransparent"
                     android:gravity="center"
                     android:indeterminate="true"
                     android:visibility="gone" />

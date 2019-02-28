@@ -186,7 +186,8 @@
             android:layout_marginStart="@dimen/_16dp"
             android:layout_marginTop="@dimen/_16dp"
             android:clickable="true"
-            android:text="@string/account_activation_payment" />
+            android:text="@string/account_activation_payment"
+            android:focusable="true" />
     </RelativeLayout>
 
 </ScrollView>

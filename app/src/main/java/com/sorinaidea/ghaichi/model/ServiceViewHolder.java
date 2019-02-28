@@ -14,6 +14,8 @@ import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.ui.PriceUpdater;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
+import java.util.Locale;
+
 
 /**
  * Created by mr-code on 6/28/2018.
@@ -39,12 +41,12 @@ public class ServiceViewHolder extends ChildViewHolder {
         rotateAnimation.setRepeatMode(Animation.REVERSE);
         rotateAnimation.setRepeatCount(RotateAnimation.INFINITE);
         rotateAnimation.setDuration(2500);
-        txtName = (TextView) itemView.findViewById(R.id.txtTime);
-        txtPrice = (TextView) itemView.findViewById(R.id.txtPrice);
-        txtPercent = (TextView) itemView.findViewById(R.id.txtPercent);
-        imgIcon = (AppCompatImageView) itemView.findViewById(R.id.imgIcon);
-        swSelect = (SwitchCompat) itemView.findViewById(R.id.swSelect);
-        relativeDiscount = (RelativeLayout) itemView.findViewById(R.id.relativeDiscount);
+        txtName = itemView.findViewById(R.id.txtTime);
+        txtPrice = itemView.findViewById(R.id.txtPrice);
+        txtPercent = itemView.findViewById(R.id.txtPercent);
+        imgIcon = itemView.findViewById(R.id.imgIcon);
+        swSelect = itemView.findViewById(R.id.swSelect);
+        relativeDiscount = itemView.findViewById(R.id.relativeDiscount);
     }
 
 
@@ -54,18 +56,18 @@ public class ServiceViewHolder extends ChildViewHolder {
         if (service.hasDiscount()) {
             relativeDiscount.setVisibility(View.VISIBLE);
             imgIcon.startAnimation(rotateAnimation);
-            txtPercent.setText(String.format("%.1f%%", service.getDiscountPercent() * 100.0f));
+            txtPercent.setText(String.format(new Locale("fa"), "%.1f%%", service.getDiscountPercent() * 100.0f));
         } else {
             relativeDiscount.setVisibility(View.GONE);
         }
 
 
-        txtPrice.setText(String.format("%.2f تومان", service.getPrice()));
+        txtPrice.setText(String.format(new Locale("fa"),"%.2f تومان", service.getPrice()));
         swSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    updater.add(service );
+                    updater.add(service);
                 } else {
                     if (service.isSelected()) {
                         updater.delete(service);

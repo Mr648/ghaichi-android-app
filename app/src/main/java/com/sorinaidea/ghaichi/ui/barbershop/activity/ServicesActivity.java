@@ -27,17 +27,17 @@ public class ServicesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText(R.string.toolbar_manage_services);
-        recServices = (RecyclerView) findViewById(R.id.recBanners);
+        recServices = findViewById(R.id.recBanners);
 
-        fabAddService = (FloatingActionButton) findViewById(R.id.fabAddService);
+        fabAddService = findViewById(R.id.fabAddService);
         fabAddService.setOnClickListener((view) -> {
             Intent intent = new Intent(ServicesActivity.this, AddServiceActivity.class);
             startActivity(intent);

@@ -39,20 +39,20 @@ public class FaqActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_faq);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText(R.string.toolbar_faq);
 
-        recFaq = (RecyclerView) findViewById(R.id.recFaq);
+        recFaq = findViewById(R.id.recFaq);
 
 
         // TODO Enable Chat here!
-        fabSupport = (FloatingActionButton) findViewById(R.id.fabSupport);
+        fabSupport = findViewById(R.id.fabSupport);
         fabSupport.setOnClickListener(view -> {
             Intent intent = new Intent(FaqActivity.this, SendSupportTicketActivity.class);
             startActivity(intent);

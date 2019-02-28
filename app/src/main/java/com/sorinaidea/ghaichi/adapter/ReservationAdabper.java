@@ -57,14 +57,14 @@ public class ReservationAdabper extends RecyclerView.Adapter<ReservationAdabper.
                 }
             });
 
-            imgLogo = (CircleImageView) v.findViewById(R.id.imgLogo);
-            txtTitle = (TextView) v.findViewById(R.id.txtTitle);
-            txtDate = (TextView) v.findViewById(R.id.txtDate);
-            txtTime = (TextView) v.findViewById(R.id.txtTime);
-            txtAddress = (TextView) v.findViewById(R.id.txtAddress);
-            txtIconTime = (TextView) v.findViewById(R.id.txtIconTime);
-            txtIconDate = (TextView) v.findViewById(R.id.txtIconDate);
-            cardView = (CardView) v.findViewById(R.id.cardView);
+            imgLogo = v.findViewById(R.id.imgLogo);
+            txtTitle = v.findViewById(R.id.txtTitle);
+            txtDate = v.findViewById(R.id.txtDate);
+            txtTime = v.findViewById(R.id.txtTime);
+            txtAddress = v.findViewById(R.id.txtAddress);
+            txtIconTime = v.findViewById(R.id.txtIconTime);
+            txtIconDate = v.findViewById(R.id.txtIconDate);
+            cardView = v.findViewById(R.id.cardView);
 //            lnrBgr = (LinearLayout) v.findViewById(R.id.lnrBgr);
         }
 

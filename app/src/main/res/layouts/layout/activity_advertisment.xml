@@ -46,7 +46,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/_12dp"
-        android:src="@drawable/fab_add"
+        android:src="@drawable/ic_add_white_18dp"
         android:tint="@color/colorWhite"
         android:visibility="visible"
         app:borderWidth="0dp"

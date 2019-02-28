@@ -38,8 +38,8 @@ public class EmptyAdabper extends RecyclerView.Adapter<EmptyAdabper.ViewHolder> 
         public ViewHolder(View v) {
             super(v);
 
-            imgIcon = (AppCompatImageView) v.findViewById(R.id.imgIcon);
-            txtMessage = (AppCompatTextView) v.findViewById(R.id.txtMessage);
+            imgIcon = v.findViewById(R.id.imgIcon);
+            txtMessage = v.findViewById(R.id.txtMessage);
         }
 
         public AppCompatImageView getImgIcon() {

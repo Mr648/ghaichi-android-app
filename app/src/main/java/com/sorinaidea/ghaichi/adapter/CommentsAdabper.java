@@ -43,11 +43,11 @@ public class CommentsAdabper extends RecyclerView.Adapter<CommentsAdabper.ViewHo
         public ViewHolder(View v) {
             super(v);
 
-            imgProfile = (CircleImageView) v.findViewById(R.id.imgProfile);
-            txtUsername = (TextView) v.findViewById(R.id.txtTime);
-            txtMessage = (TextView) v.findViewById(R.id.txtMessage);
-            txtDate = (TextView) v.findViewById(R.id.txtDate);
-            ratingBar = (RatingBar) v.findViewById(R.id.ratingBar);
+            imgProfile = v.findViewById(R.id.imgProfile);
+            txtUsername = v.findViewById(R.id.txtTime);
+            txtMessage = v.findViewById(R.id.txtMessage);
+            txtDate = v.findViewById(R.id.txtDate);
+            ratingBar = v.findViewById(R.id.ratingBar);
         }
 
         public CircleImageView getImgProfile() {

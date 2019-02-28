@@ -59,14 +59,14 @@ public class MessageDialog extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.message_dialog);
-        btnOk = (AppCompatButton) findViewById(R.id.btnOk);
+        btnOk = findViewById(R.id.btnOk);
 
         if (positiveButtonListener != null) {
             btnOk.setOnClickListener(positiveButtonListener);
         }
 
-        txtMessage = (AppCompatTextView) findViewById(R.id.txtMessage);
-        imgIcon = (AppCompatImageView) findViewById(R.id.imgIcon);
+        txtMessage = findViewById(R.id.txtMessage);
+        imgIcon = findViewById(R.id.imgIcon);
         txtMessage.setText(this.message);
         FontManager.setFont(btnOk, fontIranSans);
         FontManager.setFont(txtMessage, fontIranSans);

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
@@ -19,14 +18,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
 import com.sorinaidea.ghaichi.adapter.barbershop.BarbershopReservationsAdabper;
 import com.sorinaidea.ghaichi.model.Reservation;
@@ -34,7 +31,6 @@ import com.sorinaidea.ghaichi.ui.barbershop.activity.BannersActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.BarbersActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.CategoriesActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.PaymentActivity;
-import com.sorinaidea.ghaichi.ui.barbershop.activity.SamplesActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.ServicesActivity;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.Util;
@@ -43,8 +39,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import co.ronash.pushe.Pushe;
 import me.relex.circleindicator.CircleIndicator;
@@ -92,12 +86,12 @@ public class BarberMainActivity extends AppCompatActivity implements
         Pushe.initialize(this,true);
 //        fabAddServiceCategory = (FloatingActionButton) findViewById(R.id.fabAddServiceCategory);
 //        fabAddService = (FloatingActionButton) findViewById(R.id.fabAddService);
-        scrViewRoot = (NestedScrollView) findViewById(R.id.scrViewRoot);
+        scrViewRoot = findViewById(R.id.scrViewRoot);
 
-        cardCategory = (CardView) findViewById(R.id.cardCategory);
-        cardServices = (CardView) findViewById(R.id.cardServices);
-        cardSamples = (CardView) findViewById(R.id.cardSamples);
-        cardBarbers = (CardView) findViewById(R.id.cardBarbers);
+        cardCategory = findViewById(R.id.cardCategory);
+        cardServices = findViewById(R.id.cardServices);
+        cardSamples = findViewById(R.id.cardSamples);
+        cardBarbers = findViewById(R.id.cardBarbers);
 
         cardCategory.setOnClickListener((view) -> {
             Intent intent = new Intent(BarberMainActivity.this, CategoriesActivity.class);
@@ -118,16 +112,16 @@ public class BarberMainActivity extends AppCompatActivity implements
         });
 
 
-        recReservations = (RecyclerView) findViewById(R.id.recReservations);
+        recReservations = findViewById(R.id.recReservations);
         recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recReservations.addItemDecoration(new ItemOffsetDecoration(Util.dp(8, this)));
         recReservations.setAdapter(new BarbershopReservationsAdabper(getApplicationContext()));
         recReservations.setNestedScrollingEnabled(false);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mPager = (ViewPager) findViewById(R.id.pager);
-        indicator = (CircleIndicator) findViewById(R.id.indicator);
+        toolbar = findViewById(R.id.toolbar);
+        drawer = findViewById(R.id.drawerLayout);
+        mPager = findViewById(R.id.pager);
+        indicator = findViewById(R.id.indicator);
         fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         setSupportActionBar(toolbar);
@@ -135,7 +129,7 @@ public class BarberMainActivity extends AppCompatActivity implements
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("پنل آرایشگر");
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -150,10 +144,10 @@ public class BarberMainActivity extends AppCompatActivity implements
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navView);
+        NavigationView navigationView = findViewById(R.id.navView);
 
-        txtUserInfo = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
-        txtCity = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtCity);
+        txtUserInfo = navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
+        txtCity = navigationView.getHeaderView(0).findViewById(R.id.txtCity);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             navigationView.setLayoutDirection(NavigationView.LAYOUT_DIRECTION_RTL);
@@ -173,10 +167,10 @@ public class BarberMainActivity extends AppCompatActivity implements
 
 
     private static final List<String> images = Arrays.asList(
-            "asdasd",
-            "asdasd",
-            "asdasd",
-            "asdasd"
+            "String",
+            "String",
+            "String",
+            "String"
     );
 
     private ArrayList<String> imageList = new ArrayList<>();
@@ -191,7 +185,7 @@ public class BarberMainActivity extends AppCompatActivity implements
 
     private void initializeImageSlider() {
 
-        imageList.addAll(images);
+      /*  imageList.addAll(images);
         ImageSliderAdapter adapter = new ImageSliderAdapter(getApplicationContext(), imageList);
         mPager.setAdapter(adapter);
         indicator.setViewPager(mPager);
@@ -234,7 +228,7 @@ public class BarberMainActivity extends AppCompatActivity implements
             public void run() {
                 handler.post(Update);
             }
-        }, 2500, 2500);
+        }, 2500, 2500);*/
     }
 
     private boolean show = false;
@@ -281,8 +275,6 @@ public class BarberMainActivity extends AppCompatActivity implements
             Intent intent = new Intent(BarberMainActivity.this, UserProfileActivity.class);
             startActivity(intent);
         }else if (id == R.id.action_reservations) {
-//            Intent intent = new Intent(BarberMainActivity.this, REser.class);
-//            startActivity(intent);
         }else if (id == R.id.action_banners) {
             Intent intent = new Intent(BarberMainActivity.this, BannersActivity.class);
             startActivity(intent);

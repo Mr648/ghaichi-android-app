@@ -38,10 +38,10 @@ public class SpecialAdvertiseFragment extends Fragment {
     private int selectedNumberOfViews = Integer.MIN_VALUE;
 
     private void setupViews(View view) {
-        inputLayoutDescription = (TextInputLayout) view.findViewById(R.id.inputLayoutDescription);
-        txtDescription = (TextInputEditText) view.findViewById(R.id.txtDescription);
-        spnNumberOfViews = (Spinner) view.findViewById(R.id.spnNumberOfViews);
-        btnRequest = (Button) view.findViewById(R.id.btnRequest);
+        inputLayoutDescription = view.findViewById(R.id.inputLayoutDescription);
+        txtDescription = view.findViewById(R.id.txtDescription);
+        spnNumberOfViews = view.findViewById(R.id.spnNumberOfViews);
+        btnRequest = view.findViewById(R.id.btnRequest);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, ITEMS);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

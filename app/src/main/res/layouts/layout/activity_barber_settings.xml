@@ -49,7 +49,8 @@
             android:layout_height="@dimen/_1px"
             android:layout_marginBottom="@dimen/_8dp"
             android:layout_marginTop="@dimen/_8dp"
-            android:src="@color/colorGrayLight" />
+            android:src="@color/colorGrayLight"
+            android:contentDescription="TODO" />
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/swShowNotification"

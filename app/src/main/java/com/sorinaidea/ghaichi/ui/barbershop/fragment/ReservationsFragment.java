@@ -34,7 +34,7 @@ public class ReservationsFragment extends Fragment {
     private int selectedNumberOfViews = Integer.MIN_VALUE;
 
     private void setupInputs(View view) {
-        recReservations = (RecyclerView) view.findViewById(R.id.recReservations);
+        recReservations = view.findViewById(R.id.recReservations);
         recReservations.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recReservations.addItemDecoration(new ItemOffsetDecoration(Util.dp(8, getActivity())));
         recReservations.setAdapter(new BarbershopAllReservationsAdabper(getActivity()));

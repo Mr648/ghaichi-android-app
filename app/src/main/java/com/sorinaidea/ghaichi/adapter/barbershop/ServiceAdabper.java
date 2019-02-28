@@ -46,17 +46,17 @@ public class ServiceAdabper extends RecyclerView.Adapter<ServiceAdabper.ViewHold
 
         public ViewHolder(View v) {
             super(v);
-            txtTime = (TextView) v.findViewById(R.id.txtTime);
-            txtPrice = (TextView) v.findViewById(R.id.txtPrice);
-            txtSamples = (TextView) v.findViewById(R.id.txtSamples);
-            txtBarbers = (TextView) v.findViewById(R.id.txtBarbers);
-            txtName = (TextView) v.findViewById(R.id.txtName);
+            txtTime = v.findViewById(R.id.txtTime);
+            txtPrice = v.findViewById(R.id.txtPrice);
+            txtSamples = v.findViewById(R.id.txtSamples);
+            txtBarbers = v.findViewById(R.id.txtBarbers);
+            txtName = v.findViewById(R.id.txtName);
 
-            imgAddBarber = (AppCompatImageView) v.findViewById(R.id.imgAddBarber);
-            imgEdit = (AppCompatImageView) v.findViewById(R.id.imgEdit);
-            imgAddSample = (AppCompatImageView) v.findViewById(R.id.imgAddSample);
-            imgDelete = (AppCompatImageView) v.findViewById(R.id.imgDelete);
-            imgService = (AppCompatImageView) v.findViewById(R.id.imgService);
+            imgAddBarber = v.findViewById(R.id.imgAddBarber);
+            imgEdit = v.findViewById(R.id.imgEdit);
+            imgAddSample = v.findViewById(R.id.imgAddSample);
+            imgDelete = v.findViewById(R.id.imgDelete);
+            imgService = v.findViewById(R.id.imgService);
         }
 
         public TextView getTxtName() {

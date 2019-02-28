@@ -1,23 +1,12 @@
 package com.sorinaidea.ghaichi.ui;
 
-import android.content.ActivityNotFoundException;
-import android.content.ClipData;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.widget.Toast;
 
-import com.sorinaidea.ghaichi.webservice.image.ImageUploadTask;
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.model.Image;
 import com.sorinaidea.ghaichi.webservice.image.UploadTask;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ImageUploaderActivity extends ToolbarActivity {
@@ -31,12 +20,26 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
     protected final static int PICK_IMAGE_MULTIPLE = 0x2000;
 
 
-    protected ImageUploadTask uploaderTask;
+//    protected ImageUploadTask uploaderTask;
 
     protected abstract UploadTask generateTask(File... files) throws NullPointerException;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+
+            // Get a list of picked images
+            List<Image> images = ImagePicker.getImages(data);
+            File[] files = new File[images.size()];
+
+            for (int i = 0; i < images.size(); i++) {
+                files[i] = new File(images.get(i).getPath());
+            }
+            generateTask(files).upload();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+        /*
 
         if (resultCode == RESULT_OK) {
             //user is returning from capturing an image using the camera
@@ -71,7 +74,7 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
             if (requestCode == PICK_IMAGE_MULTIPLE && resultCode == RESULT_OK && null != data) {
 
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                imagesEncodedList = new ArrayList<String>();
+                imagesEncodedList = new ArrayList<>();
                 if (data.getData() != null) {
                     Uri imageUri = data.getData();
                     performCrop(imageUri);
@@ -84,15 +87,18 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
                             Uri uri = item.getUri();
 
 
-                            Cursor cursor = getContentResolver().query(uri, filePathColumn, null, null, null);
-                            cursor.moveToFirst();
+                            try {
+                                Cursor cursor = getContentResolver().query(uri, filePathColumn, null, null, null);
+                                Objects.requireNonNull(cursor).moveToFirst();
+                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                imageEncoded = cursor.getString(columnIndex);
+                                imagesEncodedList.add(imageEncoded);
+                                cursor.close();
+                                files[i] = new File(imageEncoded);
+                            } catch (NullPointerException ex) {
+                                files[i] = new File(uri.toString());
+                            }
 
-                            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                            imageEncoded = cursor.getString(columnIndex);
-                            imagesEncodedList.add(imageEncoded);
-                            cursor.close();
-
-                            files[i] = new File(imageEncoded);
                         }
                         try {
 //                            new ImageUploadTask(() -> {
@@ -110,13 +116,16 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
                 toast("هیچ تصویری انتخاب نکردید!");
             }
         } catch (Exception e) {
-            toast("خطا در انتخاب تصاویر");
-        }
+            alert("Error", e.getMessage() + "\n" + e.toString()
+                    , R.drawable.ic_close, R.color.colorRedAccent900);
 
-        super.onActivityResult(requestCode, resultCode, data);
+            e.printStackTrace();
+        }*/
     }
-    String imageEncoded;
+
+    /*String imageEncoded;
     List<String> imagesEncodedList;
+
     private void performCrop(Uri imageUri) {
         try {
             //call the standard crop action intent (the user device may not support it)
@@ -163,6 +172,6 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
         }
 
         return file;
-    }
+    }*/
 
 }

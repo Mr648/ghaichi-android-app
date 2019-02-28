@@ -31,7 +31,7 @@ public class TopBarberShopUserAdabper extends RecyclerView.Adapter<TopBarberShop
             super(v);
 
 
-            imgLogo = (ImageView) v.findViewById(R.id.imgLogo);
+            imgLogo = v.findViewById(R.id.imgLogo);
         }
 
 

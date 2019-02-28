@@ -125,7 +125,8 @@
                     android:layout_height="@dimen/_36dp"
                     android:layout_alignParentStart="true"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_location_on_black_24dp" />
+                    android:src="@drawable/ic_location_on_black_24dp"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/txtAddress"

@@ -50,31 +50,31 @@ public class CreditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credit);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("اعتبار");
 
         fontMaterialIcons = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
         fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
-        arcView = (DecoView) findViewById(R.id.dynamicArcView);
+        arcView = findViewById(R.id.dynamicArcView);
 
-        recFaq = (RecyclerView) findViewById(R.id.recTransactions);
+        recFaq = findViewById(R.id.recTransactions);
         recFaq.setNestedScrollingEnabled(false);
 
 
-        txtRemainingLabel = (TextView) findViewById(R.id.txtRemainingLabel);
-        txtReservationLabel = (TextView) findViewById(R.id.txtReservationLabel);
-        txtRemaining = (TextView) findViewById(R.id.txtRemaining);
-        txtReservation = (TextView) findViewById(R.id.txtReservations);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        txtRemainingLabel = findViewById(R.id.txtRemainingLabel);
+        txtReservationLabel = findViewById(R.id.txtReservationLabel);
+        txtRemaining = findViewById(R.id.txtRemaining);
+        txtReservation = findViewById(R.id.txtReservations);
+        fab = findViewById(R.id.fab);
 
-        txtMessage = (TextView) findViewById(R.id.txtMessage);
-        txtCredit = (TextView) findViewById(R.id.txtCredit);
+        txtMessage = findViewById(R.id.txtMessage);
+        txtCredit = findViewById(R.id.txtCredit);
 
 //        btnAddCash = (Button) view.findViewById(R.id.btnAddCash);
 

@@ -27,7 +27,8 @@
             android:id="@+id/imgLogo"
             android:layout_width="144dp"
             android:layout_height="144dp"
-            app:srcCompat="@drawable/background_circle" />
+            app:srcCompat="@drawable/background_circle"
+            android:contentDescription="TODO" />
 
     </LinearLayout>
 

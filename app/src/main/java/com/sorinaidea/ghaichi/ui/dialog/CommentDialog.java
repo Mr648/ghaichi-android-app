@@ -80,12 +80,12 @@ public class CommentDialog extends Dialog implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_comment);
 
-        btnCancel = (AppCompatButton) findViewById(R.id.btnCancel);
-        btnComment = (AppCompatButton) findViewById(R.id.btnComment);
-        txtComment = (TextInputEditText) findViewById(R.id.txtComment);
-        inputLayoutComment = (TextInputLayout) findViewById(R.id.inputLayoutComment);
-        ratingBar = (AppCompatRatingBar) findViewById(R.id.ratingBar);
-        txtTitle = (AppCompatTextView) findViewById(R.id.txtTitle);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnComment = findViewById(R.id.btnComment);
+        txtComment = findViewById(R.id.txtComment);
+        inputLayoutComment = findViewById(R.id.inputLayoutComment);
+        ratingBar = findViewById(R.id.ratingBar);
+        txtTitle = findViewById(R.id.txtTitle);
 
         btnCancel.setOnClickListener(this);
         btnComment.setOnClickListener(this);

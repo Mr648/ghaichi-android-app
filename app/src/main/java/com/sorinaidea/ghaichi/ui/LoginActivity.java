@@ -85,7 +85,7 @@ public class LoginActivity extends ToolbarActivity {
         alphaAnimation.setDuration(1000);
 
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -93,13 +93,13 @@ public class LoginActivity extends ToolbarActivity {
 
         ViewCompat.setElevation(toolbar, Util.dp(5, LoginActivity.this));
 
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("ورود به حساب کاربری");
 
-        btnSendCode = (Button) findViewById(R.id.btnSendCode);
-        txtIconCall = (TextView) findViewById(R.id.txtIconCall);
-        edtPhoneNumber = (TextInputEditText) findViewById(R.id.edtPhoneNumber);
-        inputLayoutPhoneNumber = (TextInputLayout) findViewById(R.id.inputLayoutPhoneNumber);
+        btnSendCode = findViewById(R.id.btnSendCode);
+        txtIconCall = findViewById(R.id.txtIconCall);
+        edtPhoneNumber = findViewById(R.id.edtPhoneNumber);
+        inputLayoutPhoneNumber = findViewById(R.id.inputLayoutPhoneNumber);
 
 
         btnSendCode.setOnClickListener(view -> {
@@ -130,7 +130,7 @@ public class LoginActivity extends ToolbarActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null && !extras.isEmpty()) {
-            String phone = null;
+            String phone;
             try {
                 phone = extras.getString("phone");
             } catch (Exception e) {

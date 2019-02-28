@@ -34,10 +34,10 @@ public class BannersAdapter extends RecyclerView.Adapter<BannersAdapter.ViewHold
 
         public ViewHolder(View v) {
             super(v);
-            imgBanner = (AppCompatImageView) v.findViewById(R.id.imgBanner);
-            imgSetSelected = (AppCompatImageView) v.findViewById(R.id.imgSetSelected);
-            imgSetVisible = (AppCompatImageView) v.findViewById(R.id.imgSetVisible);
-            imgDelete = (AppCompatImageView) v.findViewById(R.id.imgDelete);
+            imgBanner = v.findViewById(R.id.imgBanner);
+            imgSetSelected = v.findViewById(R.id.imgSetSelected);
+            imgSetVisible = v.findViewById(R.id.imgSetVisible);
+            imgDelete = v.findViewById(R.id.imgDelete);
         }
 
         public AppCompatImageView getImgDelete() {

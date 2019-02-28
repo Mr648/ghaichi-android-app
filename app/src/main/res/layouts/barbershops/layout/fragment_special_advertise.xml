@@ -52,5 +52,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_16dp"
         android:clickable="true"
-        android:text="@string/request_advertise" />
+        android:text="@string/request_advertise"
+        android:focusable="true" />
 </RelativeLayout>

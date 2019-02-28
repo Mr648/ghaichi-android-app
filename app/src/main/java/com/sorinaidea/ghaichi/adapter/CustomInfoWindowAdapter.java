@@ -43,8 +43,8 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         View view = context.getLayoutInflater().inflate(R.layout.marker_info_window, null);
 
 
-        TextView txtTitle = (TextView) view.findViewById(R.id.marker_title);
-        ImageView imgLogo = (ImageView) view.findViewById(R.id.marker_logo);
+        TextView txtTitle = view.findViewById(R.id.marker_title);
+        ImageView imgLogo = view.findViewById(R.id.marker_logo);
 
         String markerTitle = marker.getTitle().split("@")[0];
 

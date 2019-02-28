@@ -28,6 +28,7 @@
         android:layout_width="@dimen/_48dp"
         android:layout_height="@dimen/_56dp"
         android:layout_marginLeft="8dp"
-        android:src="@drawable/ic_hairdresser_64px" />
+        android:src="@drawable/ic_hairdresser_64px"
+        android:contentDescription="TODO" />
 
 </LinearLayout>

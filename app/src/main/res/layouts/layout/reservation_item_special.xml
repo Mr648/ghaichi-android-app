@@ -17,7 +17,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/_10dp"
-            android:src="@drawable/ic_delete_white_24dp" />
+            android:src="@drawable/ic_delete_white_24dp"
+            android:contentDescription="TODO" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,7 +44,8 @@
             android:layout_width="@dimen/_36dp"
             android:layout_height="@dimen/_36dp"
             android:layout_marginRight="@dimen/_8dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/name"

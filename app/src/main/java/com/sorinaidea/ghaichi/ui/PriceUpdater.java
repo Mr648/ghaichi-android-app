@@ -5,6 +5,7 @@ import android.widget.TextView;
 import com.sorinaidea.ghaichi.model.Service;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by mr-code on 7/1/2018.
@@ -35,7 +36,7 @@ public class PriceUpdater {
             service.setSelected(true);
         }
 
-        this.txtPrice.setText(String.format("%.2f تومان", summer.getSumOfPrices()));
+        this.txtPrice.setText(String.format(new Locale("fa"), "%.2f تومان", summer.getSumOfPrices()));
     }
 
 
@@ -45,7 +46,7 @@ public class PriceUpdater {
             selectedServices.remove(service);
             summer.setSumOfPrices(-service.getPrice());
         }
-        this.txtPrice.setText(String.format("%.2f تومان", summer.getSumOfPrices()));
+        this.txtPrice.setText(String.format(new Locale("fa"), "%.2f تومان", summer.getSumOfPrices()));
     }
 
     private static final class PriceData {

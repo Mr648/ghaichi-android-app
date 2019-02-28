@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/txtSample"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -39,8 +38,7 @@
         android:layout_above="@id/recFaq"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_margin="@dimen/_12dp"
-        android:src="@drawable/fab_add"
-        app:fabSize="normal" />
+        android:src="@drawable/ic_add_white_18dp"
+      />
 </RelativeLayout>

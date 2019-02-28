@@ -24,7 +24,8 @@
             android:layout_height="@dimen/_1dp"
             android:layout_below="@id/txtTitle"
             android:layout_marginTop="@dimen/_8dp"
-            android:src="@color/colorGray" />
+            android:src="@color/colorGray"
+            android:contentDescription="TODO" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imgSelectedImage"

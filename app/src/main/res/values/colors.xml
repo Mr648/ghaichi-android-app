@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- choose this one for licence bg -->
+    <color name="colorTransparent">#00ffffff</color>
     <color name="colorTransaction">#00c853</color>
     <color name="colorPrimaryAlpha">#80ff818b</color>
     <color name="colorPrimaryLight">#ff818b</color>

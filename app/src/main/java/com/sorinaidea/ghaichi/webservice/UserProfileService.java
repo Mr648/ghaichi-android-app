@@ -6,14 +6,9 @@ import com.sorinaidea.ghaichi.fast.UserInfo;
 import com.sorinaidea.ghaichi.fast.UserShortInfo;
 import com.sorinaidea.ghaichi.webservice.model.requests.AddCommentRequest;
 import com.sorinaidea.ghaichi.webservice.model.requests.EditProfileRequest;
-import com.sorinaidea.ghaichi.webservice.model.requests.LoginRequest;
-import com.sorinaidea.ghaichi.webservice.model.requests.VerificationRequest;
 import com.sorinaidea.ghaichi.webservice.model.responses.IsBookmarked;
-import com.sorinaidea.ghaichi.webservice.model.responses.LoginResponse;
 import com.sorinaidea.ghaichi.webservice.model.responses.Response;
-import com.sorinaidea.ghaichi.webservice.model.responses.VerificationResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -25,7 +20,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -33,6 +27,34 @@ import retrofit2.http.Query;
  */
 
 public interface UserProfileService {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @POST("api/user/profile/update")

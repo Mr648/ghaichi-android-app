@@ -51,9 +51,9 @@ public class NewBarbershopsAdapter extends RecyclerView.Adapter<NewBarbershopsAd
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            imgLogo = (ImageView) view.findViewById(R.id.imgLogo);
-            txtName = (TextView) view.findViewById(R.id.txtName);
-            txtMore = (TextView) view.findViewById(R.id.txtMore);
+            imgLogo = view.findViewById(R.id.imgLogo);
+            txtName = view.findViewById(R.id.txtName);
+            txtMore = view.findViewById(R.id.txtMore);
         }
 
         public ImageView getImgLogo() {

@@ -47,7 +47,7 @@ public class BarberShopGridActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_items);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,7 +63,7 @@ public class BarberShopGridActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("آرایشگران");
         }
 
-        recAllItems = (RecyclerView) findViewById(R.id.recAllItems);
+        recAllItems = findViewById(R.id.recAllItems);
         recAllItems.setLayoutManager(new GridLayoutManager(getApplicationContext(), NUM_COLUMNS));
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen._4dp);
         recAllItems.addItemDecoration(itemDecoration);

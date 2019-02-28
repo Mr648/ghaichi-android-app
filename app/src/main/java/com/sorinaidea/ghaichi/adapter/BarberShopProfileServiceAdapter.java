@@ -44,8 +44,8 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
         public ViewHolder(View v) {
             super(v);
 
-            txtTitle = (TextView) v.findViewById(R.id.txtTitle);
-            imgSelectedImage = (AppCompatImageView) v.findViewById(R.id.imgSelectedImage);
+            txtTitle = v.findViewById(R.id.txtTitle);
+            imgSelectedImage = v.findViewById(R.id.imgSelectedImage);
         }
 
 

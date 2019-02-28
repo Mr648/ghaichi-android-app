@@ -42,13 +42,13 @@ public class ManageSampleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sample_work);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        recSamples = (RecyclerView) findViewById(R.id.recSamples);
+        toolbar = findViewById(R.id.toolbar);
+        recSamples = findViewById(R.id.recSamples);
         recSamples.setLayoutManager(new GridLayoutManager(getApplicationContext(), NUM_COLUMNS, LinearLayoutManager.VERTICAL, false));
         recSamples.setHasFixedSize(true);
         recSamples.addItemDecoration(new ItemOffsetDecoration(getApplicationContext(), R.dimen._4dp));
         recSamples.setNestedScrollingEnabled(false);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
 
         fab.setOnClickListener((view) -> {
             Intent intent = new Intent(MediaStore.INTENT_ACTION_MEDIA_SEARCH);

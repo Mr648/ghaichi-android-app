@@ -37,10 +37,10 @@ public class SamplesAdapter extends RecyclerView.Adapter<SamplesAdapter.ViewHold
 
         public ViewHolder(View v) {
             super(v);
-            imgSample = (AppCompatImageView) v.findViewById(R.id.imgSample);
-            imgSetSelected = (AppCompatImageView) v.findViewById(R.id.imgSetSelected);
-            imgSetVisible = (AppCompatImageView) v.findViewById(R.id.imgSetVisible);
-            imgDelete = (AppCompatImageView) v.findViewById(R.id.imgDelete);
+            imgSample = v.findViewById(R.id.imgSample);
+            imgSetSelected = v.findViewById(R.id.imgSetSelected);
+            imgSetVisible = v.findViewById(R.id.imgSetVisible);
+            imgDelete = v.findViewById(R.id.imgDelete);
         }
 
         public AppCompatImageView getImgDelete() {

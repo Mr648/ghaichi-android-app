@@ -147,19 +147,19 @@ public class BarbershopProfileActivity extends AppCompatActivity
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
 
 
-        txtLb1 = (TextView) findViewById(R.id.txtLb1);
-        txtName = (TextView) findViewById(R.id.txtTime);
-        txtLb2 = (TextView) findViewById(R.id.txtLb2);
-        txtFamily = (TextView) findViewById(R.id.txtFamily);
-        txtLb3 = (TextView) findViewById(R.id.txtLb3);
-        txtGender = (TextView) findViewById(R.id.txtGender);
-        txtLb4 = (TextView) findViewById(R.id.txtLb4);
-        txtPhone = (TextView) findViewById(R.id.txtPhone);
-        txtLb5 = (TextView) findViewById(R.id.txtLb5);
-        txtTitle = (TextView) findViewById(R.id.txtTitle);
-        txtHeaderName = (TextView) findViewById(R.id.txtHeaderName);
-        txtHeaderNumber = (TextView) findViewById(R.id.txtHeaderNumber);
-        imgUserImage = (de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.imgUserImage);
+        txtLb1 = findViewById(R.id.txtLb1);
+        txtName = findViewById(R.id.txtTime);
+        txtLb2 = findViewById(R.id.txtLb2);
+        txtFamily = findViewById(R.id.txtFamily);
+        txtLb3 = findViewById(R.id.txtLb3);
+        txtGender = findViewById(R.id.txtGender);
+        txtLb4 = findViewById(R.id.txtLb4);
+        txtPhone = findViewById(R.id.txtPhone);
+        txtLb5 = findViewById(R.id.txtLb5);
+        txtTitle = findViewById(R.id.txtTitle);
+        txtHeaderName = findViewById(R.id.txtHeaderName);
+        txtHeaderNumber = findViewById(R.id.txtHeaderNumber);
+        imgUserImage = findViewById(R.id.imgUserImage);
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         update();
@@ -181,10 +181,10 @@ public class BarbershopProfileActivity extends AppCompatActivity
     }
 
     private void bindActivity() {
-        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        mTitle = (TextView) findViewById(R.id.txtTitle);
-        mTitleContainer = (LinearLayout) findViewById(R.id.main_linearlayout_title);
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.main_appbar);
+        mToolbar = findViewById(R.id.main_toolbar);
+        mTitle = findViewById(R.id.txtTitle);
+        mTitleContainer = findViewById(R.id.main_linearlayout_title);
+        mAppBarLayout = findViewById(R.id.main_appbar);
     }
 
     @Override

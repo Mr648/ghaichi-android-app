@@ -40,18 +40,18 @@ public class AccountActivationFragment extends Fragment {
 
     private void setupInputs(View view) {
 
-        btnPay = (Button) view.findViewById(R.id.btnPay);
+        btnPay = view.findViewById(R.id.btnPay);
 
-        txt = (TextView) view.findViewById(R.id.txtContent);
-        txt1 = (TextView) view.findViewById(R.id.txt1);
-        txt2 = (TextView) view.findViewById(R.id.txt2);
-        txt3 = (TextView) view.findViewById(R.id.txt3);
-        txt4 = (TextView) view.findViewById(R.id.txt4);
+        txt = view.findViewById(R.id.txtContent);
+        txt1 = view.findViewById(R.id.txt1);
+        txt2 = view.findViewById(R.id.txt2);
+        txt3 = view.findViewById(R.id.txt3);
+        txt4 = view.findViewById(R.id.txt4);
 
-        chk1Month = (CheckBox) view.findViewById(R.id.radio1Month);
-        chk3Month = (CheckBox) view.findViewById(R.id.radio3Month);
-        chk6Month = (CheckBox) view.findViewById(R.id.radio6Month);
-        chk12Month = (CheckBox) view.findViewById(R.id.radio12Month);
+        chk1Month = view.findViewById(R.id.radio1Month);
+        chk3Month = view.findViewById(R.id.radio3Month);
+        chk6Month = view.findViewById(R.id.radio6Month);
+        chk12Month = view.findViewById(R.id.radio12Month);
 
         btnPay.setOnClickListener((v) -> {
             Toast.makeText(getContext(), "درخواست در حال ارسال...", Toast.LENGTH_SHORT).show();

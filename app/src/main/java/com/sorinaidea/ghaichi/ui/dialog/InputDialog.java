@@ -99,12 +99,12 @@ public class InputDialog extends Dialog implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_input);
 
-        btnCancel = (AppCompatButton) findViewById(R.id.btnCancel);
-        btnOk = (AppCompatButton) findViewById(R.id.btnOk);
-        txtTitle = (AppCompatTextView) findViewById(R.id.txtTitle);
-        imgIcon = (AppCompatImageView) findViewById(R.id.imgIcon);
-        inputLayoutValue = (TextInputLayout) findViewById(R.id.inputLayoutValue);
-        txtValue = (TextInputEditText) findViewById(R.id.txtValue);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnOk = findViewById(R.id.btnOk);
+        txtTitle = findViewById(R.id.txtTitle);
+        imgIcon = findViewById(R.id.imgIcon);
+        inputLayoutValue = findViewById(R.id.inputLayoutValue);
+        txtValue = findViewById(R.id.txtValue);
 
 
         txtTitle.setText(message);

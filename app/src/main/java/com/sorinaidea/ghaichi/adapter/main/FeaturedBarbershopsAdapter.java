@@ -52,8 +52,8 @@ public class FeaturedBarbershopsAdapter extends RecyclerView.Adapter<FeaturedBar
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            imgLogo = (CircleImageView) view.findViewById(R.id.imgLogo);
-            txtName = (TextView) view.findViewById(R.id.txtName);
+            imgLogo = view.findViewById(R.id.imgLogo);
+            txtName = view.findViewById(R.id.txtName);
         }
 
 

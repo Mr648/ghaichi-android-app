@@ -1,6 +1,5 @@
 package com.sorinaidea.ghaichi.ui;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -55,6 +54,8 @@ public class ToolbarActivity extends BaseActivity {
             progressDialog.setTitle(title);
 
         progressDialog.setMessage(message);
+        progressDialog.configureMessageView(this::applyTextFont);
+        progressDialog.configureTitleView(this::applyTextFont);
         progressDialog.setCancelable(cancelable);
         progressDialog.show();
     }

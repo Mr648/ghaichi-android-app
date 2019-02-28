@@ -64,13 +64,13 @@ public class ImageSliderAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup view, int position) {
         View myImageLayout = inflater.inflate(R.layout.image_slide, view, false);
 
-        ImageView myImage = (ImageView) myImageLayout
+        ImageView myImage = myImageLayout
                 .findViewById(R.id.image);
 
-        ProgressBar prgLoad = (ProgressBar) myImageLayout
+        ProgressBar prgLoad = myImageLayout
                 .findViewById(R.id.prgLoad);
 
-        TextView txtMessage = (TextView) myImageLayout
+        TextView txtMessage = myImageLayout
                 .findViewById(R.id.txtMessage);
 
         if (imageOnCLickListener != null) {

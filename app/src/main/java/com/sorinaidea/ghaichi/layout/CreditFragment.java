@@ -110,20 +110,20 @@ public class CreditFragment extends Fragment {
         fontMaterialIcons = FontManager.getTypeface(getContext(), FontManager.MATERIAL_ICONS);
         fontIranSans = FontManager.getTypeface(getContext(), FontManager.IRANSANS_TEXTS);
 
-        arcView = (DecoView) view.findViewById(R.id.dynamicArcView);
+        arcView = view.findViewById(R.id.dynamicArcView);
 
-        recFaq = (RecyclerView) view.findViewById(R.id.recTransactions);
+        recFaq = view.findViewById(R.id.recTransactions);
         recFaq.setNestedScrollingEnabled(false);
 
 
-        txtRemainingLabel = (TextView) view.findViewById(R.id.txtRemainingLabel);
-        txtReservationLabel = (TextView) view.findViewById(R.id.txtReservationLabel);
-        txtRemaining = (TextView) view.findViewById(R.id.txtRemaining);
-        txtReservation = (TextView) view.findViewById(R.id.txtReservations);
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        txtRemainingLabel = view.findViewById(R.id.txtRemainingLabel);
+        txtReservationLabel = view.findViewById(R.id.txtReservationLabel);
+        txtRemaining = view.findViewById(R.id.txtRemaining);
+        txtReservation = view.findViewById(R.id.txtReservations);
+        fab = view.findViewById(R.id.fab);
 
-        txtMessage = (TextView) view.findViewById(R.id.txtMessage);
-        txtCredit = (TextView) view.findViewById(R.id.txtCredit);
+        txtMessage = view.findViewById(R.id.txtMessage);
+        txtCredit = view.findViewById(R.id.txtCredit);
 
 //        btnAddCash = (Button) view.findViewById(R.id.btnAddCash);
 

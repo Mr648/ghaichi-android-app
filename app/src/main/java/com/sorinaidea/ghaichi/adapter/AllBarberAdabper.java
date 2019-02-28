@@ -117,10 +117,10 @@ public class AllBarberAdabper extends RecyclerView.Adapter<AllBarberAdabper.View
                 }
             });
 
-            txtIcon = (TextView) v.findViewById(R.id.txtIcon);
-            txtTitle = (TextView) v.findViewById(R.id.txtTitle);
-            txtDate = (TextView) v.findViewById(R.id.txtDate);
-            txtCashValue = (TextView) v.findViewById(R.id.txtCashValue);
+            txtIcon = v.findViewById(R.id.txtIcon);
+            txtTitle = v.findViewById(R.id.txtTitle);
+            txtDate = v.findViewById(R.id.txtDate);
+            txtCashValue = v.findViewById(R.id.txtCashValue);
         }
 
         public TextView getTxtIcon() {

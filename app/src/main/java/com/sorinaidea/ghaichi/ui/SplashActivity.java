@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
             return;
         }
 
-        txtTitle = (TextView) findViewById(R.id.txtTitle);
+        txtTitle = findViewById(R.id.txtTitle);
 
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
         FontManager.setFont(txtTitle, iranSans);

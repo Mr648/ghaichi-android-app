@@ -55,14 +55,14 @@ public class ReservationV2Adabper extends RecyclerView.Adapter<ReservationV2Adab
                 }
             });
 
-            imgIcon = (CircleImageView) v.findViewById(R.id.imgIcon);
-            txtUsername = (TextView) v.findViewById(R.id.txtTime);
-            txtDate = (TextView) v.findViewById(R.id.txtDate);
-            txtTime = (TextView) v.findViewById(R.id.txtTime);
-            txtServices = (TextView) v.findViewById(R.id.txtServices);
-            cardView = (CardView) v.findViewById(R.id.cardView);
-            relBackground = (RelativeLayout) v.findViewById(R.id.relBackground);
-            relForeground = (RelativeLayout) v.findViewById(R.id.relForeground);
+            imgIcon = v.findViewById(R.id.imgIcon);
+            txtUsername = v.findViewById(R.id.txtTime);
+            txtDate = v.findViewById(R.id.txtDate);
+            txtTime = v.findViewById(R.id.txtTime);
+            txtServices = v.findViewById(R.id.txtServices);
+            cardView = v.findViewById(R.id.cardView);
+            relBackground = v.findViewById(R.id.relBackground);
+            relForeground = v.findViewById(R.id.relForeground);
         }
 
         public CircleImageView getImgIcon() {

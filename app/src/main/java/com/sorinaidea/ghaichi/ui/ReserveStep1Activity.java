@@ -14,10 +14,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
-import com.mohamadamin.persianmaterialdatetimepicker.time.RadialPickerLayout;
-import com.mohamadamin.persianmaterialdatetimepicker.time.TimePickerDialog;
-import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
 import com.sorinaidea.ghaichi.adapter.ServiceSelectionAdabper;
@@ -26,7 +22,6 @@ import com.sorinaidea.ghaichi.fast.Category;
 import com.sorinaidea.ghaichi.model.Service;
 import com.sorinaidea.ghaichi.model.ServiceList;
 import com.sorinaidea.ghaichi.ui.dialog.TransactionDialog;
-import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
 
@@ -42,7 +37,7 @@ import retrofit2.Retrofit;
  * Created by mr-code on 6/17/2018.
  */
 
-public class ReserveStep1Activity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class ReserveStep1Activity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView txtPrice;
@@ -57,35 +52,23 @@ public class ReserveStep1Activity extends AppCompatActivity implements TimePicke
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve_service_step_1);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        txtPrice = (TextView) findViewById(R.id.txtPrice);
+        toolbar = findViewById(R.id.toolbar);
+        txtPrice = findViewById(R.id.txtPrice);
 
-        txtDate = (EditText) findViewById(R.id.txtDate);
-        txtTimeStart = (EditText) findViewById(R.id.txtTimeStart);
-        txtTimeEnd = (EditText) findViewById(R.id.txtTimeEnd);
+        txtDate = findViewById(R.id.txtDate);
+        txtTimeStart = findViewById(R.id.txtTimeStart);
+        txtTimeEnd = findViewById(R.id.txtTimeEnd);
 
 
         txtDate.setOnClickListener((view) -> {
-            PersianCalendar persianCalendar = new PersianCalendar();
-            DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-                    ReserveStep1Activity.this,
-                    persianCalendar.getPersianYear(),
-                    persianCalendar.getPersianMonth(),
-                    persianCalendar.getPersianDay()
-            );
-            datePickerDialog.show(getFragmentManager(), "Datepickerdialog");
+            //TODO get date and time
         });
         txtTimeStart.setOnClickListener((view) -> {
 
-            TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(
-                    ReserveStep1Activity.this, 0, 0, true);
-            timePickerDialog.show(getFragmentManager(), "Datepickerdialog");
+            //TODO Show time picker
         });
         txtTimeEnd.setOnClickListener((view) -> {
-
-            TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(
-                    ReserveStep1Activity.this, 0, 0, true);
-            timePickerDialog.show(getFragmentManager(), "Datepickerdialog");
+            // TODO show time picker
         });
 
 
@@ -95,7 +78,7 @@ public class ReserveStep1Activity extends AppCompatActivity implements TimePicke
         getSupportActionBar().setTitle("رزرو خدمات");
 
 
-        recServices = (RecyclerView) findViewById(R.id.recBanners);
+        recServices = findViewById(R.id.recBanners);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         parentLayout = findViewById(android.R.id.content);
@@ -231,18 +214,5 @@ public class ReserveStep1Activity extends AppCompatActivity implements TimePicke
         super.onBackPressed();
     }
 
-
-    @Override
-    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
-        String time = hourOfDay + ":" + minute;
-        txtTimeStart.setText(time);
-        txtTimeEnd.setText(time);
-    }
-
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-        txtDate.setText(date);
-    }
 
 }

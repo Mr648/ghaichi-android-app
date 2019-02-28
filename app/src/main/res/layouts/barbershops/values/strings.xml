@@ -26,6 +26,7 @@
     <string name="barber_mobile">شماره موبایل</string>
     <string name="toolbar_manage_barbers">مدیریت آرایشگران</string>
     <string name="toolbar_add_barber">افزودن آرایشگر</string>
+    <string name="toolbar_user_profile">پروفایل کاربر</string>
     <string name="account_activation_payment">پرداخت حق اشتراک</string>
     <string name="toolbar_payments">پرداخت‌ها</string>
     <string name="advertise_payment">تبلیغات</string>

@@ -39,7 +39,7 @@ public class BookmarksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_items);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -53,7 +53,7 @@ public class BookmarksActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("آرایشگران");
         }
 
-        recAllItems = (RecyclerView) findViewById(R.id.recAllItems);
+        recAllItems = findViewById(R.id.recAllItems);
 
         initDataset();
 

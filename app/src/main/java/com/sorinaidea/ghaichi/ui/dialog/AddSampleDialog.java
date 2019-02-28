@@ -93,14 +93,14 @@ public class AddSampleDialog extends Dialog implements View.OnClickListener {
 
         setContentView(R.layout.dialog_add_sample_work);
 
-        btnCancel = (AppCompatButton) findViewById(R.id.btnCancel);
-        btnOk = (AppCompatButton) findViewById(R.id.btnOk);
-        txtTitle = (AppCompatTextView) findViewById(R.id.txtTitle);
-        spnCategories = (Spinner) findViewById(R.id.spnCategories);
-        spnServices = (Spinner) findViewById(R.id.spnServices);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnOk = findViewById(R.id.btnOk);
+        txtTitle = findViewById(R.id.txtTitle);
+        spnCategories = findViewById(R.id.spnCategories);
+        spnServices = findViewById(R.id.spnServices);
 
-        inputLayoutName = (TextInputLayout) findViewById(R.id.inputLayoutName);
-        txtName = (TextInputEditText) findViewById(R.id.txtName);
+        inputLayoutName = findViewById(R.id.inputLayoutName);
+        txtName = findViewById(R.id.txtName);
 
         txtTitle.setText("افزودن خدمت");
 

@@ -40,19 +40,19 @@ public class AdvertismentInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_advertisment);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        arcView = (DecoView) findViewById(R.id.dynamicArcView);
-        txtViews = (TextView) findViewById(R.id.txtViews);
+        arcView = findViewById(R.id.dynamicArcView);
+        txtViews = findViewById(R.id.txtViews);
 
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null && !extras.isEmpty()) {
             ad = (Advertise) extras.get("ADVERTISE");
-            recInfo = (RecyclerView) findViewById(R.id.recInfo);
+            recInfo = findViewById(R.id.recInfo);
             recInfo.setAdapter(new AdvertisementInfoAdabper(ad.getInfo(), AdvertismentInfoActivity.this));
             recInfo.setLayoutManager(new GridLayoutManager(getApplicationContext(), NUM_COLUMNS));
             ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen._4dp);

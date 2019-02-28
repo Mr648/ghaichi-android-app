@@ -100,10 +100,10 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
         handler = new Handler();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        prgTimer = (ProgressBar) findViewById(R.id.prgTimer);
-        relProgress = (RelativeLayout) findViewById(R.id.relProgress);
-        txtProgress = (TextView) findViewById(R.id.txtProgress);
+        toolbar = findViewById(R.id.toolbar);
+        prgTimer = findViewById(R.id.prgTimer);
+        relProgress = findViewById(R.id.relProgress);
+        txtProgress = findViewById(R.id.txtProgress);
 
         Drawable progressDrawable = prgTimer.getIndeterminateDrawable().mutate();
         progressDrawable.setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN);
@@ -115,7 +115,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
         ViewCompat.setElevation(toolbar, Util.dp(5, SmsVerificationActivity.this));
 
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("دریافت کد فعالسازی");
 
         Bundle extras = getIntent().getExtras();
@@ -135,10 +135,10 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
         relProgress.setVisibility(View.GONE);
 
-        btnVerify = (Button) findViewById(R.id.btnVerify);
+        btnVerify = findViewById(R.id.btnVerify);
 
-        inputLayoutVerificationCode = (TextInputLayout) findViewById(R.id.inputLayoutVerificationCode);
-        edtVerificationCode = (TextInputEditText) findViewById(R.id.edtVerificationCode);
+        inputLayoutVerificationCode = findViewById(R.id.inputLayoutVerificationCode);
+        edtVerificationCode = findViewById(R.id.edtVerificationCode);
 
         btnVerify.setOnClickListener(view -> {
             action();

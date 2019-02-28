@@ -47,8 +47,8 @@ public class GridItemsAdabper extends RecyclerView.Adapter<GridItemsAdabper.View
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            imgLogo = (CircleImageView) v.findViewById(R.id.imgLogo);
-            txtName = (AppCompatTextView) v.findViewById(R.id.txtTime);
+            imgLogo = v.findViewById(R.id.imgLogo);
+            txtName = v.findViewById(R.id.txtTime);
         }
 
         public TextView getTxtName() {

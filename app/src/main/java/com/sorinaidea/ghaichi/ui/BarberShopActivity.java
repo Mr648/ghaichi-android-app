@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +42,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -88,7 +90,7 @@ public class BarberShopActivity extends AppCompatActivity {
         txtAddress.setText(barbershop.getAddress());
         txtDescription.setText(barbershop.getDescription());
         ratingBar.setRating(Float.parseFloat(barbershop.getRating()));
-        txtRating.setText(String.format("%.2f", (Float.parseFloat(barbershop.getRating()) * 1.0f)));
+        txtRating.setText(String.format(Locale.ENGLISH, "%.2f", (Float.parseFloat(barbershop.getRating()) * 1.0f)));
         initializeImageSlider(barbershop.getBanners());
         initServices(barbershop.getServices());
         try {
@@ -116,7 +118,7 @@ public class BarberShopActivity extends AppCompatActivity {
 
         barbershopCall.enqueue(new Callback<Barbershop>() {
             @Override
-            public void onResponse(Call<Barbershop> call, Response<Barbershop> response) {
+            public void onResponse(@NonNull Call<Barbershop> call, Response<Barbershop> response) {
                 if (response.body() != null) {
                     updateUI(response.body());
                 }
@@ -135,7 +137,7 @@ public class BarberShopActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barbershop);
 
-        lnrRating = (LinearLayout) findViewById(R.id.lnrRating);
+        lnrRating = findViewById(R.id.lnrRating);
 
 
         Bundle extras = getIntent().getExtras();
@@ -157,8 +159,8 @@ public class BarberShopActivity extends AppCompatActivity {
         }
 
 
-        scrViewRoot = (ScrollView) findViewById(R.id.scrViewRoot);
-        recServices = (RecyclerView) findViewById(R.id.recBanners);
+        scrViewRoot = findViewById(R.id.scrViewRoot);
+        recServices = findViewById(R.id.recBanners);
 
         recServices.setFocusable(false);
 
@@ -168,18 +170,18 @@ public class BarberShopActivity extends AppCompatActivity {
 
         fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mPager = (ViewPager) findViewById(R.id.pager);
-        indicator = (CircleIndicator) findViewById(R.id.indicator);
-        imgLogo = (CircleImageView) findViewById(R.id.imgLogo);
+        toolbar = findViewById(R.id.toolbar);
+        mPager = findViewById(R.id.pager);
+        indicator = findViewById(R.id.indicator);
+        imgLogo = findViewById(R.id.imgLogo);
 
         //        imgComment = (AppCompatImageView) findViewById(R.id.imgComment);
 
-        txtAddress = (TextView) findViewById(R.id.txtAddress);
-        txtRating = (TextView) findViewById(R.id.txtRating);
-        txtName = (TextView) findViewById(R.id.txtTime);
-        txtDescription = (TextView) findViewById(R.id.txtDescription);
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        txtAddress = findViewById(R.id.txtAddress);
+        txtRating = findViewById(R.id.txtRating);
+        txtName = findViewById(R.id.txtTime);
+        txtDescription = findViewById(R.id.txtDescription);
+        ratingBar = findViewById(R.id.ratingBar);
 
 
         recServices.setLayoutManager(new GridLayoutManager(getApplicationContext(), NUM_COLUMNS, GridLayoutManager.VERTICAL, false));
@@ -240,7 +242,7 @@ public class BarberShopActivity extends AppCompatActivity {
     }
 
     private void initializeImageSlider(List<Photo> photos) {
-
+/*
 
         ImageSliderAdapter adapter = new ImageSliderAdapter(getApplicationContext(), imageList);
         mPager.setAdapter(adapter);
@@ -301,7 +303,7 @@ public class BarberShopActivity extends AppCompatActivity {
             public void run() {
                 handler.post(Update);
             }
-        }, 1000, 3000);
+        }, 1000, 3000);*/
     }
 
     private boolean show = false;

@@ -29,11 +29,11 @@ public class SettingActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_settings);
         setContentView(R.layout.activity_barber_settings);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        toolbar = findViewById(R.id.toolbar);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("تنظیمات");
-        swShowNotification = (SwitchCompat) findViewById(R.id.swShowNotification);
-        swGetNews = (SwitchCompat) findViewById(R.id.swGetNews);
+        swShowNotification = findViewById(R.id.swShowNotification);
+        swGetNews = findViewById(R.id.swGetNews);
 
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 

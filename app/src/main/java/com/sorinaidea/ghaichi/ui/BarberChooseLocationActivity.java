@@ -98,8 +98,8 @@ public class BarberChooseLocationActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
-        btnChooseLocation = (Button) findViewById(R.id.btnChooseLocation);
-        txtLocation = (TextView) findViewById(R.id.txtLocation);
+        btnChooseLocation = findViewById(R.id.btnChooseLocation);
+        txtLocation = findViewById(R.id.txtLocation);
 
 
         float myTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,

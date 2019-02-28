@@ -61,13 +61,13 @@ public class SettingFragment extends Fragment {
         iranSansFont = FontManager.getTypeface(getContext(), FontManager.IRANSANS_TEXTS);
 
 
-        txtNotification = (TextView) view.findViewById(R.id.txtNotification);
-        txtTheme = (TextView) view.findViewById(R.id.txtTheme);
-        txtLanguage = (TextView) view.findViewById(R.id.txtLanguage);
-        btnNotification = (Button) view.findViewById(R.id.btnNotification);
-        btnTheme = (Button) view.findViewById(R.id.btnTheme);
-        btnLanguage = (Button) view.findViewById(R.id.btnLanguage);
-        btnLogout = (Button) view.findViewById(R.id.btnLogout);
+        txtNotification = view.findViewById(R.id.txtNotification);
+        txtTheme = view.findViewById(R.id.txtTheme);
+        txtLanguage = view.findViewById(R.id.txtLanguage);
+        btnNotification = view.findViewById(R.id.btnNotification);
+        btnTheme = view.findViewById(R.id.btnTheme);
+        btnLanguage = view.findViewById(R.id.btnLanguage);
+        btnLogout = view.findViewById(R.id.btnLogout);
         setFonts();
 
     }

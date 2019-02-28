@@ -96,17 +96,17 @@ public class AddServiceDialog extends Dialog implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_add_service);
 
-        btnCancel = (AppCompatButton) findViewById(R.id.btnCancel);
-        btnOk = (AppCompatButton) findViewById(R.id.btnOk);
-        txtTitle = (AppCompatTextView) findViewById(R.id.txtTitle);
-        spnCategories = (Spinner) findViewById(R.id.spnCategories);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnOk = findViewById(R.id.btnOk);
+        txtTitle = findViewById(R.id.txtTitle);
+        spnCategories = findViewById(R.id.spnCategories);
 
-        inputLayoutPrice = (TextInputLayout) findViewById(R.id.inputLayoutPrice);
-        txtPrice = (TextInputEditText) findViewById(R.id.txtPrice);
-        inputLayoutName = (TextInputLayout) findViewById(R.id.inputLayoutName);
-        txtName = (TextInputEditText) findViewById(R.id.txtName);
-        inputLayoutDuration = (TextInputLayout) findViewById(R.id.inputLayoutDuration);
-        txtDuration = (TextInputEditText) findViewById(R.id.txtDuration);
+        inputLayoutPrice = findViewById(R.id.inputLayoutPrice);
+        txtPrice = findViewById(R.id.txtPrice);
+        inputLayoutName = findViewById(R.id.inputLayoutName);
+        txtName = findViewById(R.id.txtName);
+        inputLayoutDuration = findViewById(R.id.inputLayoutDuration);
+        txtDuration = findViewById(R.id.txtDuration);
 
         txtTitle.setText("افزودن خدمت");
 

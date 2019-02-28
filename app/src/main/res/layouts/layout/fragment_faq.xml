@@ -40,8 +40,7 @@
         android:layout_above="@id/recFaq"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_margin="@dimen/_12dp"
-        android:src="@drawable/fab_add"
+        android:src="@drawable/ic_add_white_18dp"
         app:fabSize="normal" />
 </RelativeLayout>

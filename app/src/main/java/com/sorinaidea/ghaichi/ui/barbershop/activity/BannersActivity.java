@@ -26,17 +26,17 @@ public class BannersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banners);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText(R.string.toolbar_banners);
-        recBanners = (RecyclerView) findViewById(R.id.recBanners);
+        recBanners = findViewById(R.id.recBanners);
 
-        fabAddBanner = (FloatingActionButton) findViewById(R.id.fabAddBanner);
+        fabAddBanner = findViewById(R.id.fabAddBanner);
         fabAddBanner.setOnClickListener((view) -> {
              // GOTO ACTIVITY SELECT IMAGE
         });

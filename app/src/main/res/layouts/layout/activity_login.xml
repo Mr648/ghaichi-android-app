@@ -41,7 +41,8 @@
             android:id="@+id/imgLogo"
             android:layout_width="144dp"
             android:layout_height="144dp"
-            app:srcCompat="@drawable/ic_ghaichi" />
+            app:srcCompat="@drawable/ic_ghaichi"
+            android:contentDescription="TODO" />
 
     </LinearLayout>
 
@@ -105,7 +106,8 @@
             android:background="@color/colorPrimary"
             android:clickable="true"
             android:text="@string/send_activation_code"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:focusable="true" />
 
     </LinearLayout>
 

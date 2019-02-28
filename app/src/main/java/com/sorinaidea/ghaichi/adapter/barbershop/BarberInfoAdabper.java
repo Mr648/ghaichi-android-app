@@ -34,8 +34,8 @@ public class BarberInfoAdabper extends RecyclerView.Adapter<BarberInfoAdabper.Vi
         public ViewHolder(View v) {
             super(v);
 
-            txtName = (TextView) v.findViewById(R.id.txtName);
-            txtMobile = (TextView) v.findViewById(R.id.txtMobile);
+            txtName = v.findViewById(R.id.txtName);
+            txtMobile = v.findViewById(R.id.txtMobile);
         }
 
         public TextView getTxtName() {

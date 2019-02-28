@@ -65,10 +65,10 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            btnMore = (LinearLayout) view.findViewById(R.id.btnMore);
-            txtBarberShopCategory = (TextView) view.findViewById(R.id.txtBarberShopCategory);
+            btnMore = view.findViewById(R.id.btnMore);
+            txtBarberShopCategory = view.findViewById(R.id.txtBarberShopCategory);
 
-            recBarberShop = (RecyclerView) view.findViewById(R.id.recBarberShop);
+            recBarberShop = view.findViewById(R.id.recBarberShop);
         }
 
 

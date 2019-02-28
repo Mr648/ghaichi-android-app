@@ -109,7 +109,7 @@ public class ReservationFragment extends Fragment {
         fontIranSans = FontManager.getTypeface(getContext(), FontManager.IRANSANS_TEXTS);
 
 
-        recReservations  = (RecyclerView) view.findViewById(R.id.recReservations);
+        recReservations  = view.findViewById(R.id.recReservations);
         recReservations.setNestedScrollingEnabled(false);
         recReservations.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recReservations.setAdapter(new ReservationAdabper(initDataset(), getContext()));

@@ -35,17 +35,17 @@ public class AddBarberActivity extends AppCompatActivity {
     private FloatingActionButton fabSelectBarberImageProfile;
 
     private void setupInputs() {
-        inputLayoutName = (TextInputLayout) findViewById(R.id.inputLayoutName);
-        inputLayoutFamily = (TextInputLayout) findViewById(R.id.inputLayoutFamily);
-        inputLayoutMobile = (TextInputLayout) findViewById(R.id.inputLayoutMobile);
+        inputLayoutName = findViewById(R.id.inputLayoutName);
+        inputLayoutFamily = findViewById(R.id.inputLayoutFamily);
+        inputLayoutMobile = findViewById(R.id.inputLayoutMobile);
 
-        txtName = (TextInputEditText) findViewById(R.id.txtName);
-        txtFamily = (TextInputEditText) findViewById(R.id.txtFamily);
-        txtMobile = (TextInputEditText) findViewById(R.id.txtMobile);
+        txtName = findViewById(R.id.txtName);
+        txtFamily = findViewById(R.id.txtFamily);
+        txtMobile = findViewById(R.id.txtMobile);
 
 
-        imgBarber = (CircleImageView) findViewById(R.id.imgBarber);
-        fabSelectBarberImageProfile = (FloatingActionButton) findViewById(R.id.fabSelectBarberImageProfile);
+        imgBarber = findViewById(R.id.imgBarber);
+        fabSelectBarberImageProfile = findViewById(R.id.fabSelectBarberImageProfile);
     }
 
 
@@ -69,13 +69,13 @@ public class AddBarberActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_barber);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText(R.string.toolbar_add_barber);
 
         setupInputs();

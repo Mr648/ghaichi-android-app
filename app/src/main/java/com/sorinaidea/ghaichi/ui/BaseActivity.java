@@ -6,7 +6,6 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +16,8 @@ import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
+
+import java.util.Arrays;
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -80,6 +81,9 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void logInfo(String message, Throwable t) {
         Log.i(TAG_INFO, message, t);
+    }
+    protected void logInfo(String... message) {
+        Log.i(TAG_INFO, Arrays.toString(message));
     }
 
     protected void logDebug(String message, Throwable t) {

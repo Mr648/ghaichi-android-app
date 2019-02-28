@@ -21,6 +21,7 @@ import com.sorinaidea.ghaichi.webservice.API;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 /**
@@ -53,10 +54,10 @@ public class TopBarbershopsAdapter extends RecyclerView.Adapter<TopBarbershopsAd
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            imgLogo = (ImageView) view.findViewById(R.id.imgLogo);
-            txtName = (TextView) view.findViewById(R.id.txtName);
-            txtRating = (TextView) view.findViewById(R.id.txtRating);
-            ratingBar = (RatingBar) view.findViewById(R.id.ratingBar);
+            imgLogo = view.findViewById(R.id.imgLogo);
+            txtName = view.findViewById(R.id.txtName);
+            txtRating = view.findViewById(R.id.txtRating);
+            ratingBar = view.findViewById(R.id.ratingBar);
         }
 
 
@@ -113,7 +114,7 @@ public class TopBarbershopsAdapter extends RecyclerView.Adapter<TopBarbershopsAd
 
         float rating = (float)(Math.random() * 5.0f);
         holder.getRatingBar().setRating(rating);
-        holder.getTxtRating().setText(String.format("%.2f", rating));
+        holder.getTxtRating().setText(String.format(new Locale("fa"),"%.2f", rating));
         holder.getTxtName().setText(barberShop.getName());
 
         holder.getView().setOnClickListener(new View.OnClickListener() {

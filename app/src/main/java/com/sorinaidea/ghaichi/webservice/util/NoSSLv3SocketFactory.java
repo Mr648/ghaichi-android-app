@@ -12,6 +12,7 @@ import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.net.ssl.HandshakeCompletedListener;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
@@ -419,7 +420,8 @@ public class NoSSLv3SocketFactory extends SSLSocketFactory {
 
         @Override
         public boolean equals(Object o) {
-            return delegate.equals(o);
+
+            return o instanceof NoSSLv3SocketFactory && delegate.equals(o);
         }
     }
 }

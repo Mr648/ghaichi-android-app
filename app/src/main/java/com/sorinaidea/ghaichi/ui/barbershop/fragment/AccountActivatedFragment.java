@@ -29,10 +29,10 @@ public class AccountActivatedFragment extends Fragment {
 
     private void setupInputs(View view) {
 
-        txtNum= (TextView) view.findViewById(R.id.txtContent);
-        txtLabel= (TextView) view.findViewById(R.id.txt1);
-        txtDescription= (TextView) view.findViewById(R.id.txt2);
-        txtContent= (TextView) view.findViewById(R.id.txt3);
+        txtNum= view.findViewById(R.id.txtContent);
+        txtLabel= view.findViewById(R.id.txt1);
+        txtDescription= view.findViewById(R.id.txt2);
+        txtContent= view.findViewById(R.id.txt3);
 
 
     }

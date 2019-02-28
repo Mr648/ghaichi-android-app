@@ -78,6 +78,7 @@
                 android:layout_marginEnd="@dimen/_16dp"
                 android:layout_marginStart="@dimen/_16dp"
                 android:layout_marginTop="@dimen/_8dp"
+
                 android:hint="@string/service_price">
 
                 <android.support.design.widget.TextInputEditText
@@ -85,6 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:inputType="numberSigned"
                     android:lines="1"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
@@ -105,6 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:inputType="time"
                     android:lines="1"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
@@ -125,7 +128,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:inputType="numberSigned"
                     android:lines="1"
+
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
@@ -145,34 +150,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:lines="1"
-                    android:maxLines="1" />
+                    android:inputType="textMultiLine"
+                    android:maxLines="4" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnSelectCategory"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_56dp"
                 android:layout_margin="@dimen/_16dp"
                 android:background="@color/white"
-                android:paddingStart="@dimen/_16dp"
                 android:gravity="right|center_vertical"
+                android:paddingStart="@dimen/_16dp"
                 android:text="@string/action_single_category"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnSelectBarber"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_56dp"
                 android:layout_margin="@dimen/_16dp"
                 android:background="@color/white"
-                android:paddingStart="@dimen/_16dp"
                 android:gravity="right|center_vertical"
+                android:paddingStart="@dimen/_16dp"
                 android:text="@string/action_choose_barbers"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
 
         </LinearLayout>

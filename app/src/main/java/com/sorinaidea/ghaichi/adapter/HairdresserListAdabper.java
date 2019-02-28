@@ -40,8 +40,8 @@ public class HairdresserListAdabper extends RecyclerView.Adapter<HairdresserList
                 }
             });
 
-            imgLogo = (ImageView) v.findViewById(R.id.imgLogo);
-            txtName = (TextView) v.findViewById(R.id.txtTime);
+            imgLogo = v.findViewById(R.id.imgLogo);
+            txtName = v.findViewById(R.id.txtTime);
         }
 
         public TextView getTxtName() {

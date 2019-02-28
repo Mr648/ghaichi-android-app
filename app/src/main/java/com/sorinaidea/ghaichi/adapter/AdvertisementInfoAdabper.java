@@ -39,8 +39,8 @@ public class AdvertisementInfoAdabper extends RecyclerView.Adapter<Advertisement
         public ViewHolder(View v) {
             super(v);
 
-            txtTitle = (TextView) v.findViewById(R.id.txtTitle);
-            txtValue = (TextView) v.findViewById(R.id.txtValue);
+            txtTitle = v.findViewById(R.id.txtTitle);
+            txtValue = v.findViewById(R.id.txtValue);
         }
 
         public TextView getTxtTitle() {

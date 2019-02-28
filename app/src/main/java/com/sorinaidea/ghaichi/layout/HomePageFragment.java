@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -59,7 +60,7 @@ public class HomePageFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fargment_home, container, false);
     }
@@ -74,7 +75,7 @@ public class HomePageFragment extends Fragment {
     private ArrayList<String> imageList = new ArrayList<>();
 
     private void initializeImageSlider() {
-
+/*
 
         Retrofit retrofit = API.getRetrofit();
         AdvertisesService advertises = retrofit.create(AdvertisesService.class);
@@ -118,15 +119,15 @@ public class HomePageFragment extends Fragment {
             public void run() {
                 handler.post(Update);
             }
-        }, 1000, 1500);
+        }, 1000, 1500);*/
     }
 
     @Override
-    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
-        mPager = (ViewPager) view.findViewById(R.id.pager);
-        indicator = (CircleIndicator) view.findViewById(R.id.indicator);
-        recCategories = (RecyclerView) view.findViewById(R.id.recCategories);
-        fabMap = (FloatingActionButton) view.findViewById(R.id.fabMap);
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        mPager = view.findViewById(R.id.pager);
+        indicator = view.findViewById(R.id.indicator);
+        recCategories = view.findViewById(R.id.recCategories);
+        fabMap = view.findViewById(R.id.fabMap);
 
 
         fabMap.setOnClickListener(new View.OnClickListener() {

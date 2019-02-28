@@ -30,8 +30,8 @@ public class ReserveTimeViewHolder extends ChildViewHolder {
         rotateAnimation.setRepeatMode(Animation.REVERSE);
         rotateAnimation.setRepeatCount(RotateAnimation.INFINITE);
         rotateAnimation.setDuration(2500);
-        txtName = (TextView) itemView.findViewById(R.id.txtTime);
-        swSelect = (SwitchCompat) itemView.findViewById(R.id.swSelect);
+        txtName = itemView.findViewById(R.id.txtTime);
+        swSelect = itemView.findViewById(R.id.swSelect);
     }
 
 

@@ -39,12 +39,12 @@ public class FAQAdabper extends RecyclerView.Adapter<FAQAdabper.ViewHolder> {
 
         public ViewHolder(View v) {
             super(v);
-            lnrQA = (LinearLayout) v.findViewById(R.id.lnrQA);
-            lnrFAQ = (LinearLayout) v.findViewById(R.id.lnrFAQ);
-            imgDrop = (AppCompatImageView) v.findViewById(R.id.imgDrop);
-            txtTitle = (AppCompatTextView) v.findViewById(R.id.txtTitle);
-            txtQuestion = (AppCompatTextView) v.findViewById(R.id.txtQuestion);
-            txtAnswer = (AppCompatTextView) v.findViewById(R.id.txtAnswer);
+            lnrQA = v.findViewById(R.id.lnrQA);
+            lnrFAQ = v.findViewById(R.id.lnrFAQ);
+            imgDrop = v.findViewById(R.id.imgDrop);
+            txtTitle = v.findViewById(R.id.txtTitle);
+            txtQuestion = v.findViewById(R.id.txtQuestion);
+            txtAnswer = v.findViewById(R.id.txtAnswer);
         }
 
 

@@ -72,10 +72,10 @@ public class GenderDialog extends Dialog implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_gender);
 
-        btnSelect = (AppCompatButton) findViewById(R.id.btnSelect);
-        btnMale = (AppCompatRadioButton) findViewById(R.id.btnMale);
-        btnFemale = (AppCompatRadioButton) findViewById(R.id.btnFemale);
-        txtTitle = (AppCompatTextView) findViewById(R.id.txtTitle);
+        btnSelect = findViewById(R.id.btnSelect);
+        btnMale = findViewById(R.id.btnMale);
+        btnFemale = findViewById(R.id.btnFemale);
+        txtTitle = findViewById(R.id.txtTitle);
 
         btnSelect.setOnClickListener(this);
 

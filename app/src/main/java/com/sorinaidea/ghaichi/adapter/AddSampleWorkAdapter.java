@@ -47,7 +47,7 @@ public class AddSampleWorkAdapter extends RecyclerView.Adapter<AddSampleWorkAdap
                 public void onClick(View v) {
                 }
             });
-            imgPreview = (ImageView) v.findViewById(R.id.imgPreview);
+            imgPreview = v.findViewById(R.id.imgPreview);
         }
 
         public ImageView getImgPreview() {

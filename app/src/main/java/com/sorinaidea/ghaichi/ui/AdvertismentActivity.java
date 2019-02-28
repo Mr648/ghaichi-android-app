@@ -34,23 +34,23 @@ public class AdvertismentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advertisment);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
 
         mTitle.setText(R.string.toolbar_advertises);
 
         fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
 
-        recAdvertises = (RecyclerView) findViewById(R.id.recAdvertises);
+        recAdvertises = findViewById(R.id.recAdvertises);
         recAdvertises.setNestedScrollingEnabled(false);
 
 
-        fabAddAdvertise = (FloatingActionButton) findViewById(R.id.fabAddAdvertise);
+        fabAddAdvertise = findViewById(R.id.fabAddAdvertise);
 
 
         recAdvertises.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));

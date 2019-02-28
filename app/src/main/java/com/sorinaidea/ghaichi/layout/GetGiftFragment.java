@@ -82,9 +82,9 @@ public class GetGiftFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
 
-        txtGetGiftMsg = (TextView) view.findViewById(R.id.txtGetGiftMsg);
-        txtGiftCode = (TextView) view.findViewById(R.id.txtGiftCode);
-        txtIconShare = (TextView) view.findViewById(R.id.txtIconShare);
+        txtGetGiftMsg = view.findViewById(R.id.txtGetGiftMsg);
+        txtGiftCode = view.findViewById(R.id.txtGiftCode);
+        txtIconShare = view.findViewById(R.id.txtIconShare);
 
         Typeface iconFont = FontManager.getTypeface(getActivity().getApplicationContext(), FontManager.MATERIAL_ICONS);
         Typeface irsansFont = FontManager.getTypeface(getActivity().getApplicationContext(), FontManager.IRANSANS_TEXTS);

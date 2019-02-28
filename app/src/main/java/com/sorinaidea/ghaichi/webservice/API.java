@@ -24,10 +24,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class API {
 
 
-//    public static final String BASE_URL = "http://192.168.1.11/";
+    public static final String BASE_URL = "http://192.168.1.11/";
+
 //    public static final String BASE_URL = "http://192.168.1.15/";
 //    public static final String BASE_URL = "http://127.0.0.1/";
-    public static final String BASE_URL = "http://192.168.43.85/";
+//    public static final String BASE_URL = "http://192.168.43.85/";
 //    public static final String BASE_URL = "https://ghaichi.com/";
 
     private static Retrofit retrofit;

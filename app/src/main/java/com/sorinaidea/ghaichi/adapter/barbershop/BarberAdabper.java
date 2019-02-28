@@ -36,8 +36,8 @@ public class BarberAdabper extends RecyclerView.Adapter<BarberAdabper.ViewHolder
         public ViewHolder(View v) {
             super(v);
 
-            txtBarber = (TextView) v.findViewById(R.id.txtBarber);
-            chkSelected = (CheckBox) v.findViewById(R.id.chkSelected);
+            txtBarber = v.findViewById(R.id.txtBarber);
+            chkSelected = v.findViewById(R.id.chkSelected);
         }
 
         public CheckBox getChkSelected() {

@@ -34,21 +34,21 @@ public class AboutUsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aboutus);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("درباره ما");
 
-        TextView txtAboutUs = (TextView) findViewById(R.id.txtAboutUs);
-        TextView txtRules = (TextView) findViewById(R.id.txtRules);
-        TextView txtVersion = (TextView) findViewById(R.id.txtVersion);
+        TextView txtAboutUs = findViewById(R.id.txtAboutUs);
+        TextView txtRules = findViewById(R.id.txtRules);
+        TextView txtVersion = findViewById(R.id.txtVersion);
 
-        AppCompatImageView imgResaneh = (AppCompatImageView) findViewById(R.id.imgResaneh);
-        AppCompatImageView imgEnamad = (AppCompatImageView) findViewById(R.id.imgEnamad);
-        AppCompatImageView imgBehparpdakht = (AppCompatImageView) findViewById(R.id.imgBehparpdakht);
+        AppCompatImageView imgResaneh = findViewById(R.id.imgResaneh);
+        AppCompatImageView imgEnamad = findViewById(R.id.imgEnamad);
+        AppCompatImageView imgBehparpdakht = findViewById(R.id.imgBehparpdakht);
 
         // getting fonts
         Typeface fontIransans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);

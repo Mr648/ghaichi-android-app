@@ -20,6 +20,7 @@ import com.sorinaidea.ghaichi.webservice.API;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 /**
@@ -51,9 +52,9 @@ public class DiscountBarbershopsAdapter extends RecyclerView.Adapter<DiscountBar
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            imgLogo = (ImageView) view.findViewById(R.id.imgLogo);
-            txtName = (TextView) view.findViewById(R.id.txtName);
-            txtMore = (TextView) view.findViewById(R.id.txtMore);
+            imgLogo = view.findViewById(R.id.imgLogo);
+            txtName = view.findViewById(R.id.txtName);
+            txtMore = view.findViewById(R.id.txtMore);
         }
 
         public ImageView getImgLogo() {
@@ -99,7 +100,7 @@ public class DiscountBarbershopsAdapter extends RecyclerView.Adapter<DiscountBar
         }
 
         holder.getTxtName().setText(barberShop.getName());
-        holder.getTxtMore().setText("تخفیف " + String.format("%.2f",  (Math.random()*100)) + "%");
+        holder.getTxtMore().setText("تخفیف " + String.format(new Locale("fa"),"%.2f",  (Math.random()*100)) + "%");
         holder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -53,9 +53,9 @@ public class ReserveActivity extends AppCompatActivity {
 
 
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        txtPrice = (TextView) findViewById(R.id.txtPrice);
-        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+        toolbar = findViewById(R.id.toolbar);
+        txtPrice = findViewById(R.id.txtPrice);
+        relativeLayout = findViewById(R.id.relativeLayout);
 
         relativeLayout.animate().alpha(0.0f).setDuration(1).start();
 
@@ -65,7 +65,7 @@ public class ReserveActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("رزرو خدمات");
 
 
-        recServices = (RecyclerView) findViewById(R.id.recBanners);
+        recServices = findViewById(R.id.recBanners);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         parentLayout = findViewById(android.R.id.content);

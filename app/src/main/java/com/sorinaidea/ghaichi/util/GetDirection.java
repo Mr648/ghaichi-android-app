@@ -70,7 +70,7 @@ public class GetDirection extends AsyncTask<String, String, String> {
                 BufferedReader input = new BufferedReader(
                         new InputStreamReader(httpconn.getInputStream()),
                         8192);
-                String strLine = null;
+                String strLine;
 
                 while ((strLine = input.readLine()) != null) {
                     response.append(strLine);

@@ -45,7 +45,7 @@ public class ImagePreviewAdapter extends RecyclerView.Adapter<ImagePreviewAdapte
                 public void onClick(View v) {
                 }
             });
-            imgPreview = (ImageView) v.findViewById(R.id.imgPreview);
+            imgPreview = v.findViewById(R.id.imgPreview);
         }
 
         public ImageView getImgPreview() {
