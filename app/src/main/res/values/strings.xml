@@ -66,6 +66,7 @@
     <string name="_lbl_add_service">افزودن خدمت</string>
     <string name="_lbl_price">مبلغ (ریال) </string>
     <string name="_lbl_select_gender">انتخاب جنسیت</string>
+    <string name="_lbl_select_pricing">انتخاب تعداد بازدید</string>
     <string name="_lbl_cancel">انصراف</string>
     <string name="_lbl_search_barbershop">جستجوی آرایشگاه</string>
     <string name="_lbl_pay">پرداخت</string>
@@ -87,6 +88,7 @@
     <string name="label_home">اطلاعات شخصی</string>
 
 
+    <string name="err__empty__content">اطلاعات به درستی دریافت نشدند!</string>
     <string name="err__empty__cash">لطفا مبلغ را وارد نمایید</string>
     <string name="err__invalid__cash">مبلغ وارد شده معتبر نیست</string>
     <string name="err__invalid__comment">نظر نباید بیشتر از 400 کاراکتر باشد.</string>

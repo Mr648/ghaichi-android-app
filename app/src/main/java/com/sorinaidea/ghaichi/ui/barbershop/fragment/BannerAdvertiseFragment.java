@@ -6,13 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.R;
@@ -21,18 +19,18 @@ import com.sorinaidea.ghaichi.util.FontManager;
 
 public class BannerAdvertiseFragment extends Fragment {
 
-    private final String[] ITEMS = {
-            "انتخاب تعداد بازدید",
-            "1000",
-            "5000",
-            "10000",
-            "15000"
-    };
+
+
+    View.OnClickListener pricingClickListener;
+
+    public void setPricingClickListener(View.OnClickListener pricingClickListener) {
+        this.pricingClickListener = pricingClickListener;
+    }
 
     private Typeface fontIranSans;
     private TextInputLayout inputLayoutDescription;
     private TextInputEditText txtDescription;
-    private Spinner spnNumberOfViews;
+    private AppCompatButton btnNumberOfViews;
     private Button btnRequest;
 
     private int selectedNumberOfViews = Integer.MIN_VALUE;
@@ -40,31 +38,15 @@ public class BannerAdvertiseFragment extends Fragment {
     private void setupInputs(View view) {
         inputLayoutDescription = view.findViewById(R.id.inputLayoutDescription);
         txtDescription = view.findViewById(R.id.txtDescription);
-        spnNumberOfViews = view.findViewById(R.id.spnNumberOfViews);
+        btnNumberOfViews = view.findViewById(R.id.btnNumberOfViews);
         btnRequest = view.findViewById(R.id.btnRequest);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, ITEMS);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnNumberOfViews.setAdapter(adapter);
-        spnNumberOfViews.setSelection(0);
-        spnNumberOfViews.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    selectedNumberOfViews = Integer.parseInt(ITEMS[position]);
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        btnNumberOfViews.setOnClickListener(pricingClickListener);
         btnRequest.setOnClickListener((v) -> {
             Toast.makeText(getContext(), "درخواست در حال ارسال...", Toast.LENGTH_SHORT).show();
         });
     }
+
+
 
     private void setFonts() {
         fontIranSans = FontManager.getTypeface(getContext(), FontManager.IRANSANS_TEXTS);

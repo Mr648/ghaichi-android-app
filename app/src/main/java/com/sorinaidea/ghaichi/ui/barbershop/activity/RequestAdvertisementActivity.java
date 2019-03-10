@@ -1,42 +1,56 @@
 package com.sorinaidea.ghaichi.ui.barbershop.activity;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.auth.Auth;
+import com.sorinaidea.ghaichi.models.Pricing;
+import com.sorinaidea.ghaichi.ui.ImageUploaderActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.fragment.BannerAdvertiseFragment;
 import com.sorinaidea.ghaichi.ui.barbershop.fragment.SpecialAdvertiseFragment;
+import com.sorinaidea.ghaichi.webservice.API;
+import com.sorinaidea.ghaichi.webservice.barbershop.AdvertiseServices;
+import com.sorinaidea.ghaichi.webservice.image.UploadTask;
+import com.yarolegovich.lovelydialog.LovelyChoiceDialog;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class RequestAdvertisementActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    private Toolbar toolbar;
+public class RequestAdvertisementActivity extends ImageUploaderActivity {
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TextView mTitle;
+    private ArrayList<Pricing> listPricing;
+    private Pricing selectedPricing;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advertise);
+        listPricing = new ArrayList<>();
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        if (savedInstanceState == null || !savedInstanceState.containsKey("pricing")) {
+            fetchAdvertisePricingList();
+        } else {
+            listPricing = savedInstanceState.getParcelableArrayList("pricing");
+        }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mTitle = toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText(R.string.toolbar_request_advertise);
-
+        initToolbar(R.string.toolbar_request_advertise, true, true);
 
         viewPager = findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -44,12 +58,57 @@ public class RequestAdvertisementActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("pricing", listPricing);
+        super.onSaveInstanceState(outState);
+    }
+
+    public void fetchAdvertisePricingList() {
+        showProgressDialog(null, "در حال دریافت لیست قیمت‌ها", false);
+        AdvertiseServices service = API.getRetrofit().create(AdvertiseServices.class);
+        service.fetchPricingList(Auth.getAccessKey(this)).enqueue(new Callback<List<Pricing>>() {
+            @Override
+            public void onResponse(Call<List<Pricing>> call, Response<List<Pricing>> response) {
+                hideProgressDialog();
+                if (response.isSuccessful()) {
+                    listPricing.clear();
+                    try {
+                        List<Pricing> result = response.body();
+                        Objects.requireNonNull(result);
+                        listPricing.addAll(result);
+                    } catch (NullPointerException ex) {
+                        alert("هشدار", "اطلاعات به درستی بارگزاری نشده اند، لطفا مجددا سعی نمایید.", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Pricing>> call, Throwable t) {
+                hideProgressDialog();
+                if (t instanceof IOException) {
+                    toast(R.string.err_unable_to_connect_to_server);
+                }
+                logVerbose(t.getMessage(), t);
+            }
+        });
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BannerAdvertiseFragment(), getString(R.string.banner_advertises));
-        adapter.addFragment(new SpecialAdvertiseFragment(), getString(R.string.special_advertises));
+        BannerAdvertiseFragment bannerAdvertiseFragment = new BannerAdvertiseFragment();
+        SpecialAdvertiseFragment specialAdvertiseFragment = new SpecialAdvertiseFragment();
+
+        bannerAdvertiseFragment.setPricingClickListener(view -> showPricingList());
+        specialAdvertiseFragment.setPricingClickListener(view -> showPricingList());
+
+        adapter.addFragment(bannerAdvertiseFragment, getString(R.string.banner_advertises));
+        adapter.addFragment(specialAdvertiseFragment, getString(R.string.special_advertises));
         viewPager.setAdapter(adapter);
     }
 
@@ -62,6 +121,26 @@ public class RequestAdvertisementActivity extends AppCompatActivity {
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+    }
+
+
+    private void showPricingList() {
+        ArrayAdapter<Pricing> adapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_singlechoice, listPricing);
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        new LovelyChoiceDialog(this)
+                .setTopColorRes(R.color.colorGold)
+                .setTitle(R.string._lbl_select_pricing)
+                .setIcon(R.drawable.ic_attach_money)
+                .setMessage("تعداد بازدید مورد نظر خود را انتخاب کنید")
+                .configureMessageView(this::applyTextFont)
+                .configureTitleView(this::applyTextFont)
+                .setItems(adapter, (position, pricing) -> selectedPricing = pricing)
+                .show();
+    }
+
+    @Override
+    protected UploadTask generateTask(File... files) throws NullPointerException {
+        return null;
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

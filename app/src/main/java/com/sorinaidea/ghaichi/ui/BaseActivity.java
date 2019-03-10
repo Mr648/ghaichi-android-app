@@ -82,6 +82,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void logInfo(String message, Throwable t) {
         Log.i(TAG_INFO, message, t);
     }
+
     protected void logInfo(String... message) {
         Log.i(TAG_INFO, Arrays.toString(message));
     }
@@ -124,6 +125,20 @@ public class BaseActivity extends AppCompatActivity {
                 .setMessage(message)
                 .setPositiveButton(R.string._lbl_confirm, positiveButtonOnClickListener)
                 .setNegativeButton(R.string._lbl_cancel, null)
+                .show();
+    }
+
+    protected void confirmAlert(String title, String message, @DrawableRes int icon, @ColorRes int color, String psvBtn, View.OnClickListener positiveButtonOnClickListener, String ngvBtn, View.OnClickListener negativeButtonOnClickListener) {
+        new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
+                .setTopColorRes(color)
+                .setButtonsColorRes(R.color.colorPrimary)
+                .setIcon(icon)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(psvBtn, positiveButtonOnClickListener)
+                .setNegativeButton(ngvBtn, negativeButtonOnClickListener)
+                .configureTitleView(this::applyTextFont)
+                .configureMessageView(this::applyTextFont)
                 .show();
     }
 

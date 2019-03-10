@@ -19,7 +19,7 @@ public abstract class BaseAdapter<Some extends RecyclerView.ViewHolder, Data> ex
     protected Typeface fontIcon;
 
     public BaseAdapter(List<Data> data, Context context) {
-        mDataSet = data;
+        mDataSet =  data;
         mContext = context;
         fontText = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
         fontIcon = FontManager.getTypeface(mContext, FontManager.MATERIAL_ICONS);

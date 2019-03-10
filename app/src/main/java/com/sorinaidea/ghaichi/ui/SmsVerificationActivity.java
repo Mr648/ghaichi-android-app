@@ -24,8 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.util.FontManager;
-import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
 import com.sorinaidea.ghaichi.util.SmsReceiver;
 import com.sorinaidea.ghaichi.util.SorinaApplication;
 import com.sorinaidea.ghaichi.util.Util;
@@ -178,26 +178,13 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
                     if (!response.body().hasError()) {
 
-                        GhaichiPrefrenceManager.putEncryptedString(getApplicationContext(),
-                                Util.PREFRENCES_KEYS.USER_ACCESS_KEY,
-                                response.body().getAccessKey()
-                        );
 
-                        GhaichiPrefrenceManager.putEncryptedString(getApplicationContext(),
-                                Util.PREFRENCES_KEYS.USER_ROLE,
-                                response.body().getUserRole()
-                        );
-
-                        GhaichiPrefrenceManager.putEncryptedString(getApplicationContext(),
-                                Util.PREFRENCES_KEYS.KEY_EXPIRATION,
-                                response.body().getExpiration()
-                        );
-
+                        Auth.loggedIn(SmsVerificationActivity.this, response.body());
 
                         // TODO Goto Other Part Of Program.
 //                        if (userType.equals(Util.CONSTANTS.ROLE_BARBERSHOP)) {
-                            startActivity(new Intent(SmsVerificationActivity.this, BarberMainActivity.class));
-                            finish();
+                        startActivity(new Intent(SmsVerificationActivity.this, BarberMainActivity.class));
+                        finish();
 //                        } else if (userType.equals(Util.CONSTANTS.ROLE_NORMAL_USER)) {
 //                            startActivity(new Intent(SmsVerificationActivity.this, NewMainActivity.class));
 //                            finish();

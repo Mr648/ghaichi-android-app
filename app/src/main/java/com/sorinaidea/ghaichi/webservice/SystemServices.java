@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 
 public interface SystemServices {
 
-    @GET("api/system/faq/all")
+    @GET("api/system/faq")
     Call<List<FAQ>> faqs(@Query("accessKey") String accessKey);
 
     @GET("api/system/about")

@@ -3,93 +3,80 @@ package com.sorinaidea.ghaichi.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
-import android.util.Log;
 
-import org.apache.commons.codec.binary.Hex;
-import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
+import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.auth.Auth;
+import com.sorinaidea.ghaichi.models.Response;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
+import com.sorinaidea.ghaichi.webservice.HttpCodes;
 import com.sorinaidea.ghaichi.webservice.UserProfileService;
-import com.sorinaidea.ghaichi.webservice.model.responses.Response;
 
-import java.security.Key;
-import java.util.Arrays;
-
-import javax.crypto.Cipher;
-import javax.crypto.Mac;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class CheckUserLogin extends AppCompatActivity {
+public class CheckUserLogin extends ToolbarActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_check_login);
+        initToolbar("بررسی کاربر", false, false);
+        checkLogin();
+    }
 
-        String accessKey = GhaichiPrefrenceManager
-                .getDecryptedString(getApplicationContext(), Util.PREFRENCES_KEYS.USER_ACCESS_KEY, null);
 
+    private void checkLogin() {
+        showProgressDialog("بررسی", "در حال بررسی اطلاعات حساب کاربری", false);
+        String accessKey = Auth.getAccessKey(this);
         if (accessKey == null || accessKey.isEmpty()) {
-            startActivity(new Intent(CheckUserLogin.this, LoginActivity.class));
-            finish();
-        } else {
+            Call<Response> info =
+                    API.getRetrofit()
+                            .create(UserProfileService.class)
+                            .validateToken(accessKey);
+
+            info.enqueue(new Callback<Response>() {
+                @Override
+                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                    hideProgressDialog();
+                    if (response.isSuccessful()) {
 
 
-            Log.d(Util.PREFRENCES_KEYS.USER_ACCESS_KEY, "asad");
-//
-//            Call<Response> info =
-//                    API.getRetrofit()
-//                            .create(UserProfileService.class)
-//                            .validateToken(accessKey);
-//
-//
-//            info.enqueue(new Callback<Response>() {
-//                @Override
-//                public void onResponse(Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> call, retrofit2.Response<Response> response) {
-////                    if (response.isSuccessful()) {
-////                        if (response.body().hasError()) {
-////                            GhaichiPrefrenceManager.removeKey(getApplicationContext(), Util.PREFRENCES_KEYS.USER_ACCESS_KEY);
-////                            GhaichiPrefrenceManager.removeKey(getApplicationContext(), Util.md5(Util.PREFRENCES_KEYS.USER_ROLE));
-////
-////                            // Go To Login Activity
-////                            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-////                            finish();
-////
-////                        } else {
-////                            String userType = GhaichiPrefrenceManager.getString(getApplicationContext(),
-////                                    Util.md5(Util.PREFRENCES_KEYS.USER_ROLE)
-////                                    , null);
-////
-////                            userType = Util.base64decode(userType, Util.PREFRENCES_KEYS.BASE_64_ENCODE_DECODE_COUNT);
-////
-////
-////                            if (userType.equals(Util.CONSTANTS.ROLE_BARBERSHOP)) {
-////                                startActivity(new Intent(SplashActivity.this, NewMainActivity.class));
-////                                finish();
-////                            } else if (userType.equals(Util.CONSTANTS.ROLE_NORMAL_USER)) {
-////                                startActivity(new Intent(SplashActivity.this, NewMainActivity.class));
-////                                finish();
-////                            } else {
-////                                finish();
-////                            }
-////                        }
-////                    } else {
-////                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> call, Throwable t) {
-//
-//                }
-//            });
+                        // TODO get user role
+                        String userType = Util.CONSTANTS.ROLE_BARBERSHOP;
+                        if (userType.equals(Util.CONSTANTS.ROLE_BARBERSHOP)) {
+                            startActivity(new Intent(CheckUserLogin.this, BarberMainActivity.class));
+                            finish();
+                        } else if (userType.equals(Util.CONSTANTS.ROLE_NORMAL_USER)) {
+                            startActivity(new Intent(CheckUserLogin.this, NewMainActivity.class));
+                            finish();
+                        } else {
+                            finish();
+                        }
+
+                    } else {
+                        if (response.body().hasError()) {
+                            if (response.code() == HttpCodes.HTTP_UNAUTHORIZED) {
+                                confirmAlert("دسترسی غیر مجاز", response.body().getMessage(), R.drawable.ic_account_circle_white_24dp, R.color.colorRedAccent900, v -> Auth.getAccessKey(CheckUserLogin.this));
+                            } else if (response.code() == HttpCodes.HTTP_UNAUTHORIZED) {
+                                confirmAlert("ورود مجدد", response.body().getMessage(), R.drawable.ic_account_circle_white_24dp, R.color.colorAmberAccent900, v -> Auth.getAccessKey(CheckUserLogin.this));
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Response> call, Throwable t) {
+                    if (t instanceof IOException) {
+
+                    }
+                    hideProgressDialog();
+                }
+            });
 
         }
 
     }
-
 
 }

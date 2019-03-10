@@ -1,6 +1,6 @@
 package com.sorinaidea.ghaichi.webservice;
 
-import com.sorinaidea.ghaichi.webservice.model.responses.Response;
+import com.sorinaidea.ghaichi.models.Response;
 
 import retrofit2.Call;
 import retrofit2.http.Header;

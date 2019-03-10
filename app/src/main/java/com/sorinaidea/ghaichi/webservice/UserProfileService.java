@@ -83,8 +83,8 @@ public interface UserProfileService {
     Call<Response> uploadUserImage(@Part MultipartBody.Part accessKey, @Part MultipartBody.Part image);
 
     @FormUrlEncoded
-    @POST("api/user/profile/validate/token")
-    Call<Response> validateToken(@Field("accessKey") String accessKey);
+    @POST("api/system/auth/check")
+    Call<com.sorinaidea.ghaichi.models.Response> validateToken(@Field("accessKey") String accessKey);
 
     @POST("api/user/comment/create")
     Call<Response> addComment(@Body AddCommentRequest addCommentRequest);

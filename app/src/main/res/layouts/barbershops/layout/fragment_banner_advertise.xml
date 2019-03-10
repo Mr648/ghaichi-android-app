@@ -9,24 +9,25 @@
         android:layout_height="0px"
         android:focusable="true"
         android:focusableInTouchMode="true" />
-    <Spinner
-        android:id="@+id/spnNumberOfViews"
-        style="@style/SpinnerStyle"
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnNumberOfViews"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_48dp"
+        android:text="@string/_lbl_select_pricing"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="@dimen/_8dp"
         android:layout_marginEnd="@dimen/_16dp"
         android:layout_marginStart="@dimen/_16dp"
         android:layout_marginTop="@dimen/_16dp"
-        android:nextFocusLeft="@id/spnNumberOfViews"
-        android:nextFocusUp="@id/spnNumberOfViews" />
+        android:nextFocusLeft="@id/btnNumberOfViews"
+        android:nextFocusUp="@id/btnNumberOfViews" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/imgBanner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_196dp"
-        android:layout_below="@id/spnNumberOfViews"
+        android:layout_below="@id/btnNumberOfViews"
         android:layout_marginBottom="@dimen/_8dp"
         android:layout_marginEnd="@dimen/_16dp"
         android:layout_marginStart="@dimen/_16dp"

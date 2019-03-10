@@ -39,6 +39,7 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
             generateTask(files).upload();
         }
         super.onActivityResult(requestCode, resultCode, data);
+
         /*
 
         if (resultCode == RESULT_OK) {

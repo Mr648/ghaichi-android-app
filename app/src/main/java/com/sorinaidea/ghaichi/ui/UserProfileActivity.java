@@ -18,16 +18,21 @@ import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.DataAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Data;
+import com.sorinaidea.ghaichi.models.UploadImageResponse;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.barbershop.ProfileServices;
+import com.sorinaidea.ghaichi.webservice.image.SingleImageUploader;
 import com.sorinaidea.ghaichi.webservice.image.UploadTask;
+import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,17 +59,14 @@ public class UserProfileActivity extends ImageUploaderActivity
 
     private de.hdodenhof.circleimageview.CircleImageView imgUserImage;
 
-DataAdapter adapter;
+    DataAdapter adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userprofile);
         bindActivity();
-        List<Data> list = new ArrayList<>();
-
-        recData.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
-        adapter = new DataAdapter(list, this);
-        recData.setAdapter(adapter);
         update();
     }
 
@@ -73,14 +75,14 @@ DataAdapter adapter;
 
         ProfileServices service = API.getRetrofit().create(ProfileServices.class);
 
-        Call<Map<String, String>> info = service.profile(Auth.getAccessKey(getApplicationContext()));
+        Call<List<Data>> info = service.profile(Auth.getAccessKey(getApplicationContext()));
 
-        info.enqueue(new Callback<Map<String, String>>() {
+        info.enqueue(new Callback<List<Data>>() {
             @Override
-            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
+            public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
                 if (response.isSuccessful()) {
                     try {
-//                        Objects.requireNonNull(response.body());
+                        Objects.requireNonNull(response.body());
                         updateView(response.body());
                     } catch (NullPointerException ex) {
                         alert("خطا", "مشکل در دریافت اطلاعات", R.drawable.ic_close, R.color.colorRedAccent900);
@@ -90,30 +92,79 @@ DataAdapter adapter;
             }
 
             @Override
-            public void onFailure(Call<Map<String, String>> call, Throwable t) {
+            public void onFailure(Call<List<Data>> call, Throwable t) {
                 if (t instanceof IOException)
                     alert("خطا", "مشکل در ارتباط با سرور", R.drawable.ic_close, R.color.colorRedAccent900);
 
                 alert("خطا", "مشکل در دریافت اطلاعات", R.drawable.ic_close, R.color.colorRedAccent900);
-
             }
         });
     }
 
 
-    public void updateView(Map<String, String> data) {
-        List<Data> list = new ArrayList<>();
-        for (String key : data.keySet()) {
-            logInfo(key , data.get(key));
-            list.add(new Data(key, data.get(key)));
-        }
-        recData.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
-        recData.setAdapter(new DataAdapter(list, this));
+    public void updateProfileImage(Data image) {
+        if (image == null) return;
+        if (image.getValue().equals("default")) return;
+
+        logInfo(image.getValue());
+        // TODO how to use Picasso
+        API.getPicasso(this)
+                .load(image.getValue())
+                .resize(120, 120)
+                .into(imgUserImage);
     }
 
+    public void updateView(List<Data> userData) {
+        Data data = null;
+        for (Data d : userData) {
+            if (d.getKeyEn().equals("avatar")) {
+                data = d;
+                userData.remove(d);
+                break;
+            }
+        }
+
+//        alert("اطلاعات", data != null ? data.getValue() : "default", R.drawable.ic_close, R.color.colorBlue);
+        updateProfileImage(data);
+        recData.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recData.setAdapter(new DataAdapter(userData, this, edit -> {
+            new LovelyTextInputDialog(this)
+                    .setTopColorRes(R.color.colorAmberAccent900)
+                    .setIcon(R.drawable.ic_edit_white_24dp)
+                    .setTitle("ویرایش")
+                    .setMessage(edit.getKeyFa() + " خود را ویرایش کنید.")
+                    .setInitialInput(edit.getValue())
+                    .setConfirmButton("تایید", text -> updateField(edit.getKeyEn(), text))
+                    .configureMessageView(this::applyTextFont)
+                    .configureTitleView(this::applyTextFont)
+                    .show();
+
+
+        }));
+    }
+
+    private void updateField(String key, String value) {
+        ProfileServices serviceServices = API.getRetrofit().create(ProfileServices.class);
+        serviceServices
+                .update(Auth.getAccessKey(UserProfileActivity.this), key, value)
+                .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+                    @Override
+                    public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
+                        if (response.isSuccessful()) {
+                            toast(response.body().getMessage());
+                            update();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+                        toast("خطا در بروزرسانی داده‌");
+                    }
+                });
+    }
 
     private void bindActivity() {
-        initToolbar(R.string.toolbar_user_profile, false, true);
+        initToolbar(R.string.toolbar_user_profile, false, false);
         mTitleContainer = findViewById(R.id.main_linearlayout_title);
         mAppBarLayout = findViewById(R.id.main_appbar);
         mAppBarLayout.addOnOffsetChangedListener(this);
@@ -134,7 +185,6 @@ DataAdapter adapter;
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
         int maxScroll = appBarLayout.getTotalScrollRange();
         float percentage = (float) Math.abs(offset) / (float) maxScroll;
-
         handleAlphaOnTitle(percentage);
         handleToolbarTitleVisibility(percentage);
     }
@@ -203,7 +253,68 @@ DataAdapter adapter;
 
     @Override
     protected UploadTask generateTask(File... files) throws NullPointerException {
-        return null;
+        if (null == files) throw new NullPointerException("هیچ فایلی انتخاب نشده است.");
+
+        UploadTask task;
+
+        MultipartBody.Part image = MultipartBody.Part.createFormData("avatar", files[0].getName(),
+                RequestBody.create(MediaType.parse("image/*"), files[0]));
+
+        task = new UploadTask(new SingleImageUploader(image) {
+
+            boolean uploadResult = false;
+
+            @Override
+            public boolean isDone() {
+                return uploadResult;
+            }
+
+            @Override
+            public boolean upload(MultipartBody.Part image) {
+                showProgressDialog(R.string.upload_title, R.string.upload_progress, R.mipmap.ic_file_upload_white_24dp, R.color.colorAmberAccent900, false);
+
+                ProfileServices serviceServices = API.getRetrofit().create(ProfileServices.class);
+                serviceServices.changeAvatar(Auth.getAccessKey(UserProfileActivity.this), image).enqueue(new Callback<UploadImageResponse>() {
+                    @Override
+                    public void onResponse(Call<UploadImageResponse> call, retrofit2.Response<UploadImageResponse> response) {
+                        hideProgressDialog();
+                        if (response.isSuccessful()) {
+                            try {
+                                UploadImageResponse result = response.body();
+                                Objects.requireNonNull(result);
+                                Data userImage = new Data();
+                                userImage.setKeyEn("avatar");
+                                userImage.setKeyFa("تصویر");
+                                userImage.setEditable(true);
+                                userImage.setValue(result.getImages().get(0).getPath());
+                                updateProfileImage(userImage);
+                                alert("آپلود موفق", "تصویر با موفقیت افزوده شدند.", R.mipmap.ic_file_upload_white_24dp, R.color.colorTransaction);
+                                uploadResult = true;
+                            } catch (NullPointerException ex) {
+                                alert("خطای", "اطلاعات به درستی بارگزاری نشده اند، لطفا مجددا سعی نمایید.", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
+                            }
+                        } else {
+                            alert("آپلود ناموفق", "خطا در آپلود تصویر.", R.drawable.ic_info, R.color.colorAmberAccent900);
+                            uploadResult = false;
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UploadImageResponse> call, Throwable t) {
+                        hideProgressDialog();
+                        uploadResult = false;
+                        if (t instanceof IOException) {
+                            alert("قطع ارتباط", "خطا در اتصال به سرور", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
+                            return;
+                        }
+                        alert("آپلود ناموفق", "خطا در آپلود تصاویر.", R.drawable.ic_close, R.color.colorRedAccent900);
+                    }
+                });
+                return uploadResult;
+            }
+        });
+
+        return task;
     }
 
 }

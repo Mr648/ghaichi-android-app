@@ -20,6 +20,12 @@ import java.util.List;
 public class DataAdapter extends BaseAdapter<DataAdapter.ViewHolder, Data> {
 
 
+    public interface OnEditListener {
+        void edit(Data data);
+    }
+
+    private OnEditListener onEditListener;
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView imgEdit;
@@ -35,8 +41,9 @@ public class DataAdapter extends BaseAdapter<DataAdapter.ViewHolder, Data> {
 
     }
 
-    public DataAdapter(List<Data> data, Context context) {
+    public DataAdapter(List<Data> data, Context context, OnEditListener clickListener) {
         super(data, context);
+        this.onEditListener = clickListener;
     }
 
     @Override
@@ -53,7 +60,13 @@ public class DataAdapter extends BaseAdapter<DataAdapter.ViewHolder, Data> {
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         applyTextFont(viewHolder.txtKey, viewHolder.txtValue);
         Data data = mDataSet.get(position);
-        viewHolder.txtKey.setText(data.getKey());
+
+        if (data.isEditable()) {
+            viewHolder.imgEdit.setOnClickListener(v -> onEditListener.edit(data));
+        } else {
+            viewHolder.imgEdit.setVisibility(View.GONE);
+        }
+        viewHolder.txtKey.setText(data.getKeyFa());
         viewHolder.txtValue.setText(data.getValue());
     }
 

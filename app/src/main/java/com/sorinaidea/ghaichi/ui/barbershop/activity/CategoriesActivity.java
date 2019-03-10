@@ -420,8 +420,7 @@ public class CategoriesActivity extends ToolbarActivity {
                         recServiceCategories.setAdapter(new EmptyAdabper(CategoriesActivity.this));
                     }
 
-                    hideProgressDialog();
-                }
+                 }
 
                 @Override
                 public void onFailure(Call<List<Category>> call, Throwable t) {

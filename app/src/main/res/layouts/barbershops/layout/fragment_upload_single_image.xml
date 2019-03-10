@@ -14,7 +14,7 @@
         android:id="@+id/imgImage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_196dp"
-        android:layout_below="@id/spnNumberOfViews"
+
         android:layout_marginBottom="@dimen/_8dp"
         android:layout_marginEnd="@dimen/_16dp"
         android:layout_marginStart="@dimen/_16dp"

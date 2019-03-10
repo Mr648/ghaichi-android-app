@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
@@ -17,7 +16,6 @@ import com.sorinaidea.ghaichi.adapter.FAQAdabper;
 import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.FAQ;
 import com.sorinaidea.ghaichi.util.FontManager;
-import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.SystemServices;
 
@@ -61,7 +59,7 @@ public class FaqActivity extends AppCompatActivity {
 
         recFaq.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
-//        fetchFAQs();
+        fetchFAQs();
 
         Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
         FontManager.setFont(mTitle, iranSans);

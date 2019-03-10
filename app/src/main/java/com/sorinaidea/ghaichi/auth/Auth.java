@@ -9,6 +9,7 @@ import com.sorinaidea.ghaichi.ui.LoginActivity;
 import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
 import com.sorinaidea.ghaichi.util.Security;
 import com.sorinaidea.ghaichi.util.Util;
+import com.sorinaidea.ghaichi.webservice.model.responses.VerificationResponse;
 
 public class Auth {
 
@@ -41,5 +42,22 @@ public class Auth {
         }
 
         return accessKey;
+    }
+
+    public static void loggedIn(Context context,VerificationResponse response){
+        GhaichiPrefrenceManager.putEncryptedString(context,
+                Util.PREFRENCES_KEYS.USER_ACCESS_KEY,
+                response.getAccessKey()
+        );
+
+        GhaichiPrefrenceManager.putEncryptedString(context,
+                Util.PREFRENCES_KEYS.USER_ROLE,
+                response.getUserRole()
+        );
+
+        GhaichiPrefrenceManager.putEncryptedString(context,
+                Util.PREFRENCES_KEYS.KEY_EXPIRATION,
+                response.getExpiration()
+        );
     }
 }

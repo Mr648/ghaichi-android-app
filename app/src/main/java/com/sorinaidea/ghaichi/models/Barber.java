@@ -23,7 +23,7 @@ public class Barber extends Model implements Parcelable  {
     private String mobile;
     
     @Nullable
-    @SerializedName("avatar")
+    @SerializedName("changeAvatar")
     private String avatar;
     
 
