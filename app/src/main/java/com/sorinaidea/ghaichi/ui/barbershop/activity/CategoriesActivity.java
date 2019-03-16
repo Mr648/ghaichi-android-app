@@ -227,41 +227,6 @@ public class CategoriesActivity extends ToolbarActivity {
 
             @Override
             public void onClick(View v) {
-//                input = new TextInputEditText(CategoriesActivity.this);
-//                inputDesc = new TextInputEditText(CategoriesActivity.this);
-//
-//                applyTextFont(input, inputDesc);
-//
-//                LinearLayout linearLayout = new LinearLayout(CategoriesActivity.this);
-//
-//                input.setHint("نام");
-//                inputDesc.setHint("توضیحات");
-//
-//                linearLayout.setOrientation(LinearLayout.VERTICAL);
-//                linearLayout.addView(input);
-//                linearLayout.addView(inputDesc);
-//                linearLayout.setPadding(8, 4, 8, 4);
-//
-//                AlertDialog addCategoryDialog = new AlertDialog.Builder(CategoriesActivity.this)
-//                        .setView(linearLayout)
-//                        .setTitle("افزودن دسته‌بندی")
-//                        .setMessage("نام دسته‌بندی را وارد نمایید")
-//                        .setPositiveButton("افزودن", (dialog, which) -> {
-//                            validateForm(dialog);
-//                        }).setNegativeButton("انصراف", (dialog, which) -> {
-//                            dialog.dismiss();
-//                        }).create();
-//                addCategoryDialog.show();
-//
-//                new LovelyTextInputDialog(CategoriesActivity.this)
-//                        .setTopColorRes(R.color.colorPrimary)
-//                        .setTitle("افزودن دسته‌بندی")
-//                        .setMessage("اطلاعات دسته‌بندی را وارد کنید")
-//                        .setIcon(R.drawable.fab_add)
-//                        .setInputFilter(R.string.err__empty__name, text -> text.matches("\\w+"))
-//                        .setConfirmButton(android.R.string.ok, text -> toast(text))
-//                        .show();
-
                 View dialogView = getLayoutInflater().inflate(R.layout.dialog_category, null);
 
                 edtName = dialogView.findViewById(R.id.edtName);
@@ -419,6 +384,7 @@ public class CategoriesActivity extends ToolbarActivity {
                     } else if (response.code() == HttpCodes.HTTP_NOT_FOUND) {
                         recServiceCategories.setAdapter(new EmptyAdabper(CategoriesActivity.this));
                     }
+                    hideProgressDialog();
 
                  }
 

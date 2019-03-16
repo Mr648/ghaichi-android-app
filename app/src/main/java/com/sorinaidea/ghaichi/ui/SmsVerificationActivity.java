@@ -1,31 +1,16 @@
 package com.sorinaidea.ghaichi.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.auth.Auth;
-import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.SmsReceiver;
 import com.sorinaidea.ghaichi.util.SorinaApplication;
 import com.sorinaidea.ghaichi.util.Util;
@@ -36,7 +21,8 @@ import com.sorinaidea.ghaichi.webservice.model.requests.VerificationRequest;
 import com.sorinaidea.ghaichi.webservice.model.responses.LoginResponse;
 import com.sorinaidea.ghaichi.webservice.model.responses.VerificationResponse;
 
-import java.util.logging.Logger;
+import java.io.IOException;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
@@ -48,23 +34,17 @@ import retrofit2.Retrofit;
  * Created by mr-code on 6/17/2018.
  */
 
-public class SmsVerificationActivity extends AppCompatActivity {
+public class SmsVerificationActivity extends ToolbarActivity {
 
-    private String TAG = "SmsVerificationActivity";
 
     private String phone;
-    private Toolbar toolbar;
 
     private Button btnVerify;
-    private ProgressBar prgTimer;
-    private RelativeLayout relProgress;
-    private TextView txtProgress;
 
     private TextInputLayout inputLayoutVerificationCode;
     private TextInputEditText edtVerificationCode;
     private AlphaAnimation alphaAnimation = new AlphaAnimation(1F, 0.8F);
 
-    private Handler handler;
     private Call<LoginResponse> callWebservice;
 
 
@@ -98,25 +78,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sms);
         alphaAnimation.setDuration(1000);
 
-        handler = new Handler();
-
-        toolbar = findViewById(R.id.toolbar);
-        prgTimer = findViewById(R.id.prgTimer);
-        relProgress = findViewById(R.id.relProgress);
-        txtProgress = findViewById(R.id.txtProgress);
-
-        Drawable progressDrawable = prgTimer.getIndeterminateDrawable().mutate();
-        progressDrawable.setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN);
-        prgTimer.setProgressDrawable(progressDrawable);
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        ViewCompat.setElevation(toolbar, Util.dp(5, SmsVerificationActivity.this));
-
-        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText("دریافت کد فعالسازی");
+        initToolbar("دریافت کد فعالسازی", true, false);
 
         Bundle extras = getIntent().getExtras();
 
@@ -133,7 +95,6 @@ public class SmsVerificationActivity extends AppCompatActivity {
             finish();
         }
 
-        relProgress.setVisibility(View.GONE);
 
         btnVerify = findViewById(R.id.btnVerify);
 
@@ -144,12 +105,12 @@ public class SmsVerificationActivity extends AppCompatActivity {
             action();
         });
 
-        Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
-        FontManager.setFont(btnVerify, iranSans);
-        FontManager.setFont(inputLayoutVerificationCode, iranSans);
-        FontManager.setFont(edtVerificationCode, iranSans);
-        FontManager.setFont(mTitle, iranSans);
+        applyTextFont(btnVerify,
+                inputLayoutVerificationCode,
+                edtVerificationCode
+        );
+
 
         SmsReceiver.bindListener(messageText -> {
             edtVerificationCode.setText(messageText);
@@ -170,10 +131,12 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
         Call<VerificationResponse> callVerification =
                 webService.verify(new VerificationRequest(phone, verificationCode));
+        showProgressDialog("بررسی", "در حال اعتبار سنجی کد تایید", false);
 
         callVerification.enqueue(new Callback<VerificationResponse>() {
             @Override
             public void onResponse(Call<VerificationResponse> call, Response<VerificationResponse> response) {
+                hideProgressDialog();
                 if (response.body() != null) {
 
                     if (!response.body().hasError()) {
@@ -190,26 +153,29 @@ public class SmsVerificationActivity extends AppCompatActivity {
 //                            finish();
 //                        }
                     } else {
-                        Log.i(TAG, "onResponse.FAILURE: " + response.body().getMessage());
+                        toast("پاسخی از سرور دریافت نشد.");
                         finish();
                     }
                 } else {
-                    Log.i(TAG, "onResponse.NULL: " + null);
-                    finish();
+                    toast("خطا در اعتبار سنجی");
                 }
             }
 
             @Override
             public void onFailure(Call<VerificationResponse> call, Throwable t) {
-                Log.i(TAG, "onFailure: " + t.getMessage());
-                finish();
+                hideProgressDialog();
+                if (t instanceof IOException)
+                    toast("خطا در ارتباط با سرور");
+
+                actionAlert("تایید ناموفق", "میخواهید مجددا امتحان کنید؟", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorAmberAccent900, view -> sendVerificationCode(phone, verificationCode));
+
             }
         });
     }
 
     private void sendSms(final String phone) {
 
-        relProgress.setVisibility(View.VISIBLE);
+        showProgressDialog("ارسال کد تایید", "در حال ارسال کد تایید", false);
 
         Retrofit retrofit = API.getRetrofit();
         LoginService webService = retrofit.create(LoginService.class);
@@ -220,21 +186,24 @@ public class SmsVerificationActivity extends AppCompatActivity {
         callWebservice.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                hideProgressDialog();
                 if (response.body() != null) {
                     if (!response.body().hasError()) {
-                        Toast.makeText(SmsVerificationActivity.this, "کد فعالسازی به شماره  " + phone + " ارسال شد.", Toast.LENGTH_SHORT).show();
+                        toast(String.format(new Locale("fa"), "%s %s %s.", "کد فعالسازی به شماره  " , phone , " ارسال شد"));
                     } else {
-                        Log.i(TAG, "onResponse.FAILURE: " + response.body().getMessage());
+                        toast("خطا در ارسال اطلاعات");
                     }
                 } else {
-                    Log.i(TAG, "onResponse.NULL: " + null);
+                    toast("پاسخی از سرور دریافت نشد.");
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.i(TAG, "onFailure: " + t.getMessage());
-                Logger.getLogger("").info("");
+                hideProgressDialog();
+                if (t instanceof IOException)
+                    toast("خطا در ارتباط با سرور");
+                actionAlert("ارسال ناموفق", "کد جدید برای شما ارسال شود؟", R.drawable.ic_info, R.color.colorAmberAccent900, view -> sendSms(phone));
             }
         });
     }
@@ -261,11 +230,6 @@ public class SmsVerificationActivity extends AppCompatActivity {
         sendVerificationCode(phone, edtVerificationCode.getText().toString());
     }
 
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

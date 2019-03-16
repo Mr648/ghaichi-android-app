@@ -17,7 +17,6 @@ import com.sorinaidea.ghaichi.ui.ImageSliderActivity;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -54,7 +53,6 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
         }
 
         public TextView getTxtTitle() {
-
             return txtTitle;
         }
     }
@@ -65,7 +63,6 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
         mContext = context;
         fontIranSans = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
         this.barbershopId = barbershopId;
-
     }
 
 
@@ -93,16 +90,15 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
         } catch (IOException e) {
             e.printStackTrace();
         }
-        viewHolder.getImgSelectedImage().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, ImageSliderActivity.class);
-                intent.putExtra(Util.COMMUNICATION_KEYS.SERVICE_ID, Integer.toString(service.getId()));
-                intent.putExtra(Util.COMMUNICATION_KEYS.BARBERSHOP_ID, Integer.toString(barbershopId));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(intent);
-            }
+
+        viewHolder.getImgSelectedImage().setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, ImageSliderActivity.class);
+            intent.putExtra(Util.COMMUNICATION_KEYS.SERVICE_ID, Integer.toString(service.getId()));
+            intent.putExtra(Util.COMMUNICATION_KEYS.BARBERSHOP_ID, Integer.toString(barbershopId));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(intent);
         });
+
         FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
     }
 
@@ -110,4 +106,5 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
     public int getItemCount() {
         return mDataSet.size();
     }
+
 }

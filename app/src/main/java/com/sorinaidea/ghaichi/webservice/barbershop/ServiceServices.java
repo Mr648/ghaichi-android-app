@@ -1,16 +1,18 @@
 package com.sorinaidea.ghaichi.webservice.barbershop;
 
 
-import com.sorinaidea.ghaichi.models.UploadImageResponse;
 import com.sorinaidea.ghaichi.models.Response;
 import com.sorinaidea.ghaichi.models.Service;
+import com.sorinaidea.ghaichi.models.UploadImageResponse;
 
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -39,8 +41,9 @@ public interface ServiceServices {
     @Headers({
             "User-Agent: GHAICHI-APPLICATION-USER",
     })
-    @GET("api/barbershop/services/create")
-    Call<Response> create(@Header("Authorization") String authToken, @Body Service category);
+    @FormUrlEncoded
+    @POST("api/barbershop/services")
+    Call<Response> create(@Header("Authorization") String authToken, @FieldMap Map<String, String> map);
 
 
     @Headers({

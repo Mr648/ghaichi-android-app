@@ -44,4 +44,9 @@
     <string name="upload_title">بارگزاری تصاویر</string>
     <string name="upload_progress">در حال بارگزاری تصاویر، لطفا صبر کنید!</string>
 
+    <string name="create_barber_title">ایجاد آرایشگر</string>
+    <string name="create_barber_progress">در حال افزودن آرایشگر، لطفا صبر کنید!</string>
+    <string name="update_barber_title">ویرایش آرایشگر</string>
+    <string name="update_barber_progress">در حال ویرایش اطلاعات آرایشگر، لطفا صبر کنید!</string>
+
 </resources>

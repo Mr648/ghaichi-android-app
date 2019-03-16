@@ -1,33 +1,30 @@
 package com.sorinaidea.ghaichi.adapter.barbershop;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.fast.Barber;
-import com.sorinaidea.ghaichi.util.FontManager;
+import com.sorinaidea.ghaichi.adapter.BaseAdapter;
+import com.sorinaidea.ghaichi.models.Image;
+import com.sorinaidea.ghaichi.webservice.API;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mr-code on 3/10/2018.
  */
 
-public class SamplesAdapter extends RecyclerView.Adapter<SamplesAdapter.ViewHolder> {
+public abstract class SamplesAdapter extends BaseAdapter<SamplesAdapter.ViewHolder, Image> {
 
-    private static final String TAG = SamplesAdapter.class.getSimpleName();
+    protected abstract void onDeleteClicked(Image image);
 
-
-    private ArrayList<String> mDataSet;
-    private Context mContext;
-    private Typeface fontIranSans;
+    public SamplesAdapter(List<Image> images, Context context) {
+        super(images, context);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private AppCompatImageView imgSample;
@@ -61,15 +58,6 @@ public class SamplesAdapter extends RecyclerView.Adapter<SamplesAdapter.ViewHold
     }
 
 
-    public SamplesAdapter(Context context) {
-        mDataSet = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            mDataSet.add("");
-        }
-        mContext = context;
-        fontIranSans = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
-    }
-
     @Override
     public int getItemViewType(int position) {
         return position % 3;
@@ -85,6 +73,13 @@ public class SamplesAdapter extends RecyclerView.Adapter<SamplesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
+        Image image = mDataSet.get(position);
+        API.getPicasso(mContext).load(image.getPath())
+                .fit()
+                .centerInside()
+                .error(R.drawable.background_green)
+                .into(viewHolder.getImgSample());
+        viewHolder.getImgDelete().setOnClickListener(v -> onDeleteClicked(image));
     }
 
 

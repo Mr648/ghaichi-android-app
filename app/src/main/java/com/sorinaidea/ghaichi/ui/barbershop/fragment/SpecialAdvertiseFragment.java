@@ -14,10 +14,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.ui.barbershop.activity.UiUpdater;
 import com.sorinaidea.ghaichi.util.FontManager;
 
 
-public class SpecialAdvertiseFragment extends Fragment {
+public class SpecialAdvertiseFragment extends Fragment implements UiUpdater {
 
 
     View.OnClickListener pricingClickListener;
@@ -70,5 +71,10 @@ public class SpecialAdvertiseFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         setupViews(view);
         setFonts();
+    }
+
+    @Override
+    public void update(String text) {
+        if (btnNumberOfViews != null) btnNumberOfViews.setText(text);
     }
 }

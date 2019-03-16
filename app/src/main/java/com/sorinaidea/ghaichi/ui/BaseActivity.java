@@ -116,6 +116,18 @@ public class BaseActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
+
+    protected void actionAlert(String title, String message, @DrawableRes int icon, @ColorRes int color, View.OnClickListener positiveButtonOnClickListener) {
+        new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
+                .setTopColorRes(color)
+                .setButtonsColorRes(R.color.colorPrimary)
+                .setIcon(icon)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(R.string._lbl_confirm, positiveButtonOnClickListener)
+                .show();
+    }
+
     protected void confirmAlert(String title, String message, @DrawableRes int icon, @ColorRes int color, View.OnClickListener positiveButtonOnClickListener) {
         new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
                 .setTopColorRes(color)
@@ -129,17 +141,25 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void confirmAlert(String title, String message, @DrawableRes int icon, @ColorRes int color, String psvBtn, View.OnClickListener positiveButtonOnClickListener, String ngvBtn, View.OnClickListener negativeButtonOnClickListener) {
-        new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
+
+        LovelyStandardDialog dialog = new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
                 .setTopColorRes(color)
                 .setButtonsColorRes(R.color.colorPrimary)
                 .setIcon(icon)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(psvBtn, positiveButtonOnClickListener)
-                .setNegativeButton(ngvBtn, negativeButtonOnClickListener)
                 .configureTitleView(this::applyTextFont)
-                .configureMessageView(this::applyTextFont)
-                .show();
+                .configureMessageView(this::applyTextFont);
+
+        if (negativeButtonOnClickListener != null) {
+            dialog.setNegativeButton(ngvBtn, negativeButtonOnClickListener);
+        } else {
+            dialog.setNegativeButton(ngvBtn, v -> dialog.dismiss());
+        }
+
+        dialog.show();
+
     }
 
     protected void alert(String title, String message, @DrawableRes int icon, @ColorRes int color) {
@@ -151,17 +171,5 @@ public class BaseActivity extends AppCompatActivity {
                 .configureMessageView(this::applyTextFont)
                 .configureTitleView(this::applyTextFont)
                 .show();
-
-////        .setNotShowAgainOptionEnabled(0)
-////                .setNotShowAgainOptionChecked(false)
-//
-//        AlertDialog addCategoryDialog = new AlertDialog.Builder(this)
-//                .setIcon(icon)
-//                .setTitle(title)
-//                .setMessage(message)
-//                .setPositiveButton("باشه", (dialog, which) -> {
-//                    dialog.dismiss();
-//                }).setCancelable(true).create();
-//        addCategoryDialog.show();
     }
 }

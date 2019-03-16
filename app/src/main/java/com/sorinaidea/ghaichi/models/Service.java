@@ -15,6 +15,10 @@ public class Service extends Model implements Parcelable {
     private Category category;
 
 
+    @SerializedName("create_date")
+    private String createdAt;
+
+
     @SerializedName("name")
     private String name;
 
@@ -43,6 +47,10 @@ public class Service extends Model implements Parcelable {
     @SerializedName("images")
     private List<Image> images;
 
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
 
     public String getName() {
         return name;
@@ -76,6 +84,10 @@ public class Service extends Model implements Parcelable {
         return description;
     }
 
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public String getDiscount() {
         return discount;

@@ -1,41 +1,40 @@
 package com.sorinaidea.ghaichi.adapter.barbershop;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.fast.Barber;
-import com.sorinaidea.ghaichi.fast.ServiceInfo;
-import com.sorinaidea.ghaichi.util.FontManager;
+import com.sorinaidea.ghaichi.adapter.BaseAdapter;
+import com.sorinaidea.ghaichi.models.Service;
+import com.sorinaidea.ghaichi.webservice.API;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 /**
  * Created by mr-code on 3/10/2018.
  */
 
-public class ServiceAdabper extends RecyclerView.Adapter<ServiceAdabper.ViewHolder> {
-    private static final String TAG = "BarberAdabper";
+
+public class ServiceAdapter extends BaseAdapter<ServiceAdapter.ViewHolder, Service> {
 
 
-    private ArrayList<ServiceInfo> mDataSet;
-    private Context mContext;
-    private Typeface fontIranSans;
+    public ServiceAdapter(List<Service> services, Context context) {
+        super(services, context);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView txtName;
         private TextView txtTime;
         private TextView txtPrice;
         private TextView txtSamples;
         private TextView txtBarbers;
-        private TextView txtName;
+        private TextView txtDateCreated;
+
 
         private AppCompatImageView imgAddBarber;
         private AppCompatImageView imgEdit;
@@ -46,11 +45,12 @@ public class ServiceAdabper extends RecyclerView.Adapter<ServiceAdabper.ViewHold
 
         public ViewHolder(View v) {
             super(v);
+            txtName = v.findViewById(R.id.txtName);
             txtTime = v.findViewById(R.id.txtTime);
             txtPrice = v.findViewById(R.id.txtPrice);
             txtSamples = v.findViewById(R.id.txtSamples);
             txtBarbers = v.findViewById(R.id.txtBarbers);
-            txtName = v.findViewById(R.id.txtName);
+            txtDateCreated = v.findViewById(R.id.txtDateCreated);
 
             imgAddBarber = v.findViewById(R.id.imgAddBarber);
             imgEdit = v.findViewById(R.id.imgEdit);
@@ -87,6 +87,10 @@ public class ServiceAdabper extends RecyclerView.Adapter<ServiceAdabper.ViewHold
             return txtTime;
         }
 
+        public TextView getTxtDateCreated() {
+            return txtDateCreated;
+        }
+
         public AppCompatImageView getImgDelete() {
             return imgDelete;
         }
@@ -100,16 +104,6 @@ public class ServiceAdabper extends RecyclerView.Adapter<ServiceAdabper.ViewHold
         }
     }
 
-
-    public ServiceAdabper(Context context) {
-        mDataSet = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            ServiceInfo service = new ServiceInfo(i, "Name", i * 2 + "'", String.valueOf((i + 1) * 1000), String.valueOf(i * 2), String.valueOf(i % 3), new Date().toString());
-            mDataSet.add(service);
-        }
-        mContext = context;
-        fontIranSans = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
-    }
 
     @Override
     public int getItemViewType(int position) {
@@ -126,18 +120,29 @@ public class ServiceAdabper extends RecyclerView.Adapter<ServiceAdabper.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-        ServiceInfo b = mDataSet.get(position);
-        viewHolder.getTxtName().setText(b.getName());
-        viewHolder.getTxtTime().setText(b.getTime());
-        viewHolder.getTxtPrice().setText(b.getPrice());
-        viewHolder.getTxtSamples().setText(b.getSamples());
-        viewHolder.getTxtBarbers().setText(b.getBarbers());
+        Service service = mDataSet.get(position);
 
-        FontManager.setFont(viewHolder.getTxtName(), fontIranSans);
-        FontManager.setFont(viewHolder.getTxtTime(), fontIranSans);
-        FontManager.setFont(viewHolder.getTxtPrice(), fontIranSans);
-        FontManager.setFont(viewHolder.getTxtSamples(), fontIranSans);
-        FontManager.setFont(viewHolder.getTxtBarbers(), fontIranSans);
+        viewHolder.getTxtName().setText(service.getName());
+        viewHolder.getTxtTime().setText(String.valueOf(service.getTime()));
+        viewHolder.getTxtPrice().setText(String.valueOf(service.getPrice()));
+        viewHolder.getTxtSamples().setText(String.valueOf(service.getImages().size()));
+        viewHolder.getTxtBarbers().setText(String.valueOf(service.getBarbers().size()));
+        viewHolder.getTxtDateCreated().setText(service.getCreatedAt());
+
+
+        API.getPicasso(mContext)
+                .load(service.getBanner())
+                .fit()
+                .centerCrop()
+                .error(R.drawable.ic_account_circle_white_24dp)
+                .into(viewHolder.getImgService());
+
+        applyTextFont(viewHolder.getTxtName(),
+                viewHolder.getTxtTime(),
+                viewHolder.getTxtPrice(),
+                viewHolder.getTxtSamples(),
+                viewHolder.getTxtBarbers(),
+                viewHolder.getTxtDateCreated());
     }
 
 

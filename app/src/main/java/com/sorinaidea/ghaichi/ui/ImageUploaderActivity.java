@@ -1,8 +1,10 @@
 package com.sorinaidea.ghaichi.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 
 import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.features.ReturnMode;
 import com.esafirm.imagepicker.model.Image;
 import com.sorinaidea.ghaichi.webservice.image.UploadTask;
 
@@ -174,5 +176,21 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
 
         return file;
     }*/
+
+    protected void pickSingleImage(){
+        try {
+            ImagePicker.create(this).single().returnMode(ReturnMode.ALL)
+                    .folderMode(true) // folder mode (false by default)
+                    .toolbarFolderTitle("پوشه") // folder selection title
+                    .toolbarImageTitle("برای انتخاب لمس کنید") // image selection title
+                    .toolbarArrowColor(Color.WHITE) // Toolbar 'up' arrow color
+                    .showCamera(true) // show camera or not (true by default)
+                    .imageDirectory("دوربین") // directory name for captured image  ("Camera" folder by default)
+                    .enableLog(false) // disabling log
+                    .start(); // start image picker activity with request code
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

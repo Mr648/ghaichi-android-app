@@ -6,10 +6,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.view.View;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.adapter.barbershop.SCDPricesAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Pricing;
 import com.sorinaidea.ghaichi.ui.ImageUploaderActivity;
@@ -18,7 +21,7 @@ import com.sorinaidea.ghaichi.ui.barbershop.fragment.SpecialAdvertiseFragment;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.barbershop.AdvertiseServices;
 import com.sorinaidea.ghaichi.webservice.image.UploadTask;
-import com.yarolegovich.lovelydialog.LovelyChoiceDialog;
+import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 
 import java.io.File;
 import java.io.IOException;
@@ -104,8 +107,8 @@ public class RequestAdvertisementActivity extends ImageUploaderActivity {
         BannerAdvertiseFragment bannerAdvertiseFragment = new BannerAdvertiseFragment();
         SpecialAdvertiseFragment specialAdvertiseFragment = new SpecialAdvertiseFragment();
 
-        bannerAdvertiseFragment.setPricingClickListener(view -> showPricingList());
-        specialAdvertiseFragment.setPricingClickListener(view -> showPricingList());
+        bannerAdvertiseFragment.setPricingClickListener(view -> showPricingList(bannerAdvertiseFragment));
+        specialAdvertiseFragment.setPricingClickListener(view -> showPricingList(specialAdvertiseFragment));
 
         adapter.addFragment(bannerAdvertiseFragment, getString(R.string.banner_advertises));
         adapter.addFragment(specialAdvertiseFragment, getString(R.string.special_advertises));
@@ -124,18 +127,32 @@ public class RequestAdvertisementActivity extends ImageUploaderActivity {
     }
 
 
-    private void showPricingList() {
-        ArrayAdapter<Pricing> adapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_singlechoice, listPricing);
-        adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        new LovelyChoiceDialog(this)
+    private void showPricingList(final UiUpdater updater) {
+        RecyclerView recPricing;
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_single_choice, null);
+        recPricing = dialogView.findViewById(R.id.recItems);
+        recPricing.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        final LovelyCustomDialog selectPricingDialog = new LovelyCustomDialog(this)
+                .setView(dialogView)
                 .setTopColorRes(R.color.colorGold)
                 .setTitle(R.string._lbl_select_pricing)
                 .setIcon(R.drawable.ic_attach_money)
                 .setMessage("تعداد بازدید مورد نظر خود را انتخاب کنید")
                 .configureMessageView(this::applyTextFont)
-                .configureTitleView(this::applyTextFont)
-                .setItems(adapter, (position, pricing) -> selectedPricing = pricing)
-                .show();
+                .configureTitleView(this::applyTextFont);
+
+        SCDPricesAdapter adapter = new SCDPricesAdapter(listPricing, this) {
+            @Override
+            protected void checked(Pricing price) {
+                selectedPricing = price;
+                selectPricingDialog.dismiss();
+                updater.update(price.getDescription());
+            }
+        };
+        recPricing.setAdapter(adapter);
+        selectPricingDialog.show();
+
     }
 
     @Override

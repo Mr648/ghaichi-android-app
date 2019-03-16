@@ -122,11 +122,15 @@
     <string name="action_reserve">رزرو</string>
     <string name="action_filter">فیلتر</string>
     <string name="action_next">بعدی</string>
+    <string name="action_save">ذخیره</string>
     <string name="action_choose_photos">انتخاب تصاویر</string>
     <string name="action_single_category">انتخاب دسته‌بندی</string>
     <string name="action_choose_barbers">انتخاب آرایشگران</string>
     <string name="action_all_categories">نمایش همه خدمات</string>
     <string name="action_comment">نظردهی</string>
+    <string name="action_filter_all">نمایش همه</string>
+    <string name="action_filter_service">بر اساس خدمت</string>
+    <string name="action_filter_category">بر اساس دسته‌بندی</string>
     <string name="empty_string"></string>
     <string name="action_component_factory">ghaichi</string>
 

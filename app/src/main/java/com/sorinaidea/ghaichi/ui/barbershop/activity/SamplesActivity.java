@@ -2,7 +2,6 @@ package com.sorinaidea.ghaichi.ui.barbershop.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +11,6 @@ import android.view.MenuItem;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
-import com.sorinaidea.ghaichi.adapter.barbershop.SamplesAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Service;
 import com.sorinaidea.ghaichi.models.UploadImageResponse;
@@ -58,12 +56,6 @@ public class SamplesActivity extends ImageUploaderActivity {
         fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(view -> {
-           /* Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "انتخاب تصاویر"), PICK_IMAGE_MULTIPLE);*/
-
             ImagePicker.create(this)
                     .folderMode(true) // folder mode (false by default)
                     .toolbarFolderTitle("پوشه") // folder selection title
@@ -80,14 +72,7 @@ public class SamplesActivity extends ImageUploaderActivity {
         recImages = findViewById(R.id.recImages);
         recImages.setLayoutManager(new GridLayoutManager(this, 2));
         recImages.addItemDecoration(new ItemOffsetDecoration(8));
-        recImages.setAdapter(new SamplesAdapter(this));
-
-
-        File file1 = new File(Environment.getExternalStorageDirectory() + "/kia.png");
-        File file2 = new File(Environment.getExternalStorageDirectory() + "/sia.png");
-
-        generateTask(file1, file2).upload();
-
+//        recImages.setAdapter(new SamplesAdapter(this));
     }
 
     @Override

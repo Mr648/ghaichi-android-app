@@ -24,14 +24,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class API {
 
 
-//    public static final String BASE_URL = "http://192.168.1.10/";
-
-    public static final String BASE_URL = "http://192.168.1.12/";
-
-
+    public static final String BASE_URL = "http://192.168.1.10/";
+//    public static final String BASE_URL = "http://192.168.1.19/";
 //    public static final String BASE_URL = "http://127.0.0.1/";
-//    public static final String BASE_URL = "http://192.168.43.85/";
 //    public static final String BASE_URL = "https://ghaichi.com/";
+
+//    public static final String BASE_URL = "http://192.168.43.85/";
 
     private static Retrofit retrofit;
     private static Picasso picasso;
@@ -49,7 +47,7 @@ public class API {
     private static Picasso initPicasso(Context context) {
 
 
-        Picasso.Builder builder = new Picasso.Builder(context);
+        Picasso.Builder  builder = new Picasso.Builder(context);
         com.squareup.okhttp.OkHttpClient client = new com.squareup.okhttp.OkHttpClient();
 
 
@@ -77,7 +75,7 @@ public class API {
 
         OkHttpClient client = null;
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
 
             try {
                 client = new OkHttpClient.Builder()

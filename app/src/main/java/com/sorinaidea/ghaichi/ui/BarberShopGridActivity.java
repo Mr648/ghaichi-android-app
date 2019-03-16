@@ -1,38 +1,19 @@
 package com.sorinaidea.ghaichi.ui;
 
-import android.animation.Animator;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.adapter.BarberShopMiniItemAdapter;
-import com.sorinaidea.ghaichi.adapter.FAQAdabper;
 import com.sorinaidea.ghaichi.adapter.GridItemsAdabper;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.BarbershopCard;
-import com.sorinaidea.ghaichi.model.BarberShop;
-import com.sorinaidea.ghaichi.model.FAQ;
-import com.sorinaidea.ghaichi.util.Util;
-import com.sorinaidea.ghaichi.webservice.API;
-import com.sorinaidea.ghaichi.webservice.BarbershopServices;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class BarberShopGridActivity extends AppCompatActivity {
 
@@ -76,22 +57,30 @@ public class BarberShopGridActivity extends AppCompatActivity {
 
 
     private void initDataset() {
-        Call<List<BarbershopCard>> barbershopCall = API.getRetrofit().create(BarbershopServices.class).barbershopsCards(Auth.getAccessKey(getApplicationContext()));
 
-        barbershopCall.enqueue(new Callback<List<BarbershopCard>>() {
-            @Override
-            public void onResponse(Call<List<BarbershopCard>> call, Response<List<BarbershopCard>> response) {
-                if (response.body() != null) {
-                    adapter = new GridItemsAdabper(response.body(), getApplicationContext());
-                    recAllItems.setAdapter(adapter);
-                }
-            }
+        List<BarbershopCard> barbers = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            barbers.add(new BarbershopCard());
+        }
+        adapter = new GridItemsAdabper(barbers, getApplicationContext());
+        recAllItems.setAdapter(adapter);
 
-            @Override
-            public void onFailure(Call<List<BarbershopCard>> call, Throwable t) {
-
-            }
-        });
+//        Call<List<BarbershopCard>> barbershopCall = API.getRetrofit().create(BarbershopServices.class).barbershopsCards(Auth.getAccessKey(getApplicationContext()));
+//
+//        barbershopCall.enqueue(new Callback<List<BarbershopCard>>() {
+//            @Override
+//            public void onResponse(Call<List<BarbershopCard>> call, Response<List<BarbershopCard>> response) {
+//                if (response.body() != null) {
+//                    adapter = new GridItemsAdabper(response.body(), getApplicationContext());
+//                    recAllItems.setAdapter(adapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<BarbershopCard>> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     @Override

@@ -3,8 +3,6 @@ package com.sorinaidea.ghaichi.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Objects;
-
 /**
  * Created by mr-code on 6/20/2018.
  */
@@ -91,7 +89,7 @@ public class Service implements Parcelable {
 
     /**
      * @param title
-     * @param discountPercent should be between 0.0f and 1.0f
+     * @param price should be between 0.0f and 1.0f
      */
     public Service(String title, float price) {
         this.setTitle(title);

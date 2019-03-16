@@ -65,7 +65,7 @@ public class LoginCheckActivity extends ToolbarActivity {
                 public void onFailure(Call<Response> call, Throwable t) {
                     hideProgressDialog();
                     if (t instanceof IOException) {
-                        confirmAlert("قطع ارتباط", "خطا در اتصال به سرور", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark, "تلاش مجدد", v -> call.clone(), "خروج", v -> finish());
+                        confirmAlert("قطع ارتباط", "خطا در اتصال به سرور", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark, "تلاش مجدد", v -> checkLogin(), "خروج", v -> finish());
                         return;
                     }
                 }

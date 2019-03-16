@@ -6,26 +6,24 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
-public class Barber extends Model implements Parcelable  {
+public class Barber extends Model implements Parcelable {
 
     @Nullable
     @SerializedName("name")
     private String name;
-    
+
     @Nullable
     @SerializedName("family")
     private String family;
-    
+
     @Nullable
     @SerializedName("mobile")
     private String mobile;
-    
+
     @Nullable
-    @SerializedName("changeAvatar")
+    @SerializedName("avatar")
     private String avatar;
-    
+
 
     public String getName() {
         return name;
@@ -59,6 +57,8 @@ public class Barber extends Model implements Parcelable  {
         this.avatar = avatar;
     }
 
+    public Barber() {
+    }
 
     private Barber(Parcel in) {
         id = in.readInt();

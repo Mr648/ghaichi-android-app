@@ -1,6 +1,5 @@
 package com.sorinaidea.ghaichi.ui;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,8 +11,6 @@ import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.esafirm.imagepicker.features.ImagePicker;
-import com.esafirm.imagepicker.features.ReturnMode;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.DataAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
@@ -134,7 +131,11 @@ public class UserProfileActivity extends ImageUploaderActivity
                     .setTitle("ویرایش")
                     .setMessage(edit.getKeyFa() + " خود را ویرایش کنید.")
                     .setInitialInput(edit.getValue())
-                    .setConfirmButton("تایید", text -> updateField(edit.getKeyEn(), text))
+                    .setConfirmButton("تایید", text -> {
+                        if (!text.isEmpty() && !text.equals(edit.getValue())) {
+                            updateField(edit.getKeyEn(), text);
+                        }
+                    })
                     .configureMessageView(this::applyTextFont)
                     .configureTitleView(this::applyTextFont)
                     .show();
@@ -234,19 +235,7 @@ public class UserProfileActivity extends ImageUploaderActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_pick_photo) {
-            try {
-                ImagePicker.create(this).single().returnMode(ReturnMode.ALL)
-                        .folderMode(true) // folder mode (false by default)
-                        .toolbarFolderTitle("پوشه") // folder selection title
-                        .toolbarImageTitle("برای انتخاب لمس کنید") // image selection title
-                        .toolbarArrowColor(Color.WHITE) // Toolbar 'up' arrow color
-                        .showCamera(true) // show camera or not (true by default)
-                        .imageDirectory("دوربین") // directory name for captured image  ("Camera" folder by default)
-                        .enableLog(false) // disabling log
-                        .start(); // start image picker activity with request code
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            pickSingleImage();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -272,27 +261,16 @@ public class UserProfileActivity extends ImageUploaderActivity
             @Override
             public boolean upload(MultipartBody.Part image) {
                 showProgressDialog(R.string.upload_title, R.string.upload_progress, R.mipmap.ic_file_upload_white_24dp, R.color.colorAmberAccent900, false);
-
                 ProfileServices serviceServices = API.getRetrofit().create(ProfileServices.class);
                 serviceServices.changeAvatar(Auth.getAccessKey(UserProfileActivity.this), image).enqueue(new Callback<UploadImageResponse>() {
                     @Override
                     public void onResponse(Call<UploadImageResponse> call, retrofit2.Response<UploadImageResponse> response) {
                         hideProgressDialog();
                         if (response.isSuccessful()) {
-                            try {
-                                UploadImageResponse result = response.body();
-                                Objects.requireNonNull(result);
-                                Data userImage = new Data();
-                                userImage.setKeyEn("avatar");
-                                userImage.setKeyFa("تصویر");
-                                userImage.setEditable(true);
-                                userImage.setValue(result.getImages().get(0).getPath());
-                                updateProfileImage(userImage);
-                                alert("آپلود موفق", "تصویر با موفقیت افزوده شدند.", R.mipmap.ic_file_upload_white_24dp, R.color.colorTransaction);
-                                uploadResult = true;
-                            } catch (NullPointerException ex) {
-                                alert("خطای", "اطلاعات به درستی بارگزاری نشده اند، لطفا مجددا سعی نمایید.", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
-                            }
+                            UploadImageResponse result = response.body();
+                            result.getImages();
+                            alert("آپلود موفق", "تصویر با موفقیت افزوده شدند.", R.mipmap.ic_file_upload_white_24dp, R.color.colorTransaction);
+                            uploadResult = true;
                         } else {
                             alert("آپلود ناموفق", "خطا در آپلود تصویر.", R.drawable.ic_info, R.color.colorAmberAccent900);
                             uploadResult = false;
@@ -301,7 +279,7 @@ public class UserProfileActivity extends ImageUploaderActivity
 
                     @Override
                     public void onFailure(Call<UploadImageResponse> call, Throwable t) {
-                        hideProgressDialog();
+//                            hideProgressDialog();
                         uploadResult = false;
                         if (t instanceof IOException) {
                             alert("قطع ارتباط", "خطا در اتصال به سرور", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);

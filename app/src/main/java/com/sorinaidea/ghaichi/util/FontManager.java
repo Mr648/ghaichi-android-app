@@ -5,13 +5,12 @@ import android.graphics.Typeface;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -41,6 +40,8 @@ public class FontManager {
             ((AppCompatButton)view).setTypeface(typeface);
         }else if (view instanceof AppCompatTextView) {
             ((AppCompatTextView)view).setTypeface(typeface);
+        }else if (view instanceof AppCompatRadioButton) {
+            ((AppCompatRadioButton)view).setTypeface(typeface);
         }else if (view instanceof TextInputLayout) {
             ((TextInputLayout)view).setTypeface(typeface);
         }else if (view instanceof TextInputEditText) {

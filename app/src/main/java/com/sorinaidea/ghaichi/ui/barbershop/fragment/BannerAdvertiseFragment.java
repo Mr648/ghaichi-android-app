@@ -14,11 +14,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.ui.barbershop.activity.UiUpdater;
 import com.sorinaidea.ghaichi.util.FontManager;
 
 
-public class BannerAdvertiseFragment extends Fragment {
-
+public class BannerAdvertiseFragment extends Fragment implements UiUpdater {
 
 
     View.OnClickListener pricingClickListener;
@@ -47,7 +47,6 @@ public class BannerAdvertiseFragment extends Fragment {
     }
 
 
-
     private void setFonts() {
         fontIranSans = FontManager.getTypeface(getContext(), FontManager.IRANSANS_TEXTS);
         FontManager.setFont(inputLayoutDescription, fontIranSans);
@@ -70,5 +69,10 @@ public class BannerAdvertiseFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         setupInputs(view);
         setFonts();
+    }
+
+    @Override
+    public void update(String text) {
+        if (btnNumberOfViews != null) btnNumberOfViews.setText(text);
     }
 }

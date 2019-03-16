@@ -165,7 +165,7 @@
 
         </activity>
         <activity
-            android:name=".ui.ManageSampleActivity"
+            android:name=".ui.barbershop.activity.ShowSampleActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

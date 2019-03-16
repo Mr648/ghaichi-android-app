@@ -1,6 +1,5 @@
 package com.sorinaidea.ghaichi.ui.barbershop.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -22,10 +21,12 @@ import com.sorinaidea.ghaichi.webservice.barbershop.CategoryServices;
 import com.sorinaidea.ghaichi.webservice.barbershop.ServiceServices;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,7 +57,6 @@ public class AddServiceActivity extends ToolbarActivity {
 
 
     public static final int ADD_SERVICE_REQUEST = 0x3000;
-
 
 
     @Override
@@ -121,9 +121,6 @@ public class AddServiceActivity extends ToolbarActivity {
             private int choice = -1;
 
             private CharSequence[] getCategories() {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                    categories.stream().map((Function<Category, CharSequence>) Category::getName);
-//                }
                 CharSequence[] names = new CharSequence[categories.size()];
                 int index = 0;
                 for (Category c :
@@ -167,10 +164,13 @@ public class AddServiceActivity extends ToolbarActivity {
             }
 
             private ArrayList<CharSequence> getSelectedBarbers() {
+                selectedBarbers.clear();
                 ArrayList<CharSequence> list = new ArrayList<>();
                 for (int i = 0; i < selects.length; i++) {
-                    if (selects[i]) list.add(names[i]);
-                    selectedBarbers.add(barbers.get(i));
+                    if (selects[i]) {
+                        list.add(names[i]);
+                        selectedBarbers.add(barbers.get(i));
+                    }
                 }
                 return list;
             }
@@ -234,6 +234,7 @@ public class AddServiceActivity extends ToolbarActivity {
                 btnSelectBarber
         );
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_save, menu);
@@ -260,36 +261,19 @@ public class AddServiceActivity extends ToolbarActivity {
         super.onBackPressed();
     }
 
-    void selectServiceImages(Service service) {
-        Intent intent = new Intent(AddServiceActivity.this, SamplesActivity.class);
-        intent.putExtra("SERVICE", service);
-        startActivityForResult(intent, ADD_SERVICE_REQUEST);
-    }
 
-    /* Intent intent=new Intent();
-                     intent.putExtra("MESSAGE",message);
-     setResult(2,intent);
-     finish();//finishing activity  */
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == ADD_SERVICE_REQUEST) {
-                Service service = data.getParcelableExtra("SERVICE");
-
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
-    private void addService(Service service) {
+    private void addService(Map<String, String> map) {
         ServiceServices serviceServices = API.getRetrofit().create(ServiceServices.class);
-        serviceServices.create(Auth.getAccessKey(AddServiceActivity.this), service).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+        serviceServices.create(Auth.getAccessKey(AddServiceActivity.this), map).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
             @Override
             public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
                 if (response.isSuccessful()) {
+                    try {
+                        Objects.requireNonNull(response.body());
+                        toast(response.body().getMessage());
+                    } catch (NullPointerException ex) {
 
+                    }
                 } else {
 
                 }
@@ -339,12 +323,27 @@ public class AddServiceActivity extends ToolbarActivity {
 
         service.setCategory(categories.get(selectedCategory));
         service.setBarbers(selectedBarbers);
+        Map<String, String> map = new HashMap<>();
+        map.put("category_id", String.valueOf(categories.get(selectedCategory).getId()));
+        map.put("name", txtName.getText().toString());
+        map.put("price", txtPrice.getText().toString());
+        map.put("description", txtDescription.getText().toString());
+        map.put("time", txtDuration.getText().toString());
+        map.put("barbers", getSelectedBarbershops());
+        addService(map);
+    }
 
-        selectServiceImages(service);
+    private String getSelectedBarbershops() {
+        String str = "";
+        for (Barber b :
+                selectedBarbers) {
+            str = str.concat(String.valueOf(b.getId()) + ",");
+        }
+        return str;
     }
 
     private boolean validateName() {
-        if (txtName.getText().toString().trim().isEmpty()) {
+        if (txtName.getText().  toString().trim().isEmpty()) {
             inputLayoutName.setError(getString(R.string.err__empty__name));
             requestFocus(txtName);
             return false;

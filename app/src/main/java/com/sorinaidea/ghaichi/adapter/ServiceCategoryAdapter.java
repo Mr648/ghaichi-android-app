@@ -1,7 +1,6 @@
 package com.sorinaidea.ghaichi.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.models.Category;
-import com.sorinaidea.ghaichi.util.FontManager;
 
 import java.util.ArrayList;
 
@@ -19,11 +17,8 @@ import java.util.ArrayList;
  * Created by mr-code on 3/10/2018.
  */
 
-public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategoryAdapter.ViewHolder> {
+public class ServiceCategoryAdapter extends BaseAdapter<ServiceCategoryAdapter.ViewHolder, Category>{
 
-    private ArrayList<Category> mDataSet;
-    private Context mContext;
-    private Typeface fontIranSans;
     private OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener {
@@ -67,9 +62,7 @@ public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategory
 
 
     public ServiceCategoryAdapter(ArrayList<Category> serviceCategories, Context context, OnItemClickListener editListener) {
-        mDataSet = serviceCategories;
-        mContext = context;
-        fontIranSans = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
+        super(serviceCategories, context);
         this.onItemClickListener = editListener;
     }
 
@@ -93,9 +86,8 @@ public class ServiceCategoryAdapter extends RecyclerView.Adapter<ServiceCategory
         viewHolder.getImgEdit().setOnClickListener(view -> {
             onItemClickListener.updateItem(category);
         });
-
-        FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
-        FontManager.setFont(viewHolder.getTxtDescription(), fontIranSans);
+        applyTextFont(viewHolder.getTxtTitle(),
+                viewHolder.getTxtDescription());
     }
 
     @Override
