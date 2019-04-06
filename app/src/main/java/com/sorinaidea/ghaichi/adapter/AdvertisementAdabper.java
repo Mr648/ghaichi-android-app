@@ -2,9 +2,7 @@ package com.sorinaidea.ghaichi.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -14,15 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.model.Advertise;
-import com.sorinaidea.ghaichi.model.Transaction;
 import com.sorinaidea.ghaichi.ui.AdvertismentInfoActivity;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.Util;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * Created by mr-code on 3/10/2018.
@@ -103,8 +100,8 @@ public class AdvertisementAdabper extends RecyclerView.Adapter<AdvertisementAdab
         FontManager.setFont(viewHolder.getTxtPrice(), fontIranSans);
 
         Advertise currentAd = mDataSet.get(position);
-        viewHolder.getTxtAmount().setText(String.format(new Locale("fa"),"تعداد: %d", currentAd.getAmount()));
-        viewHolder.getTxtPrice().setText(String.format(new Locale("fa"),"%.2f تومان", currentAd.getPrice()));
+        viewHolder.getTxtAmount().setText(String.format(App.LOCALE,"تعداد: %d", currentAd.getAmount()));
+        viewHolder.getTxtPrice().setText(String.format(App.LOCALE,"%.2f تومان", currentAd.getPrice()));
         viewHolder.getImgIsDone().setColorFilter(Util.getSuitableColor(currentAd));
         viewHolder.getCardAdvertise().setOnClickListener((view)->{
             Intent intent = new Intent(mContext, AdvertismentInfoActivity.class);

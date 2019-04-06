@@ -5,15 +5,19 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
 public class Image extends Model implements Parcelable  {
 
     @SerializedName("path")
     private String path;
     @SerializedName("tag")
     private String tag;
+    @SerializedName("date")
+    private String date;
 
+
+    public String getDate() {
+        return date;
+    }
 
     public String getPath() {
         return path;
@@ -31,15 +35,21 @@ public class Image extends Model implements Parcelable  {
         this.tag = tag;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+
     private Image(Parcel in){
         id = in.readInt();
         path= in.readString();
         tag= in.readString();
+        date= in.readString();
     }
 
     @Override
     public int describeContents() {
-        // DON'T Modify this value.
+        // TODO DON'T Modify this value.
         return 0;
     }
 
@@ -48,6 +58,7 @@ public class Image extends Model implements Parcelable  {
         dest.writeInt(id);
         dest.writeString(path);
         dest.writeString(tag);
+        dest.writeString(date);
     }
 
     public static final Creator<Image> CREATOR = new Creator<Image>() {

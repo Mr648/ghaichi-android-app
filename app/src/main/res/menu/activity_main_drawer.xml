@@ -5,10 +5,11 @@
         android:id="@+id/action_profile"
         android:icon="@drawable/ic_account_circle_white_24dp"
         android:title="@string/label_profile" />
-    <item
-        android:id="@+id/action_credit"
-        android:icon="@drawable/ic_credit_card_black_18dp"
-        android:title="@string/label_credit" />
+
+    <!--<item-->
+        <!--android:id="@+id/action_credit"-->
+        <!--android:icon="@drawable/ic_credit_card_black_18dp"-->
+        <!--android:title="@string/label_credit" />-->
 
 
     <item
@@ -23,10 +24,10 @@
 
     <item android:title="سایر">
         <menu>
-            <item
-                android:id="@+id/action_setting"
-                android:icon="@drawable/ic_settings_black_18dp"
-                android:title="@string/label_setting" />
+            <!--<item-->
+                <!--android:id="@+id/action_setting"-->
+                <!--android:icon="@drawable/ic_settings_black_18dp"-->
+                <!--android:title="@string/label_setting" />-->
             <item
                 android:id="@+id/action_aboutus"
                 android:icon="@drawable/ic_tag_faces_black_18dp"

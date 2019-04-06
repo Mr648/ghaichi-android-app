@@ -1,6 +1,7 @@
 package com.sorinaidea.ghaichi.models;
 
 import com.google.gson.annotations.SerializedName;
+import com.sorinaidea.ghaichi.App;
 
 public class Data {
 
@@ -43,5 +44,10 @@ public class Data {
 
     public void setEditable(boolean editable) {
         this.editable = editable;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(App.LOCALE, "%s:%s", this.keyEn, this.value);
     }
 }

@@ -23,12 +23,17 @@ import java.util.Arrays;
 public class BaseActivity extends AppCompatActivity {
 
     protected Typeface fontText;
+    protected Typeface fontTextBold;
     protected Typeface fontIcon;
 
     protected void applyTextFont(View... views) {
         for (View view : views) {
             FontManager.setFont(view, fontText);
-
+        }
+    }
+  protected void applyTextBoldFont(View... views) {
+        for (View view : views) {
+            FontManager.setFont(view, fontTextBold);
         }
     }
 
@@ -41,7 +46,8 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fontText = FontManager.getTypeface(this, FontManager.IRANSANS_TEXTS);
+        fontText = FontManager.getTypeface(this, FontManager.VAZIR_TEXTS);
+        fontTextBold = FontManager.getTypeface(this, FontManager.VAZIR_BOLD_TEXTS);
         fontIcon = FontManager.getTypeface(this, FontManager.MATERIAL_ICONS);
     }
 

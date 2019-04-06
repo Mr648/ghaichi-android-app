@@ -19,21 +19,26 @@ public abstract class BaseAdapter<Some extends RecyclerView.ViewHolder, Data> ex
     protected Typeface fontIcon;
 
     public BaseAdapter(List<Data> data, Context context) {
-        mDataSet =  data;
+        mDataSet = data;
         mContext = context;
-        fontText = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
+        fontText = FontManager.getTypeface(mContext, FontManager.VAZIR_TEXTS);
         fontIcon = FontManager.getTypeface(mContext, FontManager.MATERIAL_ICONS);
     }
 
     protected void applyTextFont(View... views) {
         for (View view : views) {
-        FontManager.setFont(view, fontText);
+            FontManager.setFont(view, fontText);
+        }
     }
-}
 
     protected void applyIconsFont(View... views) {
         for (View view : views) {
             FontManager.setFont(view, fontIcon);
         }
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDataSet.size();
     }
 }

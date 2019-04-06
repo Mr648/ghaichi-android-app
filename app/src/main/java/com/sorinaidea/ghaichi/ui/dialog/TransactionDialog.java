@@ -3,7 +3,6 @@ package com.sorinaidea.ghaichi.ui.dialog;
 import android.app.Dialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
@@ -12,23 +11,15 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
-import android.widget.Toast;
 
 import com.alirezaafkar.sundatepicker.DatePicker;
-import com.alirezaafkar.sundatepicker.components.JDF;
 import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
+import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.util.FontManager;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by mr-code on 6/14/2018.
@@ -97,7 +88,7 @@ public class TransactionDialog extends Dialog implements View.OnClickListener, D
                 new DatePicker.Builder()
                         .id(id)
                         .theme(theme)
-                        .date(Calendar.getInstance(new Locale("fa")))
+                        .date(Calendar.getInstance(App.LOCALE))
                         .build(TransactionDialog.this)
                         .show(activity.getSupportFragmentManager(), "");
                 break;
@@ -107,7 +98,7 @@ public class TransactionDialog extends Dialog implements View.OnClickListener, D
     @Override
     public void onDateSet(int id, @Nullable Calendar calendar, int day, int month, int year) {
         if (id == 0x1010101) {
-            btnDate.setText(String.format(new Locale("fa"),"%d/%d/%d", year, month, day));
+            btnDate.setText(String.format(App.LOCALE, "%d/%d/%d", year, month, day));
         }
     }
 

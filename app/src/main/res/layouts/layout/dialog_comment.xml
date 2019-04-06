@@ -1,95 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorDialogBackground"
-    android:gravity="center_horizontal|center_vertical"
     android:layoutDirection="rtl"
-    android:orientation="vertical">
+    android:padding="@dimen/_8dp">
+    <android.support.v7.widget.AppCompatRatingBar
+        android:id="@+id/ratingBar"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/_24dp"
+        android:isIndicator="false"
+        android:numStars="@integer/five"
+        android:rating="3.5"
+        android:stepSize="0.5"
+        android:theme="@style/AppTheme.RatingBar" />
 
-    <RelativeLayout
-        android:layout_width="@dimen/_320dp"
-        android:layout_height="@dimen/_240dp"
-        android:background="@drawable/dialog_bg">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/inputLayoutComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtOnlinePayment"
+        android:layout_marginEnd="@dimen/_16dp"
+        android:layout_marginStart="@dimen/_16dp"
+        android:layout_marginTop="@dimen/_96dp"
+        android:hint="@string/_lbl_comment">
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/txtTitle"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="@dimen/_16dp"
-            android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_16dp"
-            android:text="@string/_lbl_comment_title" />
-
-        <android.support.v7.widget.AppCompatRatingBar
-            android:id="@+id/ratingBar"
-            style="@style/Widget.AppCompat.RatingBar.Indicator"
-            android:theme="@style/AppTheme.RatingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/_56dp"
-            android:numStars="@integer/five"
-            android:isIndicator="false"
-            android:rating="3.5"
-            android:stepSize="0.5" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputLayoutComment"
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/txtComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_104dp"
-            android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginEnd="@dimen/_16dp"
-            android:layout_below="@id/txtOnlinePayment"
-            android:hint="@string/_lbl_comment">
+            android:gravity="center"
+            android:maxLines="@integer/three" />
+    </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/txtComment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:maxLines="@integer/three" />
-        </android.support.design.widget.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inputLayoutComment"
+        android:layout_marginTop="@dimen/_8dp"
+        android:gravity="start"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/dialog_button_background"
-            android:gravity="center_vertical"
-            android:weightSum="2">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnOk"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_lbl_confirm" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btnCancel"
-                style="@style/AppTheme.DialogButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/_2dp"
-                android:layout_weight="1"
-                android:text="@string/_lbl_cancel" />
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnCancel"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_lbl_cancel" />
+    </LinearLayout>
+</RelativeLayout>
 
-            <ImageView
-                android:layout_width="@dimen/_1px"
-                android:layout_height="@dimen/_42dp"
-                android:src="@color/colorWhite"
-                android:contentDescription="TODO" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btnComment"
-                style="@style/AppTheme.DialogButton.Bold"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/_2dp"
-                android:layout_weight="1"
-                android:text="@string/_lbl_confirm" />
-
-        </LinearLayout>
-    </RelativeLayout>
-
-</LinearLayout>

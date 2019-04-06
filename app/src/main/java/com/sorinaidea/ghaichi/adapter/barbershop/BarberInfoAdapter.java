@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.BaseAdapter;
 import com.sorinaidea.ghaichi.models.Barber;
 import com.sorinaidea.ghaichi.webservice.API;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -98,7 +98,7 @@ public class BarberInfoAdapter extends BaseAdapter<BarberInfoAdapter.ViewHolder,
                 .error(R.drawable.ic_account_circle_white_24dp)
                 .into(viewHolder.getImgLogo());
 
-        viewHolder.getTxtName().setText(String.format(new Locale("fa"), "%s %s", barber.getName(), barber.getFamily()));
+        viewHolder.getTxtName().setText(String.format(App.LOCALE, "%s %s", barber.getName(), barber.getFamily()));
         viewHolder.getTxtMobile().setText(barber.getMobile());
 
         viewHolder.getImgDelete().setOnClickListener(view -> clickListener.delete(barber));

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:layoutDirection="rtl">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        app:theme="@style/ToolbarStyle.Primary">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginEnd="@dimen/_16dp" />
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recChat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginBottom="?attr/actionBarSize" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_above="@id/recChat"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2dp"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@color/colorGrayLight" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/_4dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_4dp"
+            android:src="@drawable/ic_send_white_24dp"
+            android:tint="@color/colorWhite" />
+
+        <EditText
+            android:id="@+id/txtMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/fabSend"
+            android:background="@null"
+            android:hint="@string/_hint_message"
+            android:inputType="textMultiLine"
+            android:minLines="1" />
+    </RelativeLayout>
+
+</RelativeLayout>

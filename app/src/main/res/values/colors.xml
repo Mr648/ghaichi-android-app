@@ -36,6 +36,7 @@
     <color name="colorBlueDark">#040138</color>
     <color name="colorBlue">#1976d2</color>
     <color name="colorAmberAccent900">#ffab00</color>
+    <color name="colorAmberAccent200">#ffd740</color>
 
     <color name="credit_remaining">#10B491</color>
     <color name="credit_reservations">#FF2265</color>

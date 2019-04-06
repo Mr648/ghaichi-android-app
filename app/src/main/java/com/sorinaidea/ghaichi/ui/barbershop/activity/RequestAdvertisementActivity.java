@@ -1,11 +1,13 @@
 package com.sorinaidea.ghaichi.ui.barbershop.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -16,11 +18,14 @@ import com.sorinaidea.ghaichi.adapter.barbershop.SCDPricesAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Pricing;
 import com.sorinaidea.ghaichi.ui.ImageUploaderActivity;
+import com.sorinaidea.ghaichi.ui.barbershop.fragment.AdvertiseFragment;
 import com.sorinaidea.ghaichi.ui.barbershop.fragment.BannerAdvertiseFragment;
 import com.sorinaidea.ghaichi.ui.barbershop.fragment.SpecialAdvertiseFragment;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.barbershop.AdvertiseServices;
 import com.sorinaidea.ghaichi.webservice.image.UploadTask;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 
 import java.io.File;
@@ -29,11 +34,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RequestAdvertisementActivity extends ImageUploaderActivity {
+public class RequestAdvertisementActivity extends ImageUploaderActivity implements BannerAdvertiseFragment.ImagePicker, AdvertiseFragment.Advertiser {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -147,7 +155,7 @@ public class RequestAdvertisementActivity extends ImageUploaderActivity {
             protected void checked(Pricing price) {
                 selectedPricing = price;
                 selectPricingDialog.dismiss();
-                updater.update(price.getDescription());
+                updater.update(price);
             }
         };
         recPricing.setAdapter(adapter);
@@ -157,7 +165,110 @@ public class RequestAdvertisementActivity extends ImageUploaderActivity {
 
     @Override
     protected UploadTask generateTask(File... files) throws NullPointerException {
+        try {
+            Objects.requireNonNull(files);
+            banner = files[0];
+            final int MAX_WIDTH = 1024;
+            final int MAX_HEIGHT = 768;
+
+            int size = (int) Math.ceil(Math.sqrt(MAX_WIDTH * MAX_HEIGHT));
+            API.getPicasso(this)
+                    .load(banner)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .fit()
+                    .centerCrop()
+                    .placeholder(R.drawable.banner_image_placeholder)
+                    .error(R.drawable.banner_image_placeholder)
+                    .into(into);
+        } catch (NullPointerException ignored) {
+        }
         return null;
+    }
+
+    AppCompatImageView into;
+    File banner;
+
+    @Override
+    public void pick(AppCompatImageView into) {
+        this.into = into;
+        pickSingleImage();
+    }
+
+    @Override
+    public File picked() {
+        try {
+            return Objects.requireNonNull(banner).exists() ? banner : null;
+        } catch (NullPointerException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public void requestBannerAdvertise(@NonNull File image, @NonNull Pricing price, @NonNull String description) {
+        confirmAlert("درخواست تبلیغ بنری", "درخواست تبلیغ ثبت شود؟", R.drawable.advertising, R.color.colorGreenAccent200, view -> {
+            AdvertiseServices advertiseServices = API.getRetrofit().create(AdvertiseServices.class);
+
+            showProgress();
+
+            MultipartBody.Part img = MultipartBody.Part.createFormData("advertise", image.getName(),
+                    RequestBody.create(MediaType.parse("image/*"), image));
+
+            advertiseServices.requestBannerAdvertise(Auth.getAccessKey(this), img, description, price.getId())
+                    .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+                        @Override
+                        public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
+                            hideProgress();
+                            if (response.isSuccessful()) {
+                                try {
+                                    toast(Objects.requireNonNull(response.body()).getMessage());
+                                    return;
+                                } catch (NullPointerException ignore) {
+                                }
+                            }
+                            toast("خطایی رخ داده است.");
+                        }
+
+                        @Override
+                        public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+                            hideProgress();
+                            if (t instanceof IOException) {
+                                toast("خطا در ارتباط با سرور");
+                            }
+                        }
+                    });
+        });
+    }
+
+    @Override
+    public void requestSpecialAdvertise(@NonNull Pricing price, @NonNull String description) {
+        confirmAlert("درخواست تبلیغ ویژه", "درخواست تبلیغ ثبت شود؟", R.drawable.advertising, R.color.colorGreenAccent200, view -> {
+            AdvertiseServices advertiseServices = API.getRetrofit().create(AdvertiseServices.class);
+            showProgress();
+            advertiseServices.requestSpecialAdvertise(Auth.getAccessKey(this), description, price.getId())
+                    .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+                        @Override
+                        public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
+                            hideProgress();
+                            if (response.isSuccessful()) {
+                                try {
+                                    toast(Objects.requireNonNull(response.body()).getMessage());
+                                    return;
+                                } catch (NullPointerException ignore) {
+                                }
+                            }
+                            toast("خطایی رخ داده است.");
+                        }
+
+                        @Override
+                        public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+                            hideProgress();
+                            if (t instanceof IOException) {
+                                toast("خطا در ارتباط با سرور");
+                            }
+                        }
+                    });
+        });
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

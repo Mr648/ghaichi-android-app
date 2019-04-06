@@ -2,66 +2,44 @@ package com.sorinaidea.ghaichi.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.fast.Service;
+import com.sorinaidea.ghaichi.models.BaseService;
 import com.sorinaidea.ghaichi.ui.ImageSliderActivity;
-import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 
-import java.io.IOException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mr-code on 3/10/2018.
  */
 
-public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<BarberShopProfileServiceAdapter.ViewHolder> {
-    private static final String TAG = "BarberShopProfile";
-
-    private ArrayList<Service> mDataSet;
-    private Context mContext;
-    private Typeface fontIranSans;
+public class BarberShopProfileServiceAdapter extends BaseAdapter<BarberShopProfileServiceAdapter.ViewHolder, BaseService> {
     private int barbershopId;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView txtTitle;
-        private final AppCompatImageView imgSelectedImage;
-
+        TextView txtTitle;
+        AppCompatImageView imgImage;
 
         public ViewHolder(View v) {
             super(v);
-
             txtTitle = v.findViewById(R.id.txtTitle);
-            imgSelectedImage = v.findViewById(R.id.imgSelectedImage);
+            imgImage = v.findViewById(R.id.imgImage);
         }
 
-
-        public AppCompatImageView getImgSelectedImage() {
-            return imgSelectedImage;
-        }
-
-        public TextView getTxtTitle() {
-            return txtTitle;
-        }
     }
 
 
-    public BarberShopProfileServiceAdapter(ArrayList<Service> chatItems, Context context, int barbershopId) {
-        mDataSet = chatItems;
-        mContext = context;
-        fontIranSans = FontManager.getTypeface(mContext, FontManager.IRANSANS_TEXTS);
+    public BarberShopProfileServiceAdapter(List<BaseService> services, Context context, int barbershopId) {
+        super(services, context);
         this.barbershopId = barbershopId;
     }
 
@@ -77,21 +55,17 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Log.d(TAG, "Element " + position + " set.");
-        Service service = mDataSet.get(position);
-        viewHolder.getTxtTitle().setText(service.getName());
+        BaseService service = mDataSet.get(position);
+        viewHolder.txtTitle.setText(service.getName());
 
-        try {
-            API.getPicasso(mContext)
-                    .load(API.BASE_URL
-                            + URLDecoder.decode(service.getPhotos().get(0).getPath(), "UTF-8"))
-                    .fit()
-                    .into(viewHolder.getImgSelectedImage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        API.getPicasso(mContext)
+                .load(service.getBanner())
+                .centerCrop()
+                .placeholder(R.drawable.preview_small)
+                .fit()
+                .into(viewHolder.imgImage);
 
-        viewHolder.getImgSelectedImage().setOnClickListener(view -> {
+        viewHolder.imgImage.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, ImageSliderActivity.class);
             intent.putExtra(Util.COMMUNICATION_KEYS.SERVICE_ID, Integer.toString(service.getId()));
             intent.putExtra(Util.COMMUNICATION_KEYS.BARBERSHOP_ID, Integer.toString(barbershopId));
@@ -99,12 +73,7 @@ public class BarberShopProfileServiceAdapter extends RecyclerView.Adapter<Barber
             mContext.startActivity(intent);
         });
 
-        FontManager.setFont(viewHolder.getTxtTitle(), fontIranSans);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mDataSet.size();
+        applyTextFont(viewHolder.txtTitle);
     }
 
 }

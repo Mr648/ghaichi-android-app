@@ -50,8 +50,6 @@
                     android:layout_marginStart="@dimen/_24dp"
                     app:civ_border_color="@color/colorGray"
                     app:civ_border_width="@dimen/_1dp" />
-
-
             </RelativeLayout>
 
 
@@ -141,17 +139,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_16dp" />
 
-            <LinearLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recServices"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recBanners"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:overScrollMode="never"/>
-            </LinearLayout>
+                android:overScrollMode="never"/>
         </LinearLayout>
 
     </ScrollView>
@@ -162,16 +154,14 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:background="@color/colorBarberShopToolbar"
-        app:theme="@style/ToolbarStyle" />
-
-    <!--<android.support.design.widget.BottomNavigationView-->
-        <!--android:id="@+id/bottomNavigation"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--app:itemBackground="@color/colorPrimary"-->
-        <!--app:itemIconTint="@color/white"-->
-        <!--app:itemTextColor="@color/white"-->
-        <!--app:menu="@menu/show_barbershop_remove_bookmark" />-->
+        app:theme="@style/ToolbarStyle" >
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16dp"
+            android:textColor="@color/colorWhite" />
+    </android.support.v7.widget.Toolbar>
 
 </RelativeLayout>

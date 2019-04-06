@@ -4,7 +4,6 @@ import com.sorinaidea.ghaichi.fast.BarbershopCard;
 import com.sorinaidea.ghaichi.fast.ReagentCode;
 import com.sorinaidea.ghaichi.fast.UserInfo;
 import com.sorinaidea.ghaichi.fast.UserShortInfo;
-import com.sorinaidea.ghaichi.webservice.model.requests.AddCommentRequest;
 import com.sorinaidea.ghaichi.webservice.model.requests.EditProfileRequest;
 import com.sorinaidea.ghaichi.webservice.model.responses.IsBookmarked;
 import com.sorinaidea.ghaichi.webservice.model.responses.Response;
@@ -86,8 +85,7 @@ public interface UserProfileService {
     @POST("api/system/auth/check")
     Call<com.sorinaidea.ghaichi.models.Response> validateToken(@Field("accessKey") String accessKey);
 
-    @POST("api/user/comment/create")
-    Call<Response> addComment(@Body AddCommentRequest addCommentRequest);
+
 
     @FormUrlEncoded
     @POST("api/user/bookmark/createOrRemove")

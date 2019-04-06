@@ -2,8 +2,6 @@ package com.sorinaidea.ghaichi.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,26 +12,22 @@ import android.widget.TextView;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mr-code on 5/28/2018.
  */
 
 public class PhotoSliderAdapter extends PagerAdapter {
-    private ArrayList<String> images;
+    private List<String> images;
     private LayoutInflater inflater;
     private Context context;
 
 
-    public PhotoSliderAdapter(Context context, ArrayList<String> images ) {
+    public PhotoSliderAdapter(Context context, List<String> images) {
         this.context = context;
         this.images = images;
-
         inflater = LayoutInflater.from(context);
     }
 
@@ -63,25 +57,22 @@ public class PhotoSliderAdapter extends PagerAdapter {
             myImage.setOnClickListener(imageOnCLickListener);
         }
 
+        API.getPicasso(context)
+                .load(images.get(position))
+                .centerInside()
+                .fit()
+                .into(myImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        prgLoad.setVisibility(View.GONE);
+                        txtMessage.setVisibility(View.GONE);
+                    }
 
-        try {
-            API.getPicasso(context).load(API.BASE_URL
-                    + URLDecoder.decode(images.get(position), "UTF-8")).into(myImage, new Callback() {
-                @Override
-                public void onSuccess() {
-                    prgLoad.setVisibility(View.GONE);
-                    txtMessage.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onError() {
-                    txtMessage.setVisibility(View.VISIBLE);
-                    txtMessage.setText(context.getResources().getString(R.string._hint_date));
-                }
-            });
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+                    @Override
+                    public void onError() {
+                        txtMessage.setVisibility(View.VISIBLE);
+                    }
+                });
 
         view.addView(myImageLayout, 0);
         return myImageLayout;
@@ -92,8 +83,6 @@ public class PhotoSliderAdapter extends PagerAdapter {
     public void setImageOnCLickListener(View.OnClickListener imageOnCLickListener) {
         this.imageOnCLickListener = imageOnCLickListener;
     }
-
-
 
     @Override
     public boolean isViewFromObject(View view, Object object) {

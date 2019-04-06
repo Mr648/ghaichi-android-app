@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_4dp"
+    android:layout_marginEnd="@dimen/_16dp"
+    android:layout_marginStart="@dimen/_16dp"
+    android:layout_marginTop="@dimen/_4dp"
+    android:animateLayoutChanges="true"
+    android:layoutDirection="rtl"
+    app:cardCornerRadius="@dimen/_8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_8dp"
+        android:paddingEnd="@dimen/_16dp"
+        android:paddingStart="@dimen/_16dp"
+        android:paddingTop="@dimen/_8dp">
+
+        <TextView
+            android:id="@+id/txtDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="@dimen/_16dp"
+            android:textDirection="rtl"
+            android:textSize="@dimen/_18sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/swSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_access_time_black_18dp"
+            android:tint="@color/colorGrayAccent700" />
+
+        <LinearLayout
+            android:id="@+id/lnrTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtDay"
+            android:layout_marginTop="@dimen/_8dp"
+            android:animateLayoutChanges="true"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/_8dp"
+            android:paddingTop="@dimen/_8dp"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/_24dp"
+                        android:layout_height="@dimen/_24dp"
+                        android:src="@drawable/ic_sun_morning"
+                        android:tint="@color/colorGrayAccent700" />
+
+                    <TextView
+                        android:id="@+id/txtMo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:text="@string/_lbl_morning"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtMoFrom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_lbl_from" />
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/btnMoFrom"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_8dp"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtMoUntil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_lbl_until" />
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/btnMoUntil"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_8dp"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/_24dp"
+                        android:layout_height="@dimen/_24dp"
+                        android:src="@drawable/ic_sun_evening"
+                        android:tint="@color/colorGrayAccent700" />
+
+                    <TextView
+                        android:id="@+id/txtEv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:text="@string/_lbl_evening"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtEvFrom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_lbl_from" />
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/btnEvFrom"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_8dp"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtEvUntil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_lbl_until" />
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/btnEvUntil"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_8dp"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

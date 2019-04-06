@@ -12,10 +12,6 @@ import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.util.picasso.CircleTransformation;
 import com.sorinaidea.ghaichi.webservice.API;
-import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
-import java.net.URLDecoder;
 
 /**
  * Created by mr-code on 2/12/2018.
@@ -52,23 +48,15 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         String icon = marker.getSnippet();
         FontManager.setFont(txtTitle, fontIransans);
 
-
-        // TODO: use glide to get logo of marker
-
-        if (icon == null || (icon!=null && icon.isEmpty())) {
+        if (icon.equals("default")) {
             imgLogo.setImageResource(R.drawable.ic_cluster);
         } else {
-            try {
-                API.getPicasso(context)
-                        .load(API.BASE_URL
-                                + URLDecoder.decode(icon, "UTF-8"))
-                        .resize(128,128)
-                        .transform(new CircleTransformation()).into(imgLogo);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            API.getPicasso(context)
+                    .load(marker.getSnippet())
+                    .centerInside()
+                    .fit()
+                    .transform(new CircleTransformation()).into(imgLogo);
         }
-
         return view;
     }
 }

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sorinaidea.ghaichi">
 
+    <uses-sdk tools:overrideLibrary="co.ronash.pushe" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,11 +15,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-    <uses-sdk tools:overrideLibrary="co.ronash.pushe" />
+
     <permission
         android:name="com.sorinaidea.ghaichi.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -29,16 +30,14 @@
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-
     <application
-        android:name=".util.SorinaApplication"
+        android:name=".App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
@@ -48,7 +47,6 @@
                     android:scheme="package" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
@@ -67,7 +65,6 @@
         <meta-data
             android:name="co.ronash.pushe.cr"
             android:value="Tm9uZQ==" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -82,9 +79,11 @@
 
         <!-- ACTIVITIES -->
 
+
         <!-- User Activities -->
 
-        <!-- Barbershop Activities -->
+
+        <!-- BaseBarbershop Activities -->
 
         <activity
             android:name=".ui.LoginCheckActivity"
@@ -92,6 +91,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -101,9 +101,7 @@
         <activity
             android:name=".ui.CityChooserActivity"
             android:label="@string/label_choose_city"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.CommentsActivity"
             android:label="@string/app_name"
@@ -134,10 +132,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.barbershop.activity.BarbershopProfileActivity"
-            android:label="@string/label_setting"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:label="@string/toolbar_barbershop_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.ImageSliderActivity"
             android:label="@string/label_setting"
@@ -161,9 +157,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.barbershop.activity.PaymentActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.barbershop.activity.ShowSampleActivity"
             android:label="@string/label_aboutus"
@@ -208,24 +202,22 @@
         <activity
             android:name=".ui.barbershop.activity.BarbersActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".ui.GetGiftActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".ui.barbershop.activity.ServicesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".ui.barbershop.activity.BusinessTimesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.BarberMainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.AdvertismentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -238,12 +230,11 @@
         <activity
             android:name=".ui.SmsVerificationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".ui.PersonalInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.SendSupportTicketActivity"
+            android:name=".ui.SupportActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.PaymentCallBack"
@@ -261,6 +252,10 @@
                     android:scheme="sorina" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.barbershop.activity.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

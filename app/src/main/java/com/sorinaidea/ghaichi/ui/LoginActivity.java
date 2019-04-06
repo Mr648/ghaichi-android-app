@@ -1,31 +1,16 @@
 package com.sorinaidea.ghaichi.ui;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.util.AesEncryptDecrypt;
-import com.sorinaidea.ghaichi.util.AesEncryptionData;
-import com.sorinaidea.ghaichi.util.FontManager;
-import com.sorinaidea.ghaichi.util.RSA;
-import com.sorinaidea.ghaichi.util.SorinaApplication;
 import com.sorinaidea.ghaichi.util.Util;
 
 import java.util.regex.Pattern;
@@ -36,93 +21,44 @@ import java.util.regex.Pattern;
 
 public class LoginActivity extends ToolbarActivity {
 
-
-    private String TAG = LoginActivity.class.getSimpleName();
-
     private Button btnSendCode;
-    private Toolbar toolbar;
     private TextView txtIconCall;
     private TextInputEditText edtPhoneNumber;
     private TextInputLayout inputLayoutPhoneNumber;
-
-    private AlphaAnimation alphaAnimation = new AlphaAnimation(1F, 0.8F);
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        if (SorinaApplication.hasAccessKey(getApplicationContext())) {
-            finish();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (SorinaApplication.hasAccessKey(getApplicationContext())) {
-            finish();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (SorinaApplication.hasAccessKey(getApplicationContext())) {
-            finish();
-        }
-    }
-
-    //kjsdflksdlfsldfksdf;jksf;l
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
-        Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
+        initToolbar(R.string.toolbar_login, false, false);
 
-
-        alphaAnimation.setDuration(1000);
-
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().hide(); // TODO delete toolbar
-
-        ViewCompat.setElevation(toolbar, Util.dp(5, LoginActivity.this));
-
-        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText("ورود به حساب کاربری");
 
         btnSendCode = findViewById(R.id.btnSendCode);
         txtIconCall = findViewById(R.id.txtIconCall);
         edtPhoneNumber = findViewById(R.id.edtPhoneNumber);
         inputLayoutPhoneNumber = findViewById(R.id.inputLayoutPhoneNumber);
 
+        btnSendCode.setOnClickListener(view ->  submitForm());
 
-        btnSendCode.setOnClickListener(view -> {
-            submitForm();
-        });
-
-
-        FontManager.setFont(txtIconCall, iconFont);
-        FontManager.setFont(mTitle, iranSans);
-        FontManager.setFont(btnSendCode, iranSans);
-        FontManager.setFont(edtPhoneNumber, iranSans);
-        FontManager.setFont(inputLayoutPhoneNumber, iranSans);
+        applyIconsFont(txtIconCall);
+        applyTextFont(
+                btnSendCode,
+                edtPhoneNumber,
+                inputLayoutPhoneNumber
+        );
 
         checkExtras();
 
-        edtPhoneNumber.setOnKeyListener((view, i, keyEvent) ->
-
-        {
-            if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                submitForm();
-            }
-            return false;
-        });
+        edtPhoneNumber.setOnKeyListener(
+                (view, i, keyEvent) ->
+                {
+                    if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                        submitForm();
+                    }
+                    return false;
+                }
+        );
 
     }
 
@@ -141,7 +77,6 @@ public class LoginActivity extends ToolbarActivity {
     }
 
     private void submitForm() {
-
         if (!validateUserPhone()) {
             return;
         }

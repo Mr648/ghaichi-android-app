@@ -1,7 +1,5 @@
 package com.sorinaidea.ghaichi.webservice.image;
 
-import java.io.File;
-
 public interface ImageUploader {
     boolean isDone();
     boolean upload();

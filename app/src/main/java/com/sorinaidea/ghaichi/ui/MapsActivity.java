@@ -40,7 +40,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,25 +47,22 @@ import com.google.android.gms.tasks.Task;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.CustomInfoWindowAdapter;
 import com.sorinaidea.ghaichi.model.SampleClusterItem;
-import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
 
 import net.sharewire.googlemapsclustering.Cluster;
 import net.sharewire.googlemapsclustering.ClusterManager;
-import net.sharewire.googlemapsclustering.DefaultIconGenerator;
 import net.sharewire.googlemapsclustering.IconGenerator;
-import net.sharewire.googlemapsclustering.IconStyle;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class MapsActivity
         extends FragmentActivity
@@ -109,7 +105,7 @@ public class MapsActivity
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* Fragm  entActivity */, this /* OnConnectionFailedListener */)
+                .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -264,67 +260,57 @@ public class MapsActivity
 
 
     private String getInfo(LatLng location) {
-        String info = "";
+        StringBuilder info = new StringBuilder();
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-
             List<Address> addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
-            info += addresses.get(0).getAddressLine(0);
-            info+="  --  ";
-            info += addresses.get(0).getAddressLine(1);
-            info+="  --  ";
-            info += addresses.get(0).getAddressLine(2);
+            info.append(addresses.get(0).getAddressLine(0));
+            info.append("  --  ");
+            info.append(addresses.get(0).getAddressLine(1));
+            info.append("  --  ");
+            info.append(addresses.get(0).getAddressLine(2));
         } catch (Exception ex) {
         }
-        return info;
+        return info.toString();
     }
 
     private void getBarbershopsLocations(ClusterManager<SampleClusterItem> clusterManager) {
+        Toast.makeText(this, "Loading map data", Toast.LENGTH_SHORT).show();
+        API.getRetrofit()
+                .create(BarbershopServices.class)
+                .locations(com.sorinaidea.ghaichi.auth.Auth.getAccessKey(this))
+                .enqueue(new Callback<List<com.sorinaidea.ghaichi.models.Location>>() {
+                    @Override
+                    public void onResponse(Call<List<com.sorinaidea.ghaichi.models.Location>> call, Response<List<com.sorinaidea.ghaichi.models.Location>> response) {
+                        Toast.makeText(MapsActivity.this, "Data Loaded", Toast.LENGTH_SHORT).show();
 
-        Retrofit retrofit = API.getRetrofit();
+                        if (response.isSuccessful()) {
+                            try {
+                                List<SampleClusterItem> clusterItems = new ArrayList<>();
+                                for (com.sorinaidea.ghaichi.models.Location marker :
+                                        Objects.requireNonNull(response.body())) {
+                                    SampleClusterItem item = new SampleClusterItem(
+                                            marker.getId(),
+                                            new LatLng(Double.parseDouble(marker.getLatitude()),
+                                                    Double.parseDouble(marker.getLongitude()))
+                                            , marker.getName() + "@" + marker.getId()
+                                            , marker.getLogo()
+                                    );
+                                    clusterItems.add(item);
+                                }
+                                clusterManager.setItems(clusterItems);
+                            } catch (NullPointerException ignore) {
 
-
-        BarbershopServices service = retrofit.create(BarbershopServices.class);
-
-        String accessKey = com.sorinaidea.ghaichi.auth.Auth.getAccessKey(getApplicationContext());
-
-        Call<List<com.sorinaidea.ghaichi.fast.Location>> repos = service.locations(accessKey);
-
-        repos.enqueue(new Callback<List<com.sorinaidea.ghaichi.fast.Location>>() {
-
-            @Override
-            public void onFailure(Call<List<com.sorinaidea.ghaichi.fast.Location>> call, Throwable t) {
-                Log.d("ERROR", "ERROR IN GETTING DATA");
-            }
-
-            @Override
-            public void onResponse(Call<List<com.sorinaidea.ghaichi.fast.Location>> call,
-                                   Response<List<com.sorinaidea.ghaichi.fast.Location>> response) {
-
-                if (response.body() != null && !response.body().isEmpty()) {
-
-                    List<SampleClusterItem> clusterItems = new ArrayList<>();
-                    for (com.sorinaidea.ghaichi.fast.Location marker :
-                            response.body()) {
-                        SampleClusterItem item = new SampleClusterItem(
-                                marker.getId(),
-                                new LatLng(Double.parseDouble(marker.getLatitude()),
-                                        Double.parseDouble(marker.getLongitude()))
-                                , marker.getName() + "@" + marker.getId()
-                                , marker.getIcon()
-                        );
-
-
-                        clusterItems.add(item);
+                            }
+                        }
                     }
-                    clusterManager.setItems(clusterItems);
-                } else {
-                    Log.d("ERROR", "response is null");
 
-                }
-            }
+                    @Override
+                    public void onFailure(Call<List<com.sorinaidea.ghaichi.models.Location>> call, Throwable t) {
+                        Toast.makeText(MapsActivity.this, "Data Load Failed!", Toast.LENGTH_SHORT).show();
 
-        });
+                    }
+                });
     }
 
     /**
@@ -358,13 +344,6 @@ public class MapsActivity
 
         CustomInfoWindowAdapter adapter = new CustomInfoWindowAdapter(MapsActivity.this);
         mMap.setInfoWindowAdapter(adapter);
-
-        mMap.setOnMapClickListener(latLng -> {
-            addMarkerAtLocation(latLng);
-
-
-        });
-
 
     }
 
@@ -417,7 +396,6 @@ public class MapsActivity
             mCurrLocationMarker.remove();
         }
 
-        //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);

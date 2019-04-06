@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.auth.Auth;
-import com.sorinaidea.ghaichi.fast.Barbershop;
-import com.sorinaidea.ghaichi.fast.BarbershopCard;
-import com.sorinaidea.ghaichi.model.BarberShop;
-import com.sorinaidea.ghaichi.ui.BarberShopActivity;
 import com.sorinaidea.ghaichi.ui.BarberShopGridActivity;
 import com.sorinaidea.ghaichi.util.FontManager;
-import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
@@ -137,26 +125,26 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
 
         BarbershopServices service = retrofit.create(BarbershopServices.class);
 
-        Call<List<BarbershopCard>> barbershopCall = service.barbershopsCards(Auth.getAccessKey(mContext));
-
-        barbershopCall.enqueue(new Callback<List<BarbershopCard>>() {
-            @Override
-            public void onResponse(Call<List<BarbershopCard>> call, Response<List<BarbershopCard>> response) {
-                if (response.body() != null) {
-                    ArrayList<BarbershopCard> list = new ArrayList<>();
-                    list.addAll(response.body());
-                    BarberShopMiniItemAdapter adapter = new BarberShopMiniItemAdapter(mContext, list);
-                    Log.d("BARBERSHOP", response.body().toString());
-                    holder.getRecBarberShop().setAdapter(adapter);
-                }
-                    Log.d("BARBERSHOP", call.isCanceled() + " C E " + call.isExecuted() + " "+ response);
-            }
-
-            @Override
-            public void onFailure(Call<List<BarbershopCard>> call, Throwable t) {
-                Log.d("FAILED", t.toString());
-            }
-        });
+//        Call<List<BarbershopCard>> barbershopCall = service.barbershopsCards(Auth.getAccessKey(mContext));
+//
+//        barbershopCall.enqueue(new Callback<List<BarbershopCard>>() {
+//            @Override
+//            public void onResponse(Call<List<BarbershopCard>> call, Response<List<BarbershopCard>> response) {
+//                if (response.body() != null) {
+//                    ArrayList<BarbershopCard> list = new ArrayList<>();
+//                    list.addAll(response.body());
+//                    BarberShopMiniItemAdapter adapter = new BarberShopMiniItemAdapter(mContext, list);
+//                    Log.d("BARBERSHOP", response.body().toString());
+//                    holder.getRecBarberShop().setAdapter(adapter);
+//                }
+//                    Log.d("BARBERSHOP", call.isCanceled() + " C E " + call.isExecuted() + " "+ response);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<BarbershopCard>> call, Throwable t) {
+//                Log.d("FAILED", t.toString());
+//            }
+//        });
 
     }
 

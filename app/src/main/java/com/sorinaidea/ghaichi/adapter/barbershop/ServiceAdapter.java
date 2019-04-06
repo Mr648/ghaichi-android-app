@@ -20,8 +20,11 @@ import java.util.List;
  */
 
 
-public class ServiceAdapter extends BaseAdapter<ServiceAdapter.ViewHolder, Service> {
+public abstract class ServiceAdapter extends BaseAdapter<ServiceAdapter.ViewHolder, Service> {
 
+    public abstract void showImages(Service service);
+    public abstract void delete(Service service);
+    public abstract void addBarber(Service service);
 
     public ServiceAdapter(List<Service> services, Context context) {
         super(services, context);
@@ -128,6 +131,10 @@ public class ServiceAdapter extends BaseAdapter<ServiceAdapter.ViewHolder, Servi
         viewHolder.getTxtSamples().setText(String.valueOf(service.getImages().size()));
         viewHolder.getTxtBarbers().setText(String.valueOf(service.getBarbers().size()));
         viewHolder.getTxtDateCreated().setText(service.getCreatedAt());
+
+
+        viewHolder.getImgAddSample().setOnClickListener(view -> showImages(service));
+        viewHolder.getImgDelete().setOnClickListener(view -> delete(service));
 
 
         API.getPicasso(mContext)

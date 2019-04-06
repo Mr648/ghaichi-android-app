@@ -10,6 +10,7 @@ import com.sorinaidea.ghaichi.webservice.image.UploadTask;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class ImageUploaderActivity extends ToolbarActivity {
 
@@ -38,7 +39,11 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
             for (int i = 0; i < images.size(); i++) {
                 files[i] = new File(images.get(i).getPath());
             }
-            generateTask(files).upload();
+            try {
+                Objects.requireNonNull(generateTask(files)).upload();
+            } catch (NullPointerException ignore) {
+                ignore.printStackTrace();
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -177,17 +182,34 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
         return file;
     }*/
 
-    protected void pickSingleImage(){
+
+    private ImagePicker imagePicker() {
+        return ImagePicker.create(this).toolbarFolderTitle("پوشه") // folder selection title
+                .toolbarImageTitle("برای انتخاب لمس کنید") // image selection title
+                .toolbarArrowColor(Color.WHITE)
+                .showCamera(true) // show camera or not (true by default)
+                .imageDirectory("دوربین") // directory name for captured image  ("Camera" folder by default)
+                .enableLog(false);// disabling log
+
+    }
+
+    protected void pickMultipleImages() {
         try {
-            ImagePicker.create(this).single().returnMode(ReturnMode.ALL)
-                    .folderMode(true) // folder mode (false by default)
-                    .toolbarFolderTitle("پوشه") // folder selection title
-                    .toolbarImageTitle("برای انتخاب لمس کنید") // image selection title
-                    .toolbarArrowColor(Color.WHITE) // Toolbar 'up' arrow color
-                    .showCamera(true) // show camera or not (true by default)
-                    .imageDirectory("دوربین") // directory name for captured image  ("Camera" folder by default)
-                    .enableLog(false) // disabling log
+            imagePicker().folderMode(true) // folder mode (false by default)
+                    .multi() // multi mode (default mode)
+                    .limit(10) // max images can be selected (99 by default)
                     .start(); // start image picker activity with request code
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void pickSingleImage() {
+        try {
+            imagePicker().single()
+                    .returnMode(ReturnMode.ALL)
+                    .folderMode(false) // folder mode (false by default)
+                    .start();
         } catch (Exception e) {
             e.printStackTrace();
         }

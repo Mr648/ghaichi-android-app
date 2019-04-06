@@ -1,9 +1,9 @@
 package com.sorinaidea.ghaichi.ui;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
@@ -11,17 +11,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
 import com.sorinaidea.ghaichi.adapter.main.DiscountBarbershopsAdapter;
 import com.sorinaidea.ghaichi.adapter.main.FeaturedBarbershopsAdapter;
@@ -29,40 +27,37 @@ import com.sorinaidea.ghaichi.adapter.main.NearestBarbershopsAdapter;
 import com.sorinaidea.ghaichi.adapter.main.NewBarbershopsAdapter;
 import com.sorinaidea.ghaichi.adapter.main.TopBarbershopsAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
-import com.sorinaidea.ghaichi.fast.BarbershopCard;
-import com.sorinaidea.ghaichi.fast.UserShortInfo;
-import com.sorinaidea.ghaichi.util.FontManager;
-import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
-import com.sorinaidea.ghaichi.util.Security;
-import com.sorinaidea.ghaichi.util.Util;
+import com.sorinaidea.ghaichi.models.Data;
+import com.sorinaidea.ghaichi.models.HomeData;
+import com.sorinaidea.ghaichi.models.Image;
 import com.sorinaidea.ghaichi.webservice.API;
+import com.sorinaidea.ghaichi.webservice.AdvertisesService;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
-import com.sorinaidea.ghaichi.webservice.UserProfileService;
+import com.sorinaidea.ghaichi.webservice.ProfileServices;
 
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import co.ronash.pushe.Pushe;
 import me.relex.circleindicator.CircleIndicator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Created by mr-code on 4/8/2018.
  */
 
-public class NewMainActivity extends AppCompatActivity implements
+public class NewMainActivity extends ToolbarActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
-    private Toolbar toolbar;
     private TextView txtUserInfo;
     private AppCompatImageView imgProfileImage;
     private TextView txtCity;
-    private Typeface fontIranSans;
 
 
     private TextView btnMoreFeatured;
@@ -99,46 +94,53 @@ public class NewMainActivity extends AppCompatActivity implements
 
     private static int currentPage = 0;
 
-    private ArrayList<String> imageList = new ArrayList<>();
+    private ArrayList<Image> imageList;
 
     private void initializeImageSlider() {
-/*
 
-        Retrofit retrofit = API.getRetrofit();
-        AdvertisesService advertises = retrofit.create(AdvertisesService.class);
 
-        String accessKey = Auth.getAccessKey(getApplicationContext());
+        AdvertisesService advertises = API.getRetrofit().create(AdvertisesService.class);
 
         ImageSliderAdapter adapter = new ImageSliderAdapter(getApplicationContext(), imageList);
         mPager.setAdapter(adapter);
-        indicator.setViewPager(mPager);
 
-        advertises.advertises(accessKey).enqueue(new Callback<List<Advertise>>() {
+        advertises.advertises(Auth.getAccessKey(getApplicationContext())).enqueue(new Callback<List<Image>>() {
             @Override
-            public void onResponse(Call<List<Advertise>> call, Response<List<Advertise>> response) {
+            public void onResponse(Call<List<Image>> call, Response<List<Image>> response) {
                 if (response.body() != null) {
-                    for (Advertise ad : response.body()) {
-                        imageList.add(ad.photo.getPath());
-                    }
+                    imageList.addAll(response.body());
                     adapter.notifyDataSetChanged();
+                    indicator.setViewPager(mPager);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Advertise>> call, Throwable t) {
+            public void onFailure(Call<List<Image>> call, Throwable t) {
 
             }
         });
 
-
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == imageList.size()) {
-                    currentPage = 0;
-                }
-                mPager.setCurrentItem(currentPage++, true);
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
+
+            @Override
+            synchronized public void onPageSelected(int position) {
+                currentPage = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        final Handler handler = new Handler();
+        final Runnable Update = () -> {
+            if (currentPage == imageList.size()) {
+                currentPage = 0;
+            }
+            mPager.setCurrentItem(currentPage++, true);
         };
         Timer swipeTimer = new Timer();
         swipeTimer.schedule(new TimerTask() {
@@ -146,19 +148,27 @@ public class NewMainActivity extends AppCompatActivity implements
             public void run() {
                 handler.post(Update);
             }
-        }, 1000, 3000);*/
+        }, 1000, 3000);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_setting) {
-            Intent intent = new Intent(NewMainActivity.this, SettingActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.action_credit) {
-            Intent intent = new Intent(NewMainActivity.this, CreditActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.action_favorites) {
+
+        // TODO Enable Settings activity
+//        if (id == R.id.action_setting) {
+//            Intent intent = new Intent(NewMainActivity.this, SettingActivity.class);
+//            startActivity(intent);
+//        }
+
+        // TODO Enable Credits activity
+//        if (id == R.id.action_credit) {
+//            Intent intent = new Intent(NewMainActivity.this, CreditActivity.class);
+//            startActivity(intent);
+//        }
+
+
+        if (id == R.id.action_favorites) {
             Intent intent = new Intent(NewMainActivity.this, BookmarksActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_free_reservation) {
@@ -174,77 +184,63 @@ public class NewMainActivity extends AppCompatActivity implements
             Intent intent = new Intent(NewMainActivity.this, UserProfileActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_logout) {
-
-            Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> info =
-                    API.getRetrofit().create(UserProfileService.class).logout(Auth.getAccessKey(getApplicationContext()));
-
-            info.enqueue(new Callback<com.sorinaidea.ghaichi.webservice.model.responses.Response>() {
-                @Override
-                public void onResponse(Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> call, Response<com.sorinaidea.ghaichi.webservice.model.responses.Response> response) {
-                    if (response.isSuccessful()) {
-                        if (!response.body().hasError()) {
-                            // Remove Keys
-                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),   Security.encrypt(Util.PREFRENCES_KEYS.USER_ACCESS_KEY, getApplicationContext()) );
-                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),  Security.encrypt(Util.PREFRENCES_KEYS.USER_ROLE, getApplicationContext()));
-
-                            // Exit From Application
-                            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                            homeIntent.addCategory(Intent.CATEGORY_HOME);
-                            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(homeIntent);
-
-                            finish();
-                        }
-                    } else {
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> call, Throwable t) {
-                }
-            });
-
-
+            confirmAlert(
+                    "خروج از حساب کاربری",
+                    "آیا می‌خواهید از حساب کاربری خود خارج شوید؟",
+                    R.drawable.ic_exit_to_app_black_18dp,
+                    R.color.colorAmberAccent200,
+                    view -> Auth.logout(this)
+            );
         }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    private void updateNavigationHeader(List<Data> info) {
+
+        for (Data i : info) {
+            if (i.getKeyEn().equals("city")) {
+                txtCity.setText(i.getValue());
+            }
+            if (i.getKeyEn().equals("avatar")) {
+                API.getPicasso(this)
+                        .load(i.getValue())
+                        .centerCrop()
+                        .fit()
+                        .into(imgProfileImage);
+            }
+        }
+
+        StringBuilder str = new StringBuilder();
+        for (Data i : info) {
+            if (i.getKeyEn().equals("name") || i.getKeyEn().equals("family"))
+                str.append(i.getValue()).append(" ");
+        }
+
+        txtUserInfo.setText(str.toString());
+    }
+
     private void updateNavigationHeader() {
-        Call<UserShortInfo> info = API.getRetrofit().create(UserProfileService.class).shortInfo(Auth.getAccessKey(getApplicationContext()));
-
-        info.enqueue(new Callback<UserShortInfo>() {
-            @Override
-            public void onResponse(Call<UserShortInfo> call, Response<UserShortInfo> response) {
-                if (response.body() != null) {
-
-                    UserShortInfo info = response.body();
-                    if (info.getImage() != null) {
-                        try {
-                            API.getPicasso(getApplicationContext())
-                                    .load(API.BASE_URL
-                                            + URLDecoder.decode(info.getImage(), "UTF-8"))
-                                    .centerCrop()
-                                    .fit()
-                                    .into(imgProfileImage);
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
+        API.getRetrofit()
+                .create(ProfileServices.class)
+                .home(Auth.getAccessKey(getApplicationContext()))
+                .enqueue(new Callback<List<Data>>() {
+                    @Override
+                    public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                updateNavigationHeader(Objects.requireNonNull(response.body()));
+                            } catch (NullPointerException ignore) {
+                            }
                         }
                     }
 
-                    txtUserInfo.setText(info.getName() + " " + info.getFamily());
-                    txtCity.setText("سنندج");
-                }
-            }
+                    @Override
+                    public void onFailure(Call<List<Data>> call, Throwable t) {
 
-            @Override
-            public void onFailure(Call<UserShortInfo> call, Throwable t) {
-
-            }
-        });
+                    }
+                });
     }
 
     @Override
@@ -253,15 +249,11 @@ public class NewMainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new_design);
 
-        Pushe.initialize(this,true);
+        Pushe.initialize(this, true);
 
-        toolbar = findViewById(R.id.toolbar);
+        initToolbar(R.string.app_name, false, false, true);
+
         drawer = findViewById(R.id.drawerLayout);
-        fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_menu_open, R.string.navigation_menu_close);
@@ -273,8 +265,8 @@ public class NewMainActivity extends AppCompatActivity implements
         NavigationView navigationView = findViewById(R.id.navView);
 
 
-        txtUserInfo = navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
         imgProfileImage = navigationView.getHeaderView(0).findViewById(R.id.imgProfileImage);
+        txtUserInfo = navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
         txtCity = navigationView.getHeaderView(0).findViewById(R.id.txtCity);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -288,28 +280,36 @@ public class NewMainActivity extends AppCompatActivity implements
         btnMoreNew = findViewById(R.id.btnMoreNew);
         btnMoreNearest = findViewById(R.id.btnMoreNearest);
         btnMoreTop = findViewById(R.id.btnMoreTop);
-
+        txtTop = findViewById(R.id.txtTop);
+        txtFeatured = findViewById(R.id.txtFeatured);
+        txtDiscount = findViewById(R.id.txtDiscount);
+        txtNearest = findViewById(R.id.txtNearest);
+        txtNew = findViewById(R.id.txtNew);
 
         btnMoreFeatured.setOnClickListener((view) -> {
             Intent intent = new Intent(getApplicationContext(), BarberShopGridActivity.class);
             intent.putExtra("TITLE", "پیشنهادات ویژه");
             startActivity(intent);
         });
+
         btnMoreDiscount.setOnClickListener((view) -> {
             Intent intent = new Intent(getApplicationContext(), BarberShopGridActivity.class);
             intent.putExtra("TITLE", "در تخفیف");
             startActivity(intent);
         });
+
         btnMoreNew.setOnClickListener((view) -> {
             Intent intent = new Intent(getApplicationContext(), BarberShopGridActivity.class);
             intent.putExtra("TITLE", "جدیدترین‌ها");
             startActivity(intent);
         });
+
         btnMoreNearest.setOnClickListener((view) -> {
             Intent intent = new Intent(getApplicationContext(), BarberShopGridActivity.class);
             intent.putExtra("TITLE", "نزدیک‌ترین‌ها");
             startActivity(intent);
         });
+
         btnMoreTop.setOnClickListener((view) -> {
             Intent intent = new Intent(getApplicationContext(), BarberShopGridActivity.class);
             intent.putExtra("TITLE", "برترین‌ها");
@@ -331,77 +331,83 @@ public class NewMainActivity extends AppCompatActivity implements
 
         recTop.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         recFeatured.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+        recFeatured.addItemDecoration(new ItemOffsetDecoration(getApplicationContext(), R.dimen._8dp));
         recDiscount.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         recNew.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         recNearest.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
 
-
-//        scrTop = Skeleton.bind(recTop).adapter(recTopAdapter).load(R.layout.bshops_top).show();
-//        scrFeatured = Skeleton.bind(recFeatured).adapter(recFeaturedAdapter).load(R.layout.bshops_featured).show();
-//        scrDiscount = Skeleton.bind(recDiscount).adapter(recDiscountAdapter).load(R.layout.bshops_discount).show();
-//        scrNew = Skeleton.bind(recNew).adapter(recNewAdapter).load(R.layout.bshops_new).show();
-//        scrNearest = Skeleton.bind(recNearest).adapter(recNearestAdapter).load(R.layout.bshops_nearest).show();
-
-
-//        BarberShopCategoryAdapter adapter = new BarberShopCategoryAdapter(getApplicationContext(), initProductItems());
-//        recCategories.setAdapter(adapter);
-//        recCategories.setNestedScrollingEnabled(false);
-
-
+        imageList = new ArrayList<>();
         initializeImageSlider();
+
         updateNavigationHeader();
 
-        FontManager.setFont(txtCity, fontIranSans);
-        FontManager.setFont(txtUserInfo, fontIranSans);
-        barbershops = new ArrayList<>();
-        recTopAdapter = new TopBarbershopsAdapter(getApplicationContext(), barbershops);
-        recFeaturedAdapter = new FeaturedBarbershopsAdapter(getApplicationContext(), barbershops);
-        recDiscountAdapter = new DiscountBarbershopsAdapter(getApplicationContext(), barbershops);
-        recNewAdapter = new NewBarbershopsAdapter(getApplicationContext(), barbershops);
-        recNearestAdapter = new NearestBarbershopsAdapter(getApplicationContext(), barbershops);
-        recTop.setAdapter(recTopAdapter);
-        recFeatured.setAdapter(recFeaturedAdapter);
-        recFeatured.addItemDecoration(new ItemOffsetDecoration(getApplicationContext(), R.dimen._16dp));
-        recDiscount.setAdapter(recDiscountAdapter);
-        recNew.setAdapter(recNewAdapter);
-        recNearest.setAdapter(recNearestAdapter);
+        applyTextFont(
+                txtCity,
+                txtUserInfo,
+                btnMoreFeatured,
+                btnMoreDiscount,
+                btnMoreNew,
+                btnMoreNearest,
+                btnMoreTop,
+                txtTop,
+                txtFeatured,
+                txtDiscount,
+                txtNearest,
+                txtNew
+        );
+
         loadData();
     }
 
 
-
-    private void reload() {
-
-        recTopAdapter.notifyDataSetChanged();
-        recFeaturedAdapter.notifyDataSetChanged();
-        recDiscountAdapter.notifyDataSetChanged();
-        recNewAdapter.notifyDataSetChanged();
-        recNearestAdapter.notifyDataSetChanged();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (barbershops != null) {
+            loadData();
+            updateNavigationHeader();
+        }
     }
 
-    private ArrayList<BarbershopCard> barbershops;
+    private void reload() {
+        recTopAdapter = new TopBarbershopsAdapter(barbershops.getBests(), getApplicationContext());
+        recFeaturedAdapter = new FeaturedBarbershopsAdapter(barbershops.getFeatured(), getApplicationContext());
+        recDiscountAdapter = new DiscountBarbershopsAdapter(barbershops.getDiscounts(), getApplicationContext());
+        recNewAdapter = new NewBarbershopsAdapter(barbershops.getNewest(), getApplicationContext());
+        recNearestAdapter = new NearestBarbershopsAdapter(barbershops.getNearest(), getApplicationContext());
+        recTop.setAdapter(recTopAdapter);
+        recFeatured.setAdapter(recFeaturedAdapter);
+        recDiscount.setAdapter(recDiscountAdapter);
+        recNew.setAdapter(recNewAdapter);
+        recNearest.setAdapter(recNearestAdapter);
+    }
+
+    HomeData barbershops;
 
     private void loadData() {
-        Retrofit retrofit = API.getRetrofit();
-
-        BarbershopServices service = retrofit.create(BarbershopServices.class);
-
-        Call<List<BarbershopCard>> barbershopCall = service.barbershopsCards(Auth.getAccessKey(NewMainActivity.this));
-
-        barbershopCall.enqueue(new Callback<List<BarbershopCard>>() {
+        barbershops = new HomeData();
+        BarbershopServices service = API.getRetrofit().create(BarbershopServices.class);
+        Call<HomeData> barbershopCall = service.barbershopsCards(Auth.getAccessKey(NewMainActivity.this));
+        showProgress();
+        barbershopCall.enqueue(new Callback<HomeData>() {
             @Override
-            public void onResponse(Call<List<BarbershopCard>> call, Response<List<BarbershopCard>> response) {
-                if (response.body() != null) {
-
-                    barbershops.addAll(response.body());
-                    reload();
+            public void onResponse(Call<HomeData> call, Response<HomeData> response) {
+                hideProgress();
+                if (response.isSuccessful()) {
+                    try {
+                        barbershops = Objects.requireNonNull(response.body());
+                        reload();
+                    } catch (NullPointerException ignore) {
+                    }
                 }
-                Log.d("BARBERSHOP", call.isCanceled() + " C E " + call.isExecuted() + " " + response);
             }
 
             @Override
-            public void onFailure(Call<List<BarbershopCard>> call, Throwable t) {
-                Log.d("FAILED", t.toString());
+            public void onFailure(Call<HomeData> call, Throwable t) {
+                hideProgress();
+                if (t instanceof IOException) {
+                    toast("خطا در برقراری ارتباط با سرور");
+                }
             }
         });
     }
@@ -450,13 +456,10 @@ public class NewMainActivity extends AppCompatActivity implements
             drawer.closeDrawer(GravityCompat.START);
         } else {
             if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                getSupportActionBar().setTitle("قیچی");
                 getSupportFragmentManager().popBackStackImmediate();
             } else {
                 super.onBackPressed();
             }
         }
     }
-
-
 }

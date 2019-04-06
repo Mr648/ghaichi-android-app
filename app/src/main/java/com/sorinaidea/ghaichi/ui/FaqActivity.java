@@ -52,7 +52,7 @@ public class FaqActivity extends AppCompatActivity {
         // TODO Enable Chat here!
         fabSupport = findViewById(R.id.fabSupport);
         fabSupport.setOnClickListener(view -> {
-            Intent intent = new Intent(FaqActivity.this, SendSupportTicketActivity.class);
+            Intent intent = new Intent(FaqActivity.this, SupportActivity.class);
             startActivity(intent);
         });
 

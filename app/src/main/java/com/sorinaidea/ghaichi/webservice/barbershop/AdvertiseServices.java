@@ -2,7 +2,7 @@ package com.sorinaidea.ghaichi.webservice.barbershop;
 
 
 import com.sorinaidea.ghaichi.models.Pricing;
-import com.sorinaidea.ghaichi.models.UploadImageResponse;
+import com.sorinaidea.ghaichi.models.Response;
 
 import java.util.List;
 
@@ -28,15 +28,15 @@ public interface AdvertiseServices {
             "User-Agent: GHAICHI-APPLICATION-USER",
     })
     @Multipart
-    @POST("api/barbershop/profile/avatar")
-    Call<UploadImageResponse> requestBannerAdvertise(@Header("Authorization") String authToken, @Part MultipartBody.Part image);
+    @POST("api/barbershop/advertises/banner")
+    Call<Response> requestBannerAdvertise(@Header("Authorization") String authToken, @Part MultipartBody.Part image, @Part("description") String description, @Part("pricing") int pricing);
 
     @Headers({
             "User-Agent: GHAICHI-APPLICATION-USER",
     })
     @Multipart
-    @POST("api/barbershop/profile/avatar")
-    Call<UploadImageResponse> requestSpecialAdvertise(@Header("Authorization") String authToken, @Part MultipartBody.Part image);
+    @POST("api/barbershop/advertises/special")
+    Call<Response> requestSpecialAdvertise(@Header("Authorization") String authToken, @Part("description") String description, @Part("pricing") int pricing);
 
 
 }

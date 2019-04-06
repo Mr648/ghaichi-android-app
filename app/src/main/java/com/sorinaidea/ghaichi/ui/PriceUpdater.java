@@ -2,10 +2,10 @@ package com.sorinaidea.ghaichi.ui;
 
 import android.widget.TextView;
 
-import com.sorinaidea.ghaichi.model.Service;
+import com.sorinaidea.ghaichi.App;
+import com.sorinaidea.ghaichi.models.ServiceMoreInfo;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * Created by mr-code on 7/1/2018.
@@ -20,15 +20,14 @@ public class PriceUpdater {
 
     private final PriceData summer = new PriceData();
 
-    protected final ArrayList<Service> selectedServices;
+    protected final ArrayList<ServiceMoreInfo> selectedServices;
 
     public PriceUpdater(TextView txtPrice) {
         this.txtPrice = txtPrice;
         this.selectedServices = new ArrayList<>();
     }
 
-    public void add
-            (Service service) {
+    public void add(ServiceMoreInfo service) {
 
         if (!selectedServices.contains(service)) {
             selectedServices.add(service);
@@ -36,17 +35,17 @@ public class PriceUpdater {
             service.setSelected(true);
         }
 
-        this.txtPrice.setText(String.format(new Locale("fa"), "%.2f تومان", summer.getSumOfPrices()));
+        this.txtPrice.setText(String.format(App.LOCALE, "%.2f تومان", summer.getSumOfPrices()));
     }
 
 
-    public void delete(Service service) {
+    public void delete(ServiceMoreInfo service) {
 
         if (selectedServices.contains(service)) {
             selectedServices.remove(service);
             summer.setSumOfPrices(-service.getPrice());
         }
-        this.txtPrice.setText(String.format(new Locale("fa"), "%.2f تومان", summer.getSumOfPrices()));
+        this.txtPrice.setText(String.format(App.LOCALE, "%.2f تومان", summer.getSumOfPrices()));
     }
 
     private static final class PriceData {
@@ -59,5 +58,9 @@ public class PriceUpdater {
         public float getSumOfPrices() {
             return sumOfPrices;
         }
+    }
+
+    public ArrayList<ServiceMoreInfo> getSelectedServices() {
+        return selectedServices;
     }
 }

@@ -11,8 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.ui.barbershop.fragment.BannerAdvertiseFragment;
-import com.sorinaidea.ghaichi.ui.barbershop.fragment.SpecialAdvertiseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +45,8 @@ public class ReservationsActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BannerAdvertiseFragment(), getString(R.string.banner_advertises));
-        adapter.addFragment(new SpecialAdvertiseFragment(), getString(R.string.special_advertises));
+//        adapter.addFragment(new BannerAdvertiseFragment(), getString(R.string.banner_advertises));
+//        adapter.addFragment(new SpecialAdvertiseFragment(), getString(R.string.special_advertises));
         viewPager.setAdapter(adapter);
     }
 

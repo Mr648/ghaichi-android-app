@@ -24,12 +24,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class API {
 
 
-    public static final String BASE_URL = "http://192.168.1.10/";
-//    public static final String BASE_URL = "http://192.168.1.19/";
-//    public static final String BASE_URL = "http://127.0.0.1/";
+//    public static final String BASE_URL = "http://192.168.1.10/";
 //    public static final String BASE_URL = "https://ghaichi.com/";
+    public static final String BASE_URL = "http://192.168.43.85/";
 
-//    public static final String BASE_URL = "http://192.168.43.85/";
 
     private static Retrofit retrofit;
     private static Picasso picasso;
@@ -46,10 +44,8 @@ public class API {
 
     private static Picasso initPicasso(Context context) {
 
-
-        Picasso.Builder  builder = new Picasso.Builder(context);
+        Picasso.Builder builder = new Picasso.Builder(context);
         com.squareup.okhttp.OkHttpClient client = new com.squareup.okhttp.OkHttpClient();
-
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             try {
@@ -76,7 +72,6 @@ public class API {
         OkHttpClient client = null;
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
-
             try {
                 client = new OkHttpClient.Builder()
                         .sslSocketFactory(new TLSSocketFactory())
@@ -86,13 +81,26 @@ public class API {
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-
         } else {
             client = new OkHttpClient.Builder()
                     .readTimeout(20, TimeUnit.SECONDS)
                     .connectTimeout(20, TimeUnit.SECONDS)
                     .build();
         }
+
+//       client.interceptors().add(chain -> {
+//            Request request = chain.request();
+//            // try the request
+//            okhttp3.Response response = chain.proceed(request);
+//            int tryCount = 0;
+//            while (!response.isSuccessful() && tryCount < 3) {
+//                tryCount++;
+//                response = chain.proceed(request);
+//            }
+//            // otherwise just pass the original response on
+//            return response;
+//        });
+
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(API.BASE_URL)

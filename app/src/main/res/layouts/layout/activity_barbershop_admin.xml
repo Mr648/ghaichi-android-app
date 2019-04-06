@@ -23,15 +23,24 @@
             android:layout_alignParentTop="true"
             app:theme="@style/ToolbarStyle.Primary">
 
+
+            <TextView
+                android:id="@+id/toolbar_subtitle"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4dp"
+                android:text="@string/toolbar_barbershop_panel"
+                android:textColor="@color/colorWhite" />
+
             <TextView
                 android:id="@+id/toolbar_title"
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="@dimen/_16dp"
-                android:text="Title"
+                android:layout_marginStart="@dimen/_16dp"
                 android:textColor="@color/colorWhite" />
+
         </android.support.v7.widget.Toolbar>
 
         <android.support.v4.widget.NestedScrollView
@@ -58,9 +67,10 @@
                     <me.relex.circleindicator.CircleIndicator
                         android:id="@+id/indicator"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_36dp"
+                        android:layout_height="48dp"
                         android:layout_alignParentBottom="true"
-                        app:ci_drawable="@drawable/indicator" />
+                        app:ci_drawable="@drawable/indicator"
+                        app:ci_orientation="horizontal" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -87,12 +97,13 @@
                             android:background="@null">
 
                             <TextView
+                                android:id="@+id/txt1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentTop="true"
                                 android:layout_margin="@dimen/_16dp"
-                                android:text="کل رزروهای امرزو"
+                                android:text="@string/label_all_reserves"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/colorWhite" />
 
@@ -108,6 +119,7 @@
                                 app:srcCompat="@drawable/ic_pie_chart" />
 
                             <TextView
+                                android:id="@+id/txtTotalReserves"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
@@ -140,17 +152,19 @@
                                 android:layout_height="match_parent">
 
                                 <TextView
+                                    android:id="@+id/txt2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
                                     android:layout_alignParentTop="true"
                                     android:layout_marginStart="@dimen/_4dp"
                                     android:layout_marginTop="@dimen/_2dp"
-                                    android:text="تعداد رزرو صبح"
+                                    android:text="@string/label_morning_reserves"
                                     android:textColor="@color/colorWhite"
                                     android:textSize="@dimen/_8sp" />
 
                                 <TextView
+                                    android:id="@+id/txtMorningReserves"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentBottom="true"
@@ -187,17 +201,19 @@
                                 android:layout_height="match_parent">
 
                                 <TextView
+                                    android:id="@+id/txt3"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
                                     android:layout_alignParentTop="true"
                                     android:layout_marginStart="@dimen/_4dp"
                                     android:layout_marginTop="@dimen/_2dp"
-                                    android:text="تعداد رزرو عصر"
+                                    android:text="@string/label_evening_reserves"
                                     android:textColor="@color/colorWhite"
                                     android:textSize="@dimen/_8sp" />
 
                                 <TextView
+                                    android:id="@+id/txtEveningReserves"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentBottom="true"
@@ -228,13 +244,15 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/relStatistics"
                     android:gravity="center_horizontal|center_vertical"
-                    android:paddingTop="@dimen/_4dp">
+                    android:paddingTop="@dimen/_4dp"
+                    android:weightSum="3">
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/cardCategory"
-                        android:layout_width="72dp"
+                        android:layout_width="0dp"
                         android:layout_height="72dp"
                         android:layout_margin="@dimen/_8dp"
+                        android:layout_weight="1"
                         app:cardCornerRadius="@dimen/_4dp"
                         app:contentPadding="@dimen/_4dp">
 
@@ -255,6 +273,7 @@
                                 app:srcCompat="@drawable/ic_add_category" />
 
                             <TextView
+                                android:id="@+id/txtCategories"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
@@ -268,9 +287,10 @@
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/cardServices"
-                        android:layout_width="72dp"
+                        android:layout_width="0dp"
                         android:layout_height="72dp"
                         android:layout_margin="@dimen/_8dp"
+                        android:layout_weight="1"
                         app:cardCornerRadius="@dimen/_4dp"
                         app:contentPadding="@dimen/_4dp">
 
@@ -290,6 +310,7 @@
                                 app:srcCompat="@drawable/ic_add_service" />
 
                             <TextView
+                                android:id="@+id/txtServices"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
@@ -302,45 +323,11 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/cardSamples"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
-                        android:layout_margin="@dimen/_8dp"
-                        app:cardCornerRadius="@dimen/_4dp"
-                        app:contentPadding="@dimen/_4dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/imgIcon3"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerInParent="true"
-                                android:layout_marginTop="@dimen/_8dp"
-                                android:scaleType="centerInside"
-                                android:tint="@color/colorPrimary"
-                                app:srcCompat="@drawable/ic_add_sample" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_centerInParent="true"
-                                android:layout_marginBottom="@dimen/_4dp"
-                                android:text="@string/samples"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                                android:textSize="10sp" />
-                        </RelativeLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
                         android:id="@+id/cardBarbers"
-                        android:layout_width="72dp"
+                        android:layout_width="0dp"
                         android:layout_height="72dp"
                         android:layout_margin="@dimen/_8dp"
+                        android:layout_weight="1"
                         app:cardCornerRadius="@dimen/_4dp"
                         app:contentPadding="@dimen/_4dp">
 
@@ -361,6 +348,7 @@
                                 app:srcCompat="@drawable/ic_group_white_18dp" />
 
                             <TextView
+                                android:id="@+id/txtBarbers"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
@@ -368,7 +356,7 @@
                                 android:layout_marginBottom="@dimen/_4dp"
                                 android:text="@string/barbers"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                                android:textSize="10sp" />
+                                android:textSize="@dimen/_10sp" />
                         </RelativeLayout>
                     </android.support.v7.widget.CardView>
 
@@ -379,8 +367,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_56dp"
                     android:layout_below="@id/lnrActions"
-                    app:cardCornerRadius="@dimen/_8dp"
-                    android:layout_margin="@dimen/_8dp">
+                    android:layout_margin="@dimen/_8dp"
+                    app:cardCornerRadius="@dimen/_8dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -388,9 +376,9 @@
 
                         <TextView
                             android:id="@+id/txtListOfReservations"
+                            style="@style/TextAppearance.AppCompat.Large"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/TextAppearance.AppCompat.Large"
                             android:layout_centerInParent="true"
                             android:text="@string/list_of_reservations" />
                     </RelativeLayout>
@@ -412,7 +400,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:scrollbars="none"
-        android:visibility="visible"
         app:headerLayout="@layout/nav_header_main"
         app:itemIconTint="@color/colorPrimary"
         app:menu="@menu/activity_main_hairdresser_drawer" />

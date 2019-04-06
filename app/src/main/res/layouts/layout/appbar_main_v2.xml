@@ -18,7 +18,13 @@
             style="@style/Theme.AppCompat"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
-
+            <TextView
+                android:id="@+id/toolbar_title"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16dp"
+                android:textColor="@color/colorWhite" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -33,11 +39,9 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/advertices"
+                android:id="@+id/relSlideShow"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_172dp"
-                android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|enterAlways">
+                android:layout_height="@dimen/_200dp">
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/pager"
@@ -48,9 +52,10 @@
                 <me.relex.circleindicator.CircleIndicator
                     android:id="@+id/indicator"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_36dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentBottom="true"
-                    app:ci_drawable="@drawable/indicator" />
+                    app:ci_drawable="@drawable/indicator"
+                    app:ci_orientation="horizontal" />
             </RelativeLayout>
 
             <android.support.v4.widget.Space

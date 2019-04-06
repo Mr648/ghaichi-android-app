@@ -18,8 +18,6 @@ public class UploadTask {
     }
 
     public boolean upload() {
-
-        System.out.println("FUCKING UPLOAD IN UPLOAD TASK");
         return this.uploaderService != null && this.uploaderService.upload();
     }
 

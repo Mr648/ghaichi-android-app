@@ -1,9 +1,9 @@
 package com.sorinaidea.ghaichi.webservice.barbershop;
 
 
+import com.sorinaidea.ghaichi.models.Image;
 import com.sorinaidea.ghaichi.models.Response;
 import com.sorinaidea.ghaichi.models.Service;
-import com.sorinaidea.ghaichi.models.UploadImageResponse;
 
 import java.util.List;
 import java.util.Map;
@@ -59,10 +59,26 @@ public interface ServiceServices {
     @PUT("api/barbershop/services/{id}")
     Call<Response> update(@Header("Authorization") String authToken, @Path("id") int id);
 
+
     @Headers({
             "User-Agent: GHAICHI-APPLICATION-USER",
     })
     @Multipart
-    @POST("api/barbershop/services/upload")
-    Call<UploadImageResponse> upload(@Header("Authorization") String authToken, @Part MultipartBody.Part... images);
+    @POST("api/barbershop/services/{id}/images")
+    Call<Response> upload(@Header("Authorization") String authToken,@Path("id") int id, @Part MultipartBody.Part... images);
+
+    @Headers({
+            "User-Agent: GHAICHI-APPLICATION-USER",
+    })
+    @Multipart
+    @POST("api/barbershop/services/{id}/discount")
+    Call<Response> discount(@Header("Authorization") String authToken,@Path("id") int id, @FieldMap Map<String, String> params);
+
+
+    @Headers({
+            "User-Agent: GHAICHI-APPLICATION-USER",
+    })
+    @GET("api/barbershop/services/{id}/images")
+    Call<List<Image>> samples(@Header("Authorization") String authToken, @Path("id") int id);
+
 }

@@ -25,6 +25,8 @@ public class FontManager {
     public static final String MATERIAL_ICONS = ROOT + "materialIcons-regular.ttf";
     public static final String SOCIAL_ICONS = ROOT + "socicon.ttf";
     public static final String IRANSANS_TEXTS = ROOT + "irsans.ttf";
+    public static final String VAZIR_TEXTS = ROOT + "vazir.ttf";
+    public static final String VAZIR_BOLD_TEXTS = ROOT + "vazir_bold.ttf";
 
 
     public static Typeface getTypeface(Context context, String font) {

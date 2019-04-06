@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.BarberShopActivity"
+    tools:showIn="@layout/activity_barbershop_shaped">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.github.florent37.shapeofview.shapes.ArcView
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shape_arc_cropDirection="outside"
+            app:shape_arc_height="@dimen/_32dp"
+            app:shape_arc_position="bottom">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_256dp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true" />
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_36dp"
+                    android:layout_alignParentBottom="true"
+                    app:ci_drawable="@drawable/indicator" />
+            </RelativeLayout>
+        </com.github.florent37.shapeofview.shapes.ArcView>
+
+        <com.github.florent37.shapeofview.shapes.ArcView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginTop="-24dp"
+            app:shape_arc_cropDirection="inside"
+            app:shape_arc_height="@dimen/_32dp"
+            app:shape_arc_position="top">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgLogo"
+                        android:layout_width="@dimen/_144dp"
+                        android:layout_height="@dimen/_144dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/_16dp"
+                        android:layout_marginEnd="@dimen/_16dp"
+                        android:layout_marginStart="@dimen/_16dp"
+                        android:layout_marginTop="@dimen/_48dp"
+                        app:civ_border_color="@color/colorGray"
+                        app:civ_border_width="@dimen/_1dp" />
+
+                    <TextView
+                        android:id="@+id/txtName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_4dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <LinearLayout
+                        android:id="@+id/rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_8dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_4dp"
+                            android:layout_marginEnd="@dimen/_4dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                        <RatingBar
+                            android:id="@+id/ratingBar"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_8dp"
+                            android:isIndicator="true"
+                            android:layoutDirection="ltr"
+                            android:numStars="5"
+                            android:stepSize="0.01"
+                            android:theme="@style/AppTheme.RatingBar" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_8dp">
+
+
+                        <TextView
+                            android:id="@+id/txt1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/_lbl_about_barbershop"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                        <TextView
+                            android:id="@+id/txtAbout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_8dp">
+
+
+                        <TextView
+                            android:id="@+id/txt2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/_lbl_address"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                        <TextView
+                            android:id="@+id/txtAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_8dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="@dimen/_32dp"
+                        android:layout_marginTop="@dimen/_96dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtServices"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/services" />
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/img1"
+                            android:layout_width="@dimen/_36dp"
+                            android:layout_height="@dimen/_36dp"
+                            android:layout_marginTop="@dimen/_8dp"
+                            android:scaleType="centerInside"
+                            android:tint="@color/colorPrimary"
+                            app:srcCompat="@drawable/ic_add_service" />
+
+                        <TextView
+                            android:id="@+id/txtServicesCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/_32dp"
+                        android:layout_marginTop="@dimen/_96dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtBarbers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/barbers" />
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/img2"
+                            android:layout_width="@dimen/_36dp"
+                            android:layout_height="@dimen/_36dp"
+                            android:layout_marginTop="@dimen/_8dp"
+                            android:scaleType="centerInside"
+                            android:tint="@color/colorPrimary"
+                            app:srcCompat="@drawable/ic_group_white_18dp" />
+
+                        <TextView
+                            android:id="@+id/txtBarbersCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </FrameLayout>
+        </com.github.florent37.shapeofview.shapes.ArcView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recServices"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_8dp"
+            android:overScrollMode="never" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

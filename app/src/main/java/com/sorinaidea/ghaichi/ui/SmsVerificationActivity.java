@@ -9,10 +9,10 @@ import android.view.MenuItem;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 
+import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.util.SmsReceiver;
-import com.sorinaidea.ghaichi.util.SorinaApplication;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.LoginService;
@@ -22,7 +22,6 @@ import com.sorinaidea.ghaichi.webservice.model.responses.LoginResponse;
 import com.sorinaidea.ghaichi.webservice.model.responses.VerificationResponse;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
@@ -51,7 +50,7 @@ public class SmsVerificationActivity extends ToolbarActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (SorinaApplication.hasAccessKey(getApplicationContext())) {
+        if (App.hasAccessKey(getApplicationContext())) {
             finish();
         }
     }
@@ -59,7 +58,7 @@ public class SmsVerificationActivity extends ToolbarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (SorinaApplication.hasAccessKey(getApplicationContext())) {
+        if (App.hasAccessKey(getApplicationContext())) {
             finish();
         }
     }
@@ -67,7 +66,7 @@ public class SmsVerificationActivity extends ToolbarActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (SorinaApplication.hasAccessKey(getApplicationContext())) {
+        if (App.hasAccessKey(getApplicationContext())) {
             finish();
         }
     }
@@ -141,17 +140,16 @@ public class SmsVerificationActivity extends ToolbarActivity {
 
                     if (!response.body().hasError()) {
 
-
                         Auth.loggedIn(SmsVerificationActivity.this, response.body());
 
                         // TODO Goto Other Part Of Program.
-//                        if (userType.equals(Util.CONSTANTS.ROLE_BARBERSHOP)) {
-                        startActivity(new Intent(SmsVerificationActivity.this, BarberMainActivity.class));
-                        finish();
-//                        } else if (userType.equals(Util.CONSTANTS.ROLE_NORMAL_USER)) {
-//                            startActivity(new Intent(SmsVerificationActivity.this, NewMainActivity.class));
-//                            finish();
-//                        }
+                        if (Auth.isBarbershop(SmsVerificationActivity.this)) {
+                            startActivity(new Intent(SmsVerificationActivity.this, BarberMainActivity.class));
+                            finish();
+                        } else if (Auth.isUser(SmsVerificationActivity.this)) {
+                            startActivity(new Intent(SmsVerificationActivity.this, NewMainActivity.class));
+                            finish();
+                        }
                     } else {
                         toast("پاسخی از سرور دریافت نشد.");
                         finish();
@@ -166,9 +164,7 @@ public class SmsVerificationActivity extends ToolbarActivity {
                 hideProgressDialog();
                 if (t instanceof IOException)
                     toast("خطا در ارتباط با سرور");
-
                 actionAlert("تایید ناموفق", "میخواهید مجددا امتحان کنید؟", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorAmberAccent900, view -> sendVerificationCode(phone, verificationCode));
-
             }
         });
     }
@@ -189,7 +185,7 @@ public class SmsVerificationActivity extends ToolbarActivity {
                 hideProgressDialog();
                 if (response.body() != null) {
                     if (!response.body().hasError()) {
-                        toast(String.format(new Locale("fa"), "%s %s %s.", "کد فعالسازی به شماره  " , phone , " ارسال شد"));
+                        toast(String.format(App.LOCALE, "%s %s %s.", "کد فعالسازی به شماره  ", phone, " ارسال شد"));
                     } else {
                         toast("خطا در ارسال اطلاعات");
                     }

@@ -1,48 +1,45 @@
 package com.sorinaidea.ghaichi.ui.barbershop.activity;
 
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.AppBarLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.adapter.DataAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
-import com.sorinaidea.ghaichi.fast.UserInfo;
-import com.sorinaidea.ghaichi.util.FontManager;
+import com.sorinaidea.ghaichi.models.Data;
+import com.sorinaidea.ghaichi.models.UploadImageResponse;
+import com.sorinaidea.ghaichi.ui.ImageUploaderActivity;
 import com.sorinaidea.ghaichi.webservice.API;
-import com.sorinaidea.ghaichi.webservice.image.ImageUploadTask;
-import com.sorinaidea.ghaichi.webservice.UserProfileService;
+import com.sorinaidea.ghaichi.webservice.barbershop.BarbershopProfileServices;
+import com.sorinaidea.ghaichi.webservice.image.SingleImageUploader;
+import com.sorinaidea.ghaichi.webservice.image.UploadTask;
+import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URLDecoder;
+import java.util.List;
+import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Created by mr-code on 6/17/2018.
  */
 
-public class BarbershopProfileActivity extends AppCompatActivity
+public class BarbershopProfileActivity extends ImageUploaderActivity
         implements AppBarLayout.OnOffsetChangedListener {
 
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
@@ -53,143 +50,136 @@ public class BarbershopProfileActivity extends AppCompatActivity
     private boolean mIsTheTitleContainerVisible = true;
 
     private LinearLayout mTitleContainer;
-    private TextView mTitle;
     private AppBarLayout mAppBarLayout;
-    private Toolbar mToolbar;
-
-    private TextView txtLb1;
-    private TextView txtName;
-    private TextView txtLb2;
-    private TextView txtFamily;
-    private TextView txtLb3;
-    private TextView txtGender;
-    private TextView txtLb4;
-    private TextView txtPhone;
-    private TextView txtLb5;
-    private TextView txtTitle;
     private TextView txtHeaderName;
     private TextView txtHeaderNumber;
+    private RecyclerView recData;
+
     private de.hdodenhof.circleimageview.CircleImageView imgUserImage;
 
+    DataAdapter adapter;
 
-    public void update() {
-        Retrofit retrofit = API.getRetrofit();
-
-        UserProfileService service = retrofit.create(UserProfileService.class);
-
-        Call<UserInfo> info = service.info(Auth.getAccessKey(getApplicationContext()));
-
-        info.enqueue(new Callback<UserInfo>() {
-            @Override
-            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
-
-                if (response.body() != null) {
-
-                    UserInfo info = response.body();
-
-                    Log.d("NAME", info.getName() + " " + info.getFamily());
-                    txtName.setText(info.getName());
-                    txtFamily.setText(info.getFamily());
-                    txtGender.setText(info.getGender().equals("men") ? "آقا" : "خانم");
-                    txtPhone.setText(info.getPhone());
-                    txtTitle.setText(info.getName() + " " + info.getFamily());
-                    txtHeaderName.setText(info.getName() + " " + info.getFamily());
-                    txtHeaderNumber.setText(info.getPhone());
-                    if (info.getImage() != null) {
-                        try {
-                            API.getPicasso(getApplicationContext())
-                                    .load(API.BASE_URL
-                                            + URLDecoder.decode(info.getImage(), "UTF-8")).into(imgUserImage);
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } else {
-
-                    Log.d("NAME", "NULL");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserInfo> call, Throwable t) {
-                Log.d("NAME", t.toString());
-
-            }
-        });
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_barbershop_profile);
-
+        setContentView(R.layout.activity_profiles);
         bindActivity();
+        update();
+    }
 
-        mAppBarLayout.addOnOffsetChangedListener(this);
+    public void update() {
+        showProgressDialog(null, "در حال دریافت اطلاعات", false);
 
-        mToolbar.inflateMenu(R.menu.activity_barbershop_profile);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        BarbershopProfileServices service = API.getRetrofit().create(BarbershopProfileServices.class);
+
+        Call<List<Data>> info = service.barbershop(Auth.getAccessKey(getApplicationContext()));
+
+        info.enqueue(new Callback<List<Data>>() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                try {
-                    Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    // Start the Intent
-                    startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        Objects.requireNonNull(response.body());
+                        updateView(response.body());
+                    } catch (NullPointerException ex) {
+                        alert("خطا", "مشکل در دریافت اطلاعات", R.drawable.ic_close, R.color.colorRedAccent900);
+                    }
                 }
-                return true;
+                hideProgressDialog();
+            }
+
+            @Override
+            public void onFailure(Call<List<Data>> call, Throwable t) {
+                if (t instanceof IOException)
+                    alert("خطا", "مشکل در ارتباط با سرور", R.drawable.ic_close, R.color.colorRedAccent900);
+
+                alert("خطا", "مشکل در دریافت اطلاعات", R.drawable.ic_close, R.color.colorRedAccent900);
             }
         });
-
-        startAlphaAnimation(mTitle, 0, View.INVISIBLE);
-
-
-        txtLb1 = findViewById(R.id.txtLb1);
-        txtName = findViewById(R.id.txtTime);
-        txtLb2 = findViewById(R.id.txtLb2);
-        txtFamily = findViewById(R.id.txtFamily);
-        txtLb3 = findViewById(R.id.txtLb3);
-        txtGender = findViewById(R.id.txtGender);
-        txtLb4 = findViewById(R.id.txtLb4);
-        txtPhone = findViewById(R.id.txtPhone);
-        txtLb5 = findViewById(R.id.txtLb5);
-        txtTitle = findViewById(R.id.txtTitle);
-        txtHeaderName = findViewById(R.id.txtHeaderName);
-        txtHeaderNumber = findViewById(R.id.txtHeaderNumber);
-        imgUserImage = findViewById(R.id.imgUserImage);
-        Typeface iranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
-
-        update();
+    }
 
 
-        FontManager.setFont(txtLb1, iranSans);
-        FontManager.setFont(txtName, iranSans);
-        FontManager.setFont(txtLb2, iranSans);
-        FontManager.setFont(txtFamily, iranSans);
-        FontManager.setFont(txtLb3, iranSans);
-        FontManager.setFont(txtGender, iranSans);
-        FontManager.setFont(txtLb4, iranSans);
-        FontManager.setFont(txtPhone, iranSans);
-        FontManager.setFont(txtLb5, iranSans);
-        FontManager.setFont(txtTitle, iranSans);
-        FontManager.setFont(txtHeaderName, iranSans);
-        FontManager.setFont(txtHeaderNumber, iranSans);
+    public void updateProfileImage(Data image) {
+        if (image == null) return;
+        if (image.getValue().equals("default")) return;
+        // TODO how to use Picasso
+        API.getPicasso(this)
+                .load(image.getValue())
+                .fit()
+                .centerInside()
+                .into(imgUserImage);
+    }
 
+    public void updateView(List<Data> userData) {
+        Data data = null;
+        for (Data d : userData) {
+            if (d.getKeyEn().equals("logo")) {
+                data = d;
+                userData.remove(d);
+                break;
+            }
+        }
+
+        updateProfileImage(data);
+        recData.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recData.setAdapter(new DataAdapter(userData, this, edit -> {
+            new LovelyTextInputDialog(this)
+                    .setTopColorRes(R.color.colorAmberAccent900)
+                    .setIcon(R.drawable.ic_edit_white_24dp)
+                    .setTitle("ویرایش")
+                    .setMessage(edit.getKeyFa() + " خود را ویرایش کنید.")
+                    .setInitialInput(edit.getValue())
+                    .setConfirmButton("تایید", text -> {
+                        //&& !text.equals(edit.getValue())
+                        if (!text.isEmpty()) {
+                            updateField(edit.getKeyEn(), text);
+                        }
+                    })
+                    .configureMessageView(this::applyTextFont)
+                    .configureTitleView(this::applyTextFont)
+                    .show();
+
+
+        }));
+    }
+
+    private void updateField(String key, String value) {
+        BarbershopProfileServices serviceServices = API.getRetrofit().create(BarbershopProfileServices.class);
+        serviceServices
+                .updateBarbershop(Auth.getAccessKey(BarbershopProfileActivity.this), key, value)
+                .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+                    @Override
+                    public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
+                        if (response.isSuccessful()) {
+                            toast(response.body().getMessage());
+                            logDebug(key + ":" + value);
+                            update();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+                        toast("خطا در بروزرسانی داده‌");
+                    }
+                });
     }
 
     private void bindActivity() {
-        mToolbar = findViewById(R.id.main_toolbar);
-        mTitle = findViewById(R.id.txtTitle);
+        initToolbar(R.string.toolbar_barbershop_profile, false, false);
         mTitleContainer = findViewById(R.id.main_linearlayout_title);
         mAppBarLayout = findViewById(R.id.main_appbar);
+        mAppBarLayout.addOnOffsetChangedListener(this);
+        startAlphaAnimation(toolbarTitle, 0, View.INVISIBLE);
+        txtHeaderName = findViewById(R.id.txtHeaderName);
+        txtHeaderNumber = findViewById(R.id.txtHeaderNumber);
+        imgUserImage = findViewById(R.id.imgUserImage);
+        recData = findViewById(R.id.recData);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_user_profile, menu);
+        getMenuInflater().inflate(R.menu.activity_profiles, menu);
         return true;
     }
 
@@ -197,23 +187,20 @@ public class BarbershopProfileActivity extends AppCompatActivity
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
         int maxScroll = appBarLayout.getTotalScrollRange();
         float percentage = (float) Math.abs(offset) / (float) maxScroll;
-
         handleAlphaOnTitle(percentage);
         handleToolbarTitleVisibility(percentage);
     }
 
     private void handleToolbarTitleVisibility(float percentage) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
-
             if (!mIsTheTitleVisible) {
-                startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+                startAlphaAnimation(toolbarTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleVisible = true;
             }
-
         } else {
 
             if (mIsTheTitleVisible) {
-                startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+                startAlphaAnimation(toolbarTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleVisible = false;
             }
         }
@@ -245,109 +232,68 @@ public class BarbershopProfileActivity extends AppCompatActivity
         v.startAnimation(alphaAnimation);
     }
 
-    //keep track of cropping intent
-    final int PIC_CROP = 3;
-    //keep track of gallery intent
-    final int PICK_IMAGE_REQUEST = 2;
-    //captured picture uri
-    private Uri picUri;
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_pick_photo) {
-            try {
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                // Start the Intent
-                startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            pickSingleImage();
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected UploadTask generateTask(File... files) throws NullPointerException {
+        if (null == files) throw new NullPointerException("هیچ فایلی انتخاب نشده است.");
 
-        if (resultCode == RESULT_OK) {
-            //user is returning from capturing an image using the camera
-            if (requestCode == PICK_IMAGE_REQUEST) {
-                picUri = data.getData();
-                Log.d("uriGallery", picUri.toString());
-                performCrop();
+        UploadTask task;
+
+        MultipartBody.Part image = MultipartBody.Part.createFormData("logo", files[0].getName(),
+                RequestBody.create(MediaType.parse("image/*"), files[0]));
+
+        task = new UploadTask(new SingleImageUploader(image) {
+
+            boolean uploadResult = false;
+
+            @Override
+            public boolean isDone() {
+                return uploadResult;
             }
-            //user is returning from cropping the image
-            else if (requestCode == PIC_CROP) {
-                //get the returned data
-                Bundle extras = data.getExtras();
-                //get the cropped bitmap
-                Bitmap thePic = (Bitmap) extras.get("data");
-                //display the returned cropped image
 
-                File f = saveImage(thePic, BarbershopProfileActivity.this);
-//                try {
-//                    new ImageUploadTask(() -> {
-//                        Toast.makeText(BarbershopProfileActivity.this, "عملیات موفق آمیز.", Toast.LENGTH_SHORT).show();
-//                        update();
-//                    }, BarbershopProfileActivity.this).execute(f);
-//
-//                } catch (Exception ex) {
-//                }
+            @Override
+            public boolean upload(MultipartBody.Part image) {
+                showProgress();
+                BarbershopProfileServices serviceServices = API.getRetrofit().create(BarbershopProfileServices.class);
+                serviceServices.changeLogo(Auth.getAccessKey(BarbershopProfileActivity.this), image).enqueue(new Callback<UploadImageResponse>() {
+                    @Override
+                    public void onResponse(Call<UploadImageResponse> call, Response<UploadImageResponse> response) {
+                        hideProgress();
+                        if (response.isSuccessful()) {
+                            UploadImageResponse result = response.body();
+                            result.getImages();
+                            alert("آپلود موفق", "تصویر با موفقیت افزوده شدند.", R.mipmap.ic_file_upload_white_24dp, R.color.colorTransaction);
+                            uploadResult = true;
+                        } else {
+                            alert("آپلود ناموفق", "خطا در آپلود تصویر.", R.drawable.ic_info, R.color.colorAmberAccent900);
+                            uploadResult = false;
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<UploadImageResponse> call, Throwable t) {
+                        hideProgress();
+                        uploadResult = false;
+                        if (t instanceof IOException) {
+                            alert("قطع ارتباط", "خطا در اتصال به سرور", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
+                            return;
+                        }
+                        alert("آپلود ناموفق", "خطا در آپلود تصاویر.", R.drawable.ic_close, R.color.colorRedAccent900);
+                    }
+                });
+                return uploadResult;
             }
-        }
+        });
+
+        return task;
     }
 
-    private void performCrop() {
-        try {
-            //call the standard crop action intent (the user device may not support it)
-            Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            //indicate image type and Uri
-            cropIntent.setDataAndType(picUri, "image/*");
-            //set crop properties
-            cropIntent.putExtra("crop", "true");
-            //indicate aspect of desired crop
-            cropIntent.putExtra("aspectX", 1);
-            cropIntent.putExtra("aspectY", 1);
-            //indicate output X and Y
-            cropIntent.putExtra("outputX", 256);
-            cropIntent.putExtra("outputY", 256);
-            //retrieve data on return
-            cropIntent.putExtra("return-data", true);
-            //start the activity - we handle returning in onActivityResult
-            startActivityForResult(cropIntent, PIC_CROP);
-        } catch (ActivityNotFoundException anfe) {
-            //display an error message
-            String errorMessage = "Whoops - your device doesn't support the crop action!";
-            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
-            toast.show();
-        }
-    }
-
-    public static File saveImage(Bitmap finalBitmap, Context context) {
-
-        String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(Environment.getExternalStorageDirectory() + "/.ghaichi-application/images");
-        myDir.mkdirs();
-
-        String fname = new String("USER_SAVED_IMAGE".getBytes());
-
-        File file = new File(myDir, "user_profile_image.png");
-
-        if (file.exists()) file.delete();
-
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            finalBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return file;
-    }
 }

@@ -2,7 +2,6 @@ package com.sorinaidea.ghaichi.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.models.Image;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 
 /**
@@ -25,13 +22,13 @@ import java.util.ArrayList;
 
 public class ImageSliderAdapter extends PagerAdapter {
 
-    private ArrayList<String> images;
+    private ArrayList<Image> images;
     private LayoutInflater inflater;
     private Context context;
     private static final String TAG = ImageSliderAdapter.class.getSimpleName();
 
 
-    public ImageSliderAdapter(Context context, ArrayList<String> images) {
+    public ImageSliderAdapter(Context context, ArrayList<Image> images) {
         this.context = context;
         this.images = images;
         inflater = LayoutInflater.from(context);
@@ -47,18 +44,6 @@ public class ImageSliderAdapter extends PagerAdapter {
         return images.size();
     }
 
-    private String getUrl(int position) {
-        try {
-            return API.BASE_URL + URLDecoder.decode(images.get(position), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            Log.d(TAG, "Unsupported Encoding Exception");
-            e.printStackTrace();
-        } catch (IndexOutOfBoundsException e) {
-            Log.d(TAG, "Index Out Of Bounds Exception");
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     @Override
     public Object instantiateItem(ViewGroup view, int position) {
@@ -78,7 +63,7 @@ public class ImageSliderAdapter extends PagerAdapter {
         }
 
 
-        API.getPicasso(context).load(getUrl(position)).centerCrop().fit().into(myImage, new Callback() {
+        API.getPicasso(context).load(images.get(position).getPath()).centerCrop().fit().into(myImage, new Callback() {
             @Override
             public void onSuccess() {
                 prgLoad.setVisibility(View.GONE);

@@ -116,13 +116,19 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_setting) {
-            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.action_credit) {
-            Intent intent = new Intent(MainActivity.this, CreditActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.action_favorites) {
+
+
+//        if (id == R.id.action_setting) {
+//            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+//            startActivity(intent);
+//        }
+
+//        if (id == R.id.action_credit) {
+//            Intent intent = new Intent(MainActivity.this, CreditActivity.class);
+//            startActivity(intent);
+//        }
+
+        if (id == R.id.action_favorites) {
             Intent intent = new Intent(MainActivity.this, BookmarksActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_free_reservation) {
@@ -148,8 +154,8 @@ public class MainActivity extends AppCompatActivity implements
                     if (response.isSuccessful()){
                         if (!response.body().hasError()){
                             // Remove Keys
-                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),   Security.encrypt(Util.PREFRENCES_KEYS.USER_ACCESS_KEY, getApplicationContext()) );
-                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),  Security.encrypt(Util.PREFRENCES_KEYS.USER_ROLE, getApplicationContext()));
+                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),   Security.encrypt(Util.KEYS.USER_ACCESS_KEY, getApplicationContext()) );
+                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),  Security.encrypt(Util.KEYS.USER_ROLE, getApplicationContext()));
 
                             // Exit From Application
                             Intent homeIntent = new Intent(Intent.ACTION_MAIN);

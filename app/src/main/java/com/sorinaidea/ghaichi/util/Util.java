@@ -4,13 +4,14 @@ package com.sorinaidea.ghaichi.util;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.sorinaidea.ghaichi.model.Advertise;
+
+import java.util.Objects;
 
 /**
  * Created by mr-code on 1/30/2018.
@@ -24,7 +25,7 @@ public class Util {
         public static final String SERVICE_ID = "SERVICE_ID";
     }
 
-    public static final class PREFRENCES_KEYS {
+    public static final class KEYS {
         public static final int BASE_64_ENCODE_DECODE_COUNT = 5;
         public static final int BASE_64_ENCODE_DECODE_KEYS_COUNT = 0x2;
         public static final String USER_ROLE = "user_role";
@@ -40,9 +41,10 @@ public class Util {
         public static final String TAG = "GHAICHI_APPLICATION";
         public static final String NO_INTERNET_CONNECTION = "خطا در اتصال به اینترنت!";
         public static final String BASE_URL = "http://ghaichi.com";
-        public static final String ROLE_BARBERSHOP = "application_barbershop";
-        public static final String ROLE_NORMAL_USER = "application_user";
-
+        public static final String ROLE_BARBERSHOP = "barbershop";
+        public static final String ROLE_USER = "user";
+        public static final String REGEX_JALALI_DATE="^[0-9]{4}\\/[0-9]{2}\\/[0-9]{2}$";
+        public static final String REGEX_TIME ="^[0-9]{2}\\:[0-9]{2}$";
         public static final String REGEX_PHONE
                 = "^(0|\\+98)?([ ]|,|-|[()]){0,2}9[0|1|2|3|4|5]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}$";
 
@@ -80,10 +82,15 @@ public class Util {
     }
 
     public static boolean isOnline(Context context) {
-        ConnectivityManager cm =
+        ConnectivityManager connectivityManager =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
+        try {
+            return Objects.requireNonNull(connectivityManager)
+                    .getActiveNetworkInfo()
+                    .isConnectedOrConnecting();
+        } catch (NullPointerException ignore) {
+            return false;
+        }
     }
 
 

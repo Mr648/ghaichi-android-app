@@ -78,6 +78,9 @@
     <string name="_lbl_duration">مدت زمان (دقیقه)</string>
     <string name="_lbl_all">همه</string>
     <string name="_lbl_confirm">تایید</string>
+    <string name="_lbl_from">از</string>
+    <string name="_lbl_until">الی</string>
+    <string name="_lbl_time_hint">00:00</string>
     <string name="_lbl_ok">تایید</string>
     <string name="_lbl_add">افزودن</string>
     <string name="_lbl_manage_sample_work">مدیریت نمونه کارها</string>
@@ -85,6 +88,8 @@
     <string name="_lbl_service_category">دسته‌بندی خدمات</string>
     <string name="_lbl_request_advertise">درخواست تبلیغات</string>
     <string name="_lbl_personal_info">اطلاعات شخصی</string>
+    <string name="_lbl_morning">صبح</string>
+    <string name="_lbl_evening">عصر</string>
     <string name="label_home">اطلاعات شخصی</string>
 
 
@@ -99,19 +104,25 @@
     <string name="err__empty__description">فیلد توضیحات خالی است</string>
     <string name="err__empty__price">فیلد هزینه انجام خدمت خالی است</string>
     <string name="err__empty__family">فیلد نام‌خانوادگی خالی است</string>
+    <string name="err__empty__comment">فیلد نظر خالی است</string>
     <string name="err__invalid__verfcode">کد فعالسازی نادرست</string>
     <string name="err__load_image_failed">خطا در بارگزاری تصویر</string>
 
 
     <string name="label_pick_photo">انتخاب تصویر</string>
     <string name="label_profile">پروفایل</string>
+    <string name="label_barbershop">آرایشگاه</string>
     <string name="label_advertise">تبلیغات</string>
     <string name="label_credit">پرداخت‌ها</string>
     <string name="label_faq">سوالات متداول</string>
     <string name="label_favorites">علاقه مندی ها</string>
     <string name="label_free_reservation">رزرو رایگان</string>
     <string name="label_logout">خروج از حساب کاربری</string>
+    <string name="label_description">تصویر</string>
     <string name="label_setting">تنظیمات</string>
+    <string name="label_all_reserves">کل رزروهای امرزو</string>
+    <string name="label_morning_reserves">تعداد رزرو صبح</string>
+    <string name="label_evening_reserves">تعداد رزرو عصر</string>
     <string name="label_aboutus">درباره ما</string>
     <string name="navigation_menu_open">باز کردن</string>
     <string name="navigation_menu_close">بستن</string>
@@ -153,4 +164,6 @@
 
     <string name="err_unable_to_connect_to_server">خطا در ارتباط با سرور، بعدا مجددا تلاش کنید.</string>
 
+    <!-- content descriptions-->
+    <string name="cd_ic_location">آیکون مکان نما</string>
 </resources>

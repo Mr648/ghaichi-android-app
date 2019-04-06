@@ -60,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
 //                        if (userType.equals(Util.CONSTANTS.ROLE_BARBERSHOP)) {
                         startActivity(new Intent(SplashActivity.this, BarberMainActivity.class));
                         finish();
-//                        } else if (userType.equals(Util.CONSTANTS.ROLE_NORMAL_USER)) {
+//                        } else if (userType.equals(Util.CONSTANTS.ROLE_USER)) {
 //                            startActivity(new Intent(SmsVerificationActivity.this, NewMainActivity.class));
 //                            finish();
 //                        }

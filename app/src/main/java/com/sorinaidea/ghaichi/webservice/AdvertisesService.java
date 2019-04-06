@@ -1,18 +1,20 @@
 package com.sorinaidea.ghaichi.webservice;
 
 
-import com.sorinaidea.ghaichi.fast.Advertise;
-import com.sorinaidea.ghaichi.fast.Photo;
+import com.sorinaidea.ghaichi.models.Image;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 
 public interface AdvertisesService {
 
+    @Headers({
+            "User-Agent: GHAICHI-APPLICATION-USER",
+    })
     @GET("api/user/related/ads")
-    Call<List<Advertise>> advertises(@Query("accessKey") String accessKey);
+    Call<List<Image>> advertises(@Header("Authorization") String authToken);
 }

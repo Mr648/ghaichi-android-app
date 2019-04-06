@@ -1,20 +1,14 @@
 package com.sorinaidea.ghaichi.ui;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
@@ -23,15 +17,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.adapter.BannerAdapter;
 import com.sorinaidea.ghaichi.adapter.BarberShopProfileServiceAdapter;
-import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
 import com.sorinaidea.ghaichi.auth.Auth;
-import com.sorinaidea.ghaichi.fast.Barbershop;
-import com.sorinaidea.ghaichi.fast.Photo;
-import com.sorinaidea.ghaichi.fast.Service;
-import com.sorinaidea.ghaichi.util.FontManager;
+import com.sorinaidea.ghaichi.models.BarbershopProfile;
+import com.sorinaidea.ghaichi.models.BaseService;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
@@ -39,10 +32,8 @@ import com.sorinaidea.ghaichi.webservice.UserProfileService;
 import com.sorinaidea.ghaichi.webservice.model.responses.IsBookmarked;
 
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -51,7 +42,6 @@ import me.relex.circleindicator.CircleIndicator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 //import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -60,178 +50,200 @@ import retrofit2.Retrofit;
  * Created by mr-code on 6/17/2018.
  */
 
-public class BarberShopActivity extends AppCompatActivity {
+public class BarberShopActivity extends ToolbarActivity {
 
-    private Toolbar toolbar;
     private ViewPager mPager;
     private ScrollView scrViewRoot;
     private CircleIndicator indicator;
 
-    //    private CircleImageView imgLogo;
     //    private AppCompatImageView imgComment;
 
     private CircleImageView imgLogo;
-    private TextView txtAddress;
-    private TextView txtRating;
     private TextView txtName;
-    private TextView txtDescription;
-    private LinearLayout lnrRating;
+    private TextView txtServices;
+    private TextView txtServicesCount;
+    private TextView txtBarbers;
+    private TextView txtBarbersCount;
+    private TextView txtRating;
+    private TextView txt1;
+    private TextView txt2;
+    private TextView txtAbout;
+    private TextView txtAddress;
+
+    private LinearLayout rating;
     private RatingBar ratingBar;
     private RecyclerView recServices;
-    private Typeface fontIranSans;
-    private static int currentPage = 0;
     private static final int NUM_COLUMNS = 2;
     private int barbershopId;
 
 
-    private void updateUI(Barbershop barbershop) {
+    private void updateUI(BarbershopProfile barbershop) {
 
+        toolbarTitle.setText(barbershop.getName());
         txtName.setText(barbershop.getName());
         txtAddress.setText(barbershop.getAddress());
-        txtDescription.setText(barbershop.getDescription());
+        txtAbout.setText(barbershop.getAbout());
         ratingBar.setRating(Float.parseFloat(barbershop.getRating()));
-        txtRating.setText(String.format(Locale.ENGLISH, "%.2f", (Float.parseFloat(barbershop.getRating()) * 1.0f)));
-        initializeImageSlider(barbershop.getBanners());
-        initServices(barbershop.getServices());
-        try {
-            API.getPicasso(getApplicationContext())
-                    .load(API.BASE_URL
-                            + URLDecoder.decode(barbershop.getIcon(), "UTF-8"))
-                    .fit()
-                    .into(imgLogo);
+        txtRating.setText(String.format(App.LOCALE, "%.2f", (Float.parseFloat(barbershop.getRating()) * 1.0f)));
+        txtServicesCount.setText(String.format(App.LOCALE, "%d", barbershop.getServicesCount()));
+        txtBarbersCount.setText(String.format(App.LOCALE, "%d", barbershop.getBarbersCount()));
+        initImageSlider(barbershop.getBanners());
 
-//                    .resize(Util.dp(48, getApplicationContext()), Util.dp(48, getApplicationContext()))
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        initServices(barbershop.getServices());
+
+        API.getPicasso(getApplicationContext())
+                .load(barbershop.getLogo())
+                .centerCrop()
+                .fit()
+                .placeholder(R.drawable.preview_small)
+                .error(R.drawable.preview_small)
+                .into(imgLogo);
 
 
     }
 
-    private void getBarbershopInfo(int barbershopId) {
+    private static int currentPage = 0;
 
-        Retrofit retrofit = API.getRetrofit();
+    private void initImageSlider(List<String> images) {
 
-        BarbershopServices service = retrofit.create(BarbershopServices.class);
-
-        Call<Barbershop> barbershopCall = service.barbershop(barbershopId, Auth.getAccessKey(getApplicationContext()));
-
-        barbershopCall.enqueue(new Callback<Barbershop>() {
+        BannerAdapter adapter = new BannerAdapter(getApplicationContext(), images);
+        mPager.setAdapter(adapter);
+        indicator.setViewPager(mPager);
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onResponse(@NonNull Call<Barbershop> call, Response<Barbershop> response) {
-                if (response.body() != null) {
-                    updateUI(response.body());
-                }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
 
             @Override
-            public void onFailure(Call<Barbershop> call, Throwable t) {
+            synchronized public void onPageSelected(int position) {
+                currentPage = position;
+            }
 
+            @Override
+            public void onPageScrollStateChanged(int state) {
             }
         });
+        final Handler handler = new Handler();
+        final Runnable Update = () -> {
+            if (currentPage == images.size()) {
+                currentPage = 0;
+            }
+            mPager.setCurrentItem(currentPage++, true);
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 1000, 3000);
+    }
 
+    private void getBarbershopInfo(int barbershopId) {
+
+        showProgress();
+        API.getRetrofit().create(BarbershopServices.class)
+                .barbershop(Auth.getAccessKey(getApplicationContext()), barbershopId)
+                .enqueue(new Callback<BarbershopProfile>() {
+                    @Override
+                    public void onResponse(Call<BarbershopProfile> call, Response<BarbershopProfile> response) {
+                        hideProgress();
+                        if (response.isSuccessful()) {
+                            try {
+                                updateUI(Objects.requireNonNull(response.body()));
+                            } catch (NullPointerException ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BarbershopProfile> call, Throwable t) {
+                        hideProgress();
+                        if (t instanceof IOException)
+                            toast(R.string.err_unable_to_connect_to_server);
+                    }
+                });
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_barbershop);
+        setContentView(R.layout.activity_barbershop_shaped);
+        initToolbar("", true, false);
 
-        lnrRating = findViewById(R.id.lnrRating);
+        rating = findViewById(R.id.rating);
 
 
         Bundle extras = getIntent().getExtras();
         if (extras != null && !extras.isEmpty()) {
             barbershopId = Integer.parseInt(extras.getString(Util.COMMUNICATION_KEYS.BARBERSHOP_ID));
+            toast("آرایشگاه دیتا لود");
             getBarbershopInfo(barbershopId);
             isBookmarked();
-            lnrRating.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), CommentsActivity.class);
-                    intent.putExtra(Util.COMMUNICATION_KEYS.BARBERSHOP_ID, Integer.toString(barbershopId));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
+            rating.setOnClickListener(view -> {
+                Intent intent = new Intent(getApplicationContext(), CommentsActivity.class);
+                intent.putExtra(Util.COMMUNICATION_KEYS.BARBERSHOP_ID, Integer.toString(barbershopId));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             });
         } else {
             finish();
         }
 
 
-        scrViewRoot = findViewById(R.id.scrViewRoot);
-        recServices = findViewById(R.id.recBanners);
+        recServices = findViewById(R.id.recServices);
 
         recServices.setFocusable(false);
 
-        scrViewRoot.fullScroll(ScrollView.FOCUS_UP);
-        scrViewRoot.smoothScrollTo(0, 0);
-
-
-        fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
 
         toolbar = findViewById(R.id.toolbar);
         mPager = findViewById(R.id.pager);
         indicator = findViewById(R.id.indicator);
         imgLogo = findViewById(R.id.imgLogo);
 
-        //        imgComment = (AppCompatImageView) findViewById(R.id.imgComment);
 
         txtAddress = findViewById(R.id.txtAddress);
         txtRating = findViewById(R.id.txtRating);
-        txtName = findViewById(R.id.txtTime);
-        txtDescription = findViewById(R.id.txtDescription);
+        txtAbout = findViewById(R.id.txtAbout);
+        txtName = findViewById(R.id.txtName);
         ratingBar = findViewById(R.id.ratingBar);
+
+        txt1 = findViewById(R.id.txt1);
+        txt2 = findViewById(R.id.txt2);
+        txtServices = findViewById(R.id.txtServices);
+        txtServicesCount = findViewById(R.id.txtServicesCount);
+        txtBarbers = findViewById(R.id.txtBarbers);
+        txtBarbersCount = findViewById(R.id.txtBarbersCount);
 
 
         recServices.setLayoutManager(new GridLayoutManager(getApplicationContext(), NUM_COLUMNS, GridLayoutManager.VERTICAL, false));
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen._4dp);
         recServices.addItemDecoration(itemDecoration);
 
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
         ratingBar.setIsIndicator(true);
-
-
-        scrViewRoot.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                int scrollY = scrViewRoot.getScrollY(); // For ScrollView
-                int scrollX = scrViewRoot.getScrollX(); // For HorizontalScrollView
-
-                if (scrollY <= 0) {
-                    showToolbar();
-                }
-                if (scrollY > 100) {
-                    hideToolbar();
-                }
-                // DO SOMETHING WITH THE SCROLL COORDINATES
-            }
-        });
-
-
-        FontManager.setFont(txtAddress, fontIranSans);
-        FontManager.setFont(txtRating, fontIranSans);
-        FontManager.setFont(txtName, fontIranSans);
-        FontManager.setFont(txtDescription, fontIranSans);
-        FontManager.setFont(ratingBar, fontIranSans);
-
-
+        applyTextFont(
+                txtAddress,
+                txtRating,
+                txtAbout,
+                ratingBar,
+                txtName,
+                txtServices,
+                txtServicesCount,
+                txtBarbers,
+                txtBarbersCount
+        );
+        applyTextBoldFont(
+                txt1,
+                txt2
+        );
     }
 
-    private void initServices(List<com.sorinaidea.ghaichi.fast.Service> list) {
-        ArrayList<Service> services = new ArrayList<>();
-        services.addAll(list);
-        recServices.setAdapter(new BarberShopProfileServiceAdapter(services, BarberShopActivity.this, barbershopId));
+    private void initServices(List<BaseService> list) {
+        recServices.setAdapter(new BarberShopProfileServiceAdapter(list, BarberShopActivity.this, barbershopId));
         recServices.setNestedScrollingEnabled(false);
     }
 
-
-    private ArrayList<String> imageList = new ArrayList<>();
 
     private void hideToolbar() {
         toolbar.animate().translationY(-256).setInterpolator(new AccelerateInterpolator()).start();
@@ -240,73 +252,6 @@ public class BarberShopActivity extends AppCompatActivity {
     private void showToolbar() {
         toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
     }
-
-    private void initializeImageSlider(List<Photo> photos) {
-/*
-
-        ImageSliderAdapter adapter = new ImageSliderAdapter(getApplicationContext(), imageList);
-        mPager.setAdapter(adapter);
-        indicator.setViewPager(mPager);
-
-
-        for (Photo photo :
-                photos) {
-            imageList.add(photo.getPath());
-        }
-        adapter.notifyDataSetChanged();
-
-
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == imageList.size()) {
-                    currentPage = 0;
-                }
-
-                mPager.setCurrentItem(currentPage++, true);
-            }
-        };
-
-        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                currentPage = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        adapter.setImageOnCLickListener(view -> {
-            if (!show) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showToolbar();
-                    }
-                });
-            } else {
-                runOnUiThread(() -> hideToolbar());
-            }
-            show = !show;
-        });
-
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 1000, 3000);*/
-    }
-
-    private boolean show = false;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

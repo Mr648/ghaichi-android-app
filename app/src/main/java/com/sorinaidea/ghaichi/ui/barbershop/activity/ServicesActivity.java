@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
+import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
 import com.sorinaidea.ghaichi.adapter.barbershop.ServiceAdapter;
@@ -46,6 +47,7 @@ public class ServicesActivity extends ToolbarActivity {
         });
 
         recServices.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        recServices.setNestedScrollingEnabled(false);
         fetchServices();
     }
 
@@ -64,7 +66,40 @@ public class ServicesActivity extends ToolbarActivity {
                         if (listServices.isEmpty()) {
                             recServices.setAdapter(new EmptyAdabper(getApplicationContext()));
                         } else {
-                            recServices.setAdapter(new ServiceAdapter(listServices, getApplicationContext()));
+                            recServices.setAdapter(new ServiceAdapter(listServices, getApplicationContext()) {
+                                @Override
+                                public void showImages(Service service) {
+                                    Intent intent = new Intent(getApplicationContext(), SamplesActivity.class);
+                                    intent.putExtra("SERVICE", service);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void delete(Service service) {
+                                    confirmAlert(
+                                            "حذف خدمت"
+                                            , String.format(
+                                                    App.LOCALE
+                                                    , "%s %s %s؟"
+                                                    , "آیا از حذف خدمت"
+                                                    , service.getName()
+                                                    , "مطمئنید"
+                                            )
+                                            , R.drawable.ic_delete
+                                            , R.color.colorRedAccent200
+                                            , "بله"
+                                            , view -> deleteService(service)
+                                            , "خیر"
+                                            , null
+                                    );
+                                }
+
+                                @Override
+                                public void addBarber(Service service) {
+
+                                }
+
+                            });
                         }
                     } catch (NullPointerException ex) {
                         toast("خطا در دریافت خدمات");
@@ -97,6 +132,29 @@ public class ServicesActivity extends ToolbarActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    void deleteService(Service service) {
+
+        ServiceServices services = API.getRetrofit().create(ServiceServices.class);
+        services.delete(Auth.getAccessKey(this), service.getId()).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+            @Override
+            public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
+                if (response.isSuccessful()) {
+                    toast("خدمت با موفقیت حذف شد.");
+                    fetchServices();
+                } else {
+                    toast("خطایی رخ داده است.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+                if (t instanceof IOException) {
+                    toast(R.string.err_unable_to_connect_to_server);
+                }
+            }
+        });
     }
 
     @Override

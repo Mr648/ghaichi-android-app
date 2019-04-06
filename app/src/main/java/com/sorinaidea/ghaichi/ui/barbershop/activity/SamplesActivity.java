@@ -1,21 +1,20 @@
 package com.sorinaidea.ghaichi.ui.barbershop.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
 import android.view.MenuItem;
 
-import com.esafirm.imagepicker.features.ImagePicker;
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
+import com.sorinaidea.ghaichi.adapter.barbershop.SamplesAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
+import com.sorinaidea.ghaichi.models.Image;
+import com.sorinaidea.ghaichi.models.Response;
 import com.sorinaidea.ghaichi.models.Service;
-import com.sorinaidea.ghaichi.models.UploadImageResponse;
 import com.sorinaidea.ghaichi.ui.ImageUploaderActivity;
 import com.sorinaidea.ghaichi.webservice.API;
+import com.sorinaidea.ghaichi.webservice.barbershop.SampleServices;
 import com.sorinaidea.ghaichi.webservice.barbershop.ServiceServices;
 import com.sorinaidea.ghaichi.webservice.image.MultipleImageUploader;
 import com.sorinaidea.ghaichi.webservice.image.SingleImageUploader;
@@ -23,6 +22,9 @@ import com.sorinaidea.ghaichi.webservice.image.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -34,45 +36,106 @@ public class SamplesActivity extends ImageUploaderActivity {
 
     RecyclerView recImages;
     FloatingActionButton fab;
-
     private Service service;
-
-
-    boolean creatingNewService = false;
+    private ArrayList<Image> listImages;
+    private SamplesAdapter adapter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_samples);
         initToolbar(R.string.toolbar_samples, true, false);
-
+        recImages = findViewById(R.id.recImages);
+        recImages.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         Bundle extras = getIntent().getExtras();
         if (extras != null && !extras.isEmpty()) {
             service = extras.getParcelable("SERVICE");
             if (service == null) finish();
-            creatingNewService = service.getId() == -1;
+            listImages = new ArrayList<>();
+            listImages.addAll(service.getImages());
+            if (listImages == null) {
+                fetchServiceImages();
+            } else {
+                adapter = new SamplesAdapter(listImages, getApplicationContext()) {
+                    @Override
+                    protected void onDeleteClicked(Image image) {
+                        deleteItem(image.getId());
+                    }
+                };
+                recImages.setAdapter(adapter);
+            }
         }
 
         fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(view -> {
-            ImagePicker.create(this)
-                    .folderMode(true) // folder mode (false by default)
-                    .toolbarFolderTitle("پوشه") // folder selection title
-                    .toolbarImageTitle("برای انتخاب لمس کنید") // image selection title
-                    .toolbarArrowColor(Color.WHITE) // Toolbar 'up' arrow color
-                    .multi() // multi mode (default mode)
-                    .limit(10) // max images can be selected (99 by default)
-                    .showCamera(true) // show camera or not (true by default)
-                    .imageDirectory("دوربین") // directory name for captured image  ("Camera" folder by default)
-                    .enableLog(false) // disabling log
-                    .start(); // start image picker activity with request code
-        });
+        fab.setOnClickListener(view -> pickMultipleImages());
 
-        recImages = findViewById(R.id.recImages);
-        recImages.setLayoutManager(new GridLayoutManager(this, 2));
-        recImages.addItemDecoration(new ItemOffsetDecoration(8));
-//        recImages.setAdapter(new SamplesAdapter(this));
+
+    }
+
+    private void fetchServiceImages() {
+        ServiceServices serviceServices = API.getRetrofit().create(ServiceServices.class);
+        serviceServices.samples(Auth.getAccessKey(this), service.getId()).enqueue(new Callback<List<Image>>() {
+            @Override
+            public void onResponse(Call<List<Image>> call, retrofit2.Response<List<Image>> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        Objects.requireNonNull(response.body());
+                        listImages.addAll(response.body());
+                        if (adapter == null) {
+                            adapter = new SamplesAdapter(listImages, getApplicationContext()) {
+                                @Override
+                                protected void onDeleteClicked(Image image) {
+                                    deleteItem(image.getId());
+                                }
+                            };
+                            recImages.setAdapter(adapter);
+                        } else {
+                            adapter.notifyDataSetChanged();
+                        }
+                    } catch (NullPointerException ex) {
+                    }
+                } else {
+
+                    toast("خطا در پاسخ سرور");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Image>> call, Throwable t) {
+                toast("خطای کلی");
+            }
+        });
+    }
+
+    private void deleteItem(int image) {
+        confirmAlert("هشدار", "آیا تصویر حذف شود؟", R.drawable.ic_info, R.color.colorRedAccent200, view -> {
+            showProgressDialog("حذف تصویر", "", false);
+            SampleServices sampleServices = API.getRetrofit().create(SampleServices.class);
+            sampleServices.delete(Auth.getAccessKey(this), image).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+                @Override
+                public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, retrofit2.Response<Response> response) {
+                    hideProgressDialog();
+                    if (response.isSuccessful()) {
+                        try {
+                            Objects.requireNonNull(response.body());
+                            toast(response.body().getMessage());
+                            fetchServiceImages();
+                        } catch (NullPointerException ex) {
+                            actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServiceImages());
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+                    hideProgressDialog();
+                    if (t instanceof IOException) {
+                        actionAlert("قطع اتصال", "ارتباط شما با سرور قطع است", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark, view -> fetchServiceImages());
+                    }
+                }
+            });
+        });
     }
 
     @Override
@@ -103,22 +166,13 @@ public class SamplesActivity extends ImageUploaderActivity {
                     showProgressDialog(R.string.upload_title, R.string.upload_progress, R.mipmap.ic_file_upload_white_24dp, R.color.colorAmberAccent900, false);
 
                     ServiceServices serviceServices = API.getRetrofit().create(ServiceServices.class);
-                    serviceServices.upload(Auth.getAccessKey(SamplesActivity.this), image).enqueue(new Callback<UploadImageResponse>() {
+                    serviceServices.upload(Auth.getAccessKey(SamplesActivity.this), service.getId(), image).enqueue(new Callback<Response>() {
                         @Override
-                        public void onResponse(Call<UploadImageResponse> call, retrofit2.Response<UploadImageResponse> response) {
+                        public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                             hideProgressDialog();
                             if (response.isSuccessful()) {
-                                service.setImages(response.body().getImages());
-
-                                if (response.body().getImages().size() == 0) {
-
-                                    alert("آپلود ناموفق", "خطا در آپلود تصاویر.", R.drawable.ic_info, R.color.colorAmberAccent900);
-                                } else {
-                                    alert("آپلود موفق", "تصاویر با موفقیت افزوده شدند.", R.mipmap.ic_file_upload_white_24dp, R.color.colorTransaction);
-                                }
-
+                                alert("آپلود موفق", "تصاویر با موفقیت افزوده شدند.", R.mipmap.ic_file_upload_white_24dp, R.color.colorTransaction);
                                 uploadResult = true;
-
                             } else {
                                 alert("آپلود ناموفق", "خطا در آپلود تصاویر.", R.drawable.ic_info, R.color.colorAmberAccent900);
                                 uploadResult = false;
@@ -126,14 +180,9 @@ public class SamplesActivity extends ImageUploaderActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<UploadImageResponse> call, Throwable t) {
+                        public void onFailure(Call<Response> call, Throwable t) {
                             hideProgressDialog();
                             uploadResult = false;
-                            if (t instanceof IOException) {
-//                                alert("قطع ارتباط", "خطا در اتصال به سرور", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
-                                return;
-                            }
-//                            alert("آپلود ناموفق", "خطا در آپلود تصاویر.", R.drawable.ic_close, R.color.colorRedAccent900);
                         }
                     });
                     return uploadResult;
@@ -155,15 +204,14 @@ public class SamplesActivity extends ImageUploaderActivity {
 
                 @Override
                 public boolean upload(MultipartBody.Part image) {
-//                    showProgressDialog(R.string.upload_title, R.string.upload_progress  ,R.mipmap.ic_file_upload_white_24dp,R.color.colorAmberAccent900,false);
+                    showProgressDialog(R.string.upload_title, R.string.upload_progress, R.mipmap.ic_file_upload_white_24dp, R.color.colorAmberAccent900, false);
 
                     ServiceServices serviceServices = API.getRetrofit().create(ServiceServices.class);
-                    serviceServices.upload(Auth.getAccessKey(SamplesActivity.this), image).enqueue(new Callback<UploadImageResponse>() {
+                    serviceServices.upload(Auth.getAccessKey(SamplesActivity.this), service.getId(), image).enqueue(new Callback<Response>() {
                         @Override
-                        public void onResponse(Call<UploadImageResponse> call, retrofit2.Response<UploadImageResponse> response) {
-//                            hideProgressDialog();
+                        public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                            hideProgressDialog();
                             if (response.isSuccessful()) {
-                                service.setImages(response.body().getImages());
                                 alert("آپلود موفق", "تصاویر با موفقیت افزوده شدند.", R.mipmap.ic_file_upload_white_24dp, R.color.colorTransaction);
                                 uploadResult = true;
                             } else {
@@ -173,14 +221,13 @@ public class SamplesActivity extends ImageUploaderActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<UploadImageResponse> call, Throwable t) {
-//                            hideProgressDialog();
+                        public void onFailure(Call<Response> call, Throwable t) {
+                            hideProgressDialog();
                             uploadResult = false;
                             if (t instanceof IOException) {
                                 alert("قطع ارتباط", "خطا در اتصال به سرور", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
                                 return;
                             }
-//                            alert("آپلود ناموفق", "خطا در آپلود تصاویر.", R.drawable.ic_close, R.color.colorRedAccent900);
                         }
                     });
                     return uploadResult;
@@ -191,11 +238,6 @@ public class SamplesActivity extends ImageUploaderActivity {
         return task;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_sample, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -213,12 +255,6 @@ public class SamplesActivity extends ImageUploaderActivity {
 
     @Override
     public void onBackPressed() {
-
-        if (creatingNewService) {
-//            confirmAlert("آپلود تصاویر متوقف شود؟");
-        }
-
         super.onBackPressed();
-
     }
 }

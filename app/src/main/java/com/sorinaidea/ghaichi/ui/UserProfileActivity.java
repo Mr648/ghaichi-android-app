@@ -17,7 +17,7 @@ import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Data;
 import com.sorinaidea.ghaichi.models.UploadImageResponse;
 import com.sorinaidea.ghaichi.webservice.API;
-import com.sorinaidea.ghaichi.webservice.barbershop.ProfileServices;
+import com.sorinaidea.ghaichi.webservice.ProfileServices;
 import com.sorinaidea.ghaichi.webservice.image.SingleImageUploader;
 import com.sorinaidea.ghaichi.webservice.image.UploadTask;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
@@ -62,40 +62,62 @@ public class UserProfileActivity extends ImageUploaderActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_userprofile);
+        setContentView(R.layout.activity_profiles);
         bindActivity();
         update();
     }
 
     public void update() {
         showProgressDialog(null, "در حال دریافت اطلاعات", false);
+        try {
+            Objects.requireNonNull(getProfileServices())
+                    .profile(Auth.getAccessKey(getApplicationContext()))
+                    .enqueue(new Callback<List<Data>>() {
+                        @Override
+                        public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+                            if (response.isSuccessful()) {
+                                try {
+                                    Objects.requireNonNull(response.body());
+                                    updateView(response.body());
+                                } catch (NullPointerException ex) {
+                                    alert(
+                                            "خطا",
+                                            "مشکل در دریافت اطلاعات",
+                                            R.drawable.ic_close,
+                                            R.color.colorRedAccent900
+                                    );
+                                }
+                            }
+                            hideProgressDialog();
+                        }
 
-        ProfileServices service = API.getRetrofit().create(ProfileServices.class);
+                        @Override
+                        public void onFailure(Call<List<Data>> call, Throwable t) {
+                            if (t instanceof IOException)
+                                alert(
+                                        "خطا",
+                                        "مشکل در ارتباط با سرور",
+                                        R.drawable.ic_close,
+                                        R.color.colorRedAccent900
+                                );
 
-        Call<List<Data>> info = service.profile(Auth.getAccessKey(getApplicationContext()));
-
-        info.enqueue(new Callback<List<Data>>() {
-            @Override
-            public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
-                if (response.isSuccessful()) {
-                    try {
-                        Objects.requireNonNull(response.body());
-                        updateView(response.body());
-                    } catch (NullPointerException ex) {
-                        alert("خطا", "مشکل در دریافت اطلاعات", R.drawable.ic_close, R.color.colorRedAccent900);
-                    }
-                }
-                hideProgressDialog();
-            }
-
-            @Override
-            public void onFailure(Call<List<Data>> call, Throwable t) {
-                if (t instanceof IOException)
-                    alert("خطا", "مشکل در ارتباط با سرور", R.drawable.ic_close, R.color.colorRedAccent900);
-
-                alert("خطا", "مشکل در دریافت اطلاعات", R.drawable.ic_close, R.color.colorRedAccent900);
-            }
-        });
+                            alert(
+                                    "خطا",
+                                    "مشکل در دریافت اطلاعات",
+                                    R.drawable.ic_close,
+                                    R.color.colorRedAccent900
+                            );
+                        }
+                    });
+        } catch (NullPointerException ex) {
+            confirmAlert(
+                    "خطا",
+                    "خطا در احراز هویت کاربر",
+                    R.drawable.ic_account_circle_white_24dp,
+                    R.color.colorRedAccent900,
+                    view -> Auth.logout(this)
+            );
+        }
     }
 
 
@@ -107,7 +129,8 @@ public class UserProfileActivity extends ImageUploaderActivity
         // TODO how to use Picasso
         API.getPicasso(this)
                 .load(image.getValue())
-                .resize(120, 120)
+                .fit()
+                .centerInside()
                 .into(imgUserImage);
     }
 
@@ -139,29 +162,34 @@ public class UserProfileActivity extends ImageUploaderActivity
                     .configureMessageView(this::applyTextFont)
                     .configureTitleView(this::applyTextFont)
                     .show();
-
-
         }));
     }
 
-    private void updateField(String key, String value) {
-        ProfileServices serviceServices = API.getRetrofit().create(ProfileServices.class);
-        serviceServices
-                .update(Auth.getAccessKey(UserProfileActivity.this), key, value)
-                .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
-                    @Override
-                    public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
-                        if (response.isSuccessful()) {
-                            toast(response.body().getMessage());
-                            update();
-                        }
-                    }
+    private ProfileServices getProfileServices() {
+        return API.getRetrofit().create(ProfileServices.class);
+    }
 
-                    @Override
-                    public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
-                        toast("خطا در بروزرسانی داده‌");
-                    }
-                });
+    private void updateField(String key, String value) {
+        try {
+            Objects.requireNonNull(getProfileServices())
+                    .updateUser(Auth.getAccessKey(UserProfileActivity.this), key, value)
+                    .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+                        @Override
+                        public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
+                            if (response.isSuccessful()) {
+                                toast(response.body().getMessage());
+                                update();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+                            toast("خطا در بروزرسانی داده‌");
+                        }
+                    });
+        } catch (NullPointerException ex) {
+            confirmAlert("خطا", "خطا در احراز هویت کاربر", R.drawable.ic_account_circle_white_24dp, R.color.colorRedAccent900, view -> Auth.logout(this));
+        }
     }
 
     private void bindActivity() {
@@ -178,7 +206,7 @@ public class UserProfileActivity extends ImageUploaderActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_user_profile, menu);
+        getMenuInflater().inflate(R.menu.activity_profiles, menu);
         return true;
     }
 
@@ -260,34 +288,39 @@ public class UserProfileActivity extends ImageUploaderActivity
 
             @Override
             public boolean upload(MultipartBody.Part image) {
-                showProgressDialog(R.string.upload_title, R.string.upload_progress, R.mipmap.ic_file_upload_white_24dp, R.color.colorAmberAccent900, false);
-                ProfileServices serviceServices = API.getRetrofit().create(ProfileServices.class);
-                serviceServices.changeAvatar(Auth.getAccessKey(UserProfileActivity.this), image).enqueue(new Callback<UploadImageResponse>() {
-                    @Override
-                    public void onResponse(Call<UploadImageResponse> call, retrofit2.Response<UploadImageResponse> response) {
-                        hideProgressDialog();
-                        if (response.isSuccessful()) {
-                            UploadImageResponse result = response.body();
-                            result.getImages();
-                            alert("آپلود موفق", "تصویر با موفقیت افزوده شدند.", R.mipmap.ic_file_upload_white_24dp, R.color.colorTransaction);
-                            uploadResult = true;
-                        } else {
-                            alert("آپلود ناموفق", "خطا در آپلود تصویر.", R.drawable.ic_info, R.color.colorAmberAccent900);
-                            uploadResult = false;
-                        }
-                    }
+                showProgress();
+                try {
+                    Objects.requireNonNull(getProfileServices())
+                            .changeAvatar(Auth.getAccessKey(UserProfileActivity.this), image)
+                            .enqueue(new Callback<UploadImageResponse>() {
+                                @Override
+                                public void onResponse(Call<UploadImageResponse> call, retrofit2.Response<UploadImageResponse> response) {
+                                    hideProgress();
+                                    if (response.isSuccessful()) {
+                                        UploadImageResponse result = response.body();
+                                        result.getImages();
+                                        alert("آپلود موفق", "تصویر با موفقیت افزوده شدند.", R.mipmap.ic_file_upload_white_24dp, R.color.colorTransaction);
+                                        uploadResult = true;
+                                    } else {
+                                        alert("آپلود ناموفق", "خطا در آپلود تصویر.", R.drawable.ic_info, R.color.colorAmberAccent900);
+                                        uploadResult = false;
+                                    }
+                                }
 
-                    @Override
-                    public void onFailure(Call<UploadImageResponse> call, Throwable t) {
-//                            hideProgressDialog();
-                        uploadResult = false;
-                        if (t instanceof IOException) {
-                            alert("قطع ارتباط", "خطا در اتصال به سرور", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
-                            return;
-                        }
-                        alert("آپلود ناموفق", "خطا در آپلود تصاویر.", R.drawable.ic_close, R.color.colorRedAccent900);
-                    }
-                });
+                                @Override
+                                public void onFailure(Call<UploadImageResponse> call, Throwable t) {
+                                    hideProgress();
+                                    uploadResult = false;
+                                    if (t instanceof IOException) {
+                                        alert("قطع ارتباط", "خطا در اتصال به سرور", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
+                                        return;
+                                    }
+                                    alert("آپلود ناموفق", "خطا در آپلود تصاویر.", R.drawable.ic_close, R.color.colorRedAccent900);
+                                }
+                            });
+                } catch (NullPointerException ex) {
+                    confirmAlert("خطا", "خطا در احراز هویت کاربر", R.drawable.ic_account_circle_white_24dp, R.color.colorRedAccent900, view -> Auth.logout(UserProfileActivity.this));
+                }
                 return uploadResult;
             }
         });

@@ -1,51 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="rtl"
     android:minHeight="@dimen/_64dp"
-    android:orientation="horizontal"
-    android:padding="@dimen/_8dp"
-    android:weightSum="7">
-
+    android:padding="@dimen/_8dp">
 
     <TextView
         android:id="@+id/txtMessage"
         style="@style/TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/imgIcon"
-        android:background="@drawable/chat_item_support_bg"
-        android:gravity="left"
         android:layout_marginTop="@dimen/_8dp"
-        android:paddingTop="@dimen/_8dp"
+        android:background="@drawable/chat_item_support_bg"
         android:paddingBottom="@dimen/_8dp"
         android:paddingEnd="@dimen/_16dp"
         android:paddingStart="@dimen/_16dp"
-        android:text="how to cancel reservation?" />
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgIcon"
-        android:layout_width="@dimen/_42dp"
-        android:layout_height="@dimen/_42dp"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/_8dp"
-        android:src="@drawable/ic_account_circle_white_24dp"
-        app:civ_border_color="@color/colorGray"
-        app:civ_border_width="@dimen/_1dp"
-          />
+        android:paddingTop="@dimen/_8dp" />
 
     <TextView
         android:id="@+id/txtDate"
-        android:textSize="@dimen/_10sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtMessage"
         android:layout_alignEnd="@id/txtMessage"
+        android:layout_below="@id/txtMessage"
         android:layout_marginTop="@dimen/_4dp"
-        android:gravity="right"
-        android:text="5 minutes ago" />
+        android:textSize="@dimen/_10sp" />
 </RelativeLayout>

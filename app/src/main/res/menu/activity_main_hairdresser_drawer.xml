@@ -6,9 +6,18 @@
         android:icon="@drawable/ic_account_circle_white_24dp"
         android:title="@string/label_profile" />
     <item
+        android:id="@+id/action_barbershop"
+        android:icon="@drawable/ic_add_service"
+        android:title="@string/label_barbershop" />
+    <item
         android:id="@+id/action_credit"
         android:icon="@drawable/ic_attach_money_black_18dp"
         android:title="@string/label_credit" />
+
+    <item
+        android:id="@+id/action_business"
+        android:icon="@drawable/ic_access_time_black_18dp"
+        android:title="@string/toolbar_business_times" />
     <item
         android:id="@+id/action_advertise"
         android:icon="@drawable/advertising"
@@ -38,4 +47,10 @@
                 android:title="@string/label_faq" />
         </menu>
     </item>
+
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_exit_to_app_black_18dp"
+        android:title="@string/label_logout" />
+
 </menu>

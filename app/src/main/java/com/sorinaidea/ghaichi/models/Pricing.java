@@ -4,8 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.Locale;
+import com.sorinaidea.ghaichi.App;
 
 public class Pricing extends Model implements Parcelable {
 
@@ -80,6 +79,6 @@ public class Pricing extends Model implements Parcelable {
 
     @Override
     public String toString() {
-        return String.format(new Locale("fa"), "%d %s %d %s.", this.views, "بازدید", this.price, "تومان");
+        return String.format(App.LOCALE, "%d %s %d %s.", this.views, "بازدید", this.price, "تومان");
     }
 }
