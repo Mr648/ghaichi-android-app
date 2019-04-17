@@ -23,8 +23,8 @@
             android:id="@+id/txtDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="@dimen/_16dp"
             android:textDirection="rtl"
             android:textSize="@dimen/_18sp"
@@ -34,9 +34,9 @@
             android:id="@+id/swSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/_16dp"
             android:scaleType="centerInside"
             android:src="@drawable/ic_access_time_black_18dp"
             android:tint="@color/colorGrayAccent700" />
@@ -51,6 +51,7 @@
             android:orientation="horizontal"
             android:paddingBottom="@dimen/_8dp"
             android:paddingTop="@dimen/_8dp"
+            android:visibility="gone"
             android:weightSum="10">
 
             <LinearLayout

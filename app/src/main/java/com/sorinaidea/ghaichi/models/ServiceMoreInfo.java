@@ -54,4 +54,9 @@ public class ServiceMoreInfo extends ServiceShortInfo {
         result = 31 * result + (price != +0.0f ? Float.floatToIntBits(price) : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.id);
+    }
 }

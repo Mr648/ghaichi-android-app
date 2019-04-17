@@ -19,7 +19,10 @@ public class BarbershopProfile extends BaseBarbershop {
     @SerializedName("banners")
     private List<String> banners;
     @SerializedName("services")
-    private List<BaseService> services;
+    private List<BannerService> services;
+
+    @SerializedName("barbers")
+    private List<BarberShortInfo> barbers;
 
 
     public int getId() {
@@ -70,11 +73,11 @@ public class BarbershopProfile extends BaseBarbershop {
         this.banners = banners;
     }
 
-    public List<BaseService> getServices() {
+    public List<BannerService> getServices() {
         return services;
     }
 
-    public void setServices(List<BaseService> services) {
+    public void setServices(List<BannerService> services) {
         this.services = services;
     }
 
@@ -94,4 +97,11 @@ public class BarbershopProfile extends BaseBarbershop {
         return servicesCount;
     }
 
+    public void setBarbers(List<BarberShortInfo> barbers) {
+        this.barbers = barbers;
+    }
+
+    public List<BarberShortInfo> getBarbers() {
+        return barbers;
+    }
 }

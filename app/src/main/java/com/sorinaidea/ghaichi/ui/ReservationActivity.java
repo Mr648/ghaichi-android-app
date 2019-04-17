@@ -1,75 +1,78 @@
 package com.sorinaidea.ghaichi.ui;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
-import com.sorinaidea.ghaichi.adapter.ReservationAdabper;
-import com.sorinaidea.ghaichi.model.Reservation;
-import com.sorinaidea.ghaichi.util.FontManager;
+import com.sorinaidea.ghaichi.adapter.ReservationAdapter;
+import com.sorinaidea.ghaichi.auth.Auth;
+import com.sorinaidea.ghaichi.models.Reserve;
+import com.sorinaidea.ghaichi.webservice.API;
+import com.sorinaidea.ghaichi.webservice.UserReserveServices;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
-public class ReservationActivity extends AppCompatActivity {
+public class ReservationActivity extends ToolbarActivity {
 
-    private Toolbar toolbar;
-    private NestedScrollView container;
+    private RecyclerView recReservations;
+    private ReservationAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_reservation);
+        setContentView(R.layout.activity_reservation);
+        if (!Auth.isUser(this)) {
+            finish();
+        }
+        initToolbar("رزروها", true, false);
 
-
-        toolbar = findViewById(R.id.toolbar);
-        container = findViewById(R.id.container);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText("رزروها");
-
-        fontMaterialIcons = FontManager.getTypeface(getApplicationContext(), FontManager.MATERIAL_ICONS);
-        fontIranSans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
-
-        container.setFillViewport(true);
         recReservations = findViewById(R.id.recReservations);
         recReservations.setNestedScrollingEnabled(false);
         recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-//        recReservations.setAdapter(new ReservationAdabper(initDataset(), getApplicationContext()));
-        recReservations.setAdapter(new EmptyAdabper(getApplicationContext()));
-        recReservations.setMinimumHeight(container.getHeight());
 
-        FontManager.setFont(mTitle, fontIranSans);
+        getReservations();
     }
 
 
-    private RecyclerView recReservations;
-    private Button btnReserve;
+    private void getReservations() {
+        showProgress();
+        API.getRetrofit(this).create(UserReserveServices.class)
+                .reserves()
+                .enqueue(new Callback<List<Reserve>>() {
+                    @Override
+                    public void onResponse(Call<List<Reserve>> call, Response<List<Reserve>> response) {
+                        hideProgress();
+                        if (response.isSuccessful()) {
+                            try {
+                                adapter = new ReservationAdapter(Objects.requireNonNull(response.body()), ReservationActivity.this);
+                                recReservations.setAdapter(adapter);
+                            } catch (NullPointerException ex) {
+                                recReservations.setAdapter(new EmptyAdabper(ReservationActivity.this));
+                                toast("خطا در دریافت اطلاعات");
+                            }
+                        } else {
+                            toast("خطا در پاسخ سرور");
+                        }
+                    }
 
-    private Typeface fontMaterialIcons;
-    private Typeface fontIranSans;
-
-
-    private ArrayList<Reservation> initDataset() {
-        ArrayList<Reservation> mDataset = new ArrayList<>();
-        Date date = new Date();
-        for (int i = 0; i < 20; i++) {
-            mDataset.add(new Reservation(R.drawable.preview_small, "نام کاربر", "1396/11/12", "16:45 ب.ظ", "لیست مختصر خدمات..."));
-        }
-        return mDataset;
+                    @Override
+                    public void onFailure(Call<List<Reserve>> call, Throwable t) {
+                        hideProgress();
+                        if (t instanceof IOException) {
+                            toast(R.string.err_unable_to_connect_to_server);
+                        }
+                    }
+                });
     }
 
     @Override

@@ -61,6 +61,12 @@ public class PriceUpdater {
     }
 
     public ArrayList<ServiceMoreInfo> getSelectedServices() {
+
         return selectedServices;
+    }
+
+
+    public String getServicesPrice() {
+        return String.valueOf(summer.sumOfPrices);
     }
 }

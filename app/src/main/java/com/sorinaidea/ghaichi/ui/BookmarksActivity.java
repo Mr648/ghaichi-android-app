@@ -14,12 +14,9 @@ import com.sorinaidea.ghaichi.adapter.GridItemsAdabper;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
 import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.BarbershopCard;
-import com.sorinaidea.ghaichi.model.BarberShop;
-import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.UserProfileService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -64,8 +61,8 @@ public class BookmarksActivity extends AppCompatActivity {
 
     private void initDataset() {
         Call<List<BarbershopCard>> bookmarks =
-                API.getRetrofit().create(UserProfileService.class)
-                        .bookmarks(Auth.getAccessKey(getApplicationContext()));
+                API.getRetrofit(this).create(UserProfileService.class)
+                        .bookmarks();
 
         bookmarks.enqueue(new Callback<List<BarbershopCard>>() {
             @Override

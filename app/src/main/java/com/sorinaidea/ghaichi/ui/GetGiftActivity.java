@@ -63,11 +63,11 @@ public class GetGiftActivity extends AppCompatActivity {
 
 
     private void getCodes() {
-        Retrofit retrofit = API.getRetrofit();
+        Retrofit retrofit = API.getRetrofit(this);
 
         UserProfileService service = retrofit.create(UserProfileService.class);
 
-        Call<ReagentCode> call = service.codes(Auth.getAccessKey(getApplicationContext()));
+        Call<ReagentCode> call = service.codes();
 
         call.enqueue(new Callback<ReagentCode>() {
             @Override

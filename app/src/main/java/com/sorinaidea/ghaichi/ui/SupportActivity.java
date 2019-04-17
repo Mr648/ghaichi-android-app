@@ -11,7 +11,6 @@ import android.widget.EditText;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.MessageAdapter;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Message;
 import com.sorinaidea.ghaichi.models.Response;
 import com.sorinaidea.ghaichi.webservice.API;
@@ -65,8 +64,8 @@ public class SupportActivity extends ToolbarActivity {
         }
 
         showProgress();
-        ChatServices messenger = API.getRetrofit().create(ChatServices.class);
-        messenger.send(Auth.getAccessKey(this), message).enqueue(new Callback<Response>() {
+        ChatServices messenger = API.getRetrofit(this).create(ChatServices.class);
+        messenger.send(message).enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                 hideProgress();
@@ -88,8 +87,8 @@ public class SupportActivity extends ToolbarActivity {
 
     private void fetchMessages() {
         showProgress();
-        ChatServices messenger = API.getRetrofit().create(ChatServices.class);
-        messenger.index(Auth.getAccessKey(this)).enqueue(new Callback<List<Message>>() {
+        ChatServices messenger = API.getRetrofit(this).create(ChatServices.class);
+        messenger.index().enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(@NonNull Call<List<Message>> call, @NonNull retrofit2.Response<List<Message>> response) {
                 hideProgress();

@@ -1,6 +1,8 @@
 package com.sorinaidea.ghaichi.webservice.barbershop;
 
 
+import com.sorinaidea.ghaichi.models.BaseAdvertise;
+import com.sorinaidea.ghaichi.models.Data;
 import com.sorinaidea.ghaichi.models.Pricing;
 import com.sorinaidea.ghaichi.models.Response;
 
@@ -8,35 +10,40 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface AdvertiseServices {
 
 
-    @Headers({
-            "User-Agent: GHAICHI-APPLICATION-USER",
-    })
     @GET("api/barbershop/advertises/list/pricing")
-    Call<List<Pricing>> fetchPricingList(@Header("Authorization") String authToken);
+    Call<List<Pricing>> fetchPricingList();
 
-    @Headers({
-            "User-Agent: GHAICHI-APPLICATION-USER",
-    })
+    @FormUrlEncoded
+    @POST("api/barbershop/advertises/update")
+    Call<Response> updateAdvertise(@Field("key") String key, @Field("value") String value);
+
+
+    @GET("api/barbershop/advertises")
+    Call<List<BaseAdvertise>> advertises();
+
+    @GET("api/barbershop/advertises/{advertise}")
+    Call<List<Data>> advertise(@Path("advertise") int advertiseId);
+
+
     @Multipart
     @POST("api/barbershop/advertises/banner")
-    Call<Response> requestBannerAdvertise(@Header("Authorization") String authToken, @Part MultipartBody.Part image, @Part("description") String description, @Part("pricing") int pricing);
+    Call<Response> requestBannerAdvertise(@Part MultipartBody.Part image, @Part("description") String description, @Part("pricing") int pricing);
 
-    @Headers({
-            "User-Agent: GHAICHI-APPLICATION-USER",
-    })
+
     @Multipart
     @POST("api/barbershop/advertises/special")
-    Call<Response> requestSpecialAdvertise(@Header("Authorization") String authToken, @Part("description") String description, @Part("pricing") int pricing);
+    Call<Response> requestSpecialAdvertise(@Part("description") String description, @Part("pricing") int pricing);
 
 
 }

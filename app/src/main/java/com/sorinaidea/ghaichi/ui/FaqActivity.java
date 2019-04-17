@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.FAQAdabper;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.FAQ;
 import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.webservice.API;
@@ -67,10 +66,10 @@ public class FaqActivity extends AppCompatActivity {
     }
 
     private void fetchFAQs() {
-        Retrofit retrofit = API.getRetrofit();
+        Retrofit retrofit = API.getRetrofit(this);
 
         SystemServices systemServices = retrofit.create(SystemServices.class);
-        Call<List<FAQ>> fetcher = systemServices.faqs(Auth.getAccessKey(getApplicationContext()));
+        Call<List<FAQ>> fetcher = systemServices.faqs( );
         fetcher.enqueue(new Callback<List<FAQ>>() {
             @Override
             public void onResponse(Call<List<FAQ>> call, Response<List<FAQ>> response) {

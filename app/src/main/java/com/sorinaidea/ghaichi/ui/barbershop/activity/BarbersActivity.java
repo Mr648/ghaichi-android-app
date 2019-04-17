@@ -6,13 +6,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
 import com.sorinaidea.ghaichi.adapter.barbershop.BarberInfoAdapter;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Barber;
 import com.sorinaidea.ghaichi.ui.ToolbarActivity;
 import com.sorinaidea.ghaichi.webservice.API;
@@ -77,8 +75,8 @@ public class BarbersActivity extends ToolbarActivity {
     public void deleteBarber(Barber barber) {
         confirmAlert("هشدار", String.format(App.LOCALE, "%s %s %s?", "آیا آرایشگر", String.format(App.LOCALE, "%s %s", barber.getName(), barber.getFamily()), "حذف شود"), R.drawable.ic_delete_white_24dp, R.color.colorRedAccent200, view -> {
             showProgressDialog("حذف آرایشگر", "در حال حذف آرایشگر", false);
-            BarberServices service = API.getRetrofit().create(BarberServices.class);
-            service.delete(Auth.getAccessKey(this), barber.getId()).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+            BarberServices service = API.getRetrofit(this).create(BarberServices.class);
+            service.delete(barber.getId()).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
                 @Override
                 public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
                     hideProgressDialog();
@@ -110,48 +108,36 @@ public class BarbersActivity extends ToolbarActivity {
     }
 
     public ArrayList<Barber> initBarbers() {
-
-
-        String authToken = Auth.getAccessKey(BarbersActivity.this);
-
-
-        if (authToken != null) {
-
-            showProgressDialog(null, "در حال دریافت لیست آرایشگران", false);
-
-            BarberServices categoryServices = API.getRetrofit().create(BarberServices.class);
-
-            categoryServices.barbers(authToken).enqueue(new Callback<List<Barber>>() {
-                @Override
-                public void onResponse(Call<List<Barber>> call, Response<List<Barber>> response) {
-                    if (response.isSuccessful()) {
-                        barbers.clear();
-                        barbers.addAll(response.body());
-                        if (!barbers.isEmpty()) {
-                            adapter = new BarberInfoAdapter(barbers, BarbersActivity.this, clickListener);
-                            recBarbers.setAdapter(adapter);
-                        } else {
-                            recBarbers.setAdapter(new EmptyAdabper(BarbersActivity.this));
-                        }
-                    } else if (response.code() == HttpCodes.HTTP_NOT_FOUND) {
+        showProgressDialog(null, "در حال دریافت لیست آرایشگران", false);
+        BarberServices categoryServices = API.getRetrofit(this).create(BarberServices.class);
+        categoryServices.barbers().enqueue(new Callback<List<Barber>>() {
+            @Override
+            public void onResponse(Call<List<Barber>> call, Response<List<Barber>> response) {
+                if (response.isSuccessful()) {
+                    barbers.clear();
+                    barbers.addAll(response.body());
+                    if (!barbers.isEmpty()) {
+                        adapter = new BarberInfoAdapter(barbers, BarbersActivity.this, clickListener);
+                        recBarbers.setAdapter(adapter);
+                    } else {
                         recBarbers.setAdapter(new EmptyAdabper(BarbersActivity.this));
                     }
-                    hideProgressDialog();
+                } else if (response.code() == HttpCodes.HTTP_NOT_FOUND) {
+                    recBarbers.setAdapter(new EmptyAdabper(BarbersActivity.this));
                 }
+                hideProgressDialog();
+            }
 
-                @Override
-                public void onFailure(Call<List<Barber>> call, Throwable t) {
-                    if (t instanceof IOException) {
-                        toast(R.string.err_unable_to_connect_to_server);
-                    }
-                    logVerbose(t.getMessage(), t);
-                    hideProgressDialog();
+            @Override
+            public void onFailure(Call<List<Barber>> call, Throwable t) {
+                if (t instanceof IOException) {
+                    toast(R.string.err_unable_to_connect_to_server);
                 }
-            });
+                logVerbose(t.getMessage(), t);
+                hideProgressDialog();
+            }
+        });
 
-        } else {
-            Toast.makeText(BarbersActivity.this, "آرایشگر یافت نشد.", Toast.LENGTH_SHORT).show();
-        }
 
         return barbers;
     }

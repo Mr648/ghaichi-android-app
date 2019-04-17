@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.adapter.ReservationAdabper;
 import com.sorinaidea.ghaichi.model.Reservation;
 import com.sorinaidea.ghaichi.util.FontManager;
 
@@ -67,7 +66,7 @@ public class UserReservationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reservation, container, false);
+        return inflater.inflate(R.layout.activity_reservation, container, false);
     }
 
     private RecyclerView recReservations;
@@ -96,7 +95,7 @@ public class UserReservationFragment extends Fragment {
         recReservations  = view.findViewById(R.id.recReservations);
         recReservations.setNestedScrollingEnabled(false);
         recReservations.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        recReservations.setAdapter(new ReservationAdabper(initDataset(), getContext()));
+//        recReservations.setAdapter(new ReservationAdapter(initDataset(), getContext()));
 
 
     }

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,10 +22,13 @@ import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.BannerAdapter;
 import com.sorinaidea.ghaichi.adapter.BarberShopProfileServiceAdapter;
+import com.sorinaidea.ghaichi.adapter.BarbersAdapter;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
 import com.sorinaidea.ghaichi.auth.Auth;
+import com.sorinaidea.ghaichi.models.BannerService;
+import com.sorinaidea.ghaichi.models.BarberShortInfo;
 import com.sorinaidea.ghaichi.models.BarbershopProfile;
-import com.sorinaidea.ghaichi.models.BaseService;
+import com.sorinaidea.ghaichi.util.Security;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
@@ -67,12 +71,14 @@ public class BarberShopActivity extends ToolbarActivity {
     private TextView txtRating;
     private TextView txt1;
     private TextView txt2;
+    private TextView txt3;
     private TextView txtAbout;
     private TextView txtAddress;
 
     private LinearLayout rating;
     private RatingBar ratingBar;
     private RecyclerView recServices;
+    private RecyclerView recBarbers;
     private static final int NUM_COLUMNS = 2;
     private int barbershopId;
 
@@ -90,6 +96,7 @@ public class BarberShopActivity extends ToolbarActivity {
         initImageSlider(barbershop.getBanners());
 
         initServices(barbershop.getServices());
+        initBarbers(barbershop.getBarbers());
 
         API.getPicasso(getApplicationContext())
                 .load(barbershop.getLogo())
@@ -142,8 +149,8 @@ public class BarberShopActivity extends ToolbarActivity {
     private void getBarbershopInfo(int barbershopId) {
 
         showProgress();
-        API.getRetrofit().create(BarbershopServices.class)
-                .barbershop(Auth.getAccessKey(getApplicationContext()), barbershopId)
+        API.getRetrofit(this).create(BarbershopServices.class)
+                .barbershop(  barbershopId)
                 .enqueue(new Callback<BarbershopProfile>() {
                     @Override
                     public void onResponse(Call<BarbershopProfile> call, Response<BarbershopProfile> response) {
@@ -175,29 +182,25 @@ public class BarberShopActivity extends ToolbarActivity {
         rating = findViewById(R.id.rating);
 
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null && !extras.isEmpty()) {
-            barbershopId = Integer.parseInt(extras.getString(Util.COMMUNICATION_KEYS.BARBERSHOP_ID));
-            toast("آرایشگاه دیتا لود");
-            getBarbershopInfo(barbershopId);
-            isBookmarked();
-            rating.setOnClickListener(view -> {
-                Intent intent = new Intent(getApplicationContext(), CommentsActivity.class);
-                intent.putExtra(Util.COMMUNICATION_KEYS.BARBERSHOP_ID, Integer.toString(barbershopId));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            });
-        } else {
-            finish();
+        try {
+            String id = Security.base64decode(Objects.requireNonNull(getIntent().getData()).getLastPathSegment(), 1);
+            if (id.matches("^[0-9]{1,9}$")) {
+                if (Auth.isUser(this)) {
+                    barbershopId = Integer.parseInt(id);
+                    getBarbershopInfo();
+                } else {
+                    finish();
+                }
+            }
+        } catch (NullPointerException ex) {
+            checkIntent();
         }
 
 
         recServices = findViewById(R.id.recServices);
-
+        recBarbers = findViewById(R.id.recBarbers);
         recServices.setFocusable(false);
 
-
-        toolbar = findViewById(R.id.toolbar);
         mPager = findViewById(R.id.pager);
         indicator = findViewById(R.id.indicator);
         imgLogo = findViewById(R.id.imgLogo);
@@ -211,6 +214,7 @@ public class BarberShopActivity extends ToolbarActivity {
 
         txt1 = findViewById(R.id.txt1);
         txt2 = findViewById(R.id.txt2);
+        txt3 = findViewById(R.id.txt3);
         txtServices = findViewById(R.id.txtServices);
         txtServicesCount = findViewById(R.id.txtServicesCount);
         txtBarbers = findViewById(R.id.txtBarbers);
@@ -221,7 +225,16 @@ public class BarberShopActivity extends ToolbarActivity {
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen._4dp);
         recServices.addItemDecoration(itemDecoration);
 
+        recBarbers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recBarbers.addItemDecoration(itemDecoration);
+
         ratingBar.setIsIndicator(true);
+        rating.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), CommentsActivity.class);
+            intent.putExtra(Util.COMMUNICATION_KEYS.BARBERSHOP_ID, Integer.toString(barbershopId));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
         applyTextFont(
                 txtAddress,
                 txtRating,
@@ -235,13 +248,34 @@ public class BarberShopActivity extends ToolbarActivity {
         );
         applyTextBoldFont(
                 txt1,
-                txt2
+                txt2,
+                txt3
         );
     }
 
-    private void initServices(List<BaseService> list) {
+    private void getBarbershopInfo() {
+        getBarbershopInfo(barbershopId);
+        isBookmarked();
+    }
+
+    private void checkIntent() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && !extras.isEmpty()) {
+            barbershopId = Integer.parseInt(extras.getString(Util.COMMUNICATION_KEYS.BARBERSHOP_ID));
+            getBarbershopInfo();
+        } else {
+            finish();
+        }
+    }
+
+    private void initServices(List<BannerService> list) {
         recServices.setAdapter(new BarberShopProfileServiceAdapter(list, BarberShopActivity.this, barbershopId));
         recServices.setNestedScrollingEnabled(false);
+    }
+
+    private void initBarbers(List<BarberShortInfo> list) {
+        recBarbers.setAdapter(new BarbersAdapter(list, BarberShopActivity.this));
+        recBarbers.setNestedScrollingEnabled(false);
     }
 
 
@@ -288,8 +322,8 @@ public class BarberShopActivity extends ToolbarActivity {
 
     public void bookmark(String accessKey, String barbershopId) {
         Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> bookmark =
-                API.getRetrofit().create(UserProfileService.class)
-                        .createOrRemove(Auth.getAccessKey(getApplicationContext()), String.valueOf(barbershopId));
+                API.getRetrofit(this).create(UserProfileService.class)
+                        .createOrRemove( String.valueOf(barbershopId));
 
         bookmark.enqueue(new Callback<com.sorinaidea.ghaichi.webservice.model.responses.Response>() {
             @Override
@@ -314,8 +348,8 @@ public class BarberShopActivity extends ToolbarActivity {
     public boolean isBookmarked() {
 
         Call<IsBookmarked> bookmarkExists =
-                API.getRetrofit().create(UserProfileService.class)
-                        .bookmarkExists(Auth.getAccessKey(getApplicationContext()), String.valueOf(barbershopId));
+                API.getRetrofit(this).create(UserProfileService.class)
+                        .bookmarkExists(  String.valueOf(barbershopId));
 
         bookmarkExists.enqueue(new Callback<IsBookmarked>() {
             @Override

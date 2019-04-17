@@ -61,8 +61,8 @@ public class BannersActivity extends ImageUploaderActivity {
 
     private void fetchBanners() {
         showProgress();
-        BannerServices bannersServices = API.getRetrofit().create(BannerServices.class);
-        bannersServices.index(Auth.getAccessKey(this)).enqueue(new Callback<List<Image>>() {
+        BannerServices bannersServices = API.getRetrofit(this).create(BannerServices.class);
+        bannersServices.index().enqueue(new Callback<List<Image>>() {
             @Override
             public void onResponse(@NonNull Call<List<Image>> call, @NonNull Response<List<Image>> response) {
                 hideProgress();
@@ -101,8 +101,8 @@ public class BannersActivity extends ImageUploaderActivity {
     private void deleteBanner(Image image) {
         confirmAlert("هشدار", "آیا تصویر حذف شود؟", R.drawable.ic_info, R.color.colorRedAccent200, view -> {
             showProgressDialog("حذف تصویر", "", false);
-            BannerServices bannerServices = API.getRetrofit().create(BannerServices.class);
-            bannerServices.delete(Auth.getAccessKey(this), image.getId()).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+            BannerServices bannerServices = API.getRetrofit(this).create(BannerServices.class);
+            bannerServices.delete(  image.getId()).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
                 @Override
                 public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, retrofit2.Response<com.sorinaidea.ghaichi.models.Response> response) {
                     hideProgressDialog();
@@ -165,8 +165,8 @@ public class BannersActivity extends ImageUploaderActivity {
             @Override
             public boolean upload(MultipartBody.Part image) {
                 showProgress();
-                BannerServices bannerServices = API.getRetrofit().create(BannerServices.class);
-                bannerServices.create(Auth.getAccessKey(BannersActivity.this), image).enqueue(new Callback<UploadImageResponse>() {
+                BannerServices bannerServices = API.getRetrofit(BannersActivity.this).create(BannerServices.class);
+                bannerServices.create(image).enqueue(new Callback<UploadImageResponse>() {
                     @Override
                     public void onResponse(Call<UploadImageResponse> call, retrofit2.Response<UploadImageResponse> response) {
                         hideProgressDialog();

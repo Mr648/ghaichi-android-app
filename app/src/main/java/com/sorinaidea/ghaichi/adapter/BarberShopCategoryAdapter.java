@@ -121,7 +121,7 @@ public class BarberShopCategoryAdapter extends RecyclerView.Adapter<BarberShopCa
 
     private void initBarberShops(ViewHolder holder) {
 
-        Retrofit retrofit = API.getRetrofit();
+        Retrofit retrofit = API.getRetrofit(mContext);
 
         BarbershopServices service = retrofit.create(BarbershopServices.class);
 

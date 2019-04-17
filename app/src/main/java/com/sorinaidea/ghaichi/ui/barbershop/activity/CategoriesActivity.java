@@ -12,12 +12,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
 import com.sorinaidea.ghaichi.adapter.ServiceCategoryAdapter;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Category;
 import com.sorinaidea.ghaichi.ui.ToolbarActivity;
 import com.sorinaidea.ghaichi.webservice.API;
@@ -120,8 +118,8 @@ public class CategoriesActivity extends ToolbarActivity {
                         .setTitle("ویرایش دسته‌بندی")
                         .setMessage("اطلاعات جدید دسته‌بندی را وارد کنید")
                         .setIcon(R.drawable.ic_create_white_18dp)
-                        .configureTitleView(textView->applyTextFont(textView))
-                        .configureMessageView(textView->applyTextFont(textView))
+                        .configureTitleView(textView -> applyTextFont(textView))
+                        .configureMessageView(textView -> applyTextFont(textView))
                         .configureView(view -> applyTextFont(
                                 view.findViewById(R.id.inputName),
                                 view.findViewById(R.id.edtName),
@@ -239,8 +237,8 @@ public class CategoriesActivity extends ToolbarActivity {
                         .setTopColorRes(R.color.colorTransaction)
                         .setTitle("افزودن دسته‌بندی")
                         .setMessage("اطلاعات دسته‌بندی را وارد کنید")
-                        .configureTitleView(textView->applyTextFont(textView))
-                        .configureMessageView(textView->applyTextFont(textView))
+                        .configureTitleView(textView -> applyTextFont(textView))
+                        .configureMessageView(textView -> applyTextFont(textView))
                         .setIcon(R.drawable.ic_add_white_18dp)
                         .configureView(view -> applyTextFont(
                                 view.findViewById(R.id.inputName),
@@ -278,11 +276,11 @@ public class CategoriesActivity extends ToolbarActivity {
 
     void addCategory(String name, String description, LovelyCustomDialog dialog) {
 
-        CategoryServices service = API.getRetrofit().create(CategoryServices.class);
+        CategoryServices service = API.getRetrofit(this).create(CategoryServices.class);
         Category category = new Category();
         category.setName(name);
         category.setDescription(description);
-        service.create(Auth.getAccessKey(this), category).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+        service.create(category).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
             @Override
             public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
                 if (response.isSuccessful()) {
@@ -305,35 +303,36 @@ public class CategoriesActivity extends ToolbarActivity {
 
 
     void updateCategory(Category category, LovelyCustomDialog dialog) {
+        API.getRetrofit(this)
+                .create(CategoryServices.class)
+                .update(category.getId(), category)
+                .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+                    @Override
+                    public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
+                        if (response.isSuccessful()) {
+                            toast("دسته‌بندی با موفقیت بروزرسانی شد.");
+                            initCategories();
+                        } else {
+                            toast("خطایی رخ داده است.");
+                        }
+                        dialog.dismiss();
+                    }
 
-        CategoryServices services = API.getRetrofit().create(CategoryServices.class);
-        services.update(Auth.getAccessKey(this), category.getId(), category).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
-            @Override
-            public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
-                if (response.isSuccessful()) {
-                    toast("دسته‌بندی با موفقیت بروزرسانی شد.");
-                    initCategories();
-                } else {
-                    toast("خطایی رخ داده است.");
-                }
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
-                if (t instanceof IOException) {
-                    toast(R.string.err_unable_to_connect_to_server);
-                }
-                logVerbose(t.getMessage(), t);
-                dialog.dismiss();
-            }
-        });
+                    @Override
+                    public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+                        if (t instanceof IOException) {
+                            toast(R.string.err_unable_to_connect_to_server);
+                        }
+                        logVerbose(t.getMessage(), t);
+                        dialog.dismiss();
+                    }
+                });
     }
 
     void deleteCategory(Category category, DialogInterface dialog) {
 
-        CategoryServices services = API.getRetrofit().create(CategoryServices.class);
-        services.delete(Auth.getAccessKey(this), category.getId()).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+        CategoryServices services = API.getRetrofit(this).create(CategoryServices.class);
+        services.delete(category.getId()).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
             @Override
             public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
                 if (response.isSuccessful()) {
@@ -360,49 +359,42 @@ public class CategoriesActivity extends ToolbarActivity {
     public ArrayList<Category> initCategories() {
 
 
-        String authToken = Auth.getAccessKey(CategoriesActivity.this);
+        showProgressDialog(null, "در حال دریافت دسته‌بندی‌ها", false);
 
-
-        if (authToken != null) {
-
-            showProgressDialog(null, "در حال دریافت دسته‌بندی‌ها", false);
-
-            CategoryServices categoryServices = API.getRetrofit().create(CategoryServices.class);
-
-            categoryServices.categories(authToken).enqueue(new Callback<List<Category>>() {
-                @Override
-                public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                    if (response.isSuccessful()) {
-                        categories.clear();
-                        categories.addAll(response.body());
-                        if (!categories.isEmpty()) {
-                            adapter = new ServiceCategoryAdapter(categories, getApplicationContext(), onItemClickListener);
-                            recServiceCategories.setAdapter(adapter);
-                        } else {
+        API.getRetrofit(this)
+                .create(CategoryServices.class)
+                .categories()
+                .enqueue(new Callback<List<Category>>() {
+                    @Override
+                    public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                        if (response.isSuccessful()) {
+                            categories.clear();
+                            categories.addAll(response.body());
+                            if (!categories.isEmpty()) {
+                                adapter = new ServiceCategoryAdapter(categories, getApplicationContext(), onItemClickListener);
+                                recServiceCategories.setAdapter(adapter);
+                            } else {
+                                recServiceCategories.setAdapter(new EmptyAdabper(CategoriesActivity.this));
+                            }
+                        } else if (response.code() == HttpCodes.HTTP_NOT_FOUND) {
                             recServiceCategories.setAdapter(new EmptyAdabper(CategoriesActivity.this));
                         }
-                    } else if (response.code() == HttpCodes.HTTP_NOT_FOUND) {
-                        recServiceCategories.setAdapter(new EmptyAdabper(CategoriesActivity.this));
-                    }
-                    hideProgressDialog();
+                        hideProgressDialog();
 
-                 }
-
-                @Override
-                public void onFailure(Call<List<Category>> call, Throwable t) {
-
-                    if (t instanceof IOException) {
-                        toast(R.string.err_unable_to_connect_to_server);
                     }
 
-                    logVerbose(t.getMessage(), t);
-                    hideProgressDialog();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<List<Category>> call, Throwable t) {
 
-        } else {
-            Toast.makeText(CategoriesActivity.this, "دسته‌بندی یافت نشد.", Toast.LENGTH_SHORT).show();
-        }
+                        if (t instanceof IOException) {
+                            toast(R.string.err_unable_to_connect_to_server);
+                        }
+
+                        logVerbose(t.getMessage(), t);
+                        hideProgressDialog();
+                    }
+                });
+
 
         return categories;
     }

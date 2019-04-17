@@ -124,7 +124,7 @@ public class SmsVerificationActivity extends ToolbarActivity {
     private void sendVerificationCode(final String phone, final String verificationCode) {
 
 
-        Retrofit retrofit = API.getRetrofit();
+        Retrofit retrofit = API.getNonAuthRetrofit(this);
 
         LoginService webService = retrofit.create(LoginService.class);
 
@@ -173,7 +173,7 @@ public class SmsVerificationActivity extends ToolbarActivity {
 
         showProgressDialog("ارسال کد تایید", "در حال ارسال کد تایید", false);
 
-        Retrofit retrofit = API.getRetrofit();
+        Retrofit retrofit = API.getNonAuthRetrofit(this);
         LoginService webService = retrofit.create(LoginService.class);
 
         callWebservice =
@@ -197,6 +197,7 @@ public class SmsVerificationActivity extends ToolbarActivity {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 hideProgressDialog();
+                logDebug(call.request().url().toString());
                 if (t instanceof IOException)
                     toast("خطا در ارتباط با سرور");
                 actionAlert("ارسال ناموفق", "کد جدید برای شما ارسال شود؟", R.drawable.ic_info, R.color.colorAmberAccent900, view -> sendSms(phone));
@@ -245,23 +246,17 @@ public class SmsVerificationActivity extends ToolbarActivity {
         finish();
     }
 }
-
 /*
-*   String str = response.body().getUserRole();
-                        Log.d("TAGGGGGGG", response.body().getUserRole());
-*
-*
-                        AesEncryptionData data = new Gson().fromJson(new String(Base64.decode(str, Base64.URL_SAFE)), AesEncryptionData.class);
-//
-                        try {
-//                            String result = AesEncryptDecrypt.decrypt( new String(Base64.decode(Base64.decode(response.body().getExpiration(), Base64.DEFAULT), Base64.DEFAULT)).getBytes("UTF-8"), data, str);
-                            String result = AesEncryptDecrypt.decrypt(new String(Base64.decode("rOSGWR1lsu8+yX1JkAaFlDa1/1YH+p4L0NkJ8dpfMGY=", Base64.DEFAULT)).getBytes("UTF-8"), data);
-                            Toast.makeText(SmsVerificationActivity.this, result, Toast.LENGTH_LONG).show();
-                            Log.d("TAG", result);
-                        } catch (NoSuchPaddingException | NoSuchAlgorithmException | DecoderException | UnsupportedEncodingException | InvalidKeyException | InvalidAlgorithmParameterException | BadPaddingException | IllegalBlockSizeException ex) {
-                            ex.printStackTrace();
-                            Log.d("EXCEPTION", ex.getMessage());
-                        }
-
-*
-* */
+String str=response.body().getUserRole();
+Log.d("TAGGGGGGG",response.body().getUserRole());
+AesEncryptionData data=new Gson().fromJson(new String(Base64.decode(str,Base64.URL_SAFE)),AesEncryptionData.class);
+try{
+String result =AesEncryptDecrypt.decrypt(new String(Base64.decode(Base64.decode(response.body().getExpiration(),Base64.DEFAULT),Base64.DEFAULT)).getBytes("UTF-8"), data, str);
+String result =AesEncryptDecrypt.decrypt(new String(Base64.decode("rOSGWR1lsu8+yX1JkAaFlDa1/1YH+p4L0NkJ8dpfMGY=",Base64.DEFAULT)).getBytes("UTF-8"), data);
+Toast.makeText(SmsVerificationActivity.this, result, Toast.LENGTH_LONG).show();
+Log.d("TAG", result);
+}catch(NoSuchPaddingException|NoSuchAlgorithmException|DecoderException|UnsupportedEncodingException|InvalidKeyException|InvalidAlgorithmParameterException|BadPaddingException|IllegalBlockSizeException ex){
+ex.printStackTrace();
+Log.d("EXCEPTION",ex.getMessage());
+}
+*/

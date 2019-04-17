@@ -10,7 +10,6 @@ import android.view.animation.DecelerateInterpolator;
 import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.PhotoSliderAdapter;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
@@ -57,8 +56,8 @@ public class ImageSliderActivity extends ToolbarActivity {
     }
 
     public void getServiceImages(int serviceId, int barbershopId) {
-        API.getRetrofit().create(BarbershopServices.class)
-                .serviceImages(Auth.getAccessKey(getApplicationContext()), barbershopId, serviceId)
+        API.getRetrofit(this).create(BarbershopServices.class)
+                .serviceImages( barbershopId, serviceId)
                 .enqueue(new Callback<List<String>>() {
                     @Override
                     public void onResponse(Call<List<String>> call, Response<List<String>> response) {

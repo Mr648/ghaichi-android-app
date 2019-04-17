@@ -5,11 +5,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Build;
-import android.util.Log;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.sorinaidea.ghaichi.model.Advertise;
+import com.sorinaidea.ghaichi.models.BaseAdvertise;
 
 import java.util.Objects;
 
@@ -20,7 +19,7 @@ import java.util.Objects;
 public class Util {
 
     public static final class COMMUNICATION_KEYS {
-
+        public static final String ADVERTISE_ID= "ADVERTISE_ID";
         public static final String BARBERSHOP_ID = "BARBERSHOP_ID";
         public static final String SERVICE_ID = "SERVICE_ID";
     }
@@ -43,8 +42,8 @@ public class Util {
         public static final String BASE_URL = "http://ghaichi.com";
         public static final String ROLE_BARBERSHOP = "barbershop";
         public static final String ROLE_USER = "user";
-        public static final String REGEX_JALALI_DATE="^[0-9]{4}\\/[0-9]{2}\\/[0-9]{2}$";
-        public static final String REGEX_TIME ="^[0-9]{2}\\:[0-9]{2}$";
+        public static final String REGEX_JALALI_DATE = "^[0-9]{4}\\/[0-9]{2}\\/[0-9]{2}$";
+        public static final String REGEX_TIME = "^[0-9]{2}\\:[0-9]{2}$";
         public static final String REGEX_PHONE
                 = "^(0|\\+98)?([ ]|,|-|[()]){0,2}9[0|1|2|3|4|5]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}$";
 
@@ -122,9 +121,8 @@ public class Util {
         TEAL
     }
 
-    public static int getSuitableColor(Advertise ad) {
-        int percentage = (int) ((1.0f * ad.getViews() / ad.getAmount()) * 100);
-        Log.i("PERCENTAGE", "" + percentage);
+    public static int getSuitableColor(BaseAdvertise ad) {
+        int percentage = (int) ((1.0f * ad.getViews() / ad.getTotal()) * 100);
         if (percentage <= 20) {
             return colors[Colors.RED.ordinal()];
         } else if (percentage > 20 && percentage <= 50) {

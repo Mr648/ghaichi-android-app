@@ -152,6 +152,7 @@
     <string name="_hint_family">نام خانوادکی</string>
     <string name="_hint_phone">شماره موبایل</string>
     <string name="_hint_message">پیام خود را بنویسید</string>
+    <string name="_hint_message_to_barbershop">پیام برای آرایشگاه...</string>
     <string name="_hint_gender">جنیست</string>
     <string name="_hint_date">تاریخ رزور</string>
     <string name="_txt_gender_male">آقا</string>

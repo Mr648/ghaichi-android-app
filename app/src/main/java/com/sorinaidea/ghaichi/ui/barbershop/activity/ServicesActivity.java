@@ -11,7 +11,6 @@ import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
 import com.sorinaidea.ghaichi.adapter.barbershop.ServiceAdapter;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Service;
 import com.sorinaidea.ghaichi.ui.ToolbarActivity;
 import com.sorinaidea.ghaichi.webservice.API;
@@ -52,73 +51,75 @@ public class ServicesActivity extends ToolbarActivity {
     }
 
     private void fetchServices() {
-        ServiceServices serviceServices = API.getRetrofit().create(ServiceServices.class);
-        showProgressDialog("دریافت لیست خدمات", "در حال خواندن داده‌ها", false);
-        serviceServices.srevices(Auth.getAccessKey(this)).enqueue(new Callback<List<Service>>() {
-            @Override
-            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
-                hideProgressDialog();
-                if (response.isSuccessful()) {
-                    try {
-                        Objects.requireNonNull(response.body());
-                        listServices.clear();
-                        listServices.addAll(response.body());
-                        if (listServices.isEmpty()) {
-                            recServices.setAdapter(new EmptyAdabper(getApplicationContext()));
+        showProgress();
+        API.getRetrofit(this)
+                .create(ServiceServices.class)
+                .srevices()
+                .enqueue(new Callback<List<Service>>() {
+                    @Override
+                    public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                        hideProgress();
+                        if (response.isSuccessful()) {
+                            try {
+                                Objects.requireNonNull(response.body());
+                                listServices.clear();
+                                listServices.addAll(response.body());
+                                if (listServices.isEmpty()) {
+                                    recServices.setAdapter(new EmptyAdabper(getApplicationContext()));
+                                } else {
+                                    recServices.setAdapter(new ServiceAdapter(listServices, getApplicationContext()) {
+                                        @Override
+                                        public void showImages(Service service) {
+                                            Intent intent = new Intent(getApplicationContext(), SamplesActivity.class);
+                                            intent.putExtra("SERVICE", service);
+                                            startActivity(intent);
+                                        }
+
+                                        @Override
+                                        public void delete(Service service) {
+                                            confirmAlert(
+                                                    "حذف خدمت"
+                                                    , String.format(
+                                                            App.LOCALE
+                                                            , "%s %s %s؟"
+                                                            , "آیا از حذف خدمت"
+                                                            , service.getName()
+                                                            , "مطمئنید"
+                                                    )
+                                                    , R.drawable.ic_delete
+                                                    , R.color.colorRedAccent200
+                                                    , "بله"
+                                                    , view -> deleteService(service)
+                                                    , "خیر"
+                                                    , null
+                                            );
+                                        }
+
+                                        @Override
+                                        public void addBarber(Service service) {
+
+                                        }
+
+                                    });
+                                }
+                            } catch (NullPointerException ex) {
+                                toast("خطا در دریافت خدمات");
+                            }
                         } else {
-                            recServices.setAdapter(new ServiceAdapter(listServices, getApplicationContext()) {
-                                @Override
-                                public void showImages(Service service) {
-                                    Intent intent = new Intent(getApplicationContext(), SamplesActivity.class);
-                                    intent.putExtra("SERVICE", service);
-                                    startActivity(intent);
-                                }
-
-                                @Override
-                                public void delete(Service service) {
-                                    confirmAlert(
-                                            "حذف خدمت"
-                                            , String.format(
-                                                    App.LOCALE
-                                                    , "%s %s %s؟"
-                                                    , "آیا از حذف خدمت"
-                                                    , service.getName()
-                                                    , "مطمئنید"
-                                            )
-                                            , R.drawable.ic_delete
-                                            , R.color.colorRedAccent200
-                                            , "بله"
-                                            , view -> deleteService(service)
-                                            , "خیر"
-                                            , null
-                                    );
-                                }
-
-                                @Override
-                                public void addBarber(Service service) {
-
-                                }
-
-                            });
+                            toast("خطایی رخ داده است!");
                         }
-                    } catch (NullPointerException ex) {
-                        toast("خطا در دریافت خدمات");
                     }
-                } else {
-                    toast("خطایی رخ داده است!");
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<Service>> call, Throwable t) {
-                hideProgressDialog();
-                if (t instanceof IOException) {
-                    toast("خطا در ارتباط با سرور");
-                } else {
-                    toast("خطایی رخ داده است!");
-                }
-            }
-        });
+                    @Override
+                    public void onFailure(Call<List<Service>> call, Throwable t) {
+                        hideProgress();
+                        if (t instanceof IOException) {
+                            toast("خطا در ارتباط با سرور");
+                        } else {
+                            toast("خطایی رخ داده است!");
+                        }
+                    }
+                });
 
     }
 
@@ -136,25 +137,27 @@ public class ServicesActivity extends ToolbarActivity {
 
     void deleteService(Service service) {
 
-        ServiceServices services = API.getRetrofit().create(ServiceServices.class);
-        services.delete(Auth.getAccessKey(this), service.getId()).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
-            @Override
-            public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
-                if (response.isSuccessful()) {
-                    toast("خدمت با موفقیت حذف شد.");
-                    fetchServices();
-                } else {
-                    toast("خطایی رخ داده است.");
-                }
-            }
+        API.getRetrofit(this).
+                create(ServiceServices.class)
+                .delete(service.getId())
+                .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+                    @Override
+                    public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
+                        if (response.isSuccessful()) {
+                            toast("خدمت با موفقیت حذف شد.");
+                            fetchServices();
+                        } else {
+                            toast("خطایی رخ داده است.");
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
-                if (t instanceof IOException) {
-                    toast(R.string.err_unable_to_connect_to_server);
-                }
-            }
-        });
+                    @Override
+                    public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+                        if (t instanceof IOException) {
+                            toast(R.string.err_unable_to_connect_to_server);
+                        }
+                    }
+                });
     }
 
     @Override

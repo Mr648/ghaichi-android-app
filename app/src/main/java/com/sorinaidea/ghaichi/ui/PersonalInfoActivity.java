@@ -17,19 +17,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.datahelper.Gender;
 import com.sorinaidea.ghaichi.ui.dialog.GenderDialog;
 import com.sorinaidea.ghaichi.util.FontManager;
-import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.UserProfileService;
 import com.sorinaidea.ghaichi.webservice.model.requests.EditProfileRequest;
 import com.sorinaidea.ghaichi.webservice.model.responses.Response;
-import com.sorinaidea.ghaichi.webservice.model.responses.VerificationResponse;
-
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -138,14 +133,14 @@ public class PersonalInfoActivity extends AppCompatActivity {
         if (!validateForm()) return;
 
 
-        Retrofit retrofit = API.getRetrofit();
+        Retrofit retrofit = API.getRetrofit(this);
 
         UserProfileService webService = retrofit.create(UserProfileService.class);
 
 
         Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> callWebservice =
 
-                webService.update(new EditProfileRequest(Auth.getAccessKey(getApplicationContext()), name, family, gender ? "men" : "women"));
+                webService.update(new EditProfileRequest( name, family, gender ? "men" : "women"));
 
         callWebservice.enqueue(new Callback<Response>() {
             @Override

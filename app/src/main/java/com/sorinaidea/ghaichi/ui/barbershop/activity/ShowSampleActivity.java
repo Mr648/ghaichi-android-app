@@ -16,7 +16,6 @@ import com.sorinaidea.ghaichi.adapter.barbershop.SCDCategoryAdapter;
 import com.sorinaidea.ghaichi.adapter.barbershop.SCDServiceAdapter;
 import com.sorinaidea.ghaichi.adapter.barbershop.SamplesAdapter;
 import com.sorinaidea.ghaichi.adapter.barbershop.SingleChoiceDialogAdapter;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Category;
 import com.sorinaidea.ghaichi.models.Image;
 import com.sorinaidea.ghaichi.models.Service;
@@ -112,93 +111,101 @@ public class ShowSampleActivity extends ToolbarActivity {
     private void deleteItem(int image) {
         confirmAlert("هشدار", "آیا تصویر حذف شود؟", R.drawable.ic_info, R.color.colorRedAccent200, view -> {
             showProgressDialog("حذف تصویر", "", false);
-            SampleServices sampleServices = API.getRetrofit().create(SampleServices.class);
-            sampleServices.delete(Auth.getAccessKey(this), image).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
-                @Override
-                public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
-                    hideProgressDialog();
-                    if (response.isSuccessful()) {
-                        try {
-                            Objects.requireNonNull(response.body());
-                            toast(response.body().getMessage());
-                            fetchSamples();
-                        } catch (NullPointerException ex) {
-                            actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServices());
-                        }
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
-                    hideProgressDialog();
-                    if (t instanceof IOException) {
-                        actionAlert("قطع اتصال", "ارتباط شما با سرور قطع است", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark, view -> fetchServices());
-                    }
-                }
-            });
+            API.getRetrofit(this)
+                    .create(SampleServices.class)
+                    .delete(image)
+                    .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+                        @Override
+                        public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
+                            hideProgressDialog();
+                            if (response.isSuccessful()) {
+                                try {
+                                    Objects.requireNonNull(response.body());
+                                    toast(response.body().getMessage());
+                                    fetchSamples();
+                                } catch (NullPointerException ex) {
+                                    actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServices());
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+                            hideProgressDialog();
+                            if (t instanceof IOException) {
+                                actionAlert("قطع اتصال", "ارتباط شما با سرور قطع است", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark, view -> fetchServices());
+                            }
+                        }
+                    });
         });
     }
 
     private void fetchServices() {
         showProgressDialog(null, "در حال دریافت داده‌ها", false);
-        ServiceServices serviceServices = API.getRetrofit().create(ServiceServices.class);
-        serviceServices.srevices(Auth.getAccessKey(this)).enqueue(new Callback<List<Service>>() {
-            @Override
-            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
-                hideProgressDialog();
-                if (response.isSuccessful()) {
-                    try {
-                        Objects.requireNonNull(response.body());
-                        services.clear();
-                        services.addAll(response.body());
-                    } catch (NullPointerException ex) {
-                        actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServices());
+        API.getRetrofit(this)
+                .create(ServiceServices.class)
+                .srevices()
+                .enqueue(new Callback<List<Service>>() {
+                    @Override
+                    public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                        hideProgressDialog();
+                        if (response.isSuccessful()) {
+                            try {
+                                Objects.requireNonNull(response.body());
+                                services.clear();
+                                services.addAll(response.body());
+                            } catch (NullPointerException ex) {
+                                actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServices());
+                            }
+                        } else {
+                        }
                     }
-                } else {
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<Service>> call, Throwable t) {
-                hideProgressDialog();
-                if (t instanceof IOException) {
-                    actionAlert("قطع اتصال", "ارتباط شما با سرور قطع است", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark, view -> fetchServices());
-                }
-            }
-        });
+                    @Override
+                    public void onFailure(Call<List<Service>> call, Throwable t) {
+                        hideProgressDialog();
+                        if (t instanceof IOException) {
+                            actionAlert("قطع اتصال", "ارتباط شما با سرور قطع است", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark, view -> fetchServices());
+                        }
+                    }
+                });
     }
 
     private void fetchCategories() {
         showProgressDialog(null, "در حال دریافت داده‌ها", false);
-        CategoryServices serviceServices = API.getRetrofit().create(CategoryServices.class);
-        serviceServices.categories(Auth.getAccessKey(this)).enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                hideProgressDialog();
-                if (response.isSuccessful()) {
-                    try {
-                        Objects.requireNonNull(response.body());
-                        categories.clear();
-                        categories.addAll(response.body());
-                    } catch (NullPointerException ex) {
-                        actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServices());
-                    }
-                } else {
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-                hideProgressDialog();
-                if (t instanceof IOException) {
-                    actionAlert("قطع اتصال", "ارتباط شما با سرور قطع است", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark, view -> fetchCategories());
-                }
-            }
-        });
+        API.getRetrofit(this)
+                .create(CategoryServices.class)
+                .categories()
+                .enqueue(new Callback<List<Category>>() {
+                    @Override
+                    public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                        hideProgressDialog();
+                        if (response.isSuccessful()) {
+                            try {
+                                Objects.requireNonNull(response.body());
+                                categories.clear();
+                                categories.addAll(response.body());
+                            } catch (NullPointerException ex) {
+                                actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServices());
+                            }
+                        } else {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Category>> call, Throwable t) {
+                        hideProgressDialog();
+                        if (t instanceof IOException) {
+                            actionAlert("قطع اتصال", "ارتباط شما با سرور قطع است", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark, view -> fetchCategories());
+                        }
+                    }
+                });
     }
 
 
-    private  Callback<List<Image>> callback =
+    private Callback<List<Image>> callback =
             new Callback<List<Image>>() {
                 @Override
                 public void onResponse(Call<List<Image>> call, Response<List<Image>> response) {
@@ -228,16 +235,13 @@ public class ShowSampleActivity extends ToolbarActivity {
 
     private void fetchSamples() {
         showProgressDialog(null, "در حال دریافت داده‌ها", false);
-        SampleServices serviceServices = API.getRetrofit().create(SampleServices.class);
-        serviceServices.index(Auth.getAccessKey(this)).enqueue(callback);
+        API.getRetrofit(this).create(SampleServices.class).index().enqueue(callback);
     }
 
     private void fetchSamples(String type, int id) {
-
-
         showProgressDialog(null, "در حال دریافت داده‌ها", false);
-        SampleServices serviceServices = API.getRetrofit().create(SampleServices.class);
-        serviceServices.index(Auth.getAccessKey(this), type, id).enqueue(callback);
+        API.getRetrofit(this).create(SampleServices.class)
+                .index(type, id).enqueue(callback);
 
     }
 

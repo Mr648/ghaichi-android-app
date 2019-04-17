@@ -76,7 +76,7 @@ public abstract class BusinessTimeAdapter extends BaseAdapter<BusinessTimeAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.reservation_service_list_item, viewGroup, false);
+                .inflate(R.layout.item_business_time, viewGroup, false);
         return new ViewHolder(v);
 
     }
@@ -132,10 +132,4 @@ public abstract class BusinessTimeAdapter extends BaseAdapter<BusinessTimeAdapte
         viewHolder.btnEvFrom.setOnClickListener(view -> selectTime(viewHolder.btnEvFrom, position, BusinessTime.FIELD.EOT));
         viewHolder.btnEvUntil.setOnClickListener(view -> selectTime(viewHolder.btnEvUntil, position, BusinessTime.FIELD.ECT));
     }
-
-
-    String applyLocale(String text) {
-        return "";
-    }
-
 }

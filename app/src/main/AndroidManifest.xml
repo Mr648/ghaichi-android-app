@@ -41,7 +41,6 @@
         <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
-
                 <data
                     android:path="com.sorinaidea.ghaichi"
                     android:scheme="package" />
@@ -118,18 +117,18 @@
             android:name=".ui.ShowDirectionActivity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.ReserveActivity"
-            android:label="@string/label_aboutus"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity-->
+        <!--android:name=".ui.ReserveActivity"-->
+        <!--android:label="@string/label_aboutus"-->
+        <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".ui.ReserveStep1Activity"
             android:label="@string/label_aboutus"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.SettingActivity"
-            android:label="@string/label_setting"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity-->
+        <!--android:name=".ui.SettingActivity"-->
+        <!--android:label="@string/label_setting"-->
+        <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".ui.barbershop.activity.BarbershopProfileActivity"
             android:label="@string/toolbar_barbershop_profile"
@@ -189,7 +188,19 @@
         <activity
             android:name=".ui.BarberShopActivity"
             android:label="BARBERSHOP"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:pathPrefix="/" />
+                <data android:host="ghaichi.com" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.CreditActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -219,10 +230,10 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.AdvertismentActivity"
+            android:name=".ui.AdvertisementActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.AdvertismentInfoActivity"
+            android:name=".ui.AdvertisementInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.SplashActivity"
@@ -255,7 +266,14 @@
         <activity
             android:name=".ui.barbershop.activity.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".ui.ReserveStep2Activity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.barbershop.activity.ReservationActivity"  android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

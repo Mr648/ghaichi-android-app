@@ -152,7 +152,7 @@ public class BarberChooseLocationActivity
 
         getLocationPermission();
 
-        // Turn on the My Location layer and the related control on the map.
+        // ServiceTurn on the My Location layer and the related control on the map.
         updateLocationUI();
 
         // Get the current location of the device and set the position of the map.

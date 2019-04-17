@@ -60,7 +60,7 @@ public class Security {
         String output = "";
 
         for (int i = 0; i < count; i++) {
-            output = new String(Base64.encode(str.getBytes(), Base64.URL_SAFE));
+            output = new String(Base64.encode(str.getBytes(), Base64.DEFAULT));
         }
 
         return output;
@@ -71,7 +71,7 @@ public class Security {
         String output = "";
 
         for (int i = 0; i < count; i++) {
-            output = new String(Base64.decode(str.getBytes(), Base64.URL_SAFE));
+            output = new String(Base64.decode(str.getBytes(), Base64.DEFAULT));
         }
 
         return output;

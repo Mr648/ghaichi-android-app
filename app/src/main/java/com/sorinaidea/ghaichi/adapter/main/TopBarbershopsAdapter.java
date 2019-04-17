@@ -70,6 +70,8 @@ public class TopBarbershopsAdapter extends BaseAdapter<TopBarbershopsAdapter.Vie
 
         API.getPicasso(mContext)
                 .load(barberShop.getLogo())
+                .centerCrop()
+                .fit()
                 .placeholder(R.drawable.preview_small)
                 .error(R.drawable.preview_small)
                 .into(holder.imgLogo);

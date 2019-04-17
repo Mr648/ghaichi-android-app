@@ -170,7 +170,7 @@ public class AddBarberActivity extends ImageUploaderActivity {
 
 
     private void updateBarber(Barber barber) {
-        BarberServices service = API.getRetrofit().create(BarberServices.class);
+        BarberServices service = API.getRetrofit(this).create(BarberServices.class);
         MultipartBody.Part image = null;
 
         if (selectedImage != null) {
@@ -183,7 +183,7 @@ public class AddBarberActivity extends ImageUploaderActivity {
 
         showProgressDialog(R.string.update_barber_title, R.string.update_barber_progress, R.mipmap.ic_file_upload_white_24dp, R.color.colorAmberAccent900, false);
         logDebug(barber.getName() + " " + barber.getId());
-        service.update(Auth.getAccessKey(this), barber.getId(), barber, image).enqueue(new Callback<Response>() {
+        service.update(  barber.getId(), barber, image).enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                 hideProgressDialog();
@@ -221,7 +221,7 @@ public class AddBarberActivity extends ImageUploaderActivity {
 
 
     private void addBarber(Barber barber) {
-        BarberServices service = API.getRetrofit().create(BarberServices.class);
+        BarberServices service = API.getRetrofit(this).create(BarberServices.class);
 
         MultipartBody.Part image =
                 MultipartBody.Part.createFormData(
@@ -231,7 +231,7 @@ public class AddBarberActivity extends ImageUploaderActivity {
                 );
 
         showProgressDialog(R.string.create_barber_title, R.string.create_barber_progress, R.mipmap.ic_file_upload_white_24dp, R.color.colorAmberAccent900, false);
-        service.create(Auth.getAccessKey(this), barber, image).enqueue(new Callback<Response>() {
+        service.create(barber, image).enqueue(new Callback<Response>() {
             @Override
             public void onResponse(@NonNull Call<Response> call, @NonNull retrofit2.Response<Response> response) {
                 hideProgressDialog();

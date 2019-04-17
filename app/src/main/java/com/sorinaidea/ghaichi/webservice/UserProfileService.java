@@ -27,35 +27,6 @@ import retrofit2.http.Query;
 
 public interface UserProfileService {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @POST("api/user/profile/update")
     Call<Response> update(@Body EditProfileRequest request);
 
@@ -64,18 +35,18 @@ public interface UserProfileService {
 
     @FormUrlEncoded
     @POST("api/user/profile/logout")
-    Call<Response> logout(@Field("accessKey") String accessKey);
+    Call<Response> logout();
 
 
     @GET("api/user/profile/info/short")
-    Call<UserShortInfo> shortInfo(@Query("accessKey") String accessKey);
+    Call<UserShortInfo> shortInfo();
 
     @GET("api/user/profile/codes")
-    Call<ReagentCode> codes(@Query("accessKey") String accessKey);
+    Call<ReagentCode> codes();
 
 
     @GET("api/user/profile/bookmarks")
-    Call<List<BarbershopCard>> bookmarks(@Query("accessKey") String accessKey);
+    Call<List<BarbershopCard>> bookmarks();
 
     @Multipart
     @POST("api/user/profile/upload/image")
@@ -89,9 +60,9 @@ public interface UserProfileService {
 
     @FormUrlEncoded
     @POST("api/user/bookmark/createOrRemove")
-    Call<Response> createOrRemove(@Query("accessKey") String accessKey, @Field("barbershop_id") String barbershopId);
+    Call<Response> createOrRemove(@Field("barbershop_id") String barbershopId);
 
 
     @GET("api/user/bookmark/exists")
-    Call<IsBookmarked> bookmarkExists(@Query("accessKey") String accessKey, @Query("barbershop_id") String barbershopId);
+    Call<IsBookmarked> bookmarkExists(  @Query("barbershop_id") String barbershopId);
 }

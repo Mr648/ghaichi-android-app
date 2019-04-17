@@ -63,19 +63,23 @@ public class ImageSliderAdapter extends PagerAdapter {
         }
 
 
-        API.getPicasso(context).load(images.get(position).getPath()).centerCrop().fit().into(myImage, new Callback() {
-            @Override
-            public void onSuccess() {
-                prgLoad.setVisibility(View.GONE);
-                txtMessage.setVisibility(View.GONE);
-            }
+        API.getPicasso(context)
+                .load(images.get(position).getPath())
+                .centerCrop()
+                .fit()
+                .into(myImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        prgLoad.setVisibility(View.GONE);
+                        txtMessage.setVisibility(View.GONE);
+                    }
 
-            @Override
-            public void onError() {
-                txtMessage.setVisibility(View.VISIBLE);
-                txtMessage.setText(context.getResources().getString(R.string._hint_date));
-            }
-        });
+                    @Override
+                    public void onError() {
+                        txtMessage.setVisibility(View.VISIBLE);
+                        txtMessage.setText(context.getResources().getString(R.string._hint_date));
+                    }
+                });
 
 
         view.addView(myImageLayout, 0);

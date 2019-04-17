@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.DataAdapter;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Data;
 import com.sorinaidea.ghaichi.models.UploadImageResponse;
 import com.sorinaidea.ghaichi.ui.ImageUploaderActivity;
@@ -71,9 +70,9 @@ public class BarbershopProfileActivity extends ImageUploaderActivity
     public void update() {
         showProgressDialog(null, "در حال دریافت اطلاعات", false);
 
-        BarbershopProfileServices service = API.getRetrofit().create(BarbershopProfileServices.class);
+        BarbershopProfileServices service = API.getRetrofit(this).create(BarbershopProfileServices.class);
 
-        Call<List<Data>> info = service.barbershop(Auth.getAccessKey(getApplicationContext()));
+        Call<List<Data>> info = service.barbershop();
 
         info.enqueue(new Callback<List<Data>>() {
             @Override
@@ -145,9 +144,9 @@ public class BarbershopProfileActivity extends ImageUploaderActivity
     }
 
     private void updateField(String key, String value) {
-        BarbershopProfileServices serviceServices = API.getRetrofit().create(BarbershopProfileServices.class);
+        BarbershopProfileServices serviceServices = API.getRetrofit(this).create(BarbershopProfileServices.class);
         serviceServices
-                .updateBarbershop(Auth.getAccessKey(BarbershopProfileActivity.this), key, value)
+                .updateBarbershop(key, value)
                 .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
                     @Override
                     public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
@@ -262,8 +261,8 @@ public class BarbershopProfileActivity extends ImageUploaderActivity
             @Override
             public boolean upload(MultipartBody.Part image) {
                 showProgress();
-                BarbershopProfileServices serviceServices = API.getRetrofit().create(BarbershopProfileServices.class);
-                serviceServices.changeLogo(Auth.getAccessKey(BarbershopProfileActivity.this), image).enqueue(new Callback<UploadImageResponse>() {
+                BarbershopProfileServices serviceServices = API.getRetrofit(BarbershopProfileActivity.this).create(BarbershopProfileServices.class);
+                serviceServices.changeLogo(image).enqueue(new Callback<UploadImageResponse>() {
                     @Override
                     public void onResponse(Call<UploadImageResponse> call, Response<UploadImageResponse> response) {
                         hideProgress();

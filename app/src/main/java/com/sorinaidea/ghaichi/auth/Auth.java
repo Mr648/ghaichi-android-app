@@ -8,37 +8,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 
 import com.sorinaidea.ghaichi.ui.LoginActivity;
-import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
+import com.sorinaidea.ghaichi.util.GhaichiPreferenceManager;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.model.responses.VerificationResponse;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public class Auth {
 
     public static String getAccessKey(Context context) {
-        String accessKey = GhaichiPrefrenceManager.getDecryptedString(context,
+        String accessKey = GhaichiPreferenceManager.getDecryptedString(context,
                 Util.KEYS.USER_ACCESS_KEY, null);
         try {
-            return Objects.requireNonNull(accessKey);
+            return String.format(Locale.getDefault(), "%s %s", "Bearer", Objects.requireNonNull(accessKey));
         } catch (NullPointerException ex) {
-            logout(context);
             return null;
         }
     }
 
     public static void loggedIn(Context context, VerificationResponse response) {
-        GhaichiPrefrenceManager.putEncryptedString(context,
+        GhaichiPreferenceManager.putEncryptedString(context,
                 Util.KEYS.USER_ACCESS_KEY,
                 response.getAccessKey()
         );
 
-        GhaichiPrefrenceManager.putEncryptedString(context,
+        GhaichiPreferenceManager.putEncryptedString(context,
                 Util.KEYS.USER_ROLE,
                 new String(Base64.decode(response.getUserRole().getBytes(), Base64.DEFAULT))
         );
 
-        GhaichiPrefrenceManager.putEncryptedString(context,
+        GhaichiPreferenceManager.putEncryptedString(context,
                 Util.KEYS.KEY_EXPIRATION,
                 response.getExpiration()
         );
@@ -46,7 +46,7 @@ public class Auth {
 
     private static boolean hasRole(Context context, @NonNull final String role) {
 
-        String userRole = GhaichiPrefrenceManager.getDecryptedString(context,
+        String userRole = GhaichiPreferenceManager.getDecryptedString(context,
                 Util.KEYS.USER_ROLE, null);
 
         try {
@@ -66,7 +66,7 @@ public class Auth {
     }
 
     public static void logout(Context context) {
-        GhaichiPrefrenceManager.clear(context);
+        GhaichiPreferenceManager.clear(context);
         Intent intent = new Intent(context, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

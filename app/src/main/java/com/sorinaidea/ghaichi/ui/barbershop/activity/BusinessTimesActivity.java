@@ -12,7 +12,6 @@ import com.google.gson.JsonObject;
 import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.barbershop.BusinessTimeAdapter;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.BusinessTime;
 import com.sorinaidea.ghaichi.models.Response;
 import com.sorinaidea.ghaichi.ui.ToolbarActivity;
@@ -50,8 +49,8 @@ public class BusinessTimesActivity extends ToolbarActivity {
     }
 
     private void fetchBusinessTimes() {
-        BarbershopProfileServices barbershopProfileServices = API.getRetrofit().create(BarbershopProfileServices.class);
-        barbershopProfileServices.businessTimes(Auth.getAccessKey(this)).enqueue(new Callback<List<BusinessTime>>() {
+        BarbershopProfileServices barbershopProfileServices = API.getRetrofit(this).create(BarbershopProfileServices.class);
+        barbershopProfileServices.businessTimes().enqueue(new Callback<List<BusinessTime>>() {
             @Override
             public void onResponse(Call<List<BusinessTime>> call, retrofit2.Response<List<BusinessTime>> response) {
                 if (response.isSuccessful()) {
@@ -158,8 +157,8 @@ public class BusinessTimesActivity extends ToolbarActivity {
             times.put(time.getDay(), time.toJsonObject());
         }
 
-        BarbershopProfileServices barbershopProfileServices = API.getRetrofit().create(BarbershopProfileServices.class);
-        barbershopProfileServices.updateBusinessTimes(Auth.getAccessKey(this), times)
+        BarbershopProfileServices barbershopProfileServices = API.getRetrofit(this).create(BarbershopProfileServices.class);
+        barbershopProfileServices.updateBusinessTimes(times)
                 .enqueue(new Callback<Response>() {
                     @Override
                     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {

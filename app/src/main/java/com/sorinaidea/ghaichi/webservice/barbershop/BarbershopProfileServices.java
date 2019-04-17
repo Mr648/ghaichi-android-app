@@ -16,64 +16,43 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 
-public interface BarbershopProfileServices  {
+public interface BarbershopProfileServices {
 
 
-    @Headers({
-            "User-Agent: GHAICHI-APPLICATION-USER",
-    })
     @FormUrlEncoded
     @POST("api/barbershop/profile/barbershop/update")
-    Call<Response> updateBarbershop(@Header("Authorization") String authToken, @Field("key") String key, @Field("value") String value);
+    Call<Response> updateBarbershop(@Field("key") String key, @Field("value") String value);
 
 
-    @Headers({
-            "User-Agent: GHAICHI-APPLICATION-USER",
-    })
     @GET("api/barbershop/profile/u/info")
-    Call<List<Data>> profile(@Header("Authorization") String authToken);
+    Call<List<Data>> profile();
 
-    @Headers({
-            "User-Agent: GHAICHI-APPLICATION-USER",
-    })
+
     @GET("api/barbershop/business")
-    Call<List<BusinessTime>> businessTimes(@Header("Authorization") String authToken);
+    Call<List<BusinessTime>> businessTimes();
 
-    @Headers({
-            "User-Agent: GHAICHI-APPLICATION-USER",
-    })
+
     @GET("api/barbershop/profile/b/info")
-    Call<List<Data>> barbershop(@Header("Authorization") String authToken);
+    Call<List<Data>> barbershop();
 
 
-    @Headers({
-            "User-Agent: GHAICHI-APPLICATION-USER",
-    })
     @Multipart
     @POST("api/barbershop/profile/avatar")
-    Call<UploadImageResponse> changeAvatar(@Header("Authorization") String authToken, @Part MultipartBody.Part image);
+    Call<UploadImageResponse> changeAvatar(@Part MultipartBody.Part image);
 
 
-    @Headers({
-            "User-Agent: GHAICHI-APPLICATION-USER",
-    })
     @Multipart
     @POST("api/barbershop/profile/logo")
-    Call<UploadImageResponse> changeLogo(@Header("Authorization") String authToken, @Part MultipartBody.Part image);
+    Call<UploadImageResponse> changeLogo(@Part MultipartBody.Part image);
 
 
-    @Headers({
-            "User-Agent: GHAICHI-APPLICATION-USER",
-    })
     @FormUrlEncoded
     @PUT("api/barbershop/business/update")
-    Call<Response> updateBusinessTimes(@Header("Authorization") String authToken, @FieldMap Map<String,JsonObject> map);
+    Call<Response> updateBusinessTimes(@FieldMap Map<String, JsonObject> map);
 
 }

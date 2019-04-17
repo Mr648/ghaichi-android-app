@@ -31,7 +31,8 @@ public class BaseActivity extends AppCompatActivity {
             FontManager.setFont(view, fontText);
         }
     }
-  protected void applyTextBoldFont(View... views) {
+
+    protected void applyTextBoldFont(View... views) {
         for (View view : views) {
             FontManager.setFont(view, fontTextBold);
         }
@@ -124,26 +125,29 @@ public class BaseActivity extends AppCompatActivity {
 
 
     protected void actionAlert(String title, String message, @DrawableRes int icon, @ColorRes int color, View.OnClickListener positiveButtonOnClickListener) {
-        new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
+        LovelyStandardDialog standardDialog = new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
                 .setTopColorRes(color)
                 .setButtonsColorRes(R.color.colorPrimary)
                 .setIcon(icon)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton(R.string._lbl_confirm, positiveButtonOnClickListener)
-                .show();
+                .setPositiveButton(R.string._lbl_confirm, positiveButtonOnClickListener);
+
+        if (!isFinishing())
+            standardDialog.show();
     }
 
     protected void confirmAlert(String title, String message, @DrawableRes int icon, @ColorRes int color, View.OnClickListener positiveButtonOnClickListener) {
-        new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
+        LovelyStandardDialog standardDialog = new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
                 .setTopColorRes(color)
                 .setButtonsColorRes(R.color.colorPrimary)
                 .setIcon(icon)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(R.string._lbl_confirm, positiveButtonOnClickListener)
-                .setNegativeButton(R.string._lbl_cancel, null)
-                .show();
+                .setNegativeButton(R.string._lbl_cancel, null);
+        if (!isFinishing())
+            standardDialog.show();
     }
 
     protected void confirmAlert(String title, String message, @DrawableRes int icon, @ColorRes int color, String psvBtn, View.OnClickListener positiveButtonOnClickListener, String ngvBtn, View.OnClickListener negativeButtonOnClickListener) {
@@ -164,18 +168,19 @@ public class BaseActivity extends AppCompatActivity {
             dialog.setNegativeButton(ngvBtn, v -> dialog.dismiss());
         }
 
-        dialog.show();
+        if (!isFinishing()) dialog.show();
 
     }
 
     protected void alert(String title, String message, @DrawableRes int icon, @ColorRes int color) {
-        new LovelyInfoDialog(this)
+        LovelyInfoDialog infoDialog = new LovelyInfoDialog(this)
                 .setTopColorRes(color)
                 .setIcon(icon)
                 .setTitle(title)
                 .setMessage(message)
                 .configureMessageView(this::applyTextFont)
-                .configureTitleView(this::applyTextFont)
-                .show();
+                .configureTitleView(this::applyTextFont);
+        if (!isFinishing())
+            infoDialog.show();
     }
 }

@@ -24,10 +24,9 @@ import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.BarberShopCategoryAdapter;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.UserShortInfo;
 import com.sorinaidea.ghaichi.util.FontManager;
-import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
+import com.sorinaidea.ghaichi.util.GhaichiPreferenceManager;
 import com.sorinaidea.ghaichi.util.Security;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
@@ -146,7 +145,9 @@ public class MainActivity extends AppCompatActivity implements
         } else if (id == R.id.action_logout) {
 
             Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> info =
-                    API.getRetrofit().create(UserProfileService.class).logout(Auth.getAccessKey(getApplicationContext()));
+                    API.getRetrofit(this)
+                            .create(UserProfileService.class)
+                            .logout();
 
             info.enqueue(new Callback<com.sorinaidea.ghaichi.webservice.model.responses.Response>() {
                 @Override
@@ -154,8 +155,8 @@ public class MainActivity extends AppCompatActivity implements
                     if (response.isSuccessful()){
                         if (!response.body().hasError()){
                             // Remove Keys
-                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),   Security.encrypt(Util.KEYS.USER_ACCESS_KEY, getApplicationContext()) );
-                            GhaichiPrefrenceManager.removeKey(getApplicationContext(),  Security.encrypt(Util.KEYS.USER_ROLE, getApplicationContext()));
+                            GhaichiPreferenceManager.removeKey(getApplicationContext(),   Security.encrypt(Util.KEYS.USER_ACCESS_KEY, getApplicationContext()) );
+                            GhaichiPreferenceManager.removeKey(getApplicationContext(),  Security.encrypt(Util.KEYS.USER_ROLE, getApplicationContext()));
 
                             // Exit From Application
                             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
@@ -183,7 +184,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void updateNavigationHeader() {
-        Call<UserShortInfo> info = API.getRetrofit().create(UserProfileService.class).shortInfo(Auth.getAccessKey(getApplicationContext()));
+        Call<UserShortInfo> info = API.getRetrofit(this)
+                .create(UserProfileService.class)
+                .shortInfo();
 
         info.enqueue(new Callback<UserShortInfo>() {
             @Override

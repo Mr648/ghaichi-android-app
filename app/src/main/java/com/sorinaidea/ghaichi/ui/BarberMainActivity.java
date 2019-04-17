@@ -12,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
@@ -20,28 +21,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
-import com.sorinaidea.ghaichi.adapter.barbershop.BarbershopReservationsAdabper;
+import com.sorinaidea.ghaichi.adapter.ReservationAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Data;
 import com.sorinaidea.ghaichi.models.Image;
+import com.sorinaidea.ghaichi.models.Reserve;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.BannersActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.BarbersActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.BarbershopProfileActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.BusinessTimesActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.CategoriesActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.PaymentActivity;
+import com.sorinaidea.ghaichi.ui.barbershop.activity.ReservationActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.ServicesActivity;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.AdvertisesService;
 import com.sorinaidea.ghaichi.webservice.ProfileServices;
+import com.sorinaidea.ghaichi.webservice.barbershop.ReserveServices;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -73,12 +77,14 @@ public class BarberMainActivity extends ToolbarActivity implements
     private CircleIndicator indicator;
     private static int currentPage = 0;
     private NestedScrollView scrViewRoot;
+    private SwipeRefreshLayout swiper;
 
     private CardView cardCategory;
     private CardView cardServices;
     private CardView cardBarbers;
 
 
+    TextView txtSubTitle;
     TextView txt1;
     TextView txt2;
     TextView txt3;
@@ -98,7 +104,6 @@ public class BarberMainActivity extends ToolbarActivity implements
         txt1 = findViewById(R.id.txt1);
         txt2 = findViewById(R.id.txt2);
         txt3 = findViewById(R.id.txt3);
-
         txtTotalReserves = findViewById(R.id.txtTotalReserves);
         txtMorningReserves = findViewById(R.id.txtMorningReserves);
         txtEveningReserves = findViewById(R.id.txtEveningReserves);
@@ -106,6 +111,34 @@ public class BarberMainActivity extends ToolbarActivity implements
         txtServices = findViewById(R.id.txtServices);
         txtBarbers = findViewById(R.id.txtBarbers);
         txtListOfReservations = findViewById(R.id.txtListOfReservations);
+        txtSubTitle = toolbar.findViewById(R.id.toolbar_subtitle);
+        scrViewRoot = findViewById(R.id.scrViewRoot);
+        swiper = findViewById(R.id.swiper);
+        cardCategory = findViewById(R.id.cardCategory);
+        cardServices = findViewById(R.id.cardServices);
+        cardBarbers = findViewById(R.id.cardBarbers);
+        drawer = findViewById(R.id.drawerLayout);
+        mPager = findViewById(R.id.pager);
+        indicator = findViewById(R.id.indicator);
+        recReservations = findViewById(R.id.recReservations);
+        navigationView = findViewById(R.id.navView);
+
+
+        applyTextFont(
+                txtSubTitle,
+                txtCity,
+                txtUserInfo,
+                txt1,
+                txt2,
+                txt3,
+                txtTotalReserves,
+                txtMorningReserves,
+                txtEveningReserves,
+                txtCategories,
+                txtServices,
+                txtBarbers,
+                txtListOfReservations
+        );
     }
 
 //    private void applyMenuFont(){
@@ -130,17 +163,13 @@ public class BarberMainActivity extends ToolbarActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_barbershop_admin);
+        setContentView(R.layout.activity_barbershop_admin_swipe);
         Pushe.initialize(this, true);
-        setupUi();
+
         initToolbar(R.string.toolbar_app_name, true, false, true);
-        TextView txtSubTitle = toolbar.findViewById(R.id.toolbar_subtitle);
 
-        scrViewRoot = findViewById(R.id.scrViewRoot);
+        setupUi();
 
-        cardCategory = findViewById(R.id.cardCategory);
-        cardServices = findViewById(R.id.cardServices);
-        cardBarbers = findViewById(R.id.cardBarbers);
 
         cardCategory.setOnClickListener((view) -> {
             Intent intent = new Intent(BarberMainActivity.this, CategoriesActivity.class);
@@ -155,15 +184,10 @@ public class BarberMainActivity extends ToolbarActivity implements
             startActivity(intent);
         });
 
-        recReservations = findViewById(R.id.recReservations);
+
         recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recReservations.addItemDecoration(new ItemOffsetDecoration(Util.dp(8, this)));
-        recReservations.setAdapter(new BarbershopReservationsAdabper(getApplicationContext()));
         recReservations.setNestedScrollingEnabled(false);
-
-        drawer = findViewById(R.id.drawerLayout);
-        mPager = findViewById(R.id.pager);
-        indicator = findViewById(R.id.indicator);
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -171,14 +195,10 @@ public class BarberMainActivity extends ToolbarActivity implements
 
         recReservations.setFocusable(false);
 
-        scrViewRoot.fullScroll(ScrollView.FOCUS_UP);
-        scrViewRoot.smoothScrollTo(0, 0);
 
         drawer.setDrawerListener(toggle);
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         toggle.syncState();
-
-        navigationView = findViewById(R.id.navView);
 
         imgProfileImage = navigationView.getHeaderView(0).findViewById(R.id.imgProfileImage);
         txtUserInfo = navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
@@ -191,30 +211,11 @@ public class BarberMainActivity extends ToolbarActivity implements
         navigationView.setNavigationItemSelectedListener(this);
         disableNavigationViewScrollbars(navigationView);
 
-        txtUserInfo.setText("کاربر آرایشگر");
-        txtCity.setText("سنندج");
-
-        imageList = new ArrayList<>();
+        swiper.setOnRefreshListener(this::reloadReserves);
 
         initializeImageSlider();
         updateNavigationHeader();
-        applyTextFont(
-                txtSubTitle,
-                txtCity,
-                txtUserInfo,
-                txt1,
-                txt2,
-                txt3,
-                txtTotalReserves,
-                txtMorningReserves,
-                txtEveningReserves,
-                txtCategories,
-                txtServices,
-                txtBarbers,
-                txtListOfReservations
-        );
-
-
+        reloadReserves();
     }
 
     private void updateNavigationHeader(List<Data> info) {
@@ -242,9 +243,9 @@ public class BarberMainActivity extends ToolbarActivity implements
     }
 
     private void updateNavigationHeader() {
-        API.getRetrofit()
+        API.getRetrofit(this)
                 .create(ProfileServices.class)
-                .home(Auth.getAccessKey(getApplicationContext()))
+                .home()
                 .enqueue(new Callback<List<Data>>() {
                     @Override
                     public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
@@ -273,15 +274,55 @@ public class BarberMainActivity extends ToolbarActivity implements
         toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
     }
 
+
+    private void loadReserves() {
+
+    }
+
+
+    private void reloadReserves() {
+        API.getRetrofit(this).create(ReserveServices.class)
+                .reserves(  null,null)
+                .enqueue(new Callback<List<Reserve>>() {
+                    @Override
+                    public void onResponse(Call<List<Reserve>> call, Response<List<Reserve>> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                recReservations.setAdapter(new ReservationAdapter(Objects.requireNonNull(response.body()), BarberMainActivity.this));
+                                swiper.setRefreshing(false);
+                            } catch (NullPointerException ex) {
+                                toast("خطا در دریافت اطلاعات");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Reserve>> call, Throwable t) {
+                        if (t instanceof IOException)
+                            toast(R.string.err_unable_to_connect_to_server);
+                    }
+                });
+    }
+
+
+    private List<Reserve> initList() {
+        List<Reserve> reserves = new ArrayList<>();
+        for (int i = 0; i < 500; i++) {
+            reserves.add(new Reserve());
+        }
+        return reserves;
+    }
+
     private void initializeImageSlider() {
+        imageList = new ArrayList<>();
 
-
-        AdvertisesService advertises = API.getRetrofit().create(AdvertisesService.class);
 
         ImageSliderAdapter adapter = new ImageSliderAdapter(getApplicationContext(), imageList);
         mPager.setAdapter(adapter);
 
-        advertises.advertises(Auth.getAccessKey(getApplicationContext())).enqueue(new Callback<List<Image>>() {
+        API.getRetrofit(this)
+                .create(AdvertisesService.class)
+                .advertises().enqueue(new Callback<List<Image>>() {
             @Override
             public void onResponse(Call<List<Image>> call, Response<List<Image>> response) {
                 if (response.body() != null) {
@@ -354,7 +395,7 @@ public class BarberMainActivity extends ToolbarActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-
+// TODO remove comments to activate settings activity.
 //        if (id == R.id.action_setting) {
 //            Intent intent = new Intent(BarberMainActivity.this, SettingActivity.class);
 //            startActivity(intent);
@@ -367,7 +408,7 @@ public class BarberMainActivity extends ToolbarActivity implements
             Intent intent = new Intent(BarberMainActivity.this, PaymentActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_advertise) {
-            Intent intent = new Intent(BarberMainActivity.this, AdvertismentActivity.class);
+            Intent intent = new Intent(BarberMainActivity.this, AdvertisementActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_faq) {
             Intent intent = new Intent(BarberMainActivity.this, FaqActivity.class);
@@ -382,6 +423,8 @@ public class BarberMainActivity extends ToolbarActivity implements
             Intent intent = new Intent(BarberMainActivity.this, BusinessTimesActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_reservations) {
+            Intent intent = new Intent(BarberMainActivity.this, ReservationActivity.class);
+            startActivity(intent);
         } else if (id == R.id.action_banners) {
             Intent intent = new Intent(BarberMainActivity.this, BannersActivity.class);
             startActivity(intent);

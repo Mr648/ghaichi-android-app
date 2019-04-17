@@ -1,10 +1,13 @@
 package com.sorinaidea.ghaichi.ui;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,17 +22,20 @@ import com.alirezaafkar.sundatepicker.DatePicker;
 import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.ReservationServiceSelectionAdapter;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.ServiceMoreInfo;
+import com.sorinaidea.ghaichi.util.JalaliDate;
+import com.sorinaidea.ghaichi.util.Time;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.BarbershopServices;
+import com.sorinaidea.ghaichi.webservice.UserReserveServices;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -43,10 +49,11 @@ import retrofit2.Response;
 public class ReserveStep1Activity extends ToolbarActivity {
 
     int barbershopId;
-
     View parentLayout;
 
     TextView txtPrice;
+    TextInputLayout inputMessage;
+    TextInputEditText txtMessage;
     CardView cardPrice;
     AppCompatButton btnDate;
     AppCompatButton btnTimeStart;
@@ -65,6 +72,9 @@ public class ReserveStep1Activity extends ToolbarActivity {
         initToolbar("رزرو خدمات", true, false);
 
         txtPrice = findViewById(R.id.txtPrice);
+        inputMessage = findViewById(R.id.inputMessage);
+        txtMessage = findViewById(R.id.txtMessage);
+
 
         btnDate = findViewById(R.id.btnDate);
         cardPrice = findViewById(R.id.cardPrice);
@@ -83,6 +93,7 @@ public class ReserveStep1Activity extends ToolbarActivity {
                     .minDate(now)
                     .maxDate(next2weeks)
                     .date(Calendar.getInstance())
+
                     .build(
                             (id, calendar, day, month, year) -> {
                                 btnDate.setText(
@@ -107,7 +118,7 @@ public class ReserveStep1Activity extends ToolbarActivity {
         });
 
 
-        recServices = findViewById(R.id.recBanners);
+        recServices = findViewById(R.id.recServices);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         parentLayout = findViewById(android.R.id.content);
@@ -129,7 +140,9 @@ public class ReserveStep1Activity extends ToolbarActivity {
                 txtPrice,
                 btnDate,
                 btnTimeEnd,
-                btnTimeStart
+                btnTimeStart,
+                inputMessage,
+                txtMessage
         );
 
     }
@@ -270,9 +283,9 @@ public class ReserveStep1Activity extends ToolbarActivity {
 
     private void getServices(int barbershopId) {
         showProgress();
-        API.getRetrofit()
+        API.getRetrofit(this)
                 .create(BarbershopServices.class)
-                .services(Auth.getAccessKey(getApplicationContext()), barbershopId)
+                .services(  barbershopId)
                 .enqueue(new Callback<List<com.sorinaidea.ghaichi.models.ServiceCategory>>() {
                     @Override
                     public void onResponse(Call<List<com.sorinaidea.ghaichi.models.ServiceCategory>> call, Response<List<com.sorinaidea.ghaichi.models.ServiceCategory>> response) {
@@ -306,13 +319,72 @@ public class ReserveStep1Activity extends ToolbarActivity {
             return true;
         } else if (id == R.id.action_reserve) {
             if (validateForm()) {
-                toast("reserve~~");
+                getTurns();
             }
         }
         return super.onOptionsItemSelected(item);
     }
 
+
+    private void getTurns() {
+
+        Map<String, String> fields = new HashMap<>();
+        fields.put("start", selectedStartTime.toString());
+        fields.put("end", selectedEndTime.toString());
+        fields.put("date", selectedDate.toString());
+        fields.put("services", getSelectedServicesIds());
+        fields.put("price", priceUpdater.getServicesPrice());
+
+        if (!txtMessage.getText().toString().isEmpty()) {
+            fields.put("message", txtMessage.getText().toString());
+        }
+
+        showProgress();
+
+        API.getRetrofit(this).create(UserReserveServices.class)
+                .reserve(barbershopId, fields)
+                .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+                    @Override
+                    public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
+                        hideProgress();
+                        if (response.isSuccessful()) {
+                            try {
+                                actionAlert("رزرو موفق", Objects.requireNonNull(response.body()).getMessage(), R.drawable.ic_done_white_24dp, R.color.colorGreenAccent200, view -> {
+                                    Intent intent = new Intent(ReserveStep1Activity.this, ReservationActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                });
+                            } catch (NullPointerException ex) {
+                                toast("خطا حین رزرو");
+                            }
+                        } else {
+                            toast("خطا در پاسخ سرور");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
+                        hideProgress();
+                        if (t instanceof IOException) {
+                            toast(R.string.err_unable_to_connect_to_server);
+                        }
+                    }
+                });
+
+    }
+
+
+    private String getSelectedServicesIds() {
+        StringBuilder str = new StringBuilder();
+        int len = priceUpdater.getSelectedServices().size();
+        for (int i = 0; i < len; i++) {
+            str.append(priceUpdater.getSelectedServices().get(i).getId()).append((i == len - 1) ? "" : ",");
+        }
+        return str.toString();
+    }
+
     private MenuItem btnReserve;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -392,77 +464,6 @@ public class ReserveStep1Activity extends ToolbarActivity {
     }
 
 
-    class JalaliDate {
-        int year, month, day;
-
-        public JalaliDate(int year, int month, int day) {
-            this.year = year;
-            this.month = month;
-            this.day = day;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj instanceof JalaliDate) {
-                JalaliDate other = (JalaliDate) obj;
-                return this.year == other.year && this.month == other.month && this.day == other.day;
-            }
-            return false;
-        }
-
-        @Override
-        public String toString() {
-            return String.format(Locale.ENGLISH, "%04d/%02d/%02d", year, month, day);
-        }
-    }
-
-    class Time {
-        int hour, minute;
-
-        public Time(int hour, int minute) {
-            this.hour = hour;
-            this.minute = minute;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj instanceof Time) {
-                Time other = (Time) obj;
-                return this.hour == other.hour && this.minute == other.minute;
-            }
-            return false;
-        }
-
-        @Override
-        public String toString() {
-            return String.format(Locale.ENGLISH, "%02d:%02d", hour, minute);
-        }
-    }
-
 }
 
 
-
-/*
-*= new ServiceSelectionAdapter(serviceLists, new PriceUpdater(txtPrice) {
-                                    @Override
-                                    public void add(Service service) {
-                                        runOnUiThread(() -> {
-                                            super.add(service);
-                                            if (!selectedServices.isEmpty()) {
-                                                btnReserve.setEnabled(true);
-                                                Log.i("ADD_TAG_SERVICE", "SERVICE " + serviceLists.size());
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void delete(Service service) {
-                                        super.delete(service);
-                                        if (selectedServices.isEmpty()) {
-                                            btnReserve.setEnabled(false);
-                                        }
-                                        Log.i("DELETE_TAG_SERVICE", "SERVICE " + serviceLists.size());
-                                    }
-                                });
-* */

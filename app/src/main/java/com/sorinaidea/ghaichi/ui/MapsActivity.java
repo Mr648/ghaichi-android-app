@@ -276,9 +276,9 @@ public class MapsActivity
 
     private void getBarbershopsLocations(ClusterManager<SampleClusterItem> clusterManager) {
         Toast.makeText(this, "Loading map data", Toast.LENGTH_SHORT).show();
-        API.getRetrofit()
+        API.getRetrofit(this)
                 .create(BarbershopServices.class)
-                .locations(com.sorinaidea.ghaichi.auth.Auth.getAccessKey(this))
+                .locations()
                 .enqueue(new Callback<List<com.sorinaidea.ghaichi.models.Location>>() {
                     @Override
                     public void onResponse(Call<List<com.sorinaidea.ghaichi.models.Location>> call, Response<List<com.sorinaidea.ghaichi.models.Location>> response) {

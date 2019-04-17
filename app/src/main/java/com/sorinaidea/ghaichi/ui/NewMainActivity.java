@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
@@ -91,6 +92,7 @@ public class NewMainActivity extends ToolbarActivity implements
 
     private CircleIndicator indicator;
     private DrawerLayout drawer;
+    private ScrollView scrViewRoot;
 
     private static int currentPage = 0;
 
@@ -99,12 +101,12 @@ public class NewMainActivity extends ToolbarActivity implements
     private void initializeImageSlider() {
 
 
-        AdvertisesService advertises = API.getRetrofit().create(AdvertisesService.class);
+        AdvertisesService advertises = API.getRetrofit(this).create(AdvertisesService.class);
 
         ImageSliderAdapter adapter = new ImageSliderAdapter(getApplicationContext(), imageList);
         mPager.setAdapter(adapter);
 
-        advertises.advertises(Auth.getAccessKey(getApplicationContext())).enqueue(new Callback<List<Image>>() {
+        advertises.advertises().enqueue(new Callback<List<Image>>() {
             @Override
             public void onResponse(Call<List<Image>> call, Response<List<Image>> response) {
                 if (response.body() != null) {
@@ -222,9 +224,9 @@ public class NewMainActivity extends ToolbarActivity implements
     }
 
     private void updateNavigationHeader() {
-        API.getRetrofit()
+        API.getRetrofit(this)
                 .create(ProfileServices.class)
-                .home(Auth.getAccessKey(getApplicationContext()))
+                .home()
                 .enqueue(new Callback<List<Data>>() {
                     @Override
                     public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
@@ -261,9 +263,7 @@ public class NewMainActivity extends ToolbarActivity implements
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         toggle.syncState();
 
-
         NavigationView navigationView = findViewById(R.id.navView);
-
 
         imgProfileImage = navigationView.getHeaderView(0).findViewById(R.id.imgProfileImage);
         txtUserInfo = navigationView.getHeaderView(0).findViewById(R.id.txtUserInfo);
@@ -275,6 +275,7 @@ public class NewMainActivity extends ToolbarActivity implements
         navigationView.setNavigationItemSelectedListener(this);
         disableNavigationViewScrollbars(navigationView);
 
+        scrViewRoot = findViewById(R.id.scrViewRoot);
         btnMoreFeatured = findViewById(R.id.btnMoreFeatured);
         btnMoreDiscount = findViewById(R.id.btnMoreDiscount);
         btnMoreNew = findViewById(R.id.btnMoreNew);
@@ -356,6 +357,22 @@ public class NewMainActivity extends ToolbarActivity implements
                 txtNew
         );
 
+
+        recDiscount.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_SETTLING) {
+
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+            }
+        });
         loadData();
     }
 
@@ -386,8 +403,8 @@ public class NewMainActivity extends ToolbarActivity implements
 
     private void loadData() {
         barbershops = new HomeData();
-        BarbershopServices service = API.getRetrofit().create(BarbershopServices.class);
-        Call<HomeData> barbershopCall = service.barbershopsCards(Auth.getAccessKey(NewMainActivity.this));
+        BarbershopServices service = API.getRetrofit(this).create(BarbershopServices.class);
+        Call<HomeData> barbershopCall = service.barbershopsCards();
         showProgress();
         barbershopCall.enqueue(new Callback<HomeData>() {
             @Override

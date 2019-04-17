@@ -15,7 +15,6 @@ import android.view.View;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.barbershop.SCDPricesAdapter;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Pricing;
 import com.sorinaidea.ghaichi.ui.ImageUploaderActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.fragment.AdvertiseFragment;
@@ -81,32 +80,35 @@ public class RequestAdvertisementActivity extends ImageUploaderActivity implemen
 
     public void fetchAdvertisePricingList() {
         showProgressDialog(null, "در حال دریافت لیست قیمت‌ها", false);
-        AdvertiseServices service = API.getRetrofit().create(AdvertiseServices.class);
-        service.fetchPricingList(Auth.getAccessKey(this)).enqueue(new Callback<List<Pricing>>() {
-            @Override
-            public void onResponse(Call<List<Pricing>> call, Response<List<Pricing>> response) {
-                hideProgressDialog();
-                if (response.isSuccessful()) {
-                    listPricing.clear();
-                    try {
-                        List<Pricing> result = response.body();
-                        Objects.requireNonNull(result);
-                        listPricing.addAll(result);
-                    } catch (NullPointerException ex) {
-                        alert("هشدار", "اطلاعات به درستی بارگزاری نشده اند، لطفا مجددا سعی نمایید.", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
-                    }
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<Pricing>> call, Throwable t) {
-                hideProgressDialog();
-                if (t instanceof IOException) {
-                    toast(R.string.err_unable_to_connect_to_server);
-                }
-                logVerbose(t.getMessage(), t);
-            }
-        });
+        API.getRetrofit(this)
+                .create(AdvertiseServices.class)
+                .fetchPricingList()
+                .enqueue(new Callback<List<Pricing>>() {
+                    @Override
+                    public void onResponse(Call<List<Pricing>> call, Response<List<Pricing>> response) {
+                        hideProgressDialog();
+                        if (response.isSuccessful()) {
+                            listPricing.clear();
+                            try {
+                                List<Pricing> result = response.body();
+                                Objects.requireNonNull(result);
+                                listPricing.addAll(result);
+                            } catch (NullPointerException ex) {
+                                alert("هشدار", "اطلاعات به درستی بارگزاری نشده اند، لطفا مجددا سعی نمایید.", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Pricing>> call, Throwable t) {
+                        hideProgressDialog();
+                        if (t instanceof IOException) {
+                            toast(R.string.err_unable_to_connect_to_server);
+                        }
+                        logVerbose(t.getMessage(), t);
+                    }
+                });
 
     }
 
@@ -207,14 +209,16 @@ public class RequestAdvertisementActivity extends ImageUploaderActivity implemen
     @Override
     public void requestBannerAdvertise(@NonNull File image, @NonNull Pricing price, @NonNull String description) {
         confirmAlert("درخواست تبلیغ بنری", "درخواست تبلیغ ثبت شود؟", R.drawable.advertising, R.color.colorGreenAccent200, view -> {
-            AdvertiseServices advertiseServices = API.getRetrofit().create(AdvertiseServices.class);
+
 
             showProgress();
 
             MultipartBody.Part img = MultipartBody.Part.createFormData("advertise", image.getName(),
                     RequestBody.create(MediaType.parse("image/*"), image));
 
-            advertiseServices.requestBannerAdvertise(Auth.getAccessKey(this), img, description, price.getId())
+            API.getRetrofit(this)
+                    .create(AdvertiseServices.class)
+                    .requestBannerAdvertise(img, description, price.getId())
                     .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
                         @Override
                         public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
@@ -243,9 +247,10 @@ public class RequestAdvertisementActivity extends ImageUploaderActivity implemen
     @Override
     public void requestSpecialAdvertise(@NonNull Pricing price, @NonNull String description) {
         confirmAlert("درخواست تبلیغ ویژه", "درخواست تبلیغ ثبت شود؟", R.drawable.advertising, R.color.colorGreenAccent200, view -> {
-            AdvertiseServices advertiseServices = API.getRetrofit().create(AdvertiseServices.class);
             showProgress();
-            advertiseServices.requestSpecialAdvertise(Auth.getAccessKey(this), description, price.getId())
+            API.getRetrofit(this)
+                    .create(AdvertiseServices.class)
+                    .requestSpecialAdvertise(description, price.getId())
                     .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
                         @Override
                         public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {

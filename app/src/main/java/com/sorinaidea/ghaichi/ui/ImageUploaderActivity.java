@@ -9,8 +9,11 @@ import com.esafirm.imagepicker.model.Image;
 import com.sorinaidea.ghaichi.webservice.image.UploadTask;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+
+import id.zelory.compressor.Compressor;
 
 public abstract class ImageUploaderActivity extends ToolbarActivity {
 
@@ -34,13 +37,20 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
 
             // Get a list of picked images
             List<Image> images = ImagePicker.getImages(data);
-            File[] files = new File[images.size()];
 
-            for (int i = 0; i < images.size(); i++) {
-                files[i] = new File(images.get(i).getPath());
+            File[] files = new File[images.size()];
+            File[] compressedFiles = new File[images.size()];
+
+            try {
+                for (int i = 0; i < images.size(); i++) {
+                    files[i] = new File(images.get(i).getPath());
+                    compressedFiles[i] = new Compressor(this).compressToFile(files[i]);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             try {
-                Objects.requireNonNull(generateTask(files)).upload();
+                Objects.requireNonNull(generateTask(compressedFiles)).upload();
             } catch (NullPointerException ignore) {
                 ignore.printStackTrace();
             }
@@ -188,14 +198,14 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
                 .toolbarImageTitle("برای انتخاب لمس کنید") // image selection title
                 .toolbarArrowColor(Color.WHITE)
                 .showCamera(true) // show camera or not (true by default)
-                .imageDirectory("دوربین") // directory name for captured image  ("Camera" folder by default)
+                .folderMode(true) // folder mode (false by default)
                 .enableLog(false);// disabling log
 
     }
 
     protected void pickMultipleImages() {
         try {
-            imagePicker().folderMode(true) // folder mode (false by default)
+            imagePicker() // folder mode (false by default)
                     .multi() // multi mode (default mode)
                     .limit(10) // max images can be selected (99 by default)
                     .start(); // start image picker activity with request code
@@ -208,7 +218,6 @@ public abstract class ImageUploaderActivity extends ToolbarActivity {
         try {
             imagePicker().single()
                     .returnMode(ReturnMode.ALL)
-                    .folderMode(false) // folder mode (false by default)
                     .start();
         } catch (Exception e) {
             e.printStackTrace();

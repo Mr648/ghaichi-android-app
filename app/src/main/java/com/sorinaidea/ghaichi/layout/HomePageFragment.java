@@ -3,7 +3,6 @@ package com.sorinaidea.ghaichi.layout;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -17,29 +16,12 @@ import android.view.ViewGroup;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.BarberShopCategoryAdapter;
-import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
-import com.sorinaidea.ghaichi.adapter.TopBarberShopUserAdabper;
-import com.sorinaidea.ghaichi.auth.Auth;
-import com.sorinaidea.ghaichi.fast.Advertise;
-import com.sorinaidea.ghaichi.model.FAQ;
 import com.sorinaidea.ghaichi.ui.MapsActivity;
-import com.sorinaidea.ghaichi.util.GhaichiPrefrenceManager;
-import com.sorinaidea.ghaichi.util.Util;
-import com.sorinaidea.ghaichi.webservice.API;
-import com.sorinaidea.ghaichi.webservice.AdvertisesService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.http.Query;
 
 
 public class HomePageFragment extends Fragment {

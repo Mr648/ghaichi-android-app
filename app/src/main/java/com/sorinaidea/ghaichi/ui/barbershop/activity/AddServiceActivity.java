@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Barber;
 import com.sorinaidea.ghaichi.models.Category;
 import com.sorinaidea.ghaichi.models.Service;
@@ -71,8 +70,8 @@ public class AddServiceActivity extends ToolbarActivity {
     }
 
     private void getCategoriesAndBarbers() {
-        CategoryServices categoriesService = API.getRetrofit().create(CategoryServices.class);
-        categoriesService.categories(Auth.getAccessKey(AddServiceActivity.this)).enqueue(new Callback<List<Category>>() {
+        CategoryServices categoriesService = API.getRetrofit(this).create(CategoryServices.class);
+        categoriesService.categories().enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 if (response.isSuccessful()) {
@@ -92,8 +91,8 @@ public class AddServiceActivity extends ToolbarActivity {
             }
         });
 
-        BarberServices barbersService = API.getRetrofit().create(BarberServices.class);
-        barbersService.barbers(Auth.getAccessKey(AddServiceActivity.this)).enqueue(new Callback<List<Barber>>() {
+        BarberServices barbersService = API.getRetrofit(this).create(BarberServices.class);
+        barbersService.barbers().enqueue(new Callback<List<Barber>>() {
             @Override
             public void onResponse(Call<List<Barber>> call, Response<List<Barber>> response) {
                 if (response.isSuccessful()) {
@@ -263,8 +262,8 @@ public class AddServiceActivity extends ToolbarActivity {
 
 
     private void addService(Map<String, String> map) {
-        ServiceServices serviceServices = API.getRetrofit().create(ServiceServices.class);
-        serviceServices.create(Auth.getAccessKey(AddServiceActivity.this), map).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
+        ServiceServices serviceServices = API.getRetrofit(this).create(ServiceServices.class);
+        serviceServices.create(map).enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
             @Override
             public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
                 if (response.isSuccessful()) {

@@ -13,12 +13,12 @@ import java.util.Set;
  * Created by mr-code on 6/14/2018.
  */
 
-public class GhaichiPrefrenceManager {
+public class GhaichiPreferenceManager {
 
 
     private static SharedPreferences.Editor editor;
 
-    private static SharedPreferences.Editor getPreferencesEditor(Context context) {
+    private static SharedPreferences.Editor getPreferencesEditor(@NonNull Context context) {
         return editor == null ? (editor = PreferenceManager.getDefaultSharedPreferences(context).edit()) : editor;
     }
 

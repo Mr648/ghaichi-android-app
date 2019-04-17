@@ -10,8 +10,8 @@ public class EditProfileRequest extends UserRequest {
     public String family;
     public String gender;
 
-    public EditProfileRequest(String accessKey, String name, String family, String gender) {
-        super(accessKey);
+    public EditProfileRequest(String name, String family, String gender) {
+        super(null);
         this.name = name;
         this.family = family;
         this.gender = gender;

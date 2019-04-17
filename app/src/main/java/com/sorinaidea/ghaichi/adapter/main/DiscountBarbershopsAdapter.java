@@ -66,6 +66,8 @@ public class DiscountBarbershopsAdapter extends BaseAdapter<DiscountBarbershopsA
 
         API.getPicasso(mContext)
                 .load(barberShop.getLogo())
+                .centerCrop()
+                .fit()
                 .placeholder(R.drawable.preview_small)
                 .error(R.drawable.preview_small)
                 .into(holder.imgLogo);

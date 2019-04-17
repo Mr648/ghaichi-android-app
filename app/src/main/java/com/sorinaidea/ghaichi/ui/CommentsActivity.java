@@ -67,9 +67,9 @@ public class CommentsActivity extends ToolbarActivity {
 
 
     private void addComment(String comment, String rating, LovelyCustomDialog dialog) {
-        API.getRetrofit()
+        API.getRetrofit(this)
                 .create(BarbershopServices.class)
-                .comment(Auth.getAccessKey(this), barbershopId, comment, rating)
+                .comment( barbershopId, comment, rating)
                 .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
                     @Override
                     public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
@@ -154,9 +154,9 @@ public class CommentsActivity extends ToolbarActivity {
 
     private void initComments(int barbershopId) {
 
-        API.getRetrofit()
+        API.getRetrofit(this)
                 .create(BarbershopServices.class)
-                .comments(Auth.getAccessKey(this), barbershopId)
+                .comments( barbershopId)
                 .enqueue(new Callback<List<Comment>>() {
                     @Override
                     public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
@@ -186,9 +186,9 @@ public class CommentsActivity extends ToolbarActivity {
 
     private void checkPermission(int barbershopId) {
 
-        API.getRetrofit()
+        API.getRetrofit(this)
                 .create(BarbershopServices.class)
-                .checkAccessForComment(Auth.getAccessKey(getApplicationContext()), barbershopId)
+                .checkAccessForComment(  barbershopId)
                 .enqueue(new Callback<CreateCommentPermission>() {
                     @Override
                     public void onResponse(Call<CreateCommentPermission> call, Response<CreateCommentPermission> response) {

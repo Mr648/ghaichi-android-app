@@ -71,7 +71,7 @@ public class UserProfileActivity extends ImageUploaderActivity
         showProgressDialog(null, "در حال دریافت اطلاعات", false);
         try {
             Objects.requireNonNull(getProfileServices())
-                    .profile(Auth.getAccessKey(getApplicationContext()))
+                    .profile()
                     .enqueue(new Callback<List<Data>>() {
                         @Override
                         public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
@@ -166,13 +166,13 @@ public class UserProfileActivity extends ImageUploaderActivity
     }
 
     private ProfileServices getProfileServices() {
-        return API.getRetrofit().create(ProfileServices.class);
+        return API.getRetrofit(this).create(ProfileServices.class);
     }
 
     private void updateField(String key, String value) {
         try {
             Objects.requireNonNull(getProfileServices())
-                    .updateUser(Auth.getAccessKey(UserProfileActivity.this), key, value)
+                    .updateUser(  key, value)
                     .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
                         @Override
                         public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
@@ -291,7 +291,7 @@ public class UserProfileActivity extends ImageUploaderActivity
                 showProgress();
                 try {
                     Objects.requireNonNull(getProfileServices())
-                            .changeAvatar(Auth.getAccessKey(UserProfileActivity.this), image)
+                            .changeAvatar( image)
                             .enqueue(new Callback<UploadImageResponse>() {
                                 @Override
                                 public void onResponse(Call<UploadImageResponse> call, retrofit2.Response<UploadImageResponse> response) {

@@ -1,7 +1,6 @@
 package com.sorinaidea.ghaichi.layout;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,15 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.hookedonplay.decoviewlib.DecoView;
-import com.hookedonplay.decoviewlib.charts.SeriesItem;
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.adapter.ReservationAdabper;
-import com.sorinaidea.ghaichi.adapter.TransactionAdabper;
 import com.sorinaidea.ghaichi.model.Reservation;
-import com.sorinaidea.ghaichi.model.Transaction;
 import com.sorinaidea.ghaichi.util.FontManager;
 
 import java.util.ArrayList;
@@ -83,7 +76,7 @@ public class ReservationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reservation, container, false);
+        return inflater.inflate(R.layout.activity_reservation, container, false);
     }
 
     private RecyclerView recReservations;
@@ -112,7 +105,7 @@ public class ReservationFragment extends Fragment {
         recReservations  = view.findViewById(R.id.recReservations);
         recReservations.setNestedScrollingEnabled(false);
         recReservations.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        recReservations.setAdapter(new ReservationAdabper(initDataset(), getContext()));
+//        recReservations.setAdapter(new ReservationAdapter(initDataset(), getContext()));
 
 
     }

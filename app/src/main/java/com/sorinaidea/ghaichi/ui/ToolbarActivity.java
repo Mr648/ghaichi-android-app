@@ -68,16 +68,25 @@ public class ToolbarActivity extends BaseActivity {
 
     protected void showProgress() {
 //        dialog.show();
-        if (getSupportFragmentManager().findFragmentById(android.R.id.content) == null) {
-            getSupportFragmentManager().beginTransaction().add(android.R.id.content, progressFragment, "PROGRESS").commit();
+
+        if (!isFinishing() && !isDestroyed() && getSupportFragmentManager().findFragmentByTag("PROGRESS") == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(android.R.id.content, progressFragment, "PROGRESS")
+                    .commitAllowingStateLoss();
         }
 
     }
 
     protected void hideProgress() {
-        if (!progressFragment.isDetached()) {
-            getSupportFragmentManager().beginTransaction().remove(progressFragment).commit();
+
+        if (!isFinishing() && !isDestroyed() && !progressFragment.isDetached()) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .remove(progressFragment)
+                    .commitAllowingStateLoss();
         }
+
 //        if (dialog != null && dialog.isShowing()) {
 //            dialog.dismiss();
 //        }
@@ -100,14 +109,14 @@ public class ToolbarActivity extends BaseActivity {
     }
 
     protected void showProgressDialog(@StringRes int title, @StringRes int message, @DrawableRes int icon, @ColorRes int color, boolean cancelable) {
-        progressDialog.setTitle(title);
-        progressDialog.setTopColorRes(color);
-        progressDialog.setIcon(icon);
-        progressDialog.setMessage(message);
-        progressDialog.configureMessageView(this::applyTextFont);
-        progressDialog.configureTitleView(this::applyTextFont);
-        progressDialog.setCancelable(cancelable);
-        progressDialog.show();
+//        progressDialog.setTitle(title);
+//        progressDialog.setTopColorRes(color);
+//        progressDialog.setIcon(icon);
+//        progressDialog.setMessage(message);
+//        progressDialog.configureMessageView(this::applyTextFont);
+//        progressDialog.configureTitleView(this::applyTextFont);
+//        progressDialog.setCancelable(cancelable);
+//        progressDialog.show();
     }
 
     protected void hideProgressDialog() {

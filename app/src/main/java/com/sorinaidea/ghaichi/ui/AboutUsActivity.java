@@ -12,20 +12,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.fast.About;
-import com.sorinaidea.ghaichi.model.AboutUs;
 import com.sorinaidea.ghaichi.util.FontManager;
-import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
-import com.sorinaidea.ghaichi.webservice.AboutUsService;
 import com.sorinaidea.ghaichi.webservice.SystemServices;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AboutUsActivity extends AppCompatActivity {
 
@@ -67,7 +61,7 @@ public class AboutUsActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        Call<About> about = API.getRetrofit().create(SystemServices.class).about(Auth.getAccessKey(getApplicationContext()));
+        Call<About> about = API.getRetrofit(this).create(SystemServices.class).about();
         about.enqueue(new Callback<About>() {
             @Override
             public void onResponse(Call<About> call, Response<About> response) {

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.models.BaseService;
+import com.sorinaidea.ghaichi.models.BannerService;
 import com.sorinaidea.ghaichi.ui.ImageSliderActivity;
 import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
@@ -21,7 +21,7 @@ import java.util.List;
  * Created by mr-code on 3/10/2018.
  */
 
-public class BarberShopProfileServiceAdapter extends BaseAdapter<BarberShopProfileServiceAdapter.ViewHolder, BaseService> {
+public class BarberShopProfileServiceAdapter extends BaseAdapter<BarberShopProfileServiceAdapter.ViewHolder, BannerService> {
     private int barbershopId;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -38,7 +38,7 @@ public class BarberShopProfileServiceAdapter extends BaseAdapter<BarberShopProfi
     }
 
 
-    public BarberShopProfileServiceAdapter(List<BaseService> services, Context context, int barbershopId) {
+    public BarberShopProfileServiceAdapter(List<BannerService> services, Context context, int barbershopId) {
         super(services, context);
         this.barbershopId = barbershopId;
     }
@@ -55,7 +55,7 @@ public class BarberShopProfileServiceAdapter extends BaseAdapter<BarberShopProfi
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        BaseService service = mDataSet.get(position);
+        BannerService service = mDataSet.get(position);
         viewHolder.txtTitle.setText(service.getName());
 
         API.getPicasso(mContext)
