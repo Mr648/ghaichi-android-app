@@ -1,26 +1,20 @@
 package com.sorinaidea.ghaichi.ui;
 
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.adapter.DataAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Data;
 import com.sorinaidea.ghaichi.models.UploadImageResponse;
+import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.ProfileServices;
 import com.sorinaidea.ghaichi.webservice.image.SingleImageUploader;
 import com.sorinaidea.ghaichi.webservice.image.UploadTask;
-import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,33 +32,36 @@ import retrofit2.Response;
  * Created by mr-code on 6/17/2018.
  */
 
-public class UserProfileActivity extends ImageUploaderActivity
-        implements AppBarLayout.OnOffsetChangedListener {
+public class UserProfileActivity extends ImageUploaderActivity {
 
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
-    private static final int ALPHA_ANIMATIONS_DURATION = 200;
 
-    private boolean mIsTheTitleVisible = false;
-    private boolean mIsTheTitleContainerVisible = true;
+    AppCompatImageView imgImage;
 
-    private LinearLayout mTitleContainer;
-    private AppBarLayout mAppBarLayout;
-    private TextView txtHeaderName;
-    private TextView txtHeaderNumber;
-    private RecyclerView recData;
-
-    private de.hdodenhof.circleimageview.CircleImageView imgUserImage;
-
-    DataAdapter adapter;
-
+    EditText txtName;
+    EditText txtFamily;
+    EditText txtNationalCode;
+    EditText txtMobile;
+    EditText txtGender;
+    EditText txtEmail;
+    EditText txtBirthday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profiles);
+
         bindActivity();
         update();
+
+        applyTextFont(
+                txtName,
+                txtFamily,
+                txtNationalCode,
+                txtMobile,
+                txtGender,
+                txtEmail,
+                txtBirthday
+        );
     }
 
     public void update() {
@@ -79,7 +76,7 @@ public class UserProfileActivity extends ImageUploaderActivity
                                 try {
                                     Objects.requireNonNull(response.body());
                                     updateView(response.body());
-                                } catch (NullPointerException ex) {
+                                } catch (NullPointerException ignored) {
                                     alert(
                                             "خطا",
                                             "مشکل در دریافت اطلاعات",
@@ -109,7 +106,7 @@ public class UserProfileActivity extends ImageUploaderActivity
                             );
                         }
                     });
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             confirmAlert(
                     "خطا",
                     "خطا در احراز هویت کاربر",
@@ -126,43 +123,51 @@ public class UserProfileActivity extends ImageUploaderActivity
         if (image.getValue().equals("default")) return;
 
         logInfo(image.getValue());
-        // TODO how to use Picasso
+
         API.getPicasso(this)
-                .load(image.getValue())
+                .load(Util.imageUrl(image.getValue(),imgImage))
+                .centerCrop()
                 .fit()
-                .centerInside()
-                .into(imgUserImage);
+                .into(imgImage);
     }
 
     public void updateView(List<Data> userData) {
-        Data data = null;
-        for (Data d : userData) {
-            if (d.getKeyEn().equals("avatar")) {
-                data = d;
-                userData.remove(d);
+        for (Data data : userData) {
+            switch (data.getKeyEn()) {
+                case "name": {
+                    txtName.setText(String.valueOf(data.getValue()));
+                }
+                break;
+                case "family": {
+                    txtFamily.setText(String.valueOf(data.getValue()));
+                }
+                break;
+                case "national_code": {
+                    txtNationalCode.setText(String.valueOf(data.getValue()));
+                }
+                break;
+                case "mobile": {
+                    txtMobile.setText(String.valueOf(data.getValue()));
+                }
+                break;
+                case "email": {
+                    txtEmail.setText(String.valueOf(data.getValue()));
+                }
+                break;
+                case "birthday": {
+                    txtBirthday.setText(String.valueOf(data.getValue()));
+                }
+                break;
+                case "gender": {
+                    txtGender.setText(String.valueOf(data.getValue()));
+                }
+                break;
+                case "avatar": {
+                    updateProfileImage(data);
+                }
                 break;
             }
         }
-
-//        alert("اطلاعات", data != null ? data.getValue() : "default", R.drawable.ic_close, R.color.colorBlue);
-        updateProfileImage(data);
-        recData.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recData.setAdapter(new DataAdapter(userData, this, edit -> {
-            new LovelyTextInputDialog(this)
-                    .setTopColorRes(R.color.colorAmberAccent900)
-                    .setIcon(R.drawable.ic_edit_white_24dp)
-                    .setTitle("ویرایش")
-                    .setMessage(edit.getKeyFa() + " خود را ویرایش کنید.")
-                    .setInitialInput(edit.getValue())
-                    .setConfirmButton("تایید", text -> {
-                        if (!text.isEmpty() && !text.equals(edit.getValue())) {
-                            updateField(edit.getKeyEn(), text);
-                        }
-                    })
-                    .configureMessageView(this::applyTextFont)
-                    .configureTitleView(this::applyTextFont)
-                    .show();
-        }));
     }
 
     private ProfileServices getProfileServices() {
@@ -172,7 +177,7 @@ public class UserProfileActivity extends ImageUploaderActivity
     private void updateField(String key, String value) {
         try {
             Objects.requireNonNull(getProfileServices())
-                    .updateUser(  key, value)
+                    .updateUser(key, value)
                     .enqueue(new Callback<com.sorinaidea.ghaichi.models.Response>() {
                         @Override
                         public void onResponse(Call<com.sorinaidea.ghaichi.models.Response> call, Response<com.sorinaidea.ghaichi.models.Response> response) {
@@ -181,82 +186,32 @@ public class UserProfileActivity extends ImageUploaderActivity
                                 update();
                             }
                         }
-
                         @Override
                         public void onFailure(Call<com.sorinaidea.ghaichi.models.Response> call, Throwable t) {
                             toast("خطا در بروزرسانی داده‌");
                         }
                     });
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             confirmAlert("خطا", "خطا در احراز هویت کاربر", R.drawable.ic_account_circle_white_24dp, R.color.colorRedAccent900, view -> Auth.logout(this));
         }
     }
 
     private void bindActivity() {
         initToolbar(R.string.toolbar_user_profile, false, false);
-        mTitleContainer = findViewById(R.id.main_linearlayout_title);
-        mAppBarLayout = findViewById(R.id.main_appbar);
-        mAppBarLayout.addOnOffsetChangedListener(this);
-        startAlphaAnimation(toolbarTitle, 0, View.INVISIBLE);
-        txtHeaderName = findViewById(R.id.txtHeaderName);
-        txtHeaderNumber = findViewById(R.id.txtHeaderNumber);
-        imgUserImage = findViewById(R.id.imgUserImage);
-        recData = findViewById(R.id.recData);
+        imgImage = findViewById(R.id.imgImage);
+        txtName = findViewById(R.id.txtName);
+        txtFamily = findViewById(R.id.txtFamily);
+        txtNationalCode = findViewById(R.id.txtNationalCode);
+        txtMobile = findViewById(R.id.txtMobile);
+        txtGender = findViewById(R.id.txtGender);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtBirthday = findViewById(R.id.txtBirthday);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_profiles, menu);
         return true;
-    }
-
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
-        int maxScroll = appBarLayout.getTotalScrollRange();
-        float percentage = (float) Math.abs(offset) / (float) maxScroll;
-        handleAlphaOnTitle(percentage);
-        handleToolbarTitleVisibility(percentage);
-    }
-
-    private void handleToolbarTitleVisibility(float percentage) {
-        if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
-            if (!mIsTheTitleVisible) {
-                startAlphaAnimation(toolbarTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
-                mIsTheTitleVisible = true;
-            }
-        } else {
-
-            if (mIsTheTitleVisible) {
-                startAlphaAnimation(toolbarTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
-                mIsTheTitleVisible = false;
-            }
-        }
-    }
-
-    private void handleAlphaOnTitle(float percentage) {
-        if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if (mIsTheTitleContainerVisible) {
-                startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
-                mIsTheTitleContainerVisible = false;
-            }
-
-        } else {
-
-            if (!mIsTheTitleContainerVisible) {
-                startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
-                mIsTheTitleContainerVisible = true;
-            }
-        }
-    }
-
-    public static void startAlphaAnimation(View v, long duration, int visibility) {
-        AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
-                ? new AlphaAnimation(0f, 1f)
-                : new AlphaAnimation(1f, 0f);
-
-        alphaAnimation.setDuration(duration);
-        alphaAnimation.setFillAfter(true);
-        v.startAnimation(alphaAnimation);
     }
 
 
@@ -274,24 +229,23 @@ public class UserProfileActivity extends ImageUploaderActivity
 
         UploadTask task;
 
+
         MultipartBody.Part image = MultipartBody.Part.createFormData("avatar", files[0].getName(),
                 RequestBody.create(MediaType.parse("image/*"), files[0]));
 
+
         task = new UploadTask(new SingleImageUploader(image) {
-
             boolean uploadResult = false;
-
             @Override
             public boolean isDone() {
                 return uploadResult;
             }
-
             @Override
             public boolean upload(MultipartBody.Part image) {
                 showProgress();
                 try {
                     Objects.requireNonNull(getProfileServices())
-                            .changeAvatar( image)
+                            .changeAvatar(image)
                             .enqueue(new Callback<UploadImageResponse>() {
                                 @Override
                                 public void onResponse(Call<UploadImageResponse> call, retrofit2.Response<UploadImageResponse> response) {
@@ -318,14 +272,12 @@ public class UserProfileActivity extends ImageUploaderActivity
                                     alert("آپلود ناموفق", "خطا در آپلود تصاویر.", R.drawable.ic_close, R.color.colorRedAccent900);
                                 }
                             });
-                } catch (NullPointerException ex) {
+                } catch (NullPointerException ignored) {
                     confirmAlert("خطا", "خطا در احراز هویت کاربر", R.drawable.ic_account_circle_white_24dp, R.color.colorRedAccent900, view -> Auth.logout(UserProfileActivity.this));
                 }
                 return uploadResult;
             }
         });
-
         return task;
     }
-
 }

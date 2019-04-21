@@ -47,8 +47,10 @@ public class LoginCheckActivity extends ToolbarActivity {
                 } else {
                     try {
                         if (Objects.requireNonNull(response.body()).hasError()) {
-                            if (response.code() == HttpCodes.HTTP_UNAUTHORIZED) {
-                                confirmAlert("دسترسی غیر مجاز", Objects.requireNonNull(response.body()).getMessage(), R.drawable.ic_account_circle_white_24dp, R.color.colorRedAccent900, v -> Auth.getAccessKey(LoginCheckActivity.this));
+                            if (response.code() == HttpCodes.HTTP_FORBIDDEN) {
+                                confirmAlert("دسترسی غیر مجاز",
+                                        Objects.requireNonNull(response.body()).getMessage(),
+                                        R.drawable.ic_account_circle_white_24dp, R.color.colorRedAccent900, v -> Auth.getAccessKey(LoginCheckActivity.this));
                             } else if (response.code() == HttpCodes.HTTP_UNAUTHORIZED) {
                                 confirmAlert("ورود مجدد", Objects.requireNonNull(response.body()).getMessage(), R.drawable.ic_account_circle_white_24dp, R.color.colorAmberAccent900, v -> Auth.getAccessKey(LoginCheckActivity.this));
                             }

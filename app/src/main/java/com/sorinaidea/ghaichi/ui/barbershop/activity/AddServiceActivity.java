@@ -270,7 +270,7 @@ public class AddServiceActivity extends ToolbarActivity {
                     try {
                         Objects.requireNonNull(response.body());
                         toast(response.body().getMessage());
-                    } catch (NullPointerException ex) {
+                    } catch (NullPointerException ignored) {
 
                     }
                 } else {

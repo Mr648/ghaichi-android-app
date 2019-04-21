@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.TextView;
@@ -69,7 +68,7 @@ public class LoginActivity extends ToolbarActivity {
             String phone;
             try {
                 phone = extras.getString("phone");
-            } catch (Exception e) {
+            } catch (Exception ignored) {
                 phone = "";
             }
             edtPhoneNumber.setText(phone);

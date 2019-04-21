@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@drawable/chat_background"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true" />
+
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_36dp"
+        android:layout_above="@+id/btnGo"
+        app:ci_drawable="@drawable/indicator" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnGo"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/_32dp"
+        android:layout_height="?attr/actionBarSize"
+        android:text="@string/go_inside_app"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

@@ -4,132 +4,165 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layoutDirection="rtl"
     tools:ignore="RtlHardcoded">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/main.appbar"
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/main.collapsing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            >
+            android:background="@color/white"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap">
 
-            <ImageView
-                android:id="@+id/main.imageview.placeholder"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="@color/colorPrimaryLight"
-                android:contentDescription="TODO"
-                android:scaleType="fitXY"
-                android:src="@drawable/cover"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.9" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/main.framelayout.title"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_128dp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:background="@color/colorPrimary"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/_8dp"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.3">
-
-                <LinearLayout
-                    android:id="@+id/main.linearlayout.title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:theme="@style/ToolbarStyle.Primary">
 
                     <TextView
-                        android:id="@+id/txtHeaderName"
+                        android:id="@+id/toolbar_title"
+                        style="@style/TextAppearance.AppCompat.Medium.Inverse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="bottom|center"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_24sp" />
-
-                    <TextView
-                        android:id="@+id/txtHeaderNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="@dimen/_8dp"
-                        android:layout_marginTop="@dimen/_4dp"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="@dimen/_16dp"
                         android:textColor="@color/colorWhite" />
+                </android.support.v7.widget.Toolbar>
 
-                </LinearLayout>
-            </FrameLayout>
+                <com.github.florent37.shapeofview.shapes.ArcView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:shape_arc_cropDirection="outside"
+                    app:shape_arc_height="@dimen/_32dp"
+                    app:shape_arc_position="bottom">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/imgImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_224dp"
+                        android:src="@color/colorPrimary" />
+                </com.github.florent37.shapeofview.shapes.ArcView>
+            </LinearLayout>
+
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorGrayLighter"
-        app:behavior_overlapTop="@dimen/_48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_24dp"
+        android:layout_marginTop="@dimen/_16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recData"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </android.support.v4.widget.NestedScrollView>
-
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:layout_anchor="@id/main.framelayout.title"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:title="">
-
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_32dp"
+            android:orientation="vertical"
+            android:padding="@dimen/_8dp">
 
-            <Space
-                android:layout_width="@dimen/image_final_width"
-                android:layout_height="@dimen/image_final_width" />
+            <EditText
+                android:id="@+id/txtName"
+                android:gravity="center|start"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_56dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:background="@drawable/edit_style"
+                android:hint="@string/_hint_name"
+                android:inputType="textPersonName"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:tag="name" />
 
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:gravity="center_vertical"
-                android:textColor="@color/colorWhite"
-                android:textSize="20sp" />
+            <EditText
+                android:id="@+id/txtFamily"
+                android:gravity="center|start"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_56dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:background="@drawable/edit_style"
+                android:hint="@string/_hint_family"
+                android:inputType="textPersonName"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:tag="family" />
+
+            <EditText
+                android:id="@+id/txtNationalCode"
+                android:gravity="center|end"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_56dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:background="@drawable/edit_style"
+                android:hint="@string/_hint_national_code"
+                android:inputType="number"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:tag="national_code" />
+
+            <EditText
+                android:id="@+id/txtMobile"
+                android:gravity="center|end"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_56dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:background="@drawable/edit_style"
+                android:inputType="none"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:tag="mobile" />
+
+            <EditText
+                android:id="@+id/txtGender"
+                android:gravity="center|start"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_56dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:background="@drawable/edit_style"
+                android:inputType="none"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:tag="gender" />
+
+            <EditText
+                android:id="@+id/txtEmail"
+                android:gravity="center|start"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_56dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:background="@drawable/edit_style"
+                android:hint="@string/_hint_email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:tag="email" />
+
+            <EditText
+                android:id="@+id/txtBirthday"
+                android:gravity="center|start"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_56dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:background="@drawable/edit_style"
+                android:hint="@string/_hint_name"
+                android:inputType="date"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:tag="birthday" />
 
         </LinearLayout>
-    </android.support.v7.widget.Toolbar>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgUserImage"
-        android:layout_width="@dimen/_180dp"
-        android:layout_height="@dimen/_180dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_account_circle_white_24dp"
-        app:civ_border_color="@android:color/white"
-        app:civ_border_width="2dp"
-        app:finalHeight="@dimen/image_final_width"
-        app:finalYPosition="2dp"
-        app:layout_behavior="@string/app_avatar_image_behavior"
-        app:startHeight="2dp"
-        app:startToolbarPosition="2dp"
-        app:startXPosition="2dp" />
-
-
+    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

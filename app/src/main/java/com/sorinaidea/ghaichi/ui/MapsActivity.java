@@ -269,7 +269,7 @@ public class MapsActivity
             info.append(addresses.get(0).getAddressLine(1));
             info.append("  --  ");
             info.append(addresses.get(0).getAddressLine(2));
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
         return info.toString();
     }
@@ -283,7 +283,6 @@ public class MapsActivity
                     @Override
                     public void onResponse(Call<List<com.sorinaidea.ghaichi.models.Location>> call, Response<List<com.sorinaidea.ghaichi.models.Location>> response) {
                         Toast.makeText(MapsActivity.this, "Data Loaded", Toast.LENGTH_SHORT).show();
-
                         if (response.isSuccessful()) {
                             try {
                                 List<SampleClusterItem> clusterItems = new ArrayList<>();

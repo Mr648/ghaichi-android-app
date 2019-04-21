@@ -294,7 +294,7 @@ public class ReserveStep1Activity extends ToolbarActivity {
                             try {
                                 initPriceUpdater();
                                 recServices.setAdapter(new ReservationServiceSelectionAdapter(Objects.requireNonNull(response.body()), getApplicationContext(), priceUpdater));
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 toast(R.string.err_unable_to_connect_to_server);
                             }
                         }
@@ -354,7 +354,7 @@ public class ReserveStep1Activity extends ToolbarActivity {
                                     startActivity(intent);
                                     finish();
                                 });
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 toast("خطا حین رزرو");
                             }
                         } else {
@@ -402,7 +402,7 @@ public class ReserveStep1Activity extends ToolbarActivity {
                 toast("ابتدا خدمات مورد نظر خود را انتخاب کنید.");
                 return false;
             }
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             changeReserveState(false);
             toast("ابتدا خدمات مورد نظر خود را انتخاب کنید.");
             return false;
@@ -414,7 +414,7 @@ public class ReserveStep1Activity extends ToolbarActivity {
                 toast("لطفا روز را انتخاب کنید.");
                 return false;
             }
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             changeReserveState(false);
             toast("لطفا روز را انتخاب کنید.");
             return false;
@@ -426,7 +426,7 @@ public class ReserveStep1Activity extends ToolbarActivity {
                 toast("لطفا شروع بازه زمانی را انتخاب کنید.");
                 return false;
             }
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             changeReserveState(false);
             toast("لطفا شروع بازه زمانی را انتخاب کنید.");
             return false;
@@ -438,7 +438,7 @@ public class ReserveStep1Activity extends ToolbarActivity {
                 toast("لطفا پایان بازه زمانی را انتخاب کنید.");
                 return false;
             }
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             changeReserveState(false);
             toast("لطفا پایان بازه زمانی را انتخاب کنید.");
             return false;

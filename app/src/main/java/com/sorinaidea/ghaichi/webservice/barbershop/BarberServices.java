@@ -9,6 +9,8 @@ import java.util.List;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -37,6 +39,15 @@ public interface BarberServices {
 
 
     @Multipart
+    @POST("api/barbershop/barbers/{id}/avatar")
+    Call<Response> avatar(@Path("id") int id, @Part MultipartBody.Part avatar);
+
+
+    @FormUrlEncoded
     @PUT("api/barbershop/barbers/{id}")
-    Call<Response> update(@Path("id") int id, @Part("barber") Barber barber, @Part MultipartBody.Part avatar);
+    Call<Response> update(@Path("id") int id,
+                          @Field("name") String name,
+                          @Field("family") String family,
+                          @Field("mobile") String mobile
+    );
 }

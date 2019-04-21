@@ -10,7 +10,6 @@ import android.view.View;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.DataAdapter;
 import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Data;
 import com.sorinaidea.ghaichi.models.Response;
 import com.sorinaidea.ghaichi.util.Util;
@@ -70,7 +69,7 @@ public class AdvertisementInfoActivity extends ToolbarActivity {
                         if (response.isSuccessful()) {
                             try {
                                 updateAdvertiseInfo(Objects.requireNonNull(response.body()));
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 toast("مشکل در دریافت اطلاعات");
                             }
                         }

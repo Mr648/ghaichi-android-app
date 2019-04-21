@@ -95,7 +95,7 @@ public class SamplesActivity extends ImageUploaderActivity {
                                 } else {
                                     adapter.notifyDataSetChanged();
                                 }
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                             }
                         } else {
 
@@ -125,7 +125,7 @@ public class SamplesActivity extends ImageUploaderActivity {
                                     Objects.requireNonNull(response.body());
                                     toast(response.body().getMessage());
                                     fetchServiceImages();
-                                } catch (NullPointerException ex) {
+                                } catch (NullPointerException ignored) {
                                     actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServiceImages());
                                 }
                             }

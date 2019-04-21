@@ -18,9 +18,9 @@
         android:title="@string/label_favorites" />
 
     <item
-        android:id="@+id/action_free_reservation"
-        android:icon="@drawable/ic_money_off_black_18dp"
-        android:title="@string/label_free_reservation" />
+        android:id="@+id/action_tell_friends"
+        android:icon="@drawable/ic_people_outline_black_24dp"
+        android:title="@string/label_tell_friends" />
 
     <item android:title="سایر">
         <menu>

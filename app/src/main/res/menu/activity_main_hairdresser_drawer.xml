@@ -14,10 +14,10 @@
         android:icon="@drawable/ic_attach_money_black_18dp"
         android:title="@string/label_credit" />
 
-    <item
-        android:id="@+id/action_business"
-        android:icon="@drawable/ic_access_time_black_18dp"
-        android:title="@string/toolbar_business_times" />
+    <!--<item-->
+        <!--android:id="@+id/action_business"-->
+        <!--android:icon="@drawable/ic_access_time_black_18dp"-->
+        <!--android:title="@string/toolbar_business_times" />-->
     <item
         android:id="@+id/action_advertise"
         android:icon="@drawable/advertising"
@@ -33,10 +33,10 @@
 
     <item android:title="سایر">
         <menu>
-            <item
-                android:id="@+id/action_setting"
-                android:icon="@drawable/ic_settings_black_18dp"
-                android:title="@string/label_setting" />
+            <!--<item-->
+                <!--android:id="@+id/action_setting"-->
+                <!--android:icon="@drawable/ic_settings_black_18dp"-->
+                <!--android:title="@string/label_setting" />-->
             <item
                 android:id="@+id/action_aboutus"
                 android:icon="@drawable/ic_tag_faces_black_18dp"

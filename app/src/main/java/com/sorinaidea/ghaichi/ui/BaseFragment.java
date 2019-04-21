@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.sorinaidea.ghaichi.util.FontManager;
 
 public abstract class BaseFragment extends Fragment {
+
     protected Typeface fontText;
     protected Typeface fontIcon;
 

@@ -39,7 +39,9 @@ public class API {
     public static final int DISK_CACHE_SIZE = 100 * 1024 * 1024; // 50 MB
 
 
-    public static final String BASE_URL = "https://ghaichi.com/";
+//    public static final String BASE_URL = "https://ghaichi.com/";
+
+    public static final String BASE_URL = "http://192.168.1.10/";
 
     private static final int READ_TIMEOUT_SECONDS = 60;
     private static final int WRITE_TIMEOUT_SECONDS = 60;
@@ -76,11 +78,12 @@ public class API {
                 e.printStackTrace();
             }
         }
+
+// Caching images.
         OkHttpDownloader okHttpDownloader = new OkHttpDownloader(context.getCacheDir(), DISK_CACHE_SIZE); // 100 Megabytes
         builder.downloader(okHttpDownloader);
 
         picasso = builder.build();
-
         return picasso;
     }
 

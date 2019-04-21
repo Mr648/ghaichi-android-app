@@ -20,10 +20,10 @@ public class Security {
     }
 
     private static native String getSecretKey();
-    public  static native String getUserAgent();
+
+    public static native String getUserAgent();
 
     protected static final String UTF8 = "utf-8";
-
 
 
     public static String encrypt(String value, Context context) {
@@ -56,11 +56,15 @@ public class Security {
     }
 
 
+    public static String base64encode(String str) {
+        return base64encode(str, 1);
+    }
+
     public static String base64encode(String str, int count) {
         String output = "";
 
         for (int i = 0; i < count; i++) {
-            output = new String(Base64.encode(str.getBytes(), Base64.DEFAULT));
+            output = new String(Base64.encode(str.getBytes(), Base64.URL_SAFE));
         }
 
         return output;
@@ -81,7 +85,7 @@ public class Security {
         try {
             MessageDigest md5 = MessageDigest.getInstance("md5");
             return bytesToHex(md5.digest(input.getBytes()));
-        } catch (NoSuchAlgorithmException ex) {
+        } catch (NoSuchAlgorithmException ignored) {
             return input;
         }
     }

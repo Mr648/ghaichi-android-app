@@ -15,7 +15,6 @@ import android.widget.RatingBar;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.CommentsAdapter;
 import com.sorinaidea.ghaichi.adapter.EmptyAdabper;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Comment;
 import com.sorinaidea.ghaichi.models.CreateCommentPermission;
 import com.sorinaidea.ghaichi.webservice.API;
@@ -77,7 +76,7 @@ public class CommentsActivity extends ToolbarActivity {
                         if (response.isSuccessful()) {
                             try {
                                 longToast(Objects.requireNonNull(response.body()).getMessage());
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 toast("خطا در افزودن نظر");
                             }
                         } else {
@@ -170,7 +169,7 @@ public class CommentsActivity extends ToolbarActivity {
                                     recComments.setAdapter(new CommentsAdapter(response.body(), getApplicationContext()));
                                     recComments.setNestedScrollingEnabled(false);
                                 }
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 recComments.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                                 recComments.setAdapter(new EmptyAdabper(getApplicationContext()));
                             }
@@ -204,7 +203,7 @@ public class CommentsActivity extends ToolbarActivity {
                                     fabComment.setVisibility(View.VISIBLE);
                                 }
 
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 hasPermissionToAddComment = false;
                             }
                         }

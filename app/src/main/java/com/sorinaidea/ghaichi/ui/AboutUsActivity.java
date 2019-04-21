@@ -1,58 +1,49 @@
 package com.sorinaidea.ghaichi.ui;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.sorinaidea.ghaichi.App;
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.fast.About;
-import com.sorinaidea.ghaichi.util.FontManager;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.SystemServices;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AboutUsActivity extends AppCompatActivity {
+public class AboutUsActivity extends ToolbarActivity {
 
+    AppCompatImageView imgResaneh;
+    AppCompatImageView imgEnamad;
+    AppCompatImageView imgBehparpdakht;
+
+    TextView txtAboutUs;
+    TextView txtRules;
+    TextView txtVersion;
+    TextView txt;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aboutus);
+        initToolbar("درباره ما", true, false);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        txtAboutUs = findViewById(R.id.txtAboutUs);
+        txtRules = findViewById(R.id.txtRules);
+        txt = findViewById(R.id.txt);
+        txtVersion = findViewById(R.id.txtVersion);
 
-        TextView mTitle = toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText("درباره ما");
-
-        TextView txtAboutUs = findViewById(R.id.txtAboutUs);
-        TextView txtRules = findViewById(R.id.txtRules);
-        TextView txtVersion = findViewById(R.id.txtVersion);
-
-        AppCompatImageView imgResaneh = findViewById(R.id.imgResaneh);
-        AppCompatImageView imgEnamad = findViewById(R.id.imgEnamad);
-        AppCompatImageView imgBehparpdakht = findViewById(R.id.imgBehparpdakht);
-
-        // getting fonts
-        Typeface fontIransans = FontManager.getTypeface(getApplicationContext(), FontManager.IRANSANS_TEXTS);
-
-        // setting fonts for icons
-        // setting fonts for about us text
-        FontManager.setFont(txtAboutUs, fontIransans);
-        FontManager.setFont(txtVersion, fontIransans);
-        FontManager.setFont(txtRules, fontIransans);
-        FontManager.setFont(mTitle, fontIransans);
+        imgResaneh = findViewById(R.id.imgResaneh);
+        imgEnamad = findViewById(R.id.imgEnamad);
+        imgBehparpdakht = findViewById(R.id.imgBehparpdakht);
 
         txtRules.setOnClickListener((view) -> {
             String url = "http://ghaichi.com/rules";
@@ -66,8 +57,13 @@ public class AboutUsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<About> call, Response<About> response) {
                 if (response.body() != null) {
-                    txtAboutUs.setText(response.body().getAbout());
-                    txtVersion.setText(response.body().getVersion());
+                    try {
+                        About about = Objects.requireNonNull(response.body());
+                        txtAboutUs.setText(about.getAbout());
+                        txtVersion.setText(String.format(App.LOCALE, "v%s", about.getVersion()));
+                    } catch (NullPointerException ignored) {
+                        toast(R.string.err_unable_to_connect_to_server);
+                    }
                 }
             }
 
@@ -83,10 +79,17 @@ public class AboutUsActivity extends AppCompatActivity {
             i.setData(Uri.parse(url));
             startActivity(i);
         };
+
         imgEnamad.setOnClickListener(onClickListener);
         imgResaneh.setOnClickListener(onClickListener);
         imgBehparpdakht.setOnClickListener(onClickListener);
 
+        applyTextFont(
+                txtAboutUs,
+                txtVersion,
+                txtRules,
+                txt
+        );
     }
 
     @Override

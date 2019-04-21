@@ -56,7 +56,7 @@ public class ReservationActivity extends ToolbarActivity {
                             try {
                                 adapter = new ReservationAdapter(Objects.requireNonNull(response.body()), ReservationActivity.this);
                                 recReservations.setAdapter(adapter);
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 recReservations.setAdapter(new EmptyAdabper(ReservationActivity.this));
                                 toast("خطا در دریافت اطلاعات");
                             }

@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sorinaidea.ghaichi.R;
-import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Barber;
 import com.sorinaidea.ghaichi.models.Response;
 import com.sorinaidea.ghaichi.ui.ImageUploaderActivity;
@@ -169,26 +168,57 @@ public class AddBarberActivity extends ImageUploaderActivity {
     }
 
 
+    private final static String UPLOAD = "UPLOAD";
     private void updateBarber(Barber barber) {
         BarberServices service = API.getRetrofit(this).create(BarberServices.class);
         MultipartBody.Part image = null;
 
         if (selectedImage != null) {
+            showProgress(R.string.uploading, UPLOAD );
             image = MultipartBody.Part.createFormData(
                     "avatar"
                     , selectedImage.getName()
                     , RequestBody.create(MediaType.parse("image/*"), selectedImage)
             );
+            service.avatar(barber.getId(), image).enqueue(new Callback<Response>() {
+                @Override
+                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                    hideProgress(UPLOAD );
+                    if (response.isSuccessful()) {
+                        try {
+                            Response res = Objects.requireNonNull(response.body());
+                            toast(res.getMessage());
+                        } catch (NullPointerException ignored) {
+                            toast("پاسخی از سمت سرور دریافت نشد.");
+                        }
+                    } else {
+                        toast("خطا در آپلود تصویر، مجددا تلاش کنید.");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Response> call, Throwable t) {
+                    hideProgress(UPLOAD );
+                    if (t instanceof IOException) {
+                        toast("خطا در اتصال به سرور");
+                        return;
+                    }
+                    toast("خطا در ویرایش آرایشگر");
+                }
+            });
         }
 
-        showProgressDialog(R.string.update_barber_title, R.string.update_barber_progress, R.mipmap.ic_file_upload_white_24dp, R.color.colorAmberAccent900, false);
-        logDebug(barber.getName() + " " + barber.getId());
-        service.update(  barber.getId(), barber, image).enqueue(new Callback<Response>() {
+
+        showProgress();
+        service.update(
+                barber.getId(),
+                barber.getName(),
+                barber.getFamily(),
+                barber.getMobile()
+        ).enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                hideProgressDialog();
-                toast(response.toString());
-
+                hideProgress();
                 if (response.isSuccessful()) {
                     try {
                         Response res = response.body();
@@ -198,17 +228,17 @@ public class AddBarberActivity extends ImageUploaderActivity {
                             setResult(RESULT_OK, returnIntent);
                             finish();
                         });
-                    } catch (NullPointerException ex) {
+                    } catch (NullPointerException ignored) {
                         toast("پاسخی از سمت سرور دریافت نشد.");
                     }
                 } else {
-                    toast("خطا در ویرایش آرایشگرز");
+                    toast("خطا در ویرایش آرایشگر");
                 }
             }
 
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
-                hideProgressDialog();
+                hideProgress();
                 if (t instanceof IOException) {
                     toast("خطا در اتصال به سرور");
                     return;
@@ -244,7 +274,7 @@ public class AddBarberActivity extends ImageUploaderActivity {
                             setResult(RESULT_OK, returnIntent);
                             finish();
                         });
-                    } catch (NullPointerException ex) {
+                    } catch (NullPointerException ignored) {
                         toast("پاسخی از سمت سرور دریافت نشد.");
                     }
                 } else {

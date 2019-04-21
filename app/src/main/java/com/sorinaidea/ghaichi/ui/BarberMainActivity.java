@@ -25,7 +25,6 @@ import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
 import com.sorinaidea.ghaichi.adapter.ImageSliderAdapter;
-import com.sorinaidea.ghaichi.adapter.ItemOffsetDecoration;
 import com.sorinaidea.ghaichi.adapter.ReservationAdapter;
 import com.sorinaidea.ghaichi.auth.Auth;
 import com.sorinaidea.ghaichi.models.Data;
@@ -34,12 +33,10 @@ import com.sorinaidea.ghaichi.models.Reserve;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.BannersActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.BarbersActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.BarbershopProfileActivity;
-import com.sorinaidea.ghaichi.ui.barbershop.activity.BusinessTimesActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.CategoriesActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.PaymentActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.ReservationActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.activity.ServicesActivity;
-import com.sorinaidea.ghaichi.util.Util;
 import com.sorinaidea.ghaichi.webservice.API;
 import com.sorinaidea.ghaichi.webservice.AdvertisesService;
 import com.sorinaidea.ghaichi.webservice.ProfileServices;
@@ -186,7 +183,7 @@ public class BarberMainActivity extends ToolbarActivity implements
 
 
         recReservations.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        recReservations.addItemDecoration(new ItemOffsetDecoration(Util.dp(8, this)));
+//        recReservations.addItemDecoration(new ItemOffsetDecoration(Util.dp(8, this)));
         recReservations.setNestedScrollingEnabled(false);
 
 
@@ -290,7 +287,7 @@ public class BarberMainActivity extends ToolbarActivity implements
                             try {
                                 recReservations.setAdapter(new ReservationAdapter(Objects.requireNonNull(response.body()), BarberMainActivity.this));
                                 swiper.setRefreshing(false);
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 toast("خطا در دریافت اطلاعات");
                             }
                         }
@@ -323,6 +320,7 @@ public class BarberMainActivity extends ToolbarActivity implements
         API.getRetrofit(this)
                 .create(AdvertisesService.class)
                 .advertises().enqueue(new Callback<List<Image>>() {
+
             @Override
             public void onResponse(Call<List<Image>> call, Response<List<Image>> response) {
                 if (response.body() != null) {
@@ -395,11 +393,14 @@ public class BarberMainActivity extends ToolbarActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-// TODO remove comments to activate settings activity.
+//        TODO remove comments to activate settings activity.
+//
 //        if (id == R.id.action_setting) {
 //            Intent intent = new Intent(BarberMainActivity.this, SettingActivity.class);
 //            startActivity(intent);
 //        }
+
+
 
         if (id == R.id.action_aboutus) {
             Intent intent = new Intent(BarberMainActivity.this, AboutUsActivity.class);
@@ -419,10 +420,7 @@ public class BarberMainActivity extends ToolbarActivity implements
         } else if (id == R.id.action_barbershop) {
             Intent intent = new Intent(BarberMainActivity.this, BarbershopProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.action_business) {
-            Intent intent = new Intent(BarberMainActivity.this, BusinessTimesActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.action_reservations) {
+        }  else if (id == R.id.action_reservations) {
             Intent intent = new Intent(BarberMainActivity.this, ReservationActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_banners) {
@@ -437,6 +435,15 @@ public class BarberMainActivity extends ToolbarActivity implements
                     view -> Auth.logout(this)
             );
         }
+
+//        BusinessTimesActivity
+
+//        if (id == R.id.action_business) {
+//            Intent intent = new Intent(BarberMainActivity.this, BusinessTimesActivity.class);
+//            startActivity(intent);
+//        }
+
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

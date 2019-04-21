@@ -14,7 +14,10 @@
             android:id="@+id/relInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8dp">
+            android:layout_marginBottom="@dimen/_4dp"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_4dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgAvatar"
@@ -53,15 +56,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_cancel"
-                    android:tint="@color/black" />
+                    android:tint="@color/colorRedAccent200" />
 
                 <android.support.v7.widget.AppCompatImageButton
                     android:id="@+id/btnAccept"
                     style="@style/Widget.AppCompat.ActionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ef_ic_done_white"
-                    android:tint="@color/black" />
+                    android:src="@drawable/ic_check_circle_white_18dp"
+                    android:tint="@color/colorGreenAccent200" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -70,7 +73,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/relInfo"
-            android:layout_margin="@dimen/_8dp" />
+            android:layout_marginBottom="@dimen/_4dp"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_4dp" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardPrice"
@@ -79,7 +85,7 @@
             android:layout_below="@id/recServices"
             android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_4dp"
             android:animateLayoutChanges="true"
             app:cardBackgroundColor="@color/colorGrayLighter"
             app:cardCornerRadius="@dimen/_4dp"
@@ -113,8 +119,7 @@
                 android:layout_weight="5"
                 android:animateLayoutChanges="true"
                 app:cardBackgroundColor="@color/colorGrayLighter"
-                app:cardCornerRadius="@dimen/_4dp"
-                app:contentPadding="@dimen/_8dp">
+                app:cardCornerRadius="@dimen/_4dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -122,10 +127,11 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/imgDate"
-                        android:layout_width="@dimen/_36dp"
-                        android:layout_height="@dimen/_36dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_event"
+                        android:layout_margin="@dimen/_4dp"
+                        android:src="@drawable/ic_event_white_18dp"
                         android:tint="@color/colorPrimary" />
 
                     <TextView
@@ -152,8 +158,7 @@
                 android:layout_weight="5"
                 android:animateLayoutChanges="true"
                 app:cardBackgroundColor="@color/colorGrayLighter"
-                app:cardCornerRadius="@dimen/_4dp"
-                app:contentPadding="@dimen/_8dp">
+                app:cardCornerRadius="@dimen/_4dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -161,9 +166,10 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/imgTime"
-                        android:layout_width="@dimen/_36dp"
-                        android:layout_height="@dimen/_36dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/_4dp"
                         android:src="@drawable/ic_timer_black_18dp"
                         android:tint="@color/colorPrimary" />
 
@@ -183,40 +189,56 @@
             </android.support.v7.widget.CardView>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/lnrDateTime"
-            android:layout_marginBottom="@dimen/_8dp"
-            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_4dp"
             android:gravity="center|end"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/btnMessage"
-                style="@style/Widget.AppCompat.ActionButton"
+            <TextView
+                android:id="@+id/txtStatus"
+                style="@style/TextAppearance.AppCompat.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_markunread_black_24dp"
-                android:tint="@color/black" />
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
 
-            <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/btnAlarm"
-                style="@style/Widget.AppCompat.ActionButton"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_notifications_black_18dp"
-                android:tint="@color/black" />
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/btnCall"
-                style="@style/Widget.AppCompat.ActionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_call"
-                android:tint="@color/black" />
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/btnMessage"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_chat_white_18dp"
+                    android:tint="@color/colorGrayDark" />
 
-        </LinearLayout>
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/btnAlarm"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_notifications_black_18dp"
+                    android:tint="@color/colorAmberAccent900" />
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/btnCall"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_call"
+                    android:tint="@color/colorGrayAccent700" />
+            </LinearLayout>
+
+        </RelativeLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

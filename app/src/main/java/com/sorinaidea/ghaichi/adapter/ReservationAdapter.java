@@ -37,6 +37,7 @@ public class ReservationAdapter extends BaseAdapter<ReservationAdapter.ViewHolde
         TextView txtPrice;
         TextView txtDate;
         TextView txtTime;
+        TextView txtStatus;
 
         RecyclerView recServices;
 
@@ -53,6 +54,7 @@ public class ReservationAdapter extends BaseAdapter<ReservationAdapter.ViewHolde
             txtPrice = v.findViewById(R.id.txtPrice);
             txtDate = v.findViewById(R.id.txtDate);
             txtTime = v.findViewById(R.id.txtTime);
+            txtStatus = v.findViewById(R.id.txtStatus);
 
             btnCancel = v.findViewById(R.id.btnCancel);
             btnAccept = v.findViewById(R.id.btnAccept);
@@ -79,9 +81,11 @@ public class ReservationAdapter extends BaseAdapter<ReservationAdapter.ViewHolde
 
         Reserve reserve = mDataSet.get(position);
         viewHolder.txtName.setText(reserve.getUser().getFullName());
-        viewHolder.txtPrice.setText(String.format(App.LOCALE, "هزینه خدمات %s", reserve.getPrice()));
+        viewHolder.txtPrice.setText(String.format(App.LOCALE, "هزینه خدمات %s تومان", reserve.getPrice()));
         viewHolder.txtDate.setText(reserve.getDate());
         viewHolder.txtTime.setText(reserve.getTime());
+        viewHolder.txtStatus.setText(reserve.getStatus());
+
 
         API.getPicasso(mContext)
                 .load(reserve.getUser().getAvatar())
@@ -103,8 +107,13 @@ public class ReservationAdapter extends BaseAdapter<ReservationAdapter.ViewHolde
         applyTextFont(
                 viewHolder.txtName,
                 viewHolder.txtDate,
-                viewHolder.txtTime
+                viewHolder.txtTime,
+                viewHolder.txtStatus
         );
+
+        viewHolder.btnAlarm.setOnClickListener(view->{
+            String alarm = reserve.getAlarm();
+        });
 
     }
 

@@ -91,7 +91,7 @@ public class GetDirection extends AsyncTask<String, String, String> {
             String polyline = poly.getString("points");
             points = decodePoly(polyline);
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 

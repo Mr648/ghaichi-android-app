@@ -102,7 +102,7 @@ public class ServicesActivity extends ToolbarActivity {
 
                                     });
                                 }
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 toast("خطا در دریافت خدمات");
                             }
                         } else {

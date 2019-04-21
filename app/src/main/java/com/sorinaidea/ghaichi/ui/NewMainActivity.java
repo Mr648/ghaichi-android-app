@@ -173,7 +173,7 @@ public class NewMainActivity extends ToolbarActivity implements
         if (id == R.id.action_favorites) {
             Intent intent = new Intent(NewMainActivity.this, BookmarksActivity.class);
             startActivity(intent);
-        } else if (id == R.id.action_free_reservation) {
+        } else if (id == R.id.action_tell_friends) {
             Intent intent = new Intent(NewMainActivity.this, GetGiftActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_aboutus) {

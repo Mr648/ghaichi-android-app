@@ -11,6 +11,7 @@ public class UploadTask {
     }
 
     public UploadTask() {
+
     }
 
     public UploadTask(ImageUploader uploaderService) {

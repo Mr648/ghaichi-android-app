@@ -138,27 +138,27 @@ public class Service extends Model implements Parcelable {
 
         try {
             id = in.readInt();
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
         }
         try {
             name = in.readString();
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
         }
         try {
             time = in.readString();
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
         }
         try {
             price = in.readString();
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
         }
         try {
             banner = in.readString();
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
         }
         try {
             category = in.readParcelable(Category.class.getClassLoader());
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
         }
         try {
             in.readTypedList(barbers, Barber.CREATOR);

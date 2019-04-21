@@ -5,11 +5,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Build;
+import android.widget.ImageView;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.sorinaidea.ghaichi.models.BaseAdvertise;
 
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -19,7 +21,7 @@ import java.util.Objects;
 public class Util {
 
     public static final class COMMUNICATION_KEYS {
-        public static final String ADVERTISE_ID= "ADVERTISE_ID";
+        public static final String ADVERTISE_ID = "ADVERTISE_ID";
         public static final String BARBERSHOP_ID = "BARBERSHOP_ID";
         public static final String SERVICE_ID = "SERVICE_ID";
     }
@@ -90,6 +92,25 @@ public class Util {
         } catch (NullPointerException ignore) {
             return false;
         }
+    }
+
+
+    public static String imageUrl(String path, ImageView imageView) {
+        return imageUrl(
+                path,
+                imageView.getMeasuredWidth(),
+                imageView.getMeasuredHeight()
+        );
+    }
+
+    public static String imageUrl(String path, int width, int height) {
+        return String.format(
+                Locale.ENGLISH,
+                "https://ghaichi.com/api/download?width=%d&height=%d&path=%s",
+                width,
+                height,
+                Security.base64encode(path)
+        );
     }
 
 

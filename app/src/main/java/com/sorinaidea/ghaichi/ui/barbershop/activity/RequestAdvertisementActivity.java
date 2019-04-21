@@ -94,7 +94,7 @@ public class RequestAdvertisementActivity extends ImageUploaderActivity implemen
                                 List<Pricing> result = response.body();
                                 Objects.requireNonNull(result);
                                 listPricing.addAll(result);
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 alert("هشدار", "اطلاعات به درستی بارگزاری نشده اند، لطفا مجددا سعی نمایید.", R.drawable.ic_signal_wifi_off_white_24dp, R.color.colorGrayDark);
                             }
                         }
@@ -201,7 +201,7 @@ public class RequestAdvertisementActivity extends ImageUploaderActivity implemen
     public File picked() {
         try {
             return Objects.requireNonNull(banner).exists() ? banner : null;
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             return null;
         }
     }
@@ -322,4 +322,5 @@ public class RequestAdvertisementActivity extends ImageUploaderActivity implemen
 
         super.onBackPressed();
     }
+
 }

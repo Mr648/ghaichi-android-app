@@ -81,7 +81,7 @@ public class BannersActivity extends ImageUploaderActivity {
                             };
                             recBanners.setAdapter(adapter);
                         }
-                    } catch (NullPointerException ex) {
+                    } catch (NullPointerException ignored) {
                         toast("خطایی رخ داده است.");
                     }
                 }
@@ -110,7 +110,7 @@ public class BannersActivity extends ImageUploaderActivity {
                         try {
                             toast(Objects.requireNonNull(response.body()).getMessage());
                             fetchBanners();
-                        } catch (NullPointerException ex) {
+                        } catch (NullPointerException ignored) {
                             actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchBanners());
                         }
                     }

@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
     tools:context=".ui.BarberMainActivity"
+    android:background="@color/colorGrayLight"
     tools:openDrawer="start">
 
     <android.support.design.widget.CoordinatorLayout
@@ -98,7 +99,6 @@
                         android:layout_below="@id/relSlideShow"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:padding="@dimen/_8dp"
                         android:weightSum="5">
 
                         <android.support.v7.widget.CardView
@@ -158,7 +158,8 @@
 
                             <android.support.v7.widget.CardView
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_56dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
                                 android:layout_margin="@dimen/_4dp"
                                 app:cardBackgroundColor="@color/ic_twitter"
 
@@ -207,7 +208,8 @@
 
                             <android.support.v7.widget.CardView
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_56dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
                                 android:layout_margin="@dimen/_4dp"
                                 app:cardBackgroundColor="@color/colorOrange"
 
@@ -262,7 +264,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/relStatistics"
                         android:gravity="center_horizontal|center_vertical"
-                        android:paddingTop="@dimen/_4dp"
                         android:weightSum="3">
 
                         <android.support.v7.widget.CardView
@@ -307,7 +308,7 @@
                             android:id="@+id/cardServices"
                             android:layout_width="0dp"
                             android:layout_height="72dp"
-                            android:layout_margin="@dimen/_8dp"
+                            android:layout_margin="@dimen/_4dp"
                             android:layout_weight="1"
                             app:cardCornerRadius="@dimen/_4dp"
                             app:contentPadding="@dimen/_4dp">
@@ -344,7 +345,7 @@
                             android:id="@+id/cardBarbers"
                             android:layout_width="0dp"
                             android:layout_height="72dp"
-                            android:layout_margin="@dimen/_8dp"
+                            android:layout_margin="@dimen/_4dp"
                             android:layout_weight="1"
                             app:cardCornerRadius="@dimen/_4dp"
                             app:contentPadding="@dimen/_4dp">
@@ -385,7 +386,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_56dp"
                         android:layout_below="@id/lnrActions"
-                        android:layout_margin="@dimen/_8dp"
+                        android:layout_margin="@dimen/_4dp"
                         app:cardCornerRadius="@dimen/_8dp">
 
                         <RelativeLayout

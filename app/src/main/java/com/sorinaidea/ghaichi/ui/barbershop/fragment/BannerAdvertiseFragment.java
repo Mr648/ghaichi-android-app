@@ -91,6 +91,7 @@ public class BannerAdvertiseFragment extends AdvertiseFragment implements UiUpda
 
     @Override
     protected void setup(View view) {
+
         inputLayoutDescription = view.findViewById(R.id.inputLayoutDescription);
         imgBanner = view.findViewById(R.id.imgImage);
         txtDescription = view.findViewById(R.id.txtDescription);
@@ -113,7 +114,6 @@ public class BannerAdvertiseFragment extends AdvertiseFragment implements UiUpda
                 return;
             }
             advertiser.requestBannerAdvertise(imagePicker.picked(), selectedPricing, txtDescription.getText().toString());
-
         });
 
         imgBanner.setOnClickListener((v) -> imagePicker.pick(imgBanner));

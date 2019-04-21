@@ -62,11 +62,11 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:support-v4:27.1.1'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     androidTestImplementation 'junit:junit:4.12'
-
 
     // Multi dex application
     implementation 'com.android.support:multidex:1.0.3'
@@ -128,7 +128,6 @@ dependencies {
         exclude group: 'com.github.bumptech.glide', module: 'glide'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     })
-
 
     // Shape of view
     implementation 'com.github.florent37:shapeofview:1.3.2'

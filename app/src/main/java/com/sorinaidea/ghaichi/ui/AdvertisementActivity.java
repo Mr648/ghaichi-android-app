@@ -62,7 +62,7 @@ public class AdvertisementActivity extends ToolbarActivity {
                 if (response.isSuccessful()) {
                     try {
                         recAdvertises.setAdapter(new AdvertisementAdapter(Objects.requireNonNull(response.body()), AdvertisementActivity.this));
-                    } catch (NullPointerException ex) {
+                    } catch (NullPointerException ignored) {
                         toast("خطا در خواندن داده‌ها");
                     }
                 } else {

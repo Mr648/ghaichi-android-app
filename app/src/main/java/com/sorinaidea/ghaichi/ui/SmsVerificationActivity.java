@@ -47,29 +47,7 @@ public class SmsVerificationActivity extends ToolbarActivity {
     private Call<LoginResponse> callWebservice;
 
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        if (App.hasAccessKey(getApplicationContext())) {
-            finish();
-        }
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (App.hasAccessKey(getApplicationContext())) {
-            finish();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (App.hasAccessKey(getApplicationContext())) {
-            finish();
-        }
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,8 +119,6 @@ public class SmsVerificationActivity extends ToolbarActivity {
                     if (!response.body().hasError()) {
 
                         Auth.loggedIn(SmsVerificationActivity.this, response.body());
-
-                        // TODO Goto Other Part Of Program.
                         if (Auth.isBarbershop(SmsVerificationActivity.this)) {
                             startActivity(new Intent(SmsVerificationActivity.this, BarberMainActivity.class));
                             finish();
@@ -150,6 +126,7 @@ public class SmsVerificationActivity extends ToolbarActivity {
                             startActivity(new Intent(SmsVerificationActivity.this, NewMainActivity.class));
                             finish();
                         }
+
                     } else {
                         toast("پاسخی از سرور دریافت نشد.");
                         finish();
@@ -246,17 +223,3 @@ public class SmsVerificationActivity extends ToolbarActivity {
         finish();
     }
 }
-/*
-String str=response.body().getUserRole();
-Log.d("TAGGGGGGG",response.body().getUserRole());
-AesEncryptionData data=new Gson().fromJson(new String(Base64.decode(str,Base64.URL_SAFE)),AesEncryptionData.class);
-try{
-String result =AesEncryptDecrypt.decrypt(new String(Base64.decode(Base64.decode(response.body().getExpiration(),Base64.DEFAULT),Base64.DEFAULT)).getBytes("UTF-8"), data, str);
-String result =AesEncryptDecrypt.decrypt(new String(Base64.decode("rOSGWR1lsu8+yX1JkAaFlDa1/1YH+p4L0NkJ8dpfMGY=",Base64.DEFAULT)).getBytes("UTF-8"), data);
-Toast.makeText(SmsVerificationActivity.this, result, Toast.LENGTH_LONG).show();
-Log.d("TAG", result);
-}catch(NoSuchPaddingException|NoSuchAlgorithmException|DecoderException|UnsupportedEncodingException|InvalidKeyException|InvalidAlgorithmParameterException|BadPaddingException|IllegalBlockSizeException ex){
-ex.printStackTrace();
-Log.d("EXCEPTION",ex.getMessage());
-}
-*/

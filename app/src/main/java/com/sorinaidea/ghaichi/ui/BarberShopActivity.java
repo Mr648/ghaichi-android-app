@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -79,7 +78,6 @@ public class BarberShopActivity extends ToolbarActivity {
     private RatingBar ratingBar;
     private RecyclerView recServices;
     private RecyclerView recBarbers;
-    private static final int NUM_COLUMNS = 2;
     private int barbershopId;
 
 
@@ -192,7 +190,7 @@ public class BarberShopActivity extends ToolbarActivity {
                     finish();
                 }
             }
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             checkIntent();
         }
 
@@ -221,7 +219,7 @@ public class BarberShopActivity extends ToolbarActivity {
         txtBarbersCount = findViewById(R.id.txtBarbersCount);
 
 
-        recServices.setLayoutManager(new GridLayoutManager(getApplicationContext(), NUM_COLUMNS, GridLayoutManager.VERTICAL, false));
+        recServices.setLayoutManager(new LinearLayoutManager(getApplicationContext(),  LinearLayoutManager.HORIZONTAL, false));
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen._4dp);
         recServices.addItemDecoration(itemDecoration);
 
@@ -320,7 +318,7 @@ public class BarberShopActivity extends ToolbarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void bookmark(String accessKey, String barbershopId) {
+    public void bookmark(String barbershopId) {
         Call<com.sorinaidea.ghaichi.webservice.model.responses.Response> bookmark =
                 API.getRetrofit(this).create(UserProfileService.class)
                         .createOrRemove( String.valueOf(barbershopId));

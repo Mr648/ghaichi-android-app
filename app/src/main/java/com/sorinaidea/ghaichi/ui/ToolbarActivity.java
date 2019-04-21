@@ -6,6 +6,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
@@ -67,29 +68,35 @@ public class ToolbarActivity extends BaseActivity {
 
 
     protected void showProgress() {
-//        dialog.show();
-
-        if (!isFinishing() && !isDestroyed() && getSupportFragmentManager().findFragmentByTag("PROGRESS") == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(android.R.id.content, progressFragment, "PROGRESS")
-                    .commitAllowingStateLoss();
-        }
-
+        showProgress(R.string.empty_string, "PROGRESS");
     }
 
-    protected void hideProgress() {
-
-        if (!isFinishing() && !isDestroyed() && !progressFragment.isDetached()) {
+    protected void showProgress(@StringRes int str, String tag) {
+        if (!isFinishing() && !isDestroyed() && getSupportFragmentManager().findFragmentByTag(tag) == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .remove(progressFragment)
+                    .add(android.R.id.content, ProgressFragment.newInstance(str), tag)
                     .commitAllowingStateLoss();
         }
+    }
 
-//        if (dialog != null && dialog.isShowing()) {
-//            dialog.dismiss();
-//        }
+    protected void hideProgress(){
+        hideProgress("PROGRESS");
+    }
+
+    protected void hideProgress(String tag) {
+        try {
+            Fragment fragment = Objects.requireNonNull(getSupportFragmentManager().findFragmentByTag(tag));
+            if (!isFinishing()
+                    && !isDestroyed()
+                    && !fragment.isDetached()) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .remove(fragment)
+                        .commitAllowingStateLoss();
+            }
+        } catch (NullPointerException ignore) {
+        }
     }
 
     protected void showProgressDialog(String title, String message, boolean cancelable) {

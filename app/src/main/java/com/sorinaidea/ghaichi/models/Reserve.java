@@ -29,6 +29,9 @@ public class Reserve extends Model {
     @SerializedName("status")
     private String status;
 
+    @SerializedName("alarm")
+    private String alarm;
+
     @SerializedName("services")
     private List<BaseService> services;
 
@@ -119,6 +122,15 @@ public class Reserve extends Model {
     }
 
     public void setUserMessage(String userMessage) {
+
         this.userMessage = userMessage;
+    }
+
+    public String getAlarm() {
+        return alarm;
+    }
+
+    public void setAlarm(String alarm) {
+        this.alarm = alarm;
     }
 }

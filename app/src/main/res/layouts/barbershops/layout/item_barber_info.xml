@@ -3,23 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
-    android:layout_marginEnd="@dimen/_8dp"
-    android:layout_marginStart="@dimen/_8dp"
-    android:layout_marginTop="4dp"
-    android:layoutDirection="rtl"
-    app:cardCornerRadius="@dimen/_4dp"
-    app:contentPadding="@dimen/_8dp">
+    android:layoutDirection="rtl" >
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8dp"
         android:layoutDirection="rtl">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgLogo"
-            android:layout_width="@dimen/_96dp"
-            android:layout_height="@dimen/_96dp"
+            android:layout_width="@dimen/_64dp"
+            android:layout_height="@dimen/_64dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="8dp"
@@ -30,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_8dp"
             android:layout_toEndOf="@id/imgLogo"
             android:orientation="vertical">
 
@@ -42,9 +38,9 @@
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtMobile"
+                style="@style/TextAppearance.AppCompat.Small"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16dp" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
@@ -52,24 +48,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatImageView
+            <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/imgDelete"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="@dimen/_32dp"
-                android:src="@drawable/ic_delete_white_24dp"
-                android:tint="@color/colorRedAccent200"
-                android:layout_height="@dimen/_32dp"
-                android:text="@string/_hint_name" />
+                style="@style/Widget.AppCompat.ActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete_forever_white_18dp"
+                android:tint="@color/colorRedAccent900" />
 
-            <android.support.v7.widget.AppCompatImageView
+            <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/imgEdit"
-                android:layout_width="@dimen/_32dp"
-                android:layout_height="@dimen/_32dp"
-                android:src="@drawable/ic_edit_white_24dp"
-                android:tint="@color/colorGreenAccent200"
-                android:layout_marginTop="@dimen/_16dp" />
+                style="@style/Widget.AppCompat.ActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_mode_edit_white_18dp"
+                android:tint="@color/colorBlue" />
         </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

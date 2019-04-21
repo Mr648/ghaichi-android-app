@@ -77,7 +77,7 @@ public class ReserveStep2Activity extends ToolbarActivity {
                     try {
                         recServices.setAdapter(new ReservationTurnSelectionAdapter(Objects.requireNonNull(response.body()), ReserveStep2Activity.this));
                         toast(response.body().get(0).toString());
-                    } catch (NullPointerException ex) {
+                    } catch (NullPointerException ignored) {
                         toast("خطا در محاسبه نوبت‌ها");
                     }
                 }

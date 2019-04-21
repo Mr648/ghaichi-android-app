@@ -6,36 +6,28 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.sorinaidea.ghaichi.R;
+import com.sorinaidea.ghaichi.ui.ToolbarActivity;
 import com.sorinaidea.ghaichi.ui.barbershop.fragment.AccountActivatedFragment;
 import com.sorinaidea.ghaichi.ui.barbershop.fragment.AccountActivationFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentActivity extends AppCompatActivity {
+public class PaymentActivity extends ToolbarActivity {
 
-    private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TextView mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mTitle = toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText(R.string.toolbar_payments);
+        initToolbar(R.string.toolbar_payments, true,false);
 
 
         viewPager = findViewById(R.id.viewpager);

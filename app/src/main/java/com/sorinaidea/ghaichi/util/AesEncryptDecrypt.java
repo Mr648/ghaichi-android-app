@@ -1,5 +1,7 @@
 package com.sorinaidea.ghaichi.util;
 
+
+
 import android.util.Base64;
 import android.util.Log;
 
@@ -26,12 +28,16 @@ import javax.crypto.spec.SecretKeySpec;
 public class AesEncryptDecrypt {
 
 
-    /*
+    /**
+     * A method to encrypt plaintext with AES algorithm,
      *
-     * TODO https://laravel.com/docs/5.7/encryption
+     * @param keyValue
+     * @param plaintext
      *
-     *
-     * */
+     * @return encrypted value of plaintext
+     * @throws Exception
+     */
+
     public static String encrypt(byte[] keyValue, String plaintext) throws Exception {
         Key key = new SecretKeySpec(keyValue, "AES");
         //serialize

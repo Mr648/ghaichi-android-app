@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_16dp" />
+            android:layout_marginTop="@dimen/_16dp"
+            android:background="@drawable/service_name" />
 
         <LinearLayout
             android:id="@+id/lnrInfo"
@@ -157,16 +158,6 @@
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/imgAddBarber"
-                    android:layout_width="@dimen/_32dp"
-                    android:layout_height="@dimen/_32dp"
-                    android:layout_marginEnd="@dimen/_8dp"
-                    android:layout_marginStart="@dimen/_8dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_group_add_black_24dp"
-                    android:tint="@color/colorGrayAccent700" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/imgEdit"

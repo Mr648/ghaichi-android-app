@@ -57,7 +57,9 @@ public class BarbersActivity extends ToolbarActivity {
         recBarbers.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
     }
 
+
     BarberInfoAdapter.BarberClickListener clickListener = new BarberInfoAdapter.BarberClickListener() {
+
         @Override
         public void update(Barber barber) {
             Intent intent = new Intent(BarbersActivity.this, AddBarberActivity.class);
@@ -86,7 +88,7 @@ public class BarbersActivity extends ToolbarActivity {
                             Objects.requireNonNull(res);
                             actionAlert
                                     ("عملیات موفق", res.getMessage(), R.drawable.ic_done_white_24dp, R.color.colorGreenAccent200, view -> initBarbers());
-                        } catch (NullPointerException ex) {
+                        } catch (NullPointerException ignored) {
                             toast("پاسخی از سمت سرور دریافت نشد.");
                         }
                     } else {
@@ -106,6 +108,7 @@ public class BarbersActivity extends ToolbarActivity {
             });
         });
     }
+
 
     public ArrayList<Barber> initBarbers() {
         showProgressDialog(null, "در حال دریافت لیست آرایشگران", false);

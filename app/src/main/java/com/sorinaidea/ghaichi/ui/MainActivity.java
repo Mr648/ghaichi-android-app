@@ -130,9 +130,6 @@ public class MainActivity extends AppCompatActivity implements
         if (id == R.id.action_favorites) {
             Intent intent = new Intent(MainActivity.this, BookmarksActivity.class);
             startActivity(intent);
-        } else if (id == R.id.action_free_reservation) {
-            Intent intent = new Intent(MainActivity.this, GetGiftActivity.class);
-            startActivity(intent);
         } else if (id == R.id.action_aboutus) {
             Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
             startActivity(intent);

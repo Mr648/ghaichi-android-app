@@ -33,7 +33,6 @@
                     android:textColor="@color/colorWhite" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
-
     </android.support.design.widget.AppBarLayout>
     <include layout="@layout/content_activity_barbershop" />
 </android.support.design.widget.CoordinatorLayout>

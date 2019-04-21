@@ -16,8 +16,6 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import com.sorinaidea.ghaichi.R;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -194,7 +192,7 @@ public class ImagePicker {
                 int orientationColumnIndex = cursor.getColumnIndex(columns[0]);
                 result = cursor.getInt(orientationColumnIndex);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
             //Do nothing
         } finally {
             if (cursor != null) {

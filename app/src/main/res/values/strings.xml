@@ -13,6 +13,12 @@
     <string name="verification_code_hint">کد فعالسازی</string>
 
 
+    <string name="intro_more_customers">جذب مشتری بیشتر</string>
+    <string name="intro_online_anytime">رزرو آنلاین در تایم دلخواه</string>
+    <string name="intro_easy_reserve">رزرو آسان</string>
+    <string name="intro_compare">مقایسه و انتخاب آرایشگاه</string>
+
+
     <string name="m_icon_call">&#xE0B0;</string>
     <string name="m_icon_next_step">&#xE5C8;</string>
     <string name="m_icon_done">&#xE876;</string>
@@ -39,8 +45,9 @@
     <string name="choose_location">انتخاب مکان</string>
     <string name="credid_msg">موجودی(ریال)</string>
     <string name="share">اشتراک گذاری</string>
-    <string name="get_gift">اعتبار هدیه دریافت کنید</string>
-    <string name="get_gift_msg">کد زیر را برای دوستان خود بفرستید و از آنها بخواهید هنگام ثبت نام در اپلیکیشن آن را وارد نمایند تا با اولین سفارش آنها به شما اعتبار هدیه تعلق بگیرد</string>
+    <string name="tell_friends_btn">معرفی به دوستان</string>
+    <string name="tell_friends">معرفی قیچی به دوستان</string>
+    <string name="tell_friends_msg">با کلیک روی دکمه زیر لینک اپلیکیشن قیچی را با دوستان خود به اشتراک بگزارید و گروهی به آرایشگاه بروید.</string>
 
 
     <string name="aboutus">
@@ -116,7 +123,7 @@
     <string name="label_credit">پرداخت‌ها</string>
     <string name="label_faq">سوالات متداول</string>
     <string name="label_favorites">علاقه مندی ها</string>
-    <string name="label_free_reservation">رزرو رایگان</string>
+    <string name="label_tell_friends">معرفی به دوستان</string>
     <string name="label_logout">خروج از حساب کاربری</string>
     <string name="label_description">تصویر</string>
     <string name="label_setting">تنظیمات</string>
@@ -143,6 +150,12 @@
     <string name="action_filter_service">بر اساس خدمت</string>
     <string name="action_filter_category">بر اساس دسته‌بندی</string>
     <string name="empty_string"></string>
+    <string name="downloading">در حال دانلود</string>
+    <string name="uploading">در حال آپلود</string>
+    <string name="updating">در حال بروزرسانی</string>
+    <string name="creating">در حال ایجاد</string>
+    <string name="deleting">در حال حذف</string>
+    <string name="retrieving">در حال دریافت داده‌ها</string>
     <string name="action_component_factory">ghaichi</string>
 
 

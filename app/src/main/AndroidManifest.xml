@@ -87,13 +87,7 @@
         <activity
             android:name=".ui.LoginCheckActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.MapsActivity"
             android:label="@string/title_activity_maps" />
@@ -236,8 +230,16 @@
             android:name=".ui.AdvertisementInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.ActivityIntro"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.SmsVerificationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -272,8 +274,10 @@
             android:name=".ui.ReserveStep2Activity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.barbershop.activity.ReservationActivity"  android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.barbershop.activity.ReservationActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

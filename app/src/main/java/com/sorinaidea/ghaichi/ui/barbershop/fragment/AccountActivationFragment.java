@@ -33,12 +33,9 @@ public class AccountActivationFragment extends BaseFragment {
 
         txt = view.findViewById(R.id.txtContent);
 
-
         btnPay.setOnClickListener((v) -> {
             Toast.makeText(getActivity(), "درخواست در حال ارسال...", Toast.LENGTH_SHORT).show();
         });
-
-
     }
 
 
@@ -49,6 +46,4 @@ public class AccountActivationFragment extends BaseFragment {
                 txt
         );
     }
-
-
 }

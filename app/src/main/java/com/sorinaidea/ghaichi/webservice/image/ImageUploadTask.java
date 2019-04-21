@@ -10,16 +10,23 @@ import java.util.Objects;
 
 public class ImageUploadTask extends AsyncTask<UploadTask, Void, Boolean> {
 
-
+    /**
+     * Callback
+     */
     private UploadCallback callback;
 
-
+    /**
+     *
+     * @param callback callback that will be called when upload completed.
+     *                 see {@link UploadCallback#uploadCompleted}
+     */
     public ImageUploadTask(UploadCallback callback) {
         this.callback = callback;
-
     }
 
-
+    /**
+     *
+     */
     @Override
     protected void onPreExecute() {
     }
@@ -30,18 +37,17 @@ public class ImageUploadTask extends AsyncTask<UploadTask, Void, Boolean> {
         boolean result = true;
 
         try {
+            // TODO check if tasks are not null.
             Objects.requireNonNull(tasks);
-//            for (UploadTask task : tasks) {
-//                Objects.requireNonNull(task);
-//            }
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             return false;
         }
 
+
         for (UploadTask task : tasks) {
+            // call upload on each task.
             boolean re = task.upload();
             result &= re;
-            System.out.println("FUCK" + re);
         }
 
         return result;

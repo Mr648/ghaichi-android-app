@@ -1,7 +1,7 @@
 package com.sorinaidea.ghaichi.adapter.barbershop;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +33,12 @@ public class BarberInfoAdapter extends BaseAdapter<BarberInfoAdapter.ViewHolder,
     private BarberClickListener clickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         private TextView txtName;
         private TextView txtMobile;
         private CircleImageView imgLogo;
-        private AppCompatImageView imgDelete;
-        private AppCompatImageView imgEdit;
+        private AppCompatImageButton imgDelete;
+        private AppCompatImageButton imgEdit;
 
         public ViewHolder(View v) {
             super(v);
@@ -60,11 +61,11 @@ public class BarberInfoAdapter extends BaseAdapter<BarberInfoAdapter.ViewHolder,
             return imgLogo;
         }
 
-        public AppCompatImageView getImgEdit() {
+        public AppCompatImageButton getImgEdit() {
             return imgEdit;
         }
 
-        public AppCompatImageView getImgDelete() {
+        public AppCompatImageButton getImgDelete() {
             return imgDelete;
         }
     }

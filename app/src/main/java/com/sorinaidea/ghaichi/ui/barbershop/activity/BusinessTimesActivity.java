@@ -111,7 +111,7 @@ public class BusinessTimesActivity extends ToolbarActivity {
                         } else {
                             adapter.notifyDataSetChanged();
                         }
-                    } catch (NullPointerException ex) {
+                    } catch (NullPointerException ignored) {
                     }
                 } else {
 

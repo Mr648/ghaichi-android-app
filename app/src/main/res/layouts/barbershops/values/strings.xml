@@ -150,5 +150,9 @@
     <string name="_lbl_pick_day">انتخاب روز</string>
     <string name="_lbl_from_hour">از ساعت</string>
     <string name="_lbl_to_hour">تا ساعت</string>
+    <string name="_lbl_version">ورژن</string>
+    <string name="_hint_email">آدرس ایمیل</string>
+    <string name="_hint_national_code">کد ملی</string>
+    <string name="go_inside_app">برو داخل برنامه</string>
 
 </resources>

@@ -22,7 +22,7 @@ public class Auth {
                 Util.KEYS.USER_ACCESS_KEY, null);
         try {
             return String.format(Locale.getDefault(), "%s %s", "Bearer", Objects.requireNonNull(accessKey));
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             return null;
         }
     }
@@ -51,7 +51,7 @@ public class Auth {
 
         try {
             return Objects.requireNonNull(userRole).equals(role);
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             logout(context);
             return false;
         }

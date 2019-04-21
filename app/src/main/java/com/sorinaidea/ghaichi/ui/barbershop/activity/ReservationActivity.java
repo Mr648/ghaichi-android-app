@@ -66,7 +66,7 @@ public class ReservationActivity extends ToolbarActivity {
                             recReservations.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
                         }
-                    } catch (NullPointerException ex) {
+                    } catch (NullPointerException ignored) {
                         recReservations.setAdapter(new EmptyAdabper(ReservationActivity.this));
                         toast("خطا در دریافت اطلاعات");
                     }
@@ -89,7 +89,7 @@ public class ReservationActivity extends ToolbarActivity {
                     .create(ReserveServices.class)
                     .reserves(date, "APPROVED")
                     .enqueue(callback);
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ignored) {
             API.getRetrofit(this)
                     .create(ReserveServices.class)
                     .reserves(null, "APPROVED")

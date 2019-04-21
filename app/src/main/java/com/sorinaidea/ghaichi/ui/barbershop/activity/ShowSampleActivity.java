@@ -124,7 +124,7 @@ public class ShowSampleActivity extends ToolbarActivity {
                                     Objects.requireNonNull(response.body());
                                     toast(response.body().getMessage());
                                     fetchSamples();
-                                } catch (NullPointerException ex) {
+                                } catch (NullPointerException ignored) {
                                     actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServices());
                                 }
                             }
@@ -155,7 +155,7 @@ public class ShowSampleActivity extends ToolbarActivity {
                                 Objects.requireNonNull(response.body());
                                 services.clear();
                                 services.addAll(response.body());
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServices());
                             }
                         } else {
@@ -187,7 +187,7 @@ public class ShowSampleActivity extends ToolbarActivity {
                                 Objects.requireNonNull(response.body());
                                 categories.clear();
                                 categories.addAll(response.body());
-                            } catch (NullPointerException ex) {
+                            } catch (NullPointerException ignored) {
                                 actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServices());
                             }
                         } else {
@@ -217,7 +217,7 @@ public class ShowSampleActivity extends ToolbarActivity {
                             images.clear();
                             images.addAll(response.body());
                             samplesAdapter.notifyDataSetChanged();
-                        } catch (NullPointerException ex) {
+                        } catch (NullPointerException ignored) {
                             actionAlert("خطا", "خطایی رخ داده است.", R.drawable.ic_info, R.color.colorAmberAccent900, view -> fetchServices());
                         }
                     } else {
